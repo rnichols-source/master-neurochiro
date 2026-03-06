@@ -26,6 +26,42 @@ export async function seedDashboardData() {
 
   if (cohortError) return { success: false, error: cohortError.message }
 
+  // A.2 Ensure Curriculum exists (Weeks & Modules)
+  const weeksData = [
+    { week_number: 1, title: 'Identity of a Nervous System Doctor', theme: 'Who you are determines how you practice.', slug: 'week-1-identity', description: 'Doctor identity reconstruction, Certainty vs insecurity.' },
+    { week_number: 2, title: 'Chiropractic Neurology for REAL Practice', theme: 'Not theory. Application.', slug: 'week-2-neuro-real', description: 'Functional nervous system explanation, HRV, tone, adaptability.' },
+    { week_number: 3, title: 'Communication Mastery', theme: 'Recommend with certainty. No chasing yes.', slug: 'week-3-communication', description: 'ROF mastery, Tone calibration, Removing persuasion energy.' },
+    { week_number: 4, title: 'Philosophy (Modern + Powerful)', theme: 'Make it make sense in today’s world.', slug: 'week-4-philosophy', description: 'Subluxation without sounding outdated, Science + philosophy integration.' },
+  ]
+
+  const { data: seededWeeks, error: sWeekError } = await supabaseAdmin
+    .from('weeks')
+    .upsert(weeksData, { onConflict: 'slug' })
+    .select()
+
+  if (sWeekError) return { success: false, error: sWeekError.message }
+
+  // Seed some modules for Week 1 & 2
+  if (seededWeeks) {
+    const modulesToSeed = []
+    for (const week of seededWeeks) {
+      if (week.week_number === 1) {
+        modulesToSeed.push(
+          { week_id: week.id, title: 'The Identity Gap', slug: '1-1-identity-gap', order_index: 1 },
+          { week_id: week.id, title: 'Eliminating Neediness', slug: '1-2-eliminating-neediness', order_index: 2 }
+        )
+      } else if (week.week_number === 2) {
+        modulesToSeed.push(
+          { week_id: week.id, title: 'Tone and Adaptability', slug: '2-1-tone-adaptability', order_index: 1 },
+          { week_id: week.id, title: 'HRV: The Gold Standard', slug: '2-2-hrv-gold-standard', order_index: 2 }
+        )
+      }
+    }
+    if (modulesToSeed.length > 0) {
+      await supabaseAdmin.from('modules').upsert(modulesToSeed, { onConflict: 'week_id,slug' })
+    }
+  }
+
   // B. Create Mock Members (These IDs won't exist in auth.users, but RLS bypass allows it for demo profiles)
   // We use dummy UUIDs for demo profiles
   const mockMembers = [
