@@ -67,7 +67,7 @@ export function ValueStack() {
             You aren't just buying another course. You are getting the exact 
             blueprint we use to build high-performance clinics.
           </p>
-          <Link href="/mastermind/apply" className="w-full sm:w-auto">
+          <Link href="/apply" className="w-full sm:w-auto">
             <BrandButton variant="accent" size="lg" className="w-full sm:w-auto py-6 px-16 group">
               Apply for Admission <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </BrandButton>

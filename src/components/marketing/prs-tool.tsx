@@ -101,7 +101,7 @@ export function PracticeReadinessScore() {
             <BrandButton 
               variant="accent" 
               className="w-full py-6 text-lg group"
-              onClick={() => router.push(`/mastermind/apply?score=${score}&status=${result.title}`)}
+              onClick={() => router.push(`/apply?score=${score}&status=${result.title}`)}
             >
               Apply for Admission <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </BrandButton>

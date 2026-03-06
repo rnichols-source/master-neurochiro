@@ -124,7 +124,7 @@ export default function CaseStudiesPage() {
               </div>
 
               <div className="pt-4">
-                <Link href="/mastermind/apply">
+                <Link href="/apply">
                   <BrandButton variant="outline" className="group">
                     Apply to Join Them <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </BrandButton>
@@ -144,7 +144,7 @@ export default function CaseStudiesPage() {
             The system makes you ready.
           </p>
           <div className="pt-6">
-            <Link href="/mastermind/apply">
+            <Link href="/apply">
               <BrandButton variant="accent" size="lg" className="py-6 px-16 group">
                 Apply for Admission <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </BrandButton>

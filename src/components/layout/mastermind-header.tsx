@@ -18,10 +18,10 @@ export function MastermindHeader() {
   }, []);
 
   const navLinks = [
-    { name: "Curriculum", href: "/mastermind/curriculum" },
-    { name: "Mechanisms", href: "/mastermind#mechanisms" },
-    { name: "Case Studies", href: "/mastermind/case-studies" },
-    { name: "Pricing", href: "/mastermind/pricing" },
+    { name: "Curriculum", href: "/curriculum" },
+    { name: "Mechanisms", href: "/#mechanisms" },
+    { name: "Case Studies", href: "/case-studies" },
+    { name: "Pricing", href: "/pricing" },
   ];
 
   return (
@@ -31,7 +31,7 @@ export function MastermindHeader() {
     )}>
       <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/mastermind" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-xl bg-brand-navy flex items-center justify-center font-black text-white text-xl shadow-xl shadow-brand-navy/20 group-hover:bg-brand-orange transition-colors">N</div>
           <div>
             <span className="block font-lato font-black uppercase tracking-widest text-brand-navy leading-none">NeuroChiro</span>
@@ -54,10 +54,10 @@ export function MastermindHeader() {
           </nav>
 
           <div className="flex items-center gap-6 border-l border-brand-navy/10 pl-10">
-            <Link href="/mastermind/login" className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-navy">
+            <Link href="/login" className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-navy">
               Login
             </Link>
-            <Link href="/mastermind/apply">
+            <Link href="/apply">
               <BrandButton variant="primary" size="sm">Apply for Admission</BrandButton>
             </Link>
           </div>
@@ -93,7 +93,7 @@ export function MastermindHeader() {
                 </Link>
               ))}
               <hr className="border-brand-navy/5" />
-              <Link href="/mastermind/apply" className="block" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/apply" className="block" onClick={() => setIsMobileMenuOpen(false)}>
                 <BrandButton variant="accent" className="w-full">Apply Now</BrandButton>
               </Link>
             </div>

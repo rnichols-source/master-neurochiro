@@ -191,7 +191,7 @@ export default function CurriculumPage() {
               We only accept doctors who are ready for the work. If you have reviewed the 
               8-week roadmap and are ready to shift your identity, apply below.
             </p>
-            <Link href="/mastermind/apply" className="block pt-4">
+            <Link href="/apply" className="block pt-4">
               <BrandButton variant="accent" size="lg" className="group py-6 px-12">
                 Submit Your Application <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </BrandButton>

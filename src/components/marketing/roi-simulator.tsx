@@ -146,7 +146,7 @@ export function PracticeROISimulator() {
                 The revenue you are currently "leaking" is the price of remaining in 
                 the technician identity. One month of optimized growth pays for the OS install for life.
               </p>
-              <Link href="/mastermind/apply" className="block">
+              <Link href="/apply" className="block">
                 <BrandButton variant="accent" className="w-full py-6 group">
                   Stop the Leak: Apply for Admission <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </BrandButton>
