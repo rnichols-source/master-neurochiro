@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 
 export default async function CohortHealthPage() {
   const result = await fetchMembersWithHealth();
-  const members = result.success ? result.data : [];
+  const members = result.success && result.data ? result.data : [];
 
   // Summary Metrics
   const avgHealth = members.length > 0 

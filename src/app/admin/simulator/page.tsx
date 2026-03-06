@@ -21,10 +21,30 @@ export default function AutomationSimulator() {
       const subRes = await submitApplication({
         full_name: "Test Doctor",
         email: "test_doctor@example.com",
+        phone: "555-555-5555",
+        instagram: "@testdr",
+        current_role: "Clinic Owner",
+        student_info: "N/A",
         years_practicing: "8-15 years",
-        monthly_collections: "$60k+",
-        tier: "pro"
-      });
+        monthly_revenue: "$60k+",
+        weekly_visits: "150+",
+        conversion_rate: "80%",
+        confidence_score: 9,
+        stability_score: 8,
+        biggest_struggle: "Time management",
+        success_vision: "Scaling to $100k/mo",
+        prevention_factor: "Lack of systems",
+        why_now: "Ready to grow",
+        tier_applying: "pro",
+        pro_fit: "Looking for high-level strategy",
+        open_analysis: "Yes",
+        accountability: "Yes",
+        participation: "Yes",
+        financial_ready: "Yes",
+        seriousness_score: 10,
+        higher_standard: "Yes",
+        why_selected: "Reputation"
+      } as any); // Using as any to avoid having to update every time interface changes, but keeping fields for logic
       
       if (!subRes.success) throw new Error(subRes.error);
       const newId = subRes.data.id;

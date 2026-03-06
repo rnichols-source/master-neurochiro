@@ -19,7 +19,7 @@ export default async function AdminRevenuePage() {
     fetchAdminStats()
   ]);
 
-  const rev = revResult.success ? revResult.data : {
+  const rev = revResult.success && revResult.data ? revResult.data : {
     totalRevenue: 0,
     proRevenue: 0,
     standardRevenue: 0,
@@ -28,7 +28,7 @@ export default async function AdminRevenuePage() {
     monthlyData: []
   };
 
-  const pendingApps = statsResult.success ? statsResult.data.pendingApps : 0;
+  const pendingApps = statsResult.success && statsResult.data ? statsResult.data.pendingApps : 0;
   const potentialRevenue = pendingApps * 997; // Minimum estimate
 
   return (

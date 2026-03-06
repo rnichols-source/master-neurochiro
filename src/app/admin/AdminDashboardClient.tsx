@@ -47,9 +47,9 @@ export function AdminDashboardClient({
       fetchCohortMetrics(),
       fetchRecentActivity()
     ]);
-    if (s.success) setStats(s.data);
-    if (c.success) setCohortData(c.data);
-    if (a.success) setRecentActivity(a.data);
+    if (s.success && s.data) setStats(s.data);
+    if (c.success && c.data) setCohortData(c.data);
+    if (a.success && a.data) setRecentActivity(a.data);
   };
 
   const handleSeed = async () => {

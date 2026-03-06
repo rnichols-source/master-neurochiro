@@ -35,7 +35,7 @@ export function KPITrackerClient({ initialData }: { initialData: any[] }) {
   const loadData = async () => {
     setLoading(true);
     const result = await fetchKPIEntries();
-    if (result.success) {
+    if (result.success && result.data) {
       const formatted = result.data.map((entry: any) => ({
         ...entry,
         week: new Date(entry.week_start_date).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' })

@@ -12,9 +12,9 @@ export async function GET() {
       full_name: "Dr. Raymond Nichols",
       email: email,
       years_practicing: "15+ years",
-      monthly_collections: "$60k+",
-      tier: "pro"
-    });
+      monthly_revenue: "$60k+",
+      tier_applying: "pro"
+    } as any);
     
     if (!subRes.success) throw new Error(`Submit Error: ${subRes.error}`);
     const appId = subRes.data.id;

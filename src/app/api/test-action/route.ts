@@ -7,9 +7,9 @@ export async function GET() {
       full_name: "Action Test Doctor",
       email: "action_test@example.com",
       years_practicing: "8-15 years",
-      monthly_collections: "$60k+",
-      tier: "pro"
-    });
+      monthly_revenue: "$60k+",
+      tier_applying: "pro"
+    } as any);
     return NextResponse.json(res);
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });

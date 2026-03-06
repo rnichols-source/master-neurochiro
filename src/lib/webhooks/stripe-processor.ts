@@ -13,12 +13,17 @@ interface StripeSession {
 }
 
 export const StripeProcessor = {
-  async handleCheckoutSessionCompleted(session: StripeSession) {
+  async handleCheckoutSessionCompleted(session: any) {
     const supabaseAdmin = createAdminClient();
-    const customerEmail = session.customer_details.email;
-    const customerName = session.customer_details.name || "Doctor";
-    const tier = session.metadata.tier || 'standard';
-    const applicationId = session.metadata.application_id;
+    const customerEmail = session.customer_details?.email;
+    const customerName = session.customer_details?.name || "Doctor";
+    const tier = session.metadata?.tier || 'standard';
+    const applicationId = session.metadata?.application_id;
+
+    if (!customerEmail) {
+      console.error("No customer email in Stripe session");
+      return { success: false, error: "Missing email" };
+    }
 
     console.log(`Processing successful payment for: ${customerEmail}`);
 

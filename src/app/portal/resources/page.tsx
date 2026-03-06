@@ -22,7 +22,7 @@ const typeIcons: Record<string, any> = {
 
 export default async function ResourcesPage() {
   const result = await fetchResources();
-  const resources = result.success ? result.data : [];
+  const resources = result.success && result.data ? result.data : [];
 
   return (
     <DashboardLayout>

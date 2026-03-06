@@ -171,11 +171,11 @@ export default function ApplicationPage() {
                       {q.type === "select" ? (
                         <select value={formData[q.id] || ""} onChange={(e) => handleInputChange(q.id, e.target.value)} className="w-full bg-white border border-brand-navy/10 rounded-2xl py-5 px-6 text-sm font-bold text-brand-navy focus:border-brand-orange/20 transition-all appearance-none outline-none">
                           <option value="">Select an option...</option>
-                          {q.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                          {(q as any).options?.map((opt: string) => <option key={opt} value={opt}>{opt}</option>)}
                         </select>
                       ) : q.type === "range" ? (
                         <div className="space-y-4 pt-2">
-                          <input type="range" min={q.min} max={q.max} value={formData[q.id] || 5} onChange={(e) => handleInputChange(q.id, Number(e.target.value))} className="w-full accent-brand-orange" />
+                          <input type="range" min={(q as any).min} max={(q as any).max} value={formData[q.id] || 5} onChange={(e) => handleInputChange(q.id, Number(e.target.value))} className="w-full accent-brand-orange" />
                           <div className="flex justify-between text-[10px] font-black text-brand-navy/40 px-1">
                             <span>1 - LOW</span>
                             <span className="text-brand-orange text-lg">{formData[q.id] || 5}</span>

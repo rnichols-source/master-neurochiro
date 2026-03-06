@@ -12,9 +12,9 @@ export default async function AdminDashboardPage() {
   return (
     <DashboardLayout>
       <AdminDashboardClient 
-        initialStats={stats.success ? stats.data : null}
-        initialCohortData={cohort.success ? cohort.data : null}
-        initialActivity={activity.success ? activity.data : []}
+        initialStats={stats.success && stats.data ? stats.data : null}
+        initialCohortData={cohort.success && cohort.data ? cohort.data : null}
+        initialActivity={activity.success && activity.data ? activity.data : []}
       />
     </DashboardLayout>
   );

@@ -9,10 +9,11 @@ import {
   Clock,
   CheckCircle
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function ProFeedbackPage() {
   return (
-    <DashboardLayout userTier="pro">
+    <DashboardLayout>
       <div className="space-y-12">
         {/* Header */}
         <div className="flex items-end justify-between">

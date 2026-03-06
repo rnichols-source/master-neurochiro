@@ -31,7 +31,7 @@ export default async function PortalCurriculumPage() {
   console.log('[PAGE] Fetching curriculum...');
   const result = await fetchCurriculumWithProgress();
   console.log('[PAGE] Curriculum result:', JSON.stringify(result));
-  const phases = result.success ? result.data : [];
+  const phases = result.success && result.data ? result.data : [];
 
   return (
     <DashboardLayout>
