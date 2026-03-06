@@ -1,0 +1,90 @@
+import { createAdminClient } from "@/lib/supabase/admin";
+import { EmailService } from "@/lib/emails";
+
+interface StripeSession {
+  customer_details: {
+    email: string;
+    name?: string;
+  };
+  metadata: {
+    tier?: string;
+    application_id?: string;
+  };
+}
+
+export const StripeProcessor = {
+  async handleCheckoutSessionCompleted(session: StripeSession) {
+    const supabaseAdmin = createAdminClient();
+    const customerEmail = session.customer_details.email;
+    const customerName = session.customer_details.name || "Doctor";
+    const tier = session.metadata.tier || 'standard';
+    const applicationId = session.metadata.application_id;
+
+    console.log(`Processing successful payment for: ${customerEmail}`);
+
+    // 1. Update Application Status to 'paid'
+    if (applicationId) {
+      const { error: appError } = await supabaseAdmin
+        .from("applications")
+        .update({ status: 'paid' })
+        .eq("id", applicationId);
+      
+      if (appError) console.error("Error updating application status:", appError);
+    }
+
+    // 2. Automate User Invitation
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY === 'your_service_role_key') {
+      console.log("SIMULATION: Skipping real user invitation, missing Service Role Key.");
+      return { success: true, simulated: true };
+    }
+
+    const { data: inviteData, error: inviteError } = await supabaseAdmin.auth.admin.inviteUserByEmail(customerEmail, {
+      data: { 
+        full_name: customerName,
+        tier: tier
+      },
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/portal`
+    });
+
+    if (inviteError) {
+      console.error("Error inviting user:", inviteError);
+      
+      // If user already exists, update their tier in profiles
+      if (inviteError.message.includes("already registered")) {
+        const { data: userData } = await supabaseAdmin
+          .from("profiles")
+          .select("id")
+          .eq("email", customerEmail)
+          .single();
+        
+        if (userData) {
+          await supabaseAdmin
+            .from("profiles")
+            .update({ tier: tier })
+            .eq("id", userData.id);
+        }
+      }
+    } else if (inviteData?.user) {
+      console.log(`Invite sent successfully to: ${customerEmail}`);
+      
+      // 3. Immediately ensure profile has correct tier (Upsert to avoid race with trigger)
+      await supabaseAdmin
+        .from("profiles")
+        .upsert({ 
+          id: inviteData.user.id,
+          email: customerEmail,
+          full_name: customerName,
+          tier: tier
+        });
+    }
+
+    // 4. Welcome Email
+    try {
+      await EmailService.sendWelcome(customerEmail, customerName);
+    } catch (emailErr) {
+      console.error("Welcome email error:", emailErr);
+    }
+
+    return { success: true };
+  }
+};
