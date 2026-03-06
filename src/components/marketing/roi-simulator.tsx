@@ -45,8 +45,8 @@ export function PracticeROISimulator() {
     <div className="space-y-12">
       <div className="text-center space-y-4">
         <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Financial Intelligence</p>
-        <h2 className="text-5xl font-black text-brand-navy tracking-tighter">The ROI Simulator.</h2>
-        <p className="text-brand-gray font-medium max-w-xl mx-auto">
+        <h2 className="text-5xl font-black text-white tracking-tighter">The ROI Simulator.</h2>
+        <p className="text-white/60 font-medium max-w-xl mx-auto">
           Input your current clinic metrics to see the exact annual "Certainty Leak" 
           you are currently experiencing.
         </p>
