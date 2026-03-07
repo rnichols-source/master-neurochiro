@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lato, Montserrat } from "next/font/google";
 import "./globals.css";
+import { PWARegistration } from "@/components/layout/pwa-registration";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -17,6 +18,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Master NeuroChiro Mastermind",
   description: "The elite growth ecosystem for Nervous-System-First Chiropractors.",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -29,6 +31,7 @@ export default function RootLayout({
       <body
         className={`${lato.variable} ${montserrat.variable} font-sans antialiased`}
       >
+        <PWARegistration />
         {children}
       </body>
     </html>
