@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { RevenueVelocity } from "@/components/portal/RevenueVelocity";
 import { KPIEntryModal } from "@/components/portal/KPIEntryModal";
+import { FocusEngine } from "@/components/portal/focus-engine";
 import { fetchKPIEntries } from "@/app/actions/kpi-actions";
 import { 
   XAxis, 
@@ -23,7 +24,7 @@ import {
   Loader2
 } from "lucide-react";
 
-export function KPITrackerClient({ initialData }: { initialData: any[] }) {
+export function KPITrackerClient({ initialData, userName = "Doctor" }: { initialData: any[], userName?: string }) {
   const [activeMetric, setActiveMetric] = useState<"patient_visits" | "collections">("patient_visits");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -63,6 +64,9 @@ export function KPITrackerClient({ initialData }: { initialData: any[] }) {
 
   return (
     <div className="space-y-8 md:space-y-12 pb-20 md:pb-0">
+      {/* Active Intelligence */}
+      <FocusEngine data={kpiData} userName={userName} />
+
       {/* Revenue Velocity Engine */}
       <RevenueVelocity />
 

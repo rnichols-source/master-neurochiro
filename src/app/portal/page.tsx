@@ -3,6 +3,7 @@ import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { createClient } from "@/lib/supabase/server";
 import { PhaseRoadmap } from "@/components/portal/PhaseRoadmap";
 import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
+import { WinsConstellation } from "@/components/portal/wins-constellation";
 import { 
   Play, 
   CheckCircle2, 
@@ -78,6 +79,9 @@ export default async function PortalDashboard() {
             <PhaseRoadmap phases={roadmapPhases} currentWeek={activeWeek.number} />
           </EliteCard>
         </div>
+
+        {/* Ambient Community Momentum */}
+        <WinsConstellation />
 
         {/* Hero Active Module */}
         <EliteCard className="p-0 overflow-hidden border-brand-navy/10 shadow-2xl">
