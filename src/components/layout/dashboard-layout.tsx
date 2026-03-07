@@ -1,5 +1,6 @@
 import { Sidebar } from "./sidebar";
 import { MobileNav } from "./mobile-nav";
+import { NeuralDumpButton } from "@/components/portal/neural-dump-button";
 import { Search, Bell } from "lucide-react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
@@ -71,6 +72,9 @@ export async function DashboardLayout({
 
       {/* Mobile Bottom Navigation */}
       <MobileNav userTier={userTier} />
+      
+      {/* Mobile Floating Actions */}
+      <NeuralDumpButton />
     </div>
   );
 }
