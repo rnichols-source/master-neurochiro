@@ -15,9 +15,7 @@ import {
   Zap, 
   Target, 
   ShieldCheck, 
-  TrendingUp,
   ChevronRight,
-  Plus
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -26,10 +24,10 @@ export default function MastermindLandingPage() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const mechanisms = [
-    { id: "os", systemID: "NC-01", title: "The Practice Blueprint", desc: "A step-by-step plan to get your clinical results and your business numbers working together.", icon: Brain },
-    { id: "certainty", systemID: "NC-02", title: "The Certainty Method", desc: "How to recommend care with absolute confidence without feeling like a salesperson.", icon: ShieldCheck },
-    { id: "scan", systemID: "NC-03", title: "The Patient Language", desc: "How to explain complex neurology so patients actually 'get it' and say yes to care.", icon: Zap },
-    { id: "rof", systemID: "NC-04", title: "The Master Report", desc: "A simple way to present big care plans without the awkward pushback or negotiation.", icon: Target },
+    { id: "os", systemID: "NC-01", title: "The Clinical OS", desc: "An engineered framework that aligns your neurological results with your revenue velocity.", icon: Brain },
+    { id: "certainty", systemID: "NC-02", title: "The Certainty Engine", desc: "Eliminate the 'persuasion' energy. Command the room with data-backed clinical authority.", icon: ShieldCheck },
+    { id: "scan", systemID: "NC-03", title: "The Neural Bridge", desc: "Stop over-explaining. Use the language that bypasses patient skepticism and builds immediate trust.", icon: Zap },
+    { id: "rof", systemID: "NC-04", title: "The ROF Reconstruction", desc: "A high-integrity protocol for presenting life-changing care plans that patients actually value.", icon: Target },
   ];
 
   return (
@@ -47,10 +45,10 @@ export default function MastermindLandingPage() {
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-display text-brand-navy mt-8 leading-[1.1]">
                 Stop Guessing. <br />
-                <span className="text-brand-orange">Start Leading Your Clinic.</span>
+                <span className="text-brand-orange">Own Your Authority.</span>
               </h1>
               <p className="text-lg md:text-xl text-brand-gray font-medium leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Most doctors feel awkward recommending care. We show you exactly how to run a nervous-system–first practice—without the stress, the confusion, or the sales pitch.
+                The awkwardness of recommending care is a symptom of a missing OS. We give you the clinical certainty to lead your patients—without the sales pitch or the burnout.
               </p>
             </div>
 
@@ -110,7 +108,7 @@ export default function MastermindLandingPage() {
       <section className="py-20 lg:section-padding px-6 lg:px-8 bg-brand-cream/30 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 lg:mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-navy tracking-tighter">Your Clinic, Simplified.</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-navy tracking-tighter">Command Your Practice. Don't Just Run It.</h2>
             <p className="text-lg md:text-xl text-brand-gray font-medium max-w-2xl mx-auto">See how we organize your entire practice into one simple dashboard that shows you exactly where you stand.</p>
           </div>
           <ClinicOSPreview />
@@ -121,8 +119,8 @@ export default function MastermindLandingPage() {
       <section id="mechanisms" className="py-20 lg:section-padding px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl mb-12 lg:mb-20 text-center lg:text-left">
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-4">The Tools You'll Use</p>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none mb-6 text-brand-navy">The Systems Behind a High-Performance Clinic.</h2>
+            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-4">The Engineered Systems</p>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none mb-6 text-brand-navy">The Architecture of a High-Performance Clinic.</h2>
             <p className="text-brand-gray text-lg md:text-xl font-medium">Most doctors make it up as they go. We give you a practical way to handle every patient, every scan, and every report with ease.</p>
           </div>
 
@@ -154,11 +152,11 @@ export default function MastermindLandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="space-y-6 lg:space-y-8 text-center lg:text-left">
-              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Take the Test</p>
+              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Audit Your Performance</p>
               <h2 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">Is Your Practice <br />Ready for This?</h2>
               <p className="text-lg md:text-xl text-brand-gray font-medium leading-relaxed max-w-lg mx-auto lg:mx-0">
-                Before you apply, we need to see where you're at. 
-                Answer 10 quick questions to see if the Mastermind is the right next step for you.
+                Before you apply, we need to measure your clinical readiness. 
+                Answer 10 quick questions to see if the Mastermind is your next high-leverage move.
               </p>
             </div>
 
