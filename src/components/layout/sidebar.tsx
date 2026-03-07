@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { 
   LayoutDashboard, 
@@ -21,26 +22,24 @@ const navItems = [
   { name: "Manuscript", href: "/portal/manuscript", icon: BookOpen },
   { name: "Curriculum", href: "/portal/curriculum", icon: BookOpen },
   { name: "KPI Tracker", href: "/portal/kpi", icon: BarChart3 },
-  import Link from "next/link";
-  import Image from "next/image";
-  import { usePathname } from "next/navigation";
-  ...
-  export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
-    const pathname = usePathname();
+];
 
-    return (
-      <div className="flex flex-col h-screen w-64 bg-brand-navy text-white border-r border-white/10 shrink-0">
-        <div className="p-6">
-          <Link href="/portal" className="flex items-center gap-3">
-            <div className="w-8 h-8 relative">
-              <Image src="/logo-white.png" alt="NeuroChiro Logo" fill className="object-contain" />
-            </div>
-            <div>
-              <h2 className="font-lato text-sm font-bold tracking-wider uppercase leading-none text-white">NeuroChiro</h2>
-              <p className="text-[10px] text-brand-orange font-bold tracking-widest uppercase">Mastermind</p>
-            </div>
-          </Link>
-        </div>
+export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
+  const pathname = usePathname();
+
+  return (
+    <div className="flex flex-col h-screen w-64 bg-brand-navy text-white border-r border-white/10 shrink-0">
+      <div className="p-6">
+        <Link href="/portal" className="flex items-center gap-3">
+          <div className="w-8 h-8 relative">
+            <Image src="/logo-white.png" alt="NeuroChiro Logo" fill className="object-contain" />
+          </div>
+          <div>
+            <h2 className="font-lato text-sm font-bold tracking-wider uppercase leading-none text-white">NeuroChiro</h2>
+            <p className="text-[10px] text-brand-orange font-bold tracking-widest uppercase">Mastermind</p>
+          </div>
+        </Link>
+      </div>
 
       <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
         <p className="px-2 pb-2 text-[10px] font-bold text-white/40 uppercase tracking-widest">Main Menu</p>

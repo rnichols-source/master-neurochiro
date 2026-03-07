@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { BrandButton } from "@/components/ui/elite-ui";
 import { Menu, X, Play } from "lucide-react";
@@ -22,31 +23,30 @@ export function MastermindHeader() {
     { name: "Live Event", href: "/neurochiro-live" },
     { name: "Mechanisms", href: "/#mechanisms" },
     { name: "Case Studies", href: "/case-studies" },
-    import Link from "next/link";
-    import Image from "next/image";
-    import { useState, useEffect } from "react";
-    ...
-      return (
-        <header className={cn(
-          "fixed top-0 w-full z-50 transition-all duration-300",
-          isScrolled ? "py-4 bg-brand-cream/80 backdrop-blur-md border-b border-brand-navy/5 shadow-sm" : "py-8 bg-transparent"
-        )}>
-          <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 relative">
-                 <Image 
-                    src="/logo-dark.png" 
-                    alt="NeuroChiro Logo" 
-                    fill 
-                    className="object-contain group-hover:scale-110 transition-transform" 
-                 />
-              </div>
-              <div>
-                <span className="block font-lato font-black uppercase tracking-widest text-brand-navy leading-none">NeuroChiro</span>
-                <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-brand-orange mt-0.5">Mastermind</span>
-              </div>
-            </Link>
+    { name: "Pricing", href: "/pricing" },
+  ];
+
+  return (
+    <header className={cn(
+      "fixed top-0 w-full z-50 transition-all duration-300",
+      isScrolled ? "py-4 bg-brand-cream/80 backdrop-blur-md border-b border-brand-navy/5 shadow-sm" : "py-8 bg-transparent"
+    )}>
+      <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-12 h-12 relative">
+             <Image 
+                src="/logo-dark.png" 
+                alt="NeuroChiro Logo" 
+                fill 
+                className="object-contain group-hover:scale-110 transition-transform" 
+             />
+          </div>
+          <div>
+            <span className="block font-lato font-black uppercase tracking-widest text-brand-navy leading-none">NeuroChiro</span>
+            <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-brand-orange mt-0.5">Mastermind</span>
+          </div>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-12">
