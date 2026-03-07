@@ -4,19 +4,19 @@ import { useState } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { 
   Video, 
-  FileText, 
   Plus, 
   ChevronRight, 
   Save, 
   LayoutDashboard,
-  ExternalLink,
   Loader2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
+import { ResourceUploader } from "@/components/admin/ResourceUploader";
 
-export function CurriculumManagerClient({ initialWeeks }: { initialWeeks: any[] }) {
+export function CurriculumManagerClient({ initialWeeks, initialResources = [] }: { initialWeeks: any[], initialResources?: any[] }) {
   const [weeks, setWeeks] = useState(initialWeeks);
+  const [resources, setResources] = useState(initialResources);
   const [selectedWeek, setSelectedWeek] = useState<any>(initialWeeks[0] || null);
   const [selectedModule, setSelectedModule] = useState<any>(null);
   const [isSaving, setIsSaving] = useState(false);
@@ -56,6 +56,11 @@ export function CurriculumManagerClient({ initialWeeks }: { initialWeeks: any[] 
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const handleUpdateResources = async () => {
+    const { data } = await supabase.from('resources').select('*');
+    if (data) setResources(data);
   };
 
   return (
@@ -128,7 +133,7 @@ export function CurriculumManagerClient({ initialWeeks }: { initialWeeks: any[] 
               </div>
 
               {/* Module Editor Form */}
-              <div className="bg-white rounded-3xl border border-brand-navy/5 p-8 shadow-sm">
+              <div className="bg-white rounded-3xl border border-brand-navy/5 p-8 shadow-sm h-fit">
                 {selectedModule ? (
                   <div className="space-y-6">
                     <div className="space-y-2">
@@ -144,7 +149,6 @@ export function CurriculumManagerClient({ initialWeeks }: { initialWeeks: any[] 
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1 flex items-center justify-between">
                         Video URL / ID
-                        <span className="text-[8px] opacity-60">Vimeo or Mux ID</span>
                       </label>
                       <div className="relative">
                         <Video className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-brand-navy/30" />
@@ -159,16 +163,16 @@ export function CurriculumManagerClient({ initialWeeks }: { initialWeeks: any[] 
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Description / Notes</label>
+                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Description</label>
                       <textarea 
-                        rows={4}
+                        rows={3}
                         value={selectedModule.content || ''}
                         onChange={(e) => setSelectedModule({...selectedModule, content: e.target.value})}
                         className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl py-3 px-4 text-xs font-medium text-brand-navy focus:border-brand-orange/20 outline-none transition-all resize-none"
                       />
                     </div>
 
-                    <div className="pt-4 space-y-3">
+                    <div className="pt-4 space-y-6">
                       <BrandButton 
                         variant="primary" 
                         className="w-full" 
@@ -177,9 +181,14 @@ export function CurriculumManagerClient({ initialWeeks }: { initialWeeks: any[] 
                       >
                         <Save className="w-4 h-4 mr-2" /> Save Module
                       </BrandButton>
-                      <BrandButton variant="outline" className="w-full text-[10px] gap-2">
-                        <FileText className="w-3 h-3" /> Manage PDFs
-                      </BrandButton>
+                      
+                      <div className="pt-6 border-t border-brand-navy/5">
+                        <ResourceUploader 
+                          moduleId={selectedModule.id} 
+                          existingResources={resources}
+                          onUpdate={handleUpdateResources}
+                        />
+                      </div>
                     </div>
                   </div>
                 ) : (

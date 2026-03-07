@@ -6,13 +6,18 @@ export default async function AdminCurriculumPage() {
   const supabase = createAdminClient();
 
   // Fetch all weeks with their modules
-  const { data: weeks, error } = await supabase
+  const { data: weeks } = await supabase
     .from('weeks')
     .select(`
       *,
       modules (*)
     `)
     .order('week_number', { ascending: true });
+
+  // Fetch all resources
+  const { data: resources } = await supabase
+    .from('resources')
+    .select('*');
 
   // Ensure modules are sorted correctly within each week
   const sortedWeeks = weeks?.map(w => ({
@@ -28,7 +33,7 @@ export default async function AdminCurriculumPage() {
           <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Curriculum Manager</h1>
         </div>
 
-        <CurriculumManagerClient initialWeeks={sortedWeeks} />
+        <CurriculumManagerClient initialWeeks={sortedWeeks} initialResources={resources || []} />
       </div>
     </DashboardLayout>
   );

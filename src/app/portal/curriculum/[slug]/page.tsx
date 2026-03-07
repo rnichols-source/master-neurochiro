@@ -2,6 +2,7 @@ import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { fetchWeekDetail, verifyPhase } from "@/app/actions/curriculum-actions";
 import { CurriculumQuiz } from "@/components/portal/curriculum-quiz";
+import { createClient } from "@/lib/supabase/server";
 import { 
   Play, 
   CheckCircle2, 
@@ -24,13 +25,20 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
   }
 
   const { week, modules } = result.data;
+
+  // 1. Fetch real resources for these modules
+  const supabase = await createClient();
+  const { data: resources } = await supabase
+    .from('resources')
+    .select('*')
+    .in('module_id', modules.map((m: any) => m.id));
   
   // Calculate completion
   const completedCount = modules.filter((m: any) => m.status === 'completed').length;
   const isPhaseFinished = completedCount === modules.length && modules.length > 0;
   const completionPercent = modules.length > 0 ? Math.round((completedCount / modules.length) * 100) : 0;
 
-  // Mock Quiz Questions for Phase 1 (We can later move this to DB)
+  // Mock Quiz Questions for Phase 1
   const quizQuestions = [
     {
       id: 1,
@@ -175,15 +183,20 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
 
             <EliteCard title="Proprietary Assets" subtitle="Downloads" icon={FileText}>
               <div className="space-y-3 mt-4">
-                {[
-                  { name: `${week.title} Worksheet`, size: "1.2 MB" },
-                  { name: "Clinical Scripts V1", size: "850 KB" },
-                ].map((asset, i) => (
-                  <button key={i} className="w-full p-4 bg-brand-navy/5 hover:bg-brand-orange/5 rounded-xl border border-transparent hover:border-brand-orange/20 transition-all text-left flex justify-between items-center group">
-                    <span className="text-xs font-bold text-brand-navy group-hover:text-brand-orange transition-colors">{asset.name}</span>
-                    <span className="text-[8px] font-black text-brand-navy/30">{asset.size}</span>
-                  </button>
-                ))}
+                {resources && resources.length > 0 ? resources.map((asset: any, i: number) => (
+                  <a 
+                    key={i} 
+                    href={asset.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-full p-4 bg-brand-navy/5 hover:bg-brand-orange/5 rounded-xl border border-transparent hover:border-brand-orange/20 transition-all text-left flex justify-between items-center group"
+                  >
+                    <span className="text-xs font-bold text-brand-navy group-hover:text-brand-orange transition-colors">{asset.title}</span>
+                    <span className="text-[8px] font-black text-brand-navy/30 uppercase">{asset.type}</span>
+                  </a>
+                )) : (
+                  <p className="text-[10px] font-bold text-brand-navy/20 text-center py-4 uppercase">No downloads for this phase</p>
+                )}
               </div>
             </EliteCard>
           </div>
