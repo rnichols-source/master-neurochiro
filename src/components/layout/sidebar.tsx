@@ -11,7 +11,9 @@ import {
   FileText,
   ShieldCheck,
   Users,
-  Activity
+  Activity,
+  TrendingUp,
+  Lock
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -26,6 +28,7 @@ const navItems = [
 
 export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
   const pathname = usePathname();
+  const isPro = userTier === 'pro' || userTier === 'admin';
 
   return (
     <div className="flex flex-col h-screen w-64 bg-brand-navy text-white border-r border-white/10 shrink-0">
@@ -59,6 +62,25 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
             </Link>
           );
         })}
+
+        {/* Pro Section */}
+        <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
+          <p className="px-2 pb-2 text-[10px] font-bold text-white/40 uppercase tracking-widest flex items-center justify-between">
+            Pro Mastery
+            {!isPro && <Lock className="w-2.5 h-2.5 opacity-40" />}
+          </p>
+          <Link
+            href="/portal/pro/forecaster"
+            className={cn(
+              "group flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-all relative",
+              pathname === "/portal/pro/forecaster" ? "bg-white/10 text-brand-orange" : "text-white/70 hover:bg-white/5 hover:text-white"
+            )}
+          >
+            <TrendingUp className={cn("w-4 h-4", pathname === "/portal/pro/forecaster" ? "text-brand-orange" : "text-white/50 group-hover:text-white")} />
+            Revenue Forecaster
+            {!isPro && <Lock className="w-3 h-3 ml-auto text-white/20" />}
+          </Link>
+        </div>
 
         {userTier === 'admin' && (
           <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
