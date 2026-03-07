@@ -96,5 +96,48 @@ export const EmailService = {
       console.error(`[EMAIL] Resend Error:`, err);
       throw err;
     }
+  // 4. Event Confirmation
+  async sendEventConfirmation(email: string, name: string, eventTitle: string) {
+    console.log(`[EMAIL] Attempting 'Event Confirmation' email to ${email}`);
+    if (isMock) {
+      console.log(`[MOCK EMAIL] To: ${email} | Subject: Seat Reserved: ${eventTitle}`);
+      return { data: { id: "mock_id" }, error: null };
+    }
+    try {
+      const result = await resend!.emails.send({
+        from: FROM_EMAIL,
+        to: email,
+        subject: `Seat Reserved: ${eventTitle}`,
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1A232E;">
+            <h1 style="font-size: 24px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 24px;">Your Seat is Secured, Dr. ${name}.</h1>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 32px;">
+              You are officially registered for <strong>${eventTitle}</strong>. 
+              This is a high-intensity immersion event. Prepare for two days of complete practice reconstruction.
+            </p>
+            
+            <div style="background-color: #F8FAFC; border: 1px solid #E5E7EB; padding: 24px; border-radius: 12px; margin-bottom: 32px;">
+              <h2 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #64748B; margin-bottom: 16px;">Event Details</h2>
+              <p style="margin: 4px 0;"><strong>Location:</strong> Adelaide, Australia</p>
+              <p style="margin: 4px 0;"><strong>Dates:</strong> May 29 – May 30, 2026</p>
+              <p style="margin: 4px 0;"><strong>Time:</strong> 9:00 AM – 5:00 PM Daily</p>
+            </div>
+
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 32px;">
+              Specific venue information and a pre-event preparation guide will be sent to this email address in the coming weeks.
+            </p>
+
+            <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 40px 0;" />
+            <p style="font-size: 10px; font-weight: bold; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.1em;">
+              NeuroChiro Live &bull; Intensive Immersion
+            </p>
+          </div>
+        `
+      });
+      return result;
+    } catch (err) {
+      console.error(`[EMAIL] Resend Error:`, err);
+      throw err;
+    }
   }
 };

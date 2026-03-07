@@ -19,6 +19,7 @@ export function MastermindHeader() {
 
   const navLinks = [
     { name: "Curriculum", href: "/curriculum" },
+    { name: "Live Event", href: "/neurochiro-live" },
     { name: "Mechanisms", href: "/#mechanisms" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "Pricing", href: "/pricing" },
