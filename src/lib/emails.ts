@@ -96,6 +96,7 @@ export const EmailService = {
       console.error(`[EMAIL] Resend Error:`, err);
       throw err;
     }
+  },
   // 4. Event Confirmation
   async sendEventConfirmation(email: string, name: string, eventTitle: string) {
     console.log(`[EMAIL] Attempting 'Event Confirmation' email to ${email}`);
