@@ -1,13 +1,13 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
-import { fetchWeekDetail } from "@/app/actions/curriculum-actions";
+import { fetchWeekDetail, verifyPhase } from "@/app/actions/curriculum-actions";
+import { CurriculumQuiz } from "@/components/portal/curriculum-quiz";
 import { 
   Play, 
   CheckCircle2, 
   ChevronLeft,
   ChevronRight,
   FileText,
-  MessageSquare,
   Zap,
   Lock
 } from "lucide-react";
@@ -27,7 +27,26 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
   
   // Calculate completion
   const completedCount = modules.filter((m: any) => m.status === 'completed').length;
+  const isPhaseFinished = completedCount === modules.length && modules.length > 0;
   const completionPercent = modules.length > 0 ? Math.round((completedCount / modules.length) * 100) : 0;
+
+  // Mock Quiz Questions for Phase 1 (We can later move this to DB)
+  const quizQuestions = [
+    {
+      id: 1,
+      text: "What is the primary anchor of a Nervous System-First Doctor?",
+      options: ["Patient Satisfaction", "Clinical Certainty", "Insurance Reimbursement", "Marketing Reach"],
+      correctIndex: 1,
+      feedback: "Certainty is the non-negotiable anchor. Without it, you are just a technician chasing a yes."
+    },
+    {
+      id: 2,
+      text: "According to Week 1, what determines how you practice?",
+      options: ["Your Schooling", "Your Technique", "Who You Are", "Your Location"],
+      correctIndex: 2,
+      feedback: "Identity reconstruction is the first step. Who you are determines the frequency of your clinic."
+    }
+  ];
 
   return (
     <DashboardLayout>
@@ -76,44 +95,63 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Module List */}
           <div className="lg:col-span-2 space-y-6">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 ml-2">Training Units</h3>
-            <div className="space-y-4">
-              {modules.map((mod: any, i: number) => (
-                <EliteCard 
-                  key={mod.id} 
-                  className={cn(
-                    "p-6 transition-all group",
-                    mod.status === 'locked' ? "opacity-50" : "hover:border-brand-orange/40 cursor-pointer"
-                  )}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                      <div className={cn(
-                        "w-12 h-12 rounded-xl flex items-center justify-center transition-colors",
-                        mod.status === 'completed' ? "bg-green-500/10 text-green-500" :
-                        mod.status === 'active' ? "bg-brand-orange/10 text-brand-orange" : "bg-brand-navy/5 text-brand-navy/20"
-                      )}>
-                        {mod.status === 'completed' ? <CheckCircle2 className="w-5 h-5" /> :
-                         mod.status === 'active' ? <Play className="w-5 h-5 fill-brand-orange ml-0.5" /> : <Lock className="w-5 h-5" />}
-                      </div>
-                      <div>
-                        <p className="text-[8px] font-black uppercase text-brand-navy/40">Module {week.week_number}.{mod.order_index}</p>
-                        <h4 className="text-lg font-black text-brand-navy group-hover:text-brand-orange transition-colors">{mod.title}</h4>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      {mod.status !== 'locked' && (
-                        <Link href={`/portal/curriculum/${week.slug}/${mod.slug}`} className="flex items-center gap-4">
-                           <span className="text-[10px] font-black text-brand-navy/40 uppercase">View Module</span>
-                           <ChevronRight className={cn("w-4 h-4 transition-transform group-hover:translate-x-1")} />
-                        </Link>
+            {isPhaseFinished ? (
+              <div className="space-y-8">
+                <div className="flex items-center gap-3 px-2">
+                  <div className="p-2 bg-green-500/10 rounded-xl"><CheckCircle2 className="w-5 h-5 text-green-500" /></div>
+                  <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">Units Complete. Final Validation Required.</h3>
+                </div>
+                <CurriculumQuiz 
+                  phaseTitle={week.title} 
+                  questions={quizQuestions}
+                  onComplete={async () => {
+                    'use server'
+                    await verifyPhase(week.id);
+                  }}
+                />
+              </div>
+            ) : (
+              <>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 ml-2">Training Units</h3>
+                <div className="space-y-4">
+                  {modules.map((mod: any, i: number) => (
+                    <EliteCard 
+                      key={mod.id} 
+                      className={cn(
+                        "p-6 transition-all group",
+                        mod.status === 'locked' ? "opacity-50" : "hover:border-brand-orange/40 cursor-pointer"
                       )}
-                      {mod.status === 'locked' && <Lock className="w-4 h-4 text-brand-navy/20" />}
-                    </div>
-                  </div>
-                </EliteCard>
-              ))}
-            </div>
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-6">
+                          <div className={cn(
+                            "w-12 h-12 rounded-xl flex items-center justify-center transition-colors",
+                            mod.status === 'completed' ? "bg-green-500/10 text-green-500" :
+                            mod.status === 'active' ? "bg-brand-orange/10 text-brand-orange" : "bg-brand-navy/5 text-brand-navy/20"
+                          )}>
+                            {mod.status === 'completed' ? <CheckCircle2 className="w-5 h-5" /> :
+                             mod.status === 'active' ? <Play className="w-5 h-5 fill-brand-orange ml-0.5" /> : <Lock className="w-5 h-5" />}
+                          </div>
+                          <div>
+                            <p className="text-[8px] font-black uppercase text-brand-navy/40">Module {week.week_number}.{mod.order_index}</p>
+                            <h4 className="text-lg font-black text-brand-navy group-hover:text-brand-orange transition-colors">{mod.title}</h4>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          {mod.status !== 'locked' && (
+                            <Link href={`/portal/curriculum/${week.slug}/${mod.slug}`} className="flex items-center gap-4">
+                               <span className="text-[10px] font-black text-brand-navy/40 uppercase">View Module</span>
+                               <ChevronRight className={cn("w-4 h-4 transition-transform group-hover:translate-x-1")} />
+                            </Link>
+                          )}
+                          {mod.status === 'locked' && <Lock className="w-4 h-4 text-brand-navy/20" />}
+                        </div>
+                      </div>
+                    </EliteCard>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {/* Sidebar / Resources */}
