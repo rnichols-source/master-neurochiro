@@ -1,58 +1,54 @@
 @import "tailwindcss";
 
 @theme {
-  --font-lato: var(--font-lato);
-  --font-montserrat: var(--font-montserrat);
-
-  /* Elite Fintech Palette */
-  --color-brand-navy: #0F172A;      /* Deeper, more "Institutional" navy */
-  --color-brand-orange: #EA580C;    /* More vibrant, "Action" orange */
-  --color-brand-cream: #FDFCFB;     /* Softer, "Gallery" cream */
-  --color-brand-black: #020617;
-  --color-brand-gray: #64748B;
-  --color-brand-gold: #A85507;      /* Subtle success accent */
-
-  --color-primary: var(--color-brand-navy);
-  --color-accent: var(--color-brand-orange);
-  --color-background: var(--color-brand-cream);
-  --color-foreground: var(--color-brand-navy);
-
-  --shadow-elite: 0 20px 50px -12px rgba(15, 23, 42, 0.12);
-  --shadow-inner-glow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
+  --color-brand-navy: #020617;
+  --color-brand-orange: #f97316;
+  --color-brand-black: #000000;
+  --color-brand-gray: #94a3b8;
+  --color-brand-cream: #f8fafc;
 }
 
-:root {
-  scroll-behavior: smooth;
+@layer base {
+  :root {
+    --nc-bg: 2, 6, 23;
+    --nc-card: 15, 23, 42;
+    --nc-border: 30, 41, 59;
+    --nc-orange: 249, 115, 22;
+    --nc-orange-glow: 255, 237, 213;
+    --nc-text-primary: 248, 250, 252;
+    --nc-text-secondary: 148, 163, 184;
+  }
+
+  body {
+    @apply bg-brand-navy text-white antialiased;
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.15), transparent 40%),
+      linear-gradient(to bottom, transparent, #020617);
+  }
 }
 
-body {
-  font-family: var(--font-montserrat), sans-serif;
-  background-color: var(--color-brand-cream);
-  color: var(--color-brand-navy);
-  -webkit-font-smoothing: antialiased;
-}
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-orange-100 to-brand-orange;
+  }
+  
+  .glass-panel {
+    @apply bg-slate-900/40 backdrop-blur-xl border border-white/5;
+  }
+  
+  .glow-hover {
+    @apply transition-all duration-500 hover:shadow-[0_0_40px_-10px_rgba(249,115,22,0.3)] hover:border-orange-500/30;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-lato), sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
+  .text-display {
+    @apply text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9];
+  }
 
-/* Premium Typography Scale */
-@utility text-display {
-  font-size: clamp(3rem, 8vw, 6rem);
-  line-height: 0.85;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-}
+  .section-padding {
+    @apply py-20 md:py-32;
+  }
 
-@utility glass-morphism {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(15, 23, 42, 0.05);
-}
-
-@utility section-padding {
-  padding-top: 8rem;
-  padding-bottom: 8rem;
+  .elite-shadow {
+    @apply shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)];
+  }
 }

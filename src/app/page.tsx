@@ -1,178 +1,167 @@
-"use client";
-
-import { MastermindHeader } from "@/components/layout/mastermind-header";
-import { BrandButton, EliteCard } from "@/components/ui/elite-ui";
-import { PracticeReadinessScore } from "@/components/marketing/prs-tool";
-import { VideoModal } from "@/components/marketing/video-modal";
-import { ValueStack, CohortStatus } from "@/components/marketing/conversion-modules";
-import { PracticeROISimulator } from "@/components/marketing/roi-simulator";
-import { ClinicOSPreview } from "@/components/marketing/clinic-os-preview";
-import { CaseStudyFilter } from "@/components/marketing/case-study-filter";
-import { 
-  ArrowRight, 
-  Play, 
-  Brain, 
-  Zap, 
-  Target, 
-  ShieldCheck, 
-  TrendingUp,
-  ChevronRight,
-  Plus
-} from "lucide-react";
+import { PremiumHero } from "@/components/marketing/premium-hero";
+import { EcosystemGrid } from "@/components/marketing/ecosystem-grid";
+import { ArrowRight, CheckCircle2, Shield, Brain, Zap, Target } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
-export default function MastermindLandingPage() {
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-
-  const mechanisms = [
-    { id: "os", systemID: "NC-01", title: "The Practice Blueprint", desc: "A step-by-step plan to get your clinical results and your business numbers working together.", icon: Brain },
-    { id: "certainty", systemID: "NC-02", title: "The Certainty Method", desc: "How to recommend care with absolute confidence without feeling like a salesperson.", icon: ShieldCheck },
-    { id: "scan", systemID: "NC-03", title: "The Patient Language", desc: "How to explain complex neurology so patients actually 'get it' and say yes to care.", icon: Zap },
-    { id: "rof", systemID: "NC-04", title: "The Master Report", desc: "A simple way to present big care plans without the awkward pushback or negotiation.", icon: Target },
-  ];
-
+export default function HomePage() {
   return (
-    <div className="min-h-screen bg-brand-cream selection:bg-brand-orange selection:text-white pb-20">
-      <MastermindHeader />
-      <VideoModal isOpen={isVideoModalOpen} onClose={() => setIsVideoModalOpen(false)} />
-
-      {/* Hero Section */}
-      <section className="pt-48 pb-32 px-8 overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="space-y-10">
-            <div className="space-y-4">
-              <CohortStatus />
-              <h1 className="text-display text-brand-navy mt-8">
-                Stop Guessing. <br />
-                <span className="text-brand-orange">Start Leading Your Clinic.</span>
-              </h1>
-              <p className="text-xl text-brand-gray font-medium leading-relaxed max-w-xl">
-                Most doctors feel awkward recommending care. We show you exactly how to run a nervous-system–first practice—without the stress, the confusion, or the sales pitch.
-              </p>
+    <div className="min-h-screen overflow-x-hidden selection:bg-brand-orange selection:text-white">
+      {/* Navigation (Transparent/Premium) */}
+      <nav className="fixed top-0 w-full z-50 px-8 py-8">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center font-black text-brand-navy shadow-2xl group-hover:scale-110 transition-transform">N</div>
+            <span className="font-black text-white tracking-[0.2em] uppercase text-xs hidden md:block">NeuroChiro</span>
+          </Link>
+          <div className="flex items-center gap-10">
+            <div className="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-widest text-white/40">
+              <Link href="/curriculum" className="hover:text-white transition-colors">Curriculum</Link>
+              <Link href="/case-studies" className="hover:text-white transition-colors">Evidence</Link>
+              <Link href="/pricing" className="hover:text-white transition-colors">Membership</Link>
             </div>
-
-            <div className="flex flex-col sm:flex-row items-center gap-6">
-              <Link href="/apply">
-                <BrandButton variant="primary" size="lg" className="group py-6 px-10">
-                  Apply for Admission <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </BrandButton>
+            <div className="flex items-center gap-4">
+              <Link href="/login" className="px-6 py-2.5 rounded-full border border-white/10 text-white/60 text-[10px] font-black uppercase tracking-widest hover:bg-white/5 hover:text-white transition-all">
+                Login
               </Link>
-              <button 
-                onClick={() => setIsVideoModalOpen(true)}
-                className="flex items-center gap-4 text-brand-navy/60 hover:text-brand-navy transition-colors font-bold uppercase tracking-widest text-[10px]"
-              >
-                <div className="w-14 h-14 rounded-full border-2 border-brand-navy/10 flex items-center justify-center bg-white shadow-xl shadow-brand-navy/5">
-                  <Play className="w-4 h-4 fill-brand-navy ml-1" />
-                </div>
-                Watch the Vision
-              </button>
+              <Link href="/apply">
+                <button className="px-6 py-2.5 rounded-full bg-brand-orange text-white text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-brand-navy transition-all shadow-lg shadow-brand-orange/20">
+                  Join
+                </button>
+              </Link>
             </div>
           </div>
-
-          <div className="relative">
-            <div className="absolute inset-0 bg-brand-orange/5 blur-3xl rounded-full -m-20 animate-pulse" />
-            <EliteCard className="relative p-0 overflow-hidden border-brand-navy/10 shadow-2xl rounded-[3rem]">
-              <div className="aspect-[4/5] bg-brand-navy relative group">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80')] bg-cover bg-center mix-blend-overlay opacity-60" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                   <button 
-                    onClick={() => setIsVideoModalOpen(true)}
-                    className="w-20 h-20 rounded-full bg-brand-orange/90 flex items-center justify-center shadow-2xl shadow-brand-orange/40 hover:scale-110 transition-transform"
-                   >
-                     <Play className="w-8 h-8 text-white fill-white ml-1" />
-                   </button>
-                </div>
-              </div>
-            </EliteCard>
-          </div>
         </div>
-      </section>
+      </nav>
 
-      {/* ROI Simulator Section */}
-      <section className="section-padding px-8 bg-brand-navy text-white overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-orange/10 blur-[120px] rounded-full -mr-40 -mt-40" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <PracticeROISimulator />
-        </div>
-      </section>
+      {/* 1. HERO - The Movement */}
+      <PremiumHero />
 
-      {/* Case Studies Section */}
-      <section className="section-padding px-8 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <CaseStudyFilter />
-        </div>
-      </section>
-
-      {/* OS Preview Section */}
-      <section className="section-padding px-8 bg-brand-cream/30 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-5xl font-black text-brand-navy tracking-tighter">Your Clinic, Simplified.</h2>
-            <p className="text-xl text-brand-gray font-medium max-w-2xl mx-auto">See how we organize your entire practice into one simple dashboard that shows you exactly where you stand.</p>
-          </div>
-          <ClinicOSPreview />
-        </div>
-      </section>
-
-      {/* Proprietary Mechanisms */}
-      <section id="mechanisms" className="section-padding px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-3xl mb-20">
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-4">The Tools You'll Use</p>
-            <h2 className="text-6xl font-black tracking-tighter leading-none mb-6 text-brand-navy">The Systems Behind a High-Performance Clinic.</h2>
-            <p className="text-brand-gray text-xl font-medium">Most doctors make it up as they go. We give you a practical way to handle every patient, every scan, and every report with ease.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {mechanisms.map((m, i) => (
-              <EliteCard 
-                key={m.id} 
-                className="bg-white border-brand-navy/5 hover:border-brand-orange/40 transition-all group p-8"
-              >
-                <div className="flex justify-between items-start mb-8">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-navy/5 flex items-center justify-center group-hover:bg-brand-orange transition-colors">
-                    <m.icon className="w-6 h-6 text-brand-navy group-hover:text-white transition-colors" />
-                  </div>
-                  <span className="text-[10px] font-black text-brand-navy/20 tracking-widest">{m.systemID}</span>
-                </div>
-                <h3 className="text-xl font-black mb-3 text-brand-navy">{m.title}</h3>
-                <p className="text-brand-gray text-sm leading-relaxed mb-8 font-medium">{m.desc}</p>
-                <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-orange group-hover:gap-3 transition-all">
-                  How it Works <ChevronRight className="w-4 h-4" />
-                </button>
-              </EliteCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Interactive Score Tool */}
-      <section className="section-padding px-8 relative overflow-hidden bg-brand-cream/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      {/* 2. THE PROBLEM - Why Chiropractic Needs Evolution */}
+      <section className="section-padding relative">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="space-y-8">
-              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Take the Test</p>
-              <h2 className="text-6xl font-black text-brand-navy tracking-tighter leading-none">Is Your Practice <br />Ready for This?</h2>
-              <p className="text-xl text-brand-gray font-medium leading-relaxed max-w-lg">
-                Before you apply, we need to see where you're at. 
-                Answer 10 quick questions to see if the Mastermind is the right next step for you.
+              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Divergence</p>
+              <h2 className="text-display text-white">
+                The Model <br />
+                <span className="text-white/20">Is Fractured.</span>
+              </h2>
+              <div className="w-20 h-1 bg-brand-orange/20 rounded-full" />
+            </div>
+            <div className="space-y-8 text-xl text-white/50 font-medium leading-relaxed">
+              <p>
+                Chiropractic has a branding problem. We drifted from the science of neurology into pain relief, sales scripts, and technician-level thinking.
+              </p>
+              <p>
+                The world doesn't need more "back crackers" or persuasive salesmen. It needs <span className="text-white">Nervous System Architects</span> who command clinical certainty.
+              </p>
+              <p>
+                NeuroChiro is the bridge back to truth. We provide the intelligence, the communication systems, and the business logic to build a practice that leads the profession.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="bg-white rounded-[3rem] p-12 elite-shadow border border-brand-navy/5">
-              <PracticeReadinessScore />
+      {/* 3. THE NEUROCHIRO MODEL (Bento Grid) */}
+      <section className="section-padding bg-gradient-to-b from-transparent via-slate-900/20 to-transparent">
+        <div className="max-w-7xl mx-auto px-8 mb-20 text-center space-y-4">
+          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Infrastructure</p>
+          <h2 className="text-5xl md:text-6xl font-black text-white tracking-tight">Everything You Need. <br /><span className="text-white/40">Nothing You Don't.</span></h2>
+        </div>
+        <EcosystemGrid />
+      </section>
+
+      {/* 4. PLATFORM ECOSYSTEM - Feature Highlight */}
+      <section className="section-padding px-8">
+        <div className="max-w-7xl mx-auto glass-panel rounded-[4rem] p-12 md:p-24 relative overflow-hidden group">
+          {/* Animated Glow */}
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-orange/5 rounded-full blur-[120px] -mr-40 -mt-40 group-hover:bg-brand-orange/10 transition-colors duration-1000" />
+          
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="space-y-10">
+              <h2 className="text-6xl md:text-7xl font-black text-white tracking-tighter leading-[0.9]">
+                Clinical Certainty <br />
+                <span className="text-gradient">Is The Ultimate Marketing.</span>
+              </h2>
+              <p className="text-xl text-white/50 font-medium max-w-xl leading-relaxed">
+                When you know exactly what is happening in the nervous system, you don't have to "sell" care. You just explain objective findings.
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                {[
+                  { title: "Objective Neurology", icon: Brain },
+                  { title: "No-Pressure ROF", icon: Zap },
+                  { title: "Result-Based Retention", icon: Shield },
+                  { title: "High-Value Acceptance", icon: Target }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-4 group/item">
+                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center group-hover/item:border-brand-orange/50 transition-all">
+                      <item.icon className="w-5 h-5 text-brand-orange" />
+                    </div>
+                    <span className="text-white font-bold text-sm tracking-tight">{item.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative">
+               {/* Visual placeholder for animated diagram */}
+               <div className="aspect-square bg-white/5 rounded-full border border-white/5 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/10 to-transparent animate-pulse" />
+                  <div className="w-3/4 h-3/4 border border-brand-orange/20 rounded-full animate-[spin_20s_linear_infinite]" />
+                  <div className="w-1/2 h-1/2 border border-brand-orange/10 rounded-full absolute animate-[spin_15s_linear_infinite_reverse]" />
+                  <Shield className="w-20 h-20 text-brand-orange opacity-20" />
+               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Value Stack */}
-      <section className="section-padding px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <ValueStack />
+      {/* 5. CTA - The Invitation */}
+      <section className="section-padding text-center relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.05),transparent_70%)]" />
+        
+        <div className="max-w-4xl mx-auto px-8 space-y-12 relative z-10">
+          <Shield className="w-20 h-20 text-white/10 mx-auto" />
+          <h2 className="text-7xl md:text-9xl font-black text-white tracking-tighter">
+            Join the <span className="text-brand-orange">1%</span>.
+          </h2>
+          <p className="text-2xl text-white/40 font-medium leading-relaxed">
+            We are accepting applications for the next cohort. <br />
+            15 Spots available for absolute focus.
+          </p>
+          <div className="pt-8">
+            <Link href="/apply">
+              <button className="px-16 py-8 bg-brand-orange text-white rounded-full font-black text-xl uppercase tracking-widest hover:bg-white hover:text-brand-navy transition-all hover:scale-105 shadow-[0_0_60px_-15px_rgba(249,115,22,0.6)] group">
+                Apply for Admission <ArrowRight className="inline-block ml-4 group-hover:translate-x-2 transition-transform" />
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="border-t border-white/5 py-20 bg-brand-navy">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-10">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center font-black text-brand-navy">N</div>
+              <span className="font-bold text-white tracking-widest uppercase text-[10px]">NeuroChiro</span>
+            </div>
+            
+            <div className="flex gap-12 text-[10px] font-black text-white/30 uppercase tracking-widest">
+              <Link href="#" className="hover:text-brand-orange transition-colors">Privacy</Link>
+              <Link href="#" className="hover:text-brand-orange transition-colors">Terms</Link>
+              <Link href="/login" className="hover:text-brand-orange transition-colors">Dashboard</Link>
+            </div>
+
+            <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest">
+              © 2026 NeuroChiro Intelligence
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
