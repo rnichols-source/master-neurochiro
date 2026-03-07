@@ -8,7 +8,8 @@ import {
   BarChart3, 
   FileText,
   Star,
-  Zap
+  Zap,
+  ShieldCheck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,16 +18,22 @@ const mobileItems = [
   { name: "Units", href: "/portal/curriculum", icon: BookOpen },
   { name: "Vault", href: "/portal/vault", icon: Zap },
   { name: "KPIs", href: "/portal/kpi", icon: BarChart3 },
-  { name: "Pro", href: "/portal/pro/feedback", icon: Star },
 ];
 
-export function MobileNav() {
+export function MobileNav({ userTier = "standard" }: { userTier?: string }) {
   const pathname = usePathname();
 
+  const finalItems = [...mobileItems];
+  if (userTier === 'admin') {
+    finalItems.push({ name: "Admin", href: "/admin", icon: ShieldCheck });
+  } else {
+    finalItems.push({ name: "Pro", href: "/portal/pro/feedback", icon: Star });
+  }
+
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-brand-navy border-t border-white/10 px-6 py-3 pb-8 z-50 flex justify-between items-center backdrop-blur-lg bg-brand-navy/90">
-      {mobileItems.map((item) => {
-        const isActive = pathname === item.href;
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-brand-navy border-t border-white/10 px-4 py-3 pb-8 z-50 flex justify-between items-center backdrop-blur-lg bg-brand-navy/90">
+      {finalItems.map((item) => {
+        const isActive = pathname === item.href || (item.href !== '/portal' && pathname.startsWith(item.href));
         return (
           <Link 
             key={item.name} 

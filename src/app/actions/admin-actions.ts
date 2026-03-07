@@ -5,19 +5,17 @@ import { createClient } from '@/lib/supabase/server'
 export async function fetchAdminStats() {
   const supabase = await createClient()
 
-  // 1. Members count (Standard vs Pro)
-  const { data: members, error: membersError } = await supabase
-    .from('profiles')
-    .select('tier')
-    .not('tier', 'eq', 'admin')
+  // 1. Members count (Optimized: Direct DB counts)
+  const [proRes, stdRes] = await Promise.all([
+    supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('tier', 'pro'),
+    supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('tier', 'standard')
+  ])
 
-  if (membersError) return { success: false, error: membersError.message }
+  const proMembers = proRes.count || 0
+  const standardMembers = stdRes.count || 0
+  const totalMembers = proMembers + standardMembers
 
-  const totalMembers = members.length
-  const proMembers = members.filter(m => m.tier === 'pro').length
-  const standardMembers = totalMembers - proMembers
-
-  // 2. Pending Applications
+  // 2. Pending Applications (Optimized)
   const { count: pendingApps, error: appsError } = await supabase
     .from('applications')
     .select('*', { count: 'exact', head: true })
@@ -26,13 +24,12 @@ export async function fetchAdminStats() {
   if (appsError) return { success: false, error: appsError.message }
 
   // 3. Revenue (Estimated from tiers)
-  // Standard: 997, Pro: 1997
   const revenue = (standardMembers * 997) + (proMembers * 1997)
 
-  // 4. Cohort Health (Average Progress)
-  const { data: progress, error: progressError } = await supabase
+  // 4. Cohort Health (Average Progress - Optimized)
+  const { count: totalProgress, error: progressError } = await supabase
     .from('progress')
-    .select('id')
+    .select('*', { count: 'exact', head: true })
 
   if (progressError) return { success: false, error: progressError.message }
 
@@ -44,7 +41,7 @@ export async function fetchAdminStats() {
   if (modulesError) return { success: false, error: modulesError.message }
 
   const avgCompletion = totalMembers > 0 
-    ? Math.round((progress.length / (totalMembers * (totalModules || 1))) * 100) 
+    ? Math.round(((totalProgress || 0) / (totalMembers * (totalModules || 1))) * 100) 
     : 0
 
   return {

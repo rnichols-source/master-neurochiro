@@ -30,11 +30,19 @@ export async function updateApplicationStatus(id: string, status: string, notes:
     console.log(`[ADMIN] Detected Tier: ${isPro ? 'PRO' : 'STANDARD'} from raw: "${tierRaw}"`);
 
     // Choose correct PIF link based on tier
-    const checkoutUrl = isPro 
+    let checkoutUrl = isPro 
       ? process.env.NEXT_PUBLIC_STRIPE_PRO_PIF 
       : process.env.NEXT_PUBLIC_STRIPE_STANDARD_PIF;
 
-    console.log(`[ADMIN] Sending approval email to ${application.email} with link: ${checkoutUrl}`);
+    // --- ENHANCED GEAR: Convert to Smart Link ---
+    if (checkoutUrl) {
+      const url = new URL(checkoutUrl);
+      url.searchParams.set('client_reference_id', id);
+      url.searchParams.set('prefilled_email', application.email);
+      checkoutUrl = url.toString();
+    }
+
+    console.log(`[ADMIN] Sending Smart Link to ${application.email}: ${checkoutUrl}`);
 
     if (checkoutUrl) {
       try {

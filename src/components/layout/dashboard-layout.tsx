@@ -70,7 +70,7 @@ export async function DashboardLayout({
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <MobileNav />
+      <MobileNav userTier={userTier} />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lato, Montserrat } from "next/font/google";
 import "./globals.css";
 import { PWARegistration } from "@/components/layout/pwa-registration";
+import { AdminQuickAccess } from "@/components/admin/admin-quick-access";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -19,6 +20,15 @@ export const metadata: Metadata = {
   title: "Master NeuroChiro Mastermind",
   description: "The elite growth ecosystem for Nervous-System-First Chiropractors.",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/logo-dark.png",
+    apple: "/logo-dark.png",
+  },
+  openGraph: {
+    title: "Master NeuroChiro Mastermind",
+    description: "The elite growth ecosystem for Nervous-System-First Chiropractors.",
+    images: ["/logo-dark.png"],
+  }
 };
 
 export default function RootLayout({
@@ -32,6 +42,7 @@ export default function RootLayout({
         className={`${lato.variable} ${montserrat.variable} font-sans antialiased`}
       >
         <PWARegistration />
+        <AdminQuickAccess />
         {children}
       </body>
     </html>

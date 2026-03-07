@@ -17,8 +17,27 @@ export const StripeProcessor = {
     const supabaseAdmin = createAdminClient();
     const customerEmail = session.customer_details?.email;
     const customerName = session.customer_details?.name || "Doctor";
-    const tier = session.metadata?.tier || 'standard';
-    const applicationId = session.metadata?.application_id;
+    
+    // Fallback to client_reference_id if metadata is missing (common with Payment Links)
+    const applicationId = session.metadata?.application_id || session.client_reference_id;
+    let tier = session.metadata?.tier;
+
+    // --- ENHANCED GEAR: If tier is missing, fetch from Application DB ---
+    if (!tier && applicationId) {
+      const { data: appData } = await supabaseAdmin
+        .from("applications")
+        .select("responses")
+        .eq("id", applicationId)
+        .single();
+      
+      if (appData?.responses?.tier_applying) {
+        tier = appData.responses.tier_applying.toLowerCase().includes('pro') ? 'pro' : 'standard';
+        console.log(`[STRIPE] Resolved tier ${tier} from application ${applicationId}`);
+      }
+    }
+    
+    // Default fallback
+    tier = tier || 'standard';
 
     if (!customerEmail) {
       console.error("No customer email in Stripe session");
@@ -26,6 +45,18 @@ export const StripeProcessor = {
     }
 
     console.log(`Processing successful payment for: ${customerEmail}`);
+
+    // --- IDEMPOTENCY GUARD: Prevent double-processing ---
+    const { data: existingAttendee } = await supabaseAdmin
+      .from("event_attendees")
+      .select("id")
+      .eq("stripe_session_id", session.id)
+      .single();
+    
+    if (existingAttendee) {
+      console.log(`[STRIPE] Session ${session.id} already processed. Skipping.`);
+      return { success: true, already_processed: true };
+    }
 
     // --- EVENT FULFILLMENT ---
     const eventId = session.metadata?.event_id;
@@ -70,6 +101,18 @@ export const StripeProcessor = {
 
     // --- MEMBERSHIP FULFILLMENT ---
     if (applicationId) {
+      // 1. Check if already marked as paid to prevent duplicate onboarding
+      const { data: currentApp } = await supabaseAdmin
+        .from("applications")
+        .select("status")
+        .eq("id", applicationId)
+        .single();
+      
+      if (currentApp?.status === 'paid') {
+        console.log(`[STRIPE] Application ${applicationId} already paid. Skipping onboarding.`);
+        return { success: true, already_processed: true };
+      }
+
       const { error: appError } = await supabaseAdmin
         .from("applications")
         .update({ status: 'paid' })

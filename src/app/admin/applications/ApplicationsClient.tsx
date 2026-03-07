@@ -57,11 +57,11 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8 pb-32 md:pb-20">
       {/* Header & Filters */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        <div className="flex items-center gap-4 w-full md:w-auto">
-          <div className="relative w-full md:w-80">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
+          <div className="relative w-full sm:w-80">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-navy/30" />
             <input 
               type="text" 
@@ -75,19 +75,19 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
           <select 
             value={selectedCohort}
             onChange={(e) => setSelectedCohort(e.target.value)}
-            className="bg-white border border-brand-navy/10 rounded-2xl py-3 px-4 text-[10px] font-black uppercase tracking-widest text-brand-navy focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all cursor-pointer"
+            className="w-full sm:w-auto bg-white border border-brand-navy/10 rounded-2xl py-3 px-4 text-[10px] font-black uppercase tracking-widest text-brand-navy focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all cursor-pointer"
           >
             {cohorts.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
 
-        <div className="flex bg-brand-navy/5 p-1 rounded-xl">
+        <div className="flex bg-brand-navy/5 p-1 rounded-xl w-full lg:w-auto overflow-x-auto no-scrollbar">
           {["all", "pending", "approved", "waitlist", "rejected"].map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
               className={cn(
-                "px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all",
+                "flex-1 lg:flex-none px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all whitespace-nowrap",
                 filter === f ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"
               )}
             >
@@ -97,9 +97,12 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10">
         {/* List View */}
-        <div className="lg:col-span-1 space-y-4">
+        <div className={cn(
+          "lg:col-span-1 space-y-4",
+          selectedApp ? "hidden lg:block" : "block"
+        )}>
           {filteredApps.length > 0 ? (
             filteredApps.map((app) => (
               <button
@@ -125,9 +128,9 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                   </div>
                 </div>
                 
-                <div>
+                <div className="min-w-0">
                   <h4 className="font-black tracking-tight truncate">{app.full_name}</h4>
-                  <p className={cn("text-[10px] font-bold uppercase tracking-widest mt-1", selectedApp?.id === app.id ? "text-white/60" : "text-brand-navy/40")}>
+                  <p className={cn("text-[10px] font-bold uppercase tracking-widest mt-1 truncate", selectedApp?.id === app.id ? "text-white/60" : "text-brand-navy/40")}>
                     {app.responses?.current_role || "Doctor"}
                   </p>
                 </div>
@@ -153,7 +156,10 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
         </div>
 
         {/* Detail View */}
-        <div className="lg:col-span-2">
+        <div className={cn(
+          "lg:col-span-2",
+          !selectedApp ? "hidden lg:block" : "block"
+        )}>
           <AnimatePresence mode="wait">
             {selectedApp ? (
               <motion.div
@@ -161,45 +167,57 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="space-y-8"
+                className="space-y-6 md:space-y-8"
               >
-                <EliteCard className="p-10 border-brand-navy/10">
+                <div className="lg:hidden mb-4">
+                  <button 
+                    onClick={() => setSelectedApp(null)}
+                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-navy transition-colors"
+                  >
+                    <ChevronRight className="w-4 h-4 rotate-180" /> Back to list
+                  </button>
+                </div>
+
+                <EliteCard className="p-6 md:p-10 border-brand-navy/10 overflow-hidden">
                   {/* Top Profile Bar */}
-                  <div className="flex flex-col md:flex-row justify-between gap-8 pb-10 border-b border-brand-navy/5">
-                    <div className="flex items-center gap-6">
-                      <div className="w-20 h-20 rounded-[2rem] bg-brand-navy flex items-center justify-center text-white text-3xl font-black shadow-xl shadow-brand-navy/20">
+                  <div className="flex flex-col md:flex-row justify-between gap-8 pb-8 md:pb-10 border-b border-brand-navy/5">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] bg-brand-navy flex items-center justify-center text-white text-2xl md:text-3xl font-black shadow-xl shadow-brand-navy/20 shrink-0">
                         {selectedApp.full_name[0]}
                       </div>
-                      <div className="space-y-1">
-                        <h2 className="text-4xl font-black text-brand-navy tracking-tighter">{selectedApp.full_name}</h2>
-                        <div className="flex flex-wrap gap-4 text-[10px] font-black uppercase tracking-widest text-brand-navy/40">
-                          <span className="flex items-center gap-1"><Mail className="w-3 h-3" /> {selectedApp.email}</span>
-                          <span className="flex items-center gap-1"><Phone className="w-3 h-3" /> {selectedApp.phone}</span>
-                          {selectedApp.responses?.instagram && <span className="flex items-center gap-1 text-brand-orange"><Instagram className="w-3 h-3" /> {selectedApp.responses.instagram}</span>}
+                      <div className="space-y-2 min-w-0">
+                        <h2 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tighter truncate">{selectedApp.full_name}</h2>
+                        <div className="flex flex-wrap justify-center sm:justify-start gap-3 md:gap-4 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-navy/40">
+                          <span className="flex items-center gap-1 truncate max-w-full"><Mail className="w-3 h-3 shrink-0" /> {selectedApp.email}</span>
+                          <span className="flex items-center gap-1"><Phone className="w-3 h-3 shrink-0" /> {selectedApp.phone}</span>
+                          {selectedApp.responses?.instagram && <span className="flex items-center gap-1 text-brand-orange"><Instagram className="w-3 h-3 shrink-0" /> {selectedApp.responses.instagram}</span>}
                           {selectedApp.responses?.cohort && <span className="flex items-center gap-1 bg-brand-navy text-white px-2 py-0.5 rounded-md">Cohort: {selectedApp.responses.cohort}</span>}
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex gap-3 h-fit">
+                    <div className="flex justify-center md:justify-end gap-3 h-fit">
                       <button 
                         disabled={isUpdating}
                         onClick={() => handleStatusUpdate(selectedApp.id, 'approved')}
-                        className="p-4 bg-green-500/10 text-green-600 rounded-2xl hover:bg-green-500 hover:text-white transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-3 md:p-4 bg-green-500/10 text-green-600 rounded-2xl hover:bg-green-500 hover:text-white transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        title="Approve"
                       >
                         <Check className={cn("w-5 h-5", isUpdating && "animate-pulse")} />
                       </button>
                       <button 
                         disabled={isUpdating}
                         onClick={() => handleStatusUpdate(selectedApp.id, 'waitlist')}
-                        className="p-4 bg-brand-orange/10 text-brand-orange rounded-2xl hover:bg-brand-orange hover:text-white transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-3 md:p-4 bg-brand-orange/10 text-brand-orange rounded-2xl hover:bg-brand-orange hover:text-white transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        title="Waitlist"
                       >
                         <Clock className={cn("w-5 h-5", isUpdating && "animate-pulse")} />
                       </button>
                       <button 
                         disabled={isUpdating}
                         onClick={() => handleStatusUpdate(selectedApp.id, 'rejected')}
-                        className="p-4 bg-red-500/10 text-red-600 rounded-2xl hover:bg-red-500 hover:text-white transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-3 md:p-4 bg-red-500/10 text-red-600 rounded-2xl hover:bg-red-500 hover:text-white transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        title="Reject"
                       >
                         <X className={cn("w-5 h-5", isUpdating && "animate-pulse")} />
                       </button>
@@ -207,14 +225,14 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                   </div>
 
                   {/* The 25 Responses */}
-                  <div className="pt-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+                  <div className="pt-8 md:pt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                     {/* Practice Section */}
-                    <div className="space-y-8">
+                    <div className="space-y-6 md:space-y-8">
                       <div className="flex items-center gap-3 text-brand-orange">
                         <Activity className="w-4 h-4" />
                         <h5 className="text-[10px] font-black uppercase tracking-[0.3em]">Practice Metrics</h5>
                       </div>
-                      <div className="space-y-6">
+                      <div className="space-y-4 md:space-y-6">
                         {[
                           { label: "Role", val: selectedApp.responses?.current_role },
                           { label: "School/Grad", val: selectedApp.responses?.student_info },
@@ -230,27 +248,27 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                         ))}
                       </div>
 
-                      <div className="pt-6 grid grid-cols-3 gap-4">
+                      <div className="pt-6 grid grid-cols-3 gap-3 md:gap-4">
                         {[
                           { label: "Certainty", val: selectedApp.responses?.confidence_score },
                           { label: "Stability", val: selectedApp.responses?.stability_score },
                           { label: "Seriousness", val: selectedApp.responses?.seriousness_score },
                         ].map(item => (
-                          <div key={item.label} className="text-center p-4 bg-brand-navy/5 rounded-2xl">
+                          <div key={item.label} className="text-center p-3 md:p-4 bg-brand-navy/5 rounded-2xl">
                             <p className="text-[8px] font-black uppercase text-brand-navy/40 mb-1">{item.label}</p>
-                            <p className="text-xl font-black text-brand-navy">{item.val}/10</p>
+                            <p className="text-lg md:text-xl font-black text-brand-navy">{item.val}/10</p>
                           </div>
                         ))}
                       </div>
                     </div>
 
                     {/* Psych/Transformation Section */}
-                    <div className="space-y-8">
+                    <div className="space-y-6 md:space-y-8">
                       <div className="flex items-center gap-3 text-brand-orange">
                         <Zap className="w-4 h-4" />
                         <h5 className="text-[10px] font-black uppercase tracking-[0.3em]">The Transformation</h5>
                       </div>
-                      <div className="space-y-8">
+                      <div className="space-y-6 md:space-y-8">
                         {[
                           { label: "Tier Requested", val: selectedApp.responses?.tier_applying },
                           { label: "Biggest Struggle", val: selectedApp.responses?.biggest_struggle },
@@ -272,12 +290,12 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                 </EliteCard>
               </motion.div>
             ) : (
-              <div className="h-full flex items-center justify-center p-20 border-2 border-dashed border-brand-navy/5 rounded-[3rem]">
+              <div className="h-full flex items-center justify-center p-12 md:p-20 border-2 border-dashed border-brand-navy/5 rounded-[2rem] md:rounded-[3rem]">
                 <div className="text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-brand-navy/5 flex items-center justify-center mx-auto">
-                    <User className="w-8 h-8 text-brand-navy/20" />
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-brand-navy/5 flex items-center justify-center mx-auto">
+                    <User className="w-6 h-6 md:w-8 md:h-8 text-brand-navy/20" />
                   </div>
-                  <p className="text-sm font-black text-brand-navy/20 uppercase tracking-widest">Select an applicant to review</p>
+                  <p className="text-xs md:text-sm font-black text-brand-navy/20 uppercase tracking-widest">Select an applicant to review</p>
                 </div>
               </div>
             )}

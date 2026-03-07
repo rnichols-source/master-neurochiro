@@ -62,27 +62,27 @@ export function KPITrackerClient({ initialData }: { initialData: any[] }) {
   };
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 md:space-y-12 pb-20 md:pb-0">
       {/* Revenue Velocity Engine */}
       <RevenueVelocity />
 
       {/* Header */}
-      <div className="flex items-end justify-between pt-4">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-4">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-[0.2em] text-xs mb-2">
+          <p className="text-brand-orange font-black uppercase tracking-[0.2em] text-[10px] md:text-xs mb-2">
             Performance Intelligence
           </p>
-          <h1 className="text-4xl font-black text-brand-navy tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">
             Clinical KPI Dashboard
           </h1>
         </div>
-        <div className="flex gap-4">
-          <BrandButton variant="outline" className="gap-2">
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <BrandButton variant="outline" className="gap-2 w-full sm:flex-1 md:w-auto py-3 text-xs">
             <FileSpreadsheet className="w-4 h-4" /> Export CSV
           </BrandButton>
           <BrandButton 
             variant="accent" 
-            className="gap-2"
+            className="gap-2 w-full sm:flex-1 md:w-auto py-3 text-xs"
             onClick={() => setIsModalOpen(true)}
           >
             <Plus className="w-4 h-4" /> New Entry
@@ -92,40 +92,40 @@ export function KPITrackerClient({ initialData }: { initialData: any[] }) {
 
       {/* Overview Chart */}
       <EliteCard className="p-0 overflow-hidden">
-        <div className="p-8 border-b border-brand-navy/5 flex items-center justify-between">
-          <div className="flex items-center gap-8">
+        <div className="p-6 md:p-8 border-b border-brand-navy/5 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="flex items-center gap-6 md:gap-8">
             <button 
               onClick={() => setActiveMetric("patient_visits")}
               className={`text-left transition-all ${activeMetric === "patient_visits" ? "opacity-100" : "opacity-40 hover:opacity-60"}`}
             >
               <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Visit Volume</p>
-              <h4 className="text-2xl font-black text-brand-navy">
+              <h4 className="text-xl md:text-2xl font-black text-brand-navy">
                 {latestStats.patient_visits} 
-                <span className={`text-xs font-bold ml-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+                <span className={`text-[10px] md:text-xs font-bold ml-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
                   {calculateGrowth('patient_visits') >= 0 ? '+' : ''}{calculateGrowth('patient_visits')}%
                 </span>
               </h4>
             </button>
-            <div className="w-px h-10 bg-brand-navy/10" />
+            <div className="w-px h-8 md:h-10 bg-brand-navy/10" />
             <button 
               onClick={() => setActiveMetric("collections")}
               className={`text-left transition-all ${activeMetric === "collections" ? "opacity-100" : "opacity-40 hover:opacity-60"}`}
             >
-              <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Total Collections</p>
-              <h4 className="text-2xl font-black text-brand-navy">
+              <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Collections</p>
+              <h4 className="text-xl md:text-2xl font-black text-brand-navy">
                 ${(latestStats.collections / 1000).toFixed(1)}k 
-                <span className={`text-xs font-bold ml-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+                <span className={`text-[10px] md:text-xs font-bold ml-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
                   {calculateGrowth('collections') >= 0 ? '+' : ''}{calculateGrowth('collections')}%
                 </span>
               </h4>
             </button>
           </div>
           
-          <div className="flex bg-brand-navy/5 p-1 rounded-xl">
+          <div className="flex bg-brand-navy/5 p-1 rounded-xl overflow-x-auto no-scrollbar">
             {["7D", "30D", "90D", "ALL"].map(range => (
               <button 
                 key={range}
-                className={`px-4 py-1.5 text-[10px] font-black rounded-lg transition-all ${range === "ALL" ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"}`}
+                className={`flex-1 px-4 py-1.5 text-[10px] font-black rounded-lg transition-all whitespace-nowrap ${range === "ALL" ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"}`}
               >
                 {range}
               </button>
@@ -133,9 +133,9 @@ export function KPITrackerClient({ initialData }: { initialData: any[] }) {
           </div>
         </div>
 
-        <div className="h-[400px] w-full p-8 bg-gradient-to-b from-white to-brand-cream/30 flex items-center justify-center">
+        <div className="h-[250px] md:h-[400px] w-full p-4 md:p-8 bg-gradient-to-b from-white to-brand-cream/30 flex items-center justify-center">
           {loading ? (
-            <Loader2 className="w-8 h-8 animate-spin text-brand-orange" />
+            <Loader2 className="w-6 h-6 md:w-8 md:h-8 animate-spin text-brand-orange" />
           ) : kpiData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={kpiData}>
@@ -150,7 +150,7 @@ export function KPITrackerClient({ initialData }: { initialData: any[] }) {
                   dataKey="week" 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fontSize: 10, fontWeight: 700, fill: '#1E2D3B40' }}
+                  tick={{ fontSize: 9, fontWeight: 700, fill: '#1E2D3B40' }}
                   dy={10}
                 />
                 <YAxis hide />
@@ -159,15 +159,15 @@ export function KPITrackerClient({ initialData }: { initialData: any[] }) {
                     borderRadius: '16px', 
                     border: 'none', 
                     boxShadow: '0 10px 40px -10px rgba(30, 45, 59, 0.1)',
-                    padding: '12px'
+                    padding: '8px md:12px'
                   }}
-                  itemStyle={{ fontSize: '12px', fontWeight: 900, color: '#1E2D3B' }}
+                  itemStyle={{ fontSize: '11px', fontWeight: 900, color: '#1E2D3B' }}
                 />
                 <Area 
                   type="monotone" 
                   dataKey={activeMetric} 
                   stroke="#D66829" 
-                  strokeWidth={4}
+                  strokeWidth={3}
                   fillOpacity={1} 
                   fill="url(#colorMetric)" 
                   animationDuration={1500}
@@ -175,8 +175,8 @@ export function KPITrackerClient({ initialData }: { initialData: any[] }) {
               </AreaChart>
             </ResponsiveContainer>
           ) : (
-            <div className="text-center space-y-4">
-              <p className="text-brand-gray font-medium">No KPI data recorded yet.</p>
+            <div className="text-center space-y-4 px-6">
+              <p className="text-brand-gray text-sm font-medium">No KPI data recorded yet.</p>
               <BrandButton variant="outline" size="sm" onClick={() => setIsModalOpen(true)}>Submit First Entry</BrandButton>
             </div>
           )}
@@ -184,51 +184,51 @@ export function KPITrackerClient({ initialData }: { initialData: any[] }) {
       </EliteCard>
 
       {/* Insight Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <EliteCard title="New Patients" subtitle="Recent Entry" icon={Plus}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <EliteCard title="New Patients" subtitle="Recent Entry" icon={Plus} className="p-6 md:p-8">
           <div className="flex items-end gap-2 mt-2">
-            <span className="text-3xl font-black text-brand-navy">{latestStats.new_patients}</span>
-            <span className={`text-xs font-bold mb-1 ${calculateGrowth('new_patients') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+            <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.new_patients}</span>
+            <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('new_patients') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
               {calculateGrowth('new_patients') >= 0 ? '+' : ''}{calculateGrowth('new_patients')}%
             </span>
           </div>
         </EliteCard>
-        <EliteCard title="Collections" subtitle="Recent Entry" icon={TrendingUp}>
+        <EliteCard title="Collections" subtitle="Recent Entry" icon={TrendingUp} className="p-6 md:p-8">
           <div className="flex items-end gap-2 mt-2">
-            <span className="text-3xl font-black text-brand-navy">${(latestStats.collections / 1000).toFixed(1)}k</span>
-            <span className={`text-xs font-bold mb-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+            <span className="text-2xl md:text-3xl font-black text-brand-navy">${(latestStats.collections / 1000).toFixed(1)}k</span>
+            <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
               {calculateGrowth('collections') >= 0 ? '+' : ''}{calculateGrowth('collections')}%
             </span>
           </div>
         </EliteCard>
-        <EliteCard title="Visits" subtitle="Recent Entry" icon={Target}>
+        <EliteCard title="Visits" subtitle="Recent Entry" icon={Target} className="p-6 md:p-8">
           <div className="flex items-end gap-2 mt-2">
-            <span className="text-3xl font-black text-brand-navy">{latestStats.patient_visits}</span>
-            <span className={`text-xs font-bold mb-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+            <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.patient_visits}</span>
+            <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
               {calculateGrowth('patient_visits') >= 0 ? '+' : ''}{calculateGrowth('patient_visits')}%
             </span>
           </div>
         </EliteCard>
-        <EliteCard title="Total Entries" subtitle="Continuity" icon={Calendar}>
+        <EliteCard title="Total Entries" subtitle="Continuity" icon={Calendar} className="p-6 md:p-8">
           <div className="flex items-end gap-2 mt-2">
-            <span className="text-3xl font-black text-brand-navy">{kpiData.length}</span>
-            <span className="text-xs font-bold text-brand-orange mb-1">Weeks</span>
+            <span className="text-2xl md:text-3xl font-black text-brand-navy">{kpiData.length}</span>
+            <span className="text-[10px] md:text-xs font-bold text-brand-orange mb-1">Weeks</span>
           </div>
         </EliteCard>
       </div>
 
       {/* Wins & Bottlenecks */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-        <EliteCard title="Identity Expansion" subtitle="Recent Wins" className="bg-green-50/50 border-green-100">
-          <div className="mt-2 text-sm font-medium text-brand-navy whitespace-pre-wrap">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-4">
+        <EliteCard title="Identity Expansion" subtitle="Recent Wins" className="bg-green-50/50 border-green-100 p-6 md:p-8">
+          <div className="mt-2 text-sm font-medium text-brand-navy whitespace-pre-wrap leading-relaxed">
             {latestStats.wins || "No wins recorded for this period."}
           </div>
         </EliteCard>
-        <EliteCard title="Bottlenecks" subtitle="Focus Area" className="bg-orange-50/50 border-orange-100">
-          <div className="mt-2 text-sm font-medium text-brand-navy whitespace-pre-wrap">
+        <EliteCard title="Bottlenecks" subtitle="Focus Area" className="bg-orange-50/50 border-orange-100 p-6 md:p-8">
+          <div className="mt-2 text-sm font-medium text-brand-navy whitespace-pre-wrap leading-relaxed">
             {latestStats.bottlenecks || "No bottlenecks recorded for this period."}
           </div>
-          <BrandButton variant="accent" size="sm" className="mt-6 w-full">Request Feedback</BrandButton>
+          <BrandButton variant="accent" size="sm" className="mt-6 w-full py-3 text-xs">Request Feedback</BrandButton>
         </EliteCard>
       </div>
 
