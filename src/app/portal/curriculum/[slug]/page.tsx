@@ -26,19 +26,27 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
 
   const { week, modules } = result.data;
 
-  // 1. Fetch real resources for these modules
-  const supabase = await createClient();
-  const { data: resources } = await supabase
-    .from('resources')
-    .select('*')
-    .in('module_id', modules.map((m: any) => m.id));
+  // 1. Fetch real resources with a SAFE GUARD
+  let resources: any[] = [];
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('resources')
+      .select('*')
+      .in('module_id', (modules || []).map((m: any) => m.id));
+    
+    if (data && !error) {
+      resources = data;
+    }
+  } catch (err) {
+    console.warn("[CURRICULUM] Resources table check failed, continuing safely...");
+  }
   
   // Calculate completion
   const completedCount = modules.filter((m: any) => m.status === 'completed').length;
   const isPhaseFinished = completedCount === modules.length && modules.length > 0;
   const completionPercent = modules.length > 0 ? Math.round((completedCount / modules.length) * 100) : 0;
 
-  // Mock Quiz Questions for Phase 1
   const quizQuestions = [
     {
       id: 1,
@@ -59,12 +67,10 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
   return (
     <DashboardLayout>
       <div className="space-y-10">
-        {/* Breadcrumbs / Back */}
         <Link href="/portal/curriculum" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-orange transition-colors">
           <ChevronLeft className="w-3 h-3" /> Back to Curriculum
         </Link>
 
-        {/* Phase Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 pb-10 border-b border-brand-navy/5">
           <div className="space-y-4">
             <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Phase 0{week.week_number}</p>
@@ -81,16 +87,9 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
             </div>
             <div className="relative w-16 h-16">
               <svg className="w-full h-full -rotate-90">
+                <circle cx="32" cy="32" r="28" className="fill-none stroke-brand-navy/5 stroke-[4]" />
                 <circle
-                  cx="32"
-                  cy="32"
-                  r="28"
-                  className="fill-none stroke-brand-navy/5 stroke-[4]"
-                />
-                <circle
-                  cx="32"
-                  cy="32"
-                  r="28"
+                  cx="32" cy="32" r="28"
                   className="fill-none stroke-brand-orange stroke-[4] transition-all duration-1000"
                   strokeDasharray={2 * Math.PI * 28}
                   strokeDashoffset={2 * Math.PI * 28 * (1 - completionPercent / 100)}
@@ -101,7 +100,6 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Module List */}
           <div className="lg:col-span-2 space-y-6">
             {isPhaseFinished ? (
               <div className="space-y-8">
@@ -122,7 +120,7 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
               <>
                 <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 ml-2">Training Units</h3>
                 <div className="space-y-4">
-                  {modules.map((mod: any, i: number) => (
+                  {(modules || []).map((mod: any) => (
                     <EliteCard 
                       key={mod.id} 
                       className={cn(
@@ -162,7 +160,6 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
             )}
           </div>
 
-          {/* Sidebar / Resources */}
           <div className="space-y-8">
             <EliteCard title="Implementation" subtitle="This Week's Focus" icon={Zap}>
               <div className="space-y-4 mt-4">
@@ -172,9 +169,7 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
                   "Submit Implementation Proof",
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <div className="w-4 h-4 rounded border border-brand-navy/10 flex items-center justify-center text-[10px] font-black">
-                      {i + 1}
-                    </div>
+                    <div className="w-4 h-4 rounded border border-brand-navy/10 flex items-center justify-center text-[10px] font-black">{i + 1}</div>
                     <span className="text-xs font-bold text-brand-navy">{item}</span>
                   </div>
                 ))}
@@ -183,12 +178,9 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
 
             <EliteCard title="Proprietary Assets" subtitle="Downloads" icon={FileText}>
               <div className="space-y-3 mt-4">
-                {resources && resources.length > 0 ? resources.map((asset: any, i: number) => (
+                {resources.length > 0 ? resources.map((asset: any, i: number) => (
                   <a 
-                    key={i} 
-                    href={asset.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
+                    key={i} href={asset.url} target="_blank" rel="noopener noreferrer"
                     className="w-full p-4 bg-brand-navy/5 hover:bg-brand-orange/5 rounded-xl border border-transparent hover:border-brand-orange/20 transition-all text-left flex justify-between items-center group"
                   >
                     <span className="text-xs font-bold text-brand-navy group-hover:text-brand-orange transition-colors">{asset.title}</span>
