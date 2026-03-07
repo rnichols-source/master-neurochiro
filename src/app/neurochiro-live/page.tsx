@@ -68,18 +68,24 @@ export default function NeuroChiroLivePage() {
   };
 
   const handleCheckout = async (tier: string) => {
+    const ticket = getTicketData(tier);
+    if (!ticket) return;
+
+    // If you have a direct Stripe Payment Link, use it!
+    if (ticket.payment_link) {
+      window.location.href = ticket.payment_link;
+      return;
+    }
+
+    // Otherwise, use the dynamic system
     setLoading(tier);
     try {
-      const ticket = getTicketData(tier);
-      if (!ticket) throw new Error("Ticket not found");
-
       const { url } = await createEventCheckout({
         eventId: event.id,
         ticketTypeId: ticket.id,
         category: selectedCategory,
         tier: tier,
       });
-
       window.location.href = url;
     } catch (err: any) {
       alert(err.message || "Failed to initiate checkout");
