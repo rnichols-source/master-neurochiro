@@ -98,6 +98,9 @@ export function AdminDashboardClient({
           >
             <Database className={cn("w-4 h-4", isSeeding && "animate-spin")} />
           </button>
+          <Link href="/admin/curriculum" className="flex-1 md:flex-none">
+            <BrandButton variant="outline" size="sm" className="w-full md:w-auto py-3 text-[10px]">Manage Content</BrandButton>
+          </Link>
           <Link href="/admin/applications" className="flex-1 md:flex-none">
             <BrandButton variant="outline" size="sm" className="w-full md:w-auto py-3 text-[10px]">Review Queue</BrandButton>
           </Link>

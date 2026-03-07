@@ -58,6 +58,7 @@ export function AdminQuickAccess() {
 
   const menuItems = [
     { name: "Command Center", href: "/admin", icon: LayoutDashboard, color: "text-blue-500" },
+    { name: "Content Manager", href: "/admin/curriculum", icon: BookOpen, color: "text-red-500" },
     { name: "Review Queue", href: "/admin/applications", icon: Users, color: "text-orange-500" },
     { name: "Revenue", href: "/admin/revenue", icon: DollarSign, color: "text-green-500" },
     { name: "Analytics", href: "/admin/cohorts", icon: BarChart3, color: "text-purple-500" },
