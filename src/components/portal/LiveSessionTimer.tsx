@@ -6,7 +6,7 @@ import { Video, Clock, ArrowRight } from "lucide-react";
 import { BrandButton } from "@/components/ui/elite-ui";
 
 interface LiveSessionTimerProps {
-  nextSessionTime: Date;
+  nextSessionTime: string | Date;
   zoomUrl: string;
 }
 
@@ -21,8 +21,9 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
 
   useEffect(() => {
     const calculateTimeLeft = () => {
+      const targetDate = typeof nextSessionTime === 'string' ? new Date(nextSessionTime) : nextSessionTime;
       const now = new Date();
-      const difference = nextSessionTime.getTime() - now.getTime();
+      const difference = targetDate.getTime() - now.getTime();
       
       if (difference <= 0) {
         // Session has started or passed
@@ -74,7 +75,7 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
             "text-xl font-black tracking-tight",
             isLive ? "text-white" : "text-brand-navy"
           )}>
-            {isLive ? "The Identity Reconstruction Session" : "Phase 01: Clinical Certainty"}
+            Coaching Call with Dr. Nichols
           </h4>
         </div>
       </div>

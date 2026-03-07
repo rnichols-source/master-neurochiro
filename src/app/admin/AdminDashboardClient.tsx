@@ -12,72 +12,79 @@ import {
   ShieldCheck,
   CheckCircle2,
   AlertTriangle,
-  Send,
   Database,
-  X
+  Send,
+  X,
+  Loader2,
+  Calendar,
+  Link as LinkIcon
 } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
-import { fetchAdminStats, fetchCohortMetrics, fetchRecentActivity } from "@/app/actions/admin-actions";
-import { sendAnnouncement, runEngagementPulse, seedDashboardData } from "@/app/actions/admin-ops";
+import { seedDashboardData, runEngagementPulse, sendAnnouncement } from "@/app/actions/admin-ops";
+import { updateNextCall } from "@/app/actions/call-actions";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
-
-interface AdminDashboardClientProps {
-  initialStats: any;
-  initialCohortData: any;
-  initialActivity: any[];
-}
 
 export function AdminDashboardClient({ 
   initialStats, 
-  initialCohortData, 
+  initialCohortData,
   initialActivity 
-}: AdminDashboardClientProps) {
+}: { 
+  initialStats: any, 
+  initialCohortData: any,
+  initialActivity: any[]
+}) {
   const [stats, setStats] = useState(initialStats);
   const [cohortData, setCohortData] = useState(initialCohortData);
   const [recentActivity, setRecentActivity] = useState(initialActivity);
   const [isSeeding, setIsSeeding] = useState(false);
-  const [isPulseRunning, setIsPulsePulseRunning] = useState(false);
+  const [isPulseRunning, setIsPulseRunning] = useState(false);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
+  const [showCallModal, setShowCallModal] = useState(false);
   const [announcement, setAnnouncement] = useState({ title: '', content: '' });
-
-  const loadData = async () => {
-    const [s, c, a] = await Promise.all([
-      fetchAdminStats(),
-      fetchCohortMetrics(),
-      fetchRecentActivity()
-    ]);
-    if (s.success && s.data) setStats(s.data);
-    if (c.success && c.data) setCohortData(c.data);
-    if (a.success && a.data) setRecentActivity(a.data);
-  };
+  const [nextCallData, setNextCallData] = useState({ date: '', time: '', zoomUrl: '' });
+  const [isSavingCall, setIsSavingCall] = useState(false);
 
   const handleSeed = async () => {
     setIsSeeding(true);
-    const result = await seedDashboardData();
-    if (result.success) {
-      alert("Demo data seeded successfully!");
-      await loadData();
+    const res = await seedDashboardData();
+    if (res.success) {
+      window.location.reload();
     }
     setIsSeeding(false);
   };
 
   const handlePulse = async () => {
-    setIsPulsePulseRunning(true);
-    const result = await runEngagementPulse();
-    if (result.success) {
-      alert(`Pulse triggered for ${result.count} at-risk members.`);
-    }
-    setIsPulsePulseRunning(false);
+    setIsPulseRunning(true);
+    await runEngagementPulse();
+    alert("Engagement pulse complete. At-risk members notified.");
+    setIsPulseRunning(false);
   };
 
   const handleAnnouncement = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await sendAnnouncement(announcement.title, announcement.content);
-    if (result.success) {
-      alert("Announcement sent to the cohort!");
+    const res = await sendAnnouncement(announcement.title, announcement.content);
+    if (res.success) {
+      alert("Announcement broadcasted!");
       setShowAnnouncementModal(false);
       setAnnouncement({ title: '', content: '' });
+    }
+  };
+
+  const handleUpdateCall = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingCall(true);
+    try {
+      const fullDate = new Date(`${nextCallData.date}T${nextCallData.time}`).toISOString();
+      const res = await updateNextCall(fullDate, nextCallData.zoomUrl);
+      if (res.success) {
+        alert("Live call scheduled!");
+        setShowCallModal(false);
+      }
+    } catch (err) {
+      alert("Error scheduling call. Check date format.");
+    } finally {
+      setIsSavingCall(false);
     }
   };
 
@@ -111,6 +118,14 @@ export function AdminDashboardClient({
             className="flex-1 md:flex-none py-3 text-[10px]"
           >
             New Announcement
+          </BrandButton>
+          <BrandButton 
+            variant="primary" 
+            size="sm" 
+            onClick={() => setShowCallModal(true)}
+            className="flex-1 md:flex-none py-3 text-[10px]"
+          >
+            Schedule Live Call
           </BrandButton>
         </div>
       </div>
@@ -150,7 +165,7 @@ export function AdminDashboardClient({
               <DollarSign className="w-4 h-4 md:w-5 md:h-5 text-green-500" />
             </div>
           </div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Total Revenue</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Revenue Est.</p>
           <h3 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">${(stats?.revenue || 0).toLocaleString()}</h3>
         </EliteCard>
 
@@ -228,6 +243,7 @@ export function AdminDashboardClient({
         </div>
       </div>
 
+      {/* Modals */}
       {showAnnouncementModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-brand-navy/40 backdrop-blur-sm">
           <EliteCard className="w-full max-w-xl p-6 md:p-10 animate-in fade-in zoom-in duration-200">
@@ -266,6 +282,66 @@ export function AdminDashboardClient({
               </div>
               <BrandButton type="submit" variant="primary" className="w-full py-3 md:py-4">
                 <Send className="w-4 h-4 mr-2" /> Send Broadcast
+              </BrandButton>
+            </form>
+          </EliteCard>
+        </div>
+      )}
+
+      {showCallModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-brand-navy/40 backdrop-blur-sm">
+          <EliteCard className="w-full max-w-md p-8 animate-in fade-in zoom-in duration-200">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">Schedule Live Mastermind</h3>
+                <p className="text-[10px] font-bold text-brand-orange uppercase tracking-widest mt-1">Updates Student Dashboard Timer</p>
+              </div>
+              <button onClick={() => setShowCallModal(false)} className="p-2 hover:bg-brand-navy/5 rounded-lg transition-all">
+                <X className="w-5 h-5 text-brand-navy/40" />
+              </button>
+            </div>
+
+            <form onSubmit={handleUpdateCall} className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Date</label>
+                  <input 
+                    type="date" 
+                    required
+                    value={nextCallData.date}
+                    onChange={(e) => setNextCallData({...nextCallData, date: e.target.value})}
+                    className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl py-3 px-4 text-xs font-bold text-brand-navy focus:border-brand-orange/20 outline-none"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Time</label>
+                  <input 
+                    type="time" 
+                    required
+                    value={nextCallData.time}
+                    onChange={(e) => setNextCallData({...nextCallData, time: e.target.value})}
+                    className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl py-3 px-4 text-xs font-bold text-brand-navy focus:border-brand-orange/20 outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Zoom Link</label>
+                <div className="relative">
+                  <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-brand-navy/30" />
+                  <input 
+                    type="url" 
+                    required
+                    placeholder="https://zoom.us/j/..."
+                    value={nextCallData.zoomUrl}
+                    onChange={(e) => setNextCallData({...nextCallData, zoomUrl: e.target.value})}
+                    className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl py-3 pl-10 pr-4 text-xs font-bold text-brand-navy focus:border-brand-orange/20 outline-none"
+                  />
+                </div>
+              </div>
+
+              <BrandButton type="submit" variant="primary" className="w-full py-4" isLoading={isSavingCall}>
+                <Calendar className="w-4 h-4 mr-2" /> Sync Call Schedule
               </BrandButton>
             </form>
           </EliteCard>

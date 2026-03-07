@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PhaseRoadmap } from "@/components/portal/PhaseRoadmap";
 import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { WinsConstellation } from "@/components/portal/wins-constellation";
+import { fetchNextCall } from "@/app/actions/call-actions";
 import { 
   ArrowRight, 
   Video,
@@ -16,6 +17,10 @@ type PhaseStatus = 'completed' | 'active' | 'locked';
 export default async function PortalDashboard() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+
+  // 0. Fetch real live call data
+  const callResult = await fetchNextCall();
+  const nextCall = callResult.data || { next_call: new Date().toISOString(), zoom_url: 'https://zoom.us' };
 
   // 1. Fetch real curriculum structure from DB
   const { data: weeks } = await supabase
@@ -49,18 +54,13 @@ export default async function PortalDashboard() {
     });
   }
 
-  // For Demo: Set next session to tomorrow at 12 PM
-  const nextSession = new Date();
-  nextSession.setDate(nextSession.getDate() + 1);
-  nextSession.setHours(12, 0, 0, 0);
-
   return (
     <DashboardLayout>
       <div className="space-y-10">
         {/* Live Session Alert / Timer */}
         <LiveSessionTimer 
-          nextSessionTime={nextSession} 
-          zoomUrl="https://zoom.us/j/your-link" 
+          nextSessionTime={nextCall.next_call} 
+          zoomUrl={nextCall.zoom_url} 
         />
 
         {/* Welcome Header */}
