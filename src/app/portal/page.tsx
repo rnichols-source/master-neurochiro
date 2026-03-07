@@ -5,12 +5,13 @@ import { PhaseRoadmap } from "@/components/portal/PhaseRoadmap";
 import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { WinsConstellation } from "@/components/portal/wins-constellation";
 import { 
-  Play, 
   ArrowRight, 
   Video,
   FileText
 } from "lucide-react";
 import Link from "next/link";
+
+type PhaseStatus = 'completed' | 'active' | 'locked';
 
 export default async function PortalDashboard() {
   const supabase = await createClient();
@@ -23,7 +24,6 @@ export default async function PortalDashboard() {
     .order('week_number', { ascending: true });
   
   // 2. Determine where the user is (Default to Week 1 if no progress found)
-  // In a future update, we can query the 'progress' table to find the latest uncompleted module
   const activeWeek = weeks && weeks.length > 0 ? weeks[0] : {
     week_number: 1,
     title: "Identity of a Nervous System Doctor",
@@ -34,14 +34,18 @@ export default async function PortalDashboard() {
 
   const roadmapPhases = (weeks || []).map(w => ({
     number: w.week_number,
-    title: w.title.split(' ')[0], // Short title like "Identity"
-    status: w.week_number === 1 ? 'active' : 'locked'
+    title: w.title.split(' ')[0],
+    status: (w.week_number === 1 ? 'active' : 'locked') as PhaseStatus
   }));
 
   // Fallback roadmap if DB is empty
   if (roadmapPhases.length === 0) {
     [1,2,3,4,5,6,7,8].forEach(n => {
-      roadmapPhases.push({ number: n, title: "Phase", status: 'locked' });
+      roadmapPhases.push({ 
+        number: n, 
+        title: "Phase", 
+        status: 'locked' as PhaseStatus 
+      });
     });
   }
 
