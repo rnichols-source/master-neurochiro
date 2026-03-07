@@ -3,11 +3,20 @@
 import { motion } from "framer-motion";
 import { Zap, Target, TrendingDown, ArrowRight } from "lucide-react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
-import { cn } from "@/lib/utils";
 
 interface FocusEngineProps {
   data: any[];
   userName: string;
+}
+
+interface MetricFocus {
+  id: string;
+  name: string;
+  curr: number;
+  prev: number;
+  command: string;
+  drill: string;
+  change?: number;
 }
 
 export function FocusEngine({ data, userName }: FocusEngineProps) {
@@ -17,28 +26,28 @@ export function FocusEngine({ data, userName }: FocusEngineProps) {
   const previous = data[data.length - 2];
 
   // Logic to find the "One Thing"
-  const metrics = [
+  const metrics: MetricFocus[] = [
     { 
       id: 'visits', 
       name: 'Patient Visits', 
-      curr: current.patient_visits, 
-      prev: previous.patient_visits,
+      curr: Number(current.patient_visits || 0), 
+      prev: Number(previous.patient_visits || 0),
       command: "Your volume is dipping. Tighten your 'Identity Anchor' scripts today.",
       drill: "Watch: The 3-Minute Volume Reset"
     },
     { 
       id: 'collections', 
       name: 'Total Collections', 
-      curr: current.collections, 
-      prev: previous.collections,
+      curr: Number(current.collections || 0), 
+      prev: Number(previous.collections || 0),
       command: "Revenue velocity has stalled. Audit your 'Financial Bridge' conversations.",
       drill: "Practice: The Certainty Close"
     },
     { 
       id: 'new_patients', 
       name: 'New Patients', 
-      curr: current.new_patients, 
-      prev: previous.new_patients,
+      curr: Number(current.new_patients || 0), 
+      prev: Number(previous.new_patients || 0),
       command: "Attraction is leaking. Your 'Language of neurology' needs more heat.",
       drill: "Review: The Master ROF"
     }
@@ -46,9 +55,10 @@ export function FocusEngine({ data, userName }: FocusEngineProps) {
 
   // Find metric with biggest % drop
   const focusMetric = metrics.reduce((prevMax, m) => {
-    const change = ((m.curr - m.prev) / (m.prev || 1)) * 100;
-    return change < prevMax.change ? { ...m, change } : prevMax;
-  }, { change: 0, ...metrics[0] });
+    const currentChange = ((m.curr - m.prev) / (m.prev || 1)) * 100;
+    const prevMaxChange = prevMax.change ?? 0;
+    return currentChange < prevMaxChange ? { ...m, change: currentChange } : prevMax;
+  }, { ...metrics[0], change: ((metrics[0].curr - metrics[0].prev) / (metrics[0].prev || 1)) * 100 } as MetricFocus);
 
   // If everything is up, focus on the smallest gain or just volume
   const isAllPositive = metrics.every(m => m.curr >= m.prev);
@@ -60,7 +70,6 @@ export function FocusEngine({ data, userName }: FocusEngineProps) {
       animate={{ opacity: 1, y: 0 }}
       className="relative mb-12"
     >
-      {/* Glowing Ambient Effect */}
       <div className="absolute -inset-1 bg-gradient-to-r from-brand-orange/20 to-brand-navy/0 blur-2xl rounded-[2rem] opacity-50" />
       
       <EliteCard className="border-brand-orange/30 bg-white/80 backdrop-blur-md relative overflow-hidden group">
