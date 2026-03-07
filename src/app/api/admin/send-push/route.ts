@@ -1,14 +1,14 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { NextResponse } from "next/server";
-import webpush from "web-push";
-
-webpush.setVapidDetails(
-  process.env.VAPID_SUBJECT || "mailto:admin@neurochiromastermind.com",
-  process.env.VAPID_PUBLIC_KEY!,
-  process.env.VAPID_PRIVATE_KEY!
-);
+import * as webpush from "web-push";
 
 export async function POST(req: Request) {
+  webpush.setVapidDetails(
+    process.env.VAPID_SUBJECT || "mailto:admin@neurochiromastermind.com",
+    process.env.VAPID_PUBLIC_KEY!,
+    process.env.VAPID_PRIVATE_KEY!
+  );
+
   const supabase = createAdminClient();
   
   // 1. Verify Admin

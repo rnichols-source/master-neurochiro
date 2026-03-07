@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
+import { PushNotificationManager } from "@/components/portal/push-manager";
 
 const navItems = [
   { name: "Dashboard", href: "/portal", icon: LayoutDashboard },
@@ -103,6 +104,8 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
           </div>
         )}
       </nav>
+
+      <PushNotificationManager />
 
       <div className="p-4 border-t border-white/10">
         <button 
