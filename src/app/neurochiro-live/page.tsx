@@ -240,6 +240,72 @@ export default function NeuroChiroLivePage() {
           </div>
         </section>
 
+        {/* TESTIMONIALS */}
+        <section className="section-padding bg-brand-navy relative overflow-hidden px-8">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-brand-orange/5 rounded-full blur-[120px] opacity-20" />
+          
+          <div className="max-w-7xl mx-auto relative z-10">
+            <div className="mb-20 space-y-4 text-center">
+              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Real Results</p>
+              <h2 className="text-5xl md:text-7xl font-black text-white leading-none uppercase tracking-tighter">Breakthroughs Doctors <br /><span className="text-white/20">Are Experiencing.</span></h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Testimonial 1 - Dr. Mike */}
+              <div className="glass-panel p-12 rounded-[3.5rem] relative group border-white/5 hover:border-brand-orange/20 transition-all duration-500 flex flex-col">
+                <Quote className="w-16 h-16 text-brand-orange absolute top-10 right-12 opacity-10 group-hover:opacity-20 transition-opacity" />
+                
+                <div className="flex-1 space-y-8">
+                  <div className="space-y-2">
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-[10px]">The Breakthrough</p>
+                    <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none">From Over-Explaining <br />To Clinical Certainty.</h3>
+                  </div>
+
+                  <p className="text-xl text-white/60 font-medium leading-relaxed italic">
+                    "I used to find myself talking my way out of recommendations. I'd keep explaining because I was uncertain, and I'd fill the silence with unnecessary words. Learning the NeuroChiro framework changed everything. I've learned to say less and speak with more power. Now, my recommendations are stronger, and patients respond with a level of confidence I hadn't seen before."
+                  </p>
+
+                  <div className="pt-8 border-t border-white/5 flex items-center justify-between">
+                    <div>
+                      <p className="text-white font-black uppercase tracking-widest text-sm">Dr. Mike</p>
+                      <p className="text-white/30 text-[10px] font-bold uppercase tracking-widest">Practicing Chiropractor</p>
+                    </div>
+                    <div className="px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20">
+                      <span className="text-[10px] font-black text-brand-orange uppercase tracking-widest">Key Insight: Command The Silence</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Testimonial 2 - Dr. Melissa */}
+              <div className="glass-panel p-12 rounded-[3.5rem] relative group border-white/5 hover:border-brand-orange/20 transition-all duration-500 flex flex-col">
+                <Quote className="w-16 h-16 text-brand-orange absolute top-10 right-12 opacity-10 group-hover:opacity-20 transition-opacity" />
+                
+                <div className="flex-1 space-y-8">
+                  <div className="space-y-2">
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-[10px]">The Alignment</p>
+                    <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none">Connecting Philosophy <br />With Language.</h3>
+                  </div>
+
+                  <p className="text-xl text-white/60 font-medium leading-relaxed italic">
+                    "Coming from a musculoskeletal-focused school, I always felt an internal conflict because I believed in the nervous system but didn't have the language to communicate it. NeuroChiro provided the bridge. Now, my philosophy, my language, and my clinical recommendations are all perfectly aligned. It has completely transformed how I show up for my patients."
+                  </p>
+
+                  <div className="pt-8 border-t border-white/5 flex items-center justify-between">
+                    <div>
+                      <p className="text-white font-black uppercase tracking-widest text-sm">Dr. Melissa</p>
+                      <p className="text-white/30 text-[10px] font-bold uppercase tracking-widest">Practicing Chiropractor</p>
+                    </div>
+                    <div className="px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20">
+                      <span className="text-[10px] font-black text-brand-orange uppercase tracking-widest">Key Insight: Philosophical Congruence</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* PRICING */}
         <section id="pricing" className="section-padding bg-brand-navy relative overflow-hidden px-8">
           <div className="max-w-7xl mx-auto relative z-10">
