@@ -329,8 +329,12 @@ export default function NeuroChiroLivePage() {
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
               <div className="aspect-[4/5] bg-white/5 rounded-[4rem] flex items-center justify-center border border-white/5 relative group overflow-hidden">
-                <div className="absolute inset-0 bg-brand-orange/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <span className="text-white/10 font-black text-4xl uppercase tracking-[1em] rotate-90 whitespace-nowrap">Dr. Raymond Nichols</span>
+                <img 
+                  src="/dr-raymond.jpg" 
+                  alt="Dr. Raymond Nichols" 
+                  className="absolute inset-0 w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
+                />
+                <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-700" />
               </div>
               <div className="space-y-10">
                 <div className="space-y-4">
