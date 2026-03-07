@@ -27,48 +27,6 @@ export const StripeProcessor = {
 
     console.log(`Processing successful payment for: ${customerEmail}`);
 
-    // --- EVENT FULFILLMENT ---
-    const eventId = session.metadata?.event_id;
-    const ticketTypeId = session.metadata?.ticket_type_id;
-
-    if (eventId && ticketTypeId) {
-      // 1. Insert into event_attendees
-      const { error: attendeeError } = await supabaseAdmin
-        .from("event_attendees")
-        .insert([{
-          event_id: eventId,
-          ticket_type_id: ticketTypeId,
-          full_name: customerName,
-          email: customerEmail,
-          stripe_session_id: session.id,
-          stripe_customer_id: session.customer,
-          payment_status: 'paid'
-        }]);
-
-      if (attendeeError) console.error("Error inserting attendee:", attendeeError);
-
-      // 2. Increment sold_count in ticket_types
-      const { data: ticketType } = await supabaseAdmin
-        .from("ticket_types")
-        .select("sold_count")
-        .eq("id", ticketTypeId)
-        .single();
-      
-      if (ticketType) {
-        await supabaseAdmin
-          .from("ticket_types")
-          .update({ sold_count: (ticketType.sold_count || 0) + 1 })
-          .eq("id", ticketTypeId);
-      }
-
-      // 3. Send Event Confirmation Email
-      const { data: eventData } = await supabaseAdmin.from("events").select("title").eq("id", eventId).single();
-      await EmailService.sendEventConfirmation(customerEmail, customerName, eventData?.title || "NeuroChiro Live");
-
-      return { success: true, type: 'event' };
-    }
-
-    // --- MEMBERSHIP FULFILLMENT ---
     // 1. Update Application Status to 'paid'
     if (applicationId) {
       const { error: appError } = await supabaseAdmin
