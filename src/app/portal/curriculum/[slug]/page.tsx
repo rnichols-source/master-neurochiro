@@ -16,8 +16,11 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { notFound } from "next/navigation";
 
-export default async function WeekDetailPage({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+// Next.js 15 requires params to be treated as a Promise
+export default async function WeekDetailPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
+  const slug = params.slug;
+  
   const result = await fetchWeekDetail(slug);
   
   if (!result.success || !result.data) {
@@ -43,9 +46,9 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
   }
   
   // Calculate completion
-  const completedCount = modules.filter((m: any) => m.status === 'completed').length;
-  const isPhaseFinished = completedCount === modules.length && modules.length > 0;
-  const completionPercent = modules.length > 0 ? Math.round((completedCount / modules.length) * 100) : 0;
+  const completedCount = (modules || []).filter((m: any) => m.status === 'completed').length;
+  const isPhaseFinished = completedCount === (modules || []).length && (modules || []).length > 0;
+  const completionPercent = (modules || []).length > 0 ? Math.round((completedCount / modules.length) * 100) : 0;
 
   const quizQuestions = [
     {
@@ -63,6 +66,12 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
       feedback: "Identity reconstruction is the first step. Who you are determines the frequency of your clinic."
     }
   ];
+
+  // Server Action Bridge for the Quiz
+  async function handlePhaseVerification() {
+    'use server'
+    await verifyPhase(week.id);
+  }
 
   return (
     <DashboardLayout>
@@ -110,10 +119,7 @@ export default async function WeekDetailPage({ params }: { params: { slug: strin
                 <CurriculumQuiz 
                   phaseTitle={week.title} 
                   questions={quizQuestions}
-                  onComplete={async () => {
-                    'use server'
-                    await verifyPhase(week.id);
-                  }}
+                  onComplete={handlePhaseVerification}
                 />
               </div>
             ) : (
