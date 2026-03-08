@@ -78,6 +78,18 @@ export default async function proxy(request: NextRequest) {
   const matchedBase = Object.keys(routePermissions).find(path => pathname.startsWith(path))
 
   if (matchedBase) {
+    // 🛡️ Demo Perspective Bypass
+    const demoRole = request.cookies.get('nc_demo_role')?.value;
+    
+    if (demoRole) {
+      console.log(`[PROXY] Demo Mode Active: Simulated Role = ${demoRole}`);
+      const allowedRoles = routePermissions[matchedBase];
+      if (allowedRoles.includes(demoRole) || demoRole === 'admin') {
+        return response; // Allow access
+      }
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) {

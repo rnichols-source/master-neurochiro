@@ -4,26 +4,47 @@ import { createServerSupabase } from '@/lib/supabase-server'
 import { redirect } from 'next/navigation'
 import { Automations } from '@/lib/automations'
 
+import { cookies } from 'next/headers'
+
 export async function login(formData: FormData) {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   const supabase = createServerSupabase()
 
-  // 🛡️ Safe Mode Redirect Logic (Bypass for UX Audit)
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-    console.log("[SAFE MODE] Processing Quick Login for:", email);
+  // 🛡️ Perspective Bypass Logic (For UX Demo & Audit)
+  // This allows viewing the site from different roles using the sandbox buttons
+  if (email.endsWith('@neurochiro.com')) {
+    console.log("[DEMO MODE] Activating perspective bypass for:", email);
     
-    if (email.includes('admin')) return redirect("/admin/dashboard");
-    if (email.includes('vendor')) return redirect("/vendor/dashboard");
-    if (email.includes('patient')) return redirect("/portal/dashboard");
-    if (email.includes('student_paid')) return redirect("/student/dashboard");
-    if (email.includes('student')) return redirect("/student/dashboard");
-    if (email.includes('doctor')) return redirect("/doctor/dashboard");
+    let role = 'public';
+    if (email.includes('admin')) role = 'admin';
+    else if (email.includes('vendor')) role = 'vendor';
+    else if (email.includes('patient')) role = 'patient';
+    else if (email.includes('student_paid')) role = 'student_paid';
+    else if (email.includes('student')) role = 'student_free';
+    else if (email.includes('doctor_pro')) role = 'doctor_pro';
+    else if (email.includes('doctor_growth')) role = 'doctor_growth';
+    else if (email.includes('doctor')) role = 'doctor_member';
+
+    // Set a secure demo cookie that the proxy will respect
+    const cookieStore = await cookies();
+    cookieStore.set('nc_demo_role', role, { 
+      path: '/', 
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60 * 60 * 2 // 2 hours
+    });
+
+    if (role === "admin") return redirect("/admin/dashboard");
+    if (role === "vendor") return redirect("/vendor/dashboard");
+    if (role === "patient") return redirect("/portal/dashboard");
+    if (role.startsWith("student")) return redirect("/student/dashboard");
+    if (role.startsWith("doctor")) return redirect("/doctor/dashboard");
     
-    return redirect("/doctor/dashboard"); // Default fallback
+    return redirect("/doctor/dashboard");
   }
 
-  // 🚀 Production Logic
+  // 🚀 Production Logic (Standard Supabase Auth)
   const { error, data } = await supabase.auth.signInWithPassword({
     email,
     password,
