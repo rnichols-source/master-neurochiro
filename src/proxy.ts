@@ -14,7 +14,7 @@ const MAX_GENERAL_REQUESTS = 100;
 const MAX_AUTH_REQUESTS = 10; // Strict for login/signup
 const ipCache = new Map<string, { count: number, start: number }>();
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
   const now = Date.now();
   const { pathname } = request.nextUrl;
