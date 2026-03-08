@@ -1,0 +1,217 @@
+"use client";
+
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRegion } from "@/context/RegionContext";
+import Supercluster from "supercluster";
+import { 
+  Search, 
+  MapPin, 
+  GraduationCap, 
+  CalendarDays, 
+  Filter,
+  X,
+  ArrowRight,
+  ShieldCheck,
+  Loader2
+} from "lucide-react";
+import { getDoctors } from "@/app/(public)/directory/actions";
+import { Doctor } from "@/types/directory";
+
+export default function GlobalNetworkMap() {
+  const router = useRouter();
+  const { region } = useRegion();
+  const [activeLayer, setActiveLayer] = useState<"all" | "student" | "seminar">("all");
+  const [selectedPin, setSelectedPin] = useState<Record<string, any> | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const currentBounds = useRef<[number, number, number, number] | null>(null);
+
+  // Initialize Supercluster
+  const index = useMemo(() => {
+    const cluster = new Supercluster({
+      radius: 60,
+      maxZoom: 16
+    });
+
+    const points = doctors
+      .filter(doc => doc.latitude !== 0 && doc.longitude !== 0)
+      .map(doc => ({
+        type: 'Feature' as const,
+        properties: { 
+          cluster: false, 
+          doctorId: doc.id,
+          name: `Dr. ${doc.last_name}`,
+          clinic: doc.clinic_name,
+          slug: doc.slug,
+          isHiring: doc.is_hiring,
+          isMentoring: doc.is_mentoring
+        },
+        geometry: {
+          type: 'Point' as const,
+          coordinates: [doc.longitude, doc.latitude]
+        }
+      }));
+
+    cluster.load(points as Supercluster.PointFeature<Supercluster.AnyProps>[]);
+    return cluster;
+  }, [doctors]);
+
+  const updateMapData = useCallback(async (bounds: [number, number, number, number], zoom: number) => {
+    // 1. Fetch only visible markers for the current viewport
+    const result = await getDoctors({ bounds, limit: 100 });
+    setDoctors(result.doctors);
+
+    if (!iframeRef.current?.contentWindow) return;
+
+    // 2. Fetch clusters and points for the current viewport
+    const clusters = index.getClusters(bounds, Math.round(zoom));
+
+    iframeRef.current.contentWindow.postMessage({ 
+      type: 'update-clusters', 
+      data: clusters 
+    }, '*');
+  }, [index]);
+
+  // Listen for messages from the standalone map engine
+  useEffect(() => {
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data.type === 'marker-click') {
+        setSelectedPin(e.data.data as Record<string, any>);
+      }
+      if (e.data.type === 'map-move') {
+        currentBounds.current = e.data.bounds;
+        updateMapData(e.data.bounds, e.data.zoom);
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [updateMapData]);
+
+  return (
+    <div className="relative w-full h-full bg-[#0B1118] overflow-hidden rounded-[2.5rem]">
+      {loading && (
+        <div className="absolute inset-0 z-50 bg-neuro-navy/40 backdrop-blur-sm flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <Loader2 className="w-10 h-10 text-neuro-orange animate-spin" />
+            <p className="text-white font-black uppercase tracking-widest text-xs">Syncing Global Nodes...</p>
+          </div>
+        </div>
+      )}
+
+      {/* 1. STANDALONE MAP ENGINE */}
+      <iframe 
+        ref={iframeRef}
+        src="/network-map.html"
+        className="absolute inset-0 w-full h-full border-none"
+        title="Global Network Map"
+        onLoad={() => {
+          // Iframe will send 'map-move' on initial load to trigger first cluster calculation
+        }}
+      />
+
+      {/* 2. FLOATING COMMAND PALETTE */}
+      <div className="absolute top-8 left-8 right-8 md:right-auto md:w-96 z-10 space-y-4">
+        <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-2 rounded-2xl shadow-2xl flex items-center gap-2">
+          <Search className="w-5 h-5 text-gray-400 ml-2" />
+          <input 
+            type="text" 
+            placeholder="Search doctors, cities, specialties..." 
+            className="bg-transparent border-none focus:outline-none text-white w-full placeholder:text-gray-400 text-sm"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button className="p-2 bg-white/10 rounded-xl hover:bg-white/20 transition-colors">
+            <Filter className="w-4 h-4 text-white" />
+          </button>
+        </div>
+
+        <div className="bg-white/5 backdrop-blur-md border border-white/10 px-4 py-2 rounded-xl inline-flex items-center gap-2">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <span className="text-[10px] font-black uppercase tracking-widest text-gray-300">
+            {region.label} Node Active: <span className="text-white">{doctors.length} Verified Clinics</span>
+          </span>
+        </div>
+      </div>
+
+      {/* 3. LAYER TOGGLES */}
+      <div className="absolute bottom-12 right-8 z-10 flex flex-col gap-3">
+        {[
+          { id: "all", label: "Global Network", icon: MapPin, color: "text-neuro-orange hover:bg-neuro-orange hover:text-white" },
+          { id: "student", label: "Student Layer", icon: GraduationCap, color: "text-blue-500 hover:bg-blue-500 hover:text-white" },
+          { id: "seminar", label: "Seminars", icon: CalendarDays, color: "text-purple-500 hover:bg-purple-500 hover:text-white" }
+        ].map(layer => (
+          <button 
+            key={layer.id}
+            onClick={() => setActiveLayer(layer.id as "all" | "student" | "seminar")}
+            className="flex items-center justify-end gap-3 group"
+          >
+            <span className="text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-md bg-black/50 px-2 py-1 rounded-md backdrop-blur-sm">
+              {layer.label}
+            </span>
+            <div className={`w-12 h-12 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-xl transition-all ${activeLayer === layer.id ? layer.color.split(' ')[1] + ' text-white border-transparent' : layer.color}`}>
+              <layer.icon className="w-5 h-5" />
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* 4. SLIDE-OUT PANEL */}
+      <AnimatePresence>
+        {selectedPin && (
+          <motion.div 
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0 }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="absolute top-0 right-0 w-full md:w-[400px] h-full bg-[#131B24]/95 backdrop-blur-2xl border-l border-white/10 z-20 shadow-2xl flex flex-col"
+          >
+            <div className="p-6 flex-1 overflow-y-auto">
+              <div className="flex justify-end mb-6">
+                <button onClick={() => setSelectedPin(null)} className="p-2 bg-white/5 hover:bg-white/10 rounded-full text-gray-400 hover:text-white transition-colors">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="w-full h-48 bg-white/5 rounded-3xl mb-6 relative overflow-hidden border border-white/5">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#131B24] to-transparent z-10"></div>
+              </div>
+
+              <div className="relative z-20 -mt-16 mb-4 flex items-end gap-4">
+                <div className="w-20 h-20 bg-neuro-orange rounded-2xl border-4 border-[#131B24] flex items-center justify-center text-white text-2xl font-black shadow-xl">
+                  {selectedPin.name[4]}
+                </div>
+                <div className="flex items-center gap-1 text-[10px] font-black text-neuro-orange uppercase tracking-widest bg-neuro-orange/10 px-2 py-1 rounded-lg border border-neuro-orange/20 mb-2">
+                  <ShieldCheck className="w-3 h-3" /> Verified
+                </div>
+              </div>
+
+              <h2 className="text-2xl font-heading font-black text-white">{selectedPin.name}</h2>
+              <p className="text-gray-400 font-medium">{selectedPin.clinic}</p>
+              
+              <div className="flex items-center gap-2 text-sm text-gray-500 mt-2 mb-8">
+                <MapPin className="w-4 h-4" /> Global Node Active
+              </div>
+
+              <div className="space-y-6 text-gray-300 text-sm leading-relaxed">
+                Expert in nervous-system-first chiropractic care. View the full clinical profile to see techniques, patient reviews, and clinic hours.
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-white/10 bg-[#131B24]">
+              <button 
+                onClick={() => router.push(`/directory/${selectedPin.slug}`)}
+                className="w-full py-4 bg-neuro-orange hover:bg-neuro-orange-light text-white font-black uppercase tracking-widest text-sm rounded-2xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-neuro-orange/20"
+              >
+                View Full Profile <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
