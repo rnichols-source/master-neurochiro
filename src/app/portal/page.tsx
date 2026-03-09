@@ -5,6 +5,7 @@ import { PhaseRoadmap } from "@/components/portal/PhaseRoadmap";
 import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { WinsConstellation } from "@/components/portal/wins-constellation";
 import { fetchNextCall } from "@/app/actions/call-actions";
+import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
 import { 
   ArrowRight, 
   Video,
@@ -23,24 +24,24 @@ export default async function PortalDashboard() {
   const nextCall = callResult.data || { call_time: new Date().toISOString(), zoom_url: 'https://zoom.us' };
 
   // 1. Fetch real curriculum structure from DB
-  const { data: weeks } = await supabase
-    .from('weeks')
-    .select('*')
-    .order('week_number', { ascending: true });
+  const curriculumResult = await fetchCurriculumWithProgress();
+  const weeks = curriculumResult.success && curriculumResult.data ? curriculumResult.data : [];
   
-  // 2. Determine where the user is (Default to Week 1 if no progress found)
-  const activeWeek = weeks && weeks.length > 0 ? weeks[0] : {
+  // 2. Determine where the user is (Find first active or default to Week 1)
+  const activeWeek = weeks.find((w: any) => w.status === 'active') || weeks[0] || {
     week_number: 1,
     title: "Identity of a Nervous System Doctor",
     description: "Who you are determines how you practice. Week 1 is about clinical reconstruction.",
     slug: "week-1-identity",
-    progress: 0
+    progress: 0,
+    status: 'active'
   };
 
-  const roadmapPhases = (weeks || []).map(w => ({
+  const roadmapPhases = weeks.map((w: any) => ({
     number: w.week_number,
-    title: w.title.split(' ')[0],
-    status: (w.week_number === 1 ? 'active' : 'locked') as PhaseStatus
+    title: w.title.split(' ')[0], // Keep it short for the roadmap label
+    status: w.status as PhaseStatus,
+    slug: w.slug
   }));
 
   // Fallback roadmap if DB is empty
@@ -49,7 +50,8 @@ export default async function PortalDashboard() {
       roadmapPhases.push({ 
         number: n, 
         title: "Phase", 
-        status: 'locked' as PhaseStatus 
+        status: (n === 1 ? 'active' : 'locked') as PhaseStatus,
+        slug: `week-${n}`
       });
     });
   }
@@ -94,10 +96,10 @@ export default async function PortalDashboard() {
         {/* Hero Active Module */}
         <EliteCard className="p-0 overflow-hidden border-brand-navy/10 shadow-2xl">
           <div className="flex flex-col lg:flex-row">
-            <div className="lg:w-1/3 bg-brand-navy p-12 text-white flex flex-col justify-between min-h-[300px]">
+            <div className="lg:w-1/3 bg-brand-navy p-6 md:p-12 text-white flex flex-col justify-between min-h-[250px] md:min-h-[300px]">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Current Phase</p>
-                <h2 className="text-5xl font-black mb-4">Week {activeWeek.week_number}</h2>
+                <h2 className="text-4xl md:text-5xl font-black mb-4">Week {activeWeek.week_number}</h2>
                 <p className="text-sm font-medium text-white/60 leading-relaxed">{activeWeek.title}</p>
               </div>
               <div className="space-y-4 pt-8">
@@ -111,17 +113,17 @@ export default async function PortalDashboard() {
               </div>
             </div>
 
-            <div className="flex-1 p-12 bg-white flex flex-col justify-between">
+            <div className="flex-1 p-6 md:p-12 bg-white flex flex-col justify-between">
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-2xl font-black text-brand-navy">Next Implementation Task</h3>
+                  <h3 className="text-xl md:text-2xl font-black text-brand-navy">Next Implementation Task</h3>
                   <p className="text-sm font-bold text-brand-orange mt-1">Start Phase {activeWeek.week_number} modules</p>
                 </div>
                 <p className="text-brand-gray text-sm leading-relaxed max-w-xl">
                   {activeWeek.description}
                 </p>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                   {[
                     { label: "Identity Calibration Video", icon: Video, time: "14 min" },
                     { label: "Implementation Worksheet", icon: FileText, time: "Download" },
@@ -137,9 +139,9 @@ export default async function PortalDashboard() {
                 </div>
               </div>
 
-              <div className="pt-10 flex justify-end">
-                <Link href={`/portal/curriculum/${activeWeek.slug}`}>
-                  <BrandButton variant="primary" className="group">
+              <div className="pt-8 md:pt-10 flex justify-end">
+                <Link href={`/portal/curriculum/${activeWeek.slug}`} className="w-full md:w-auto">
+                  <BrandButton variant="primary" className="group w-full md:w-auto">
                     Resume Phase {activeWeek.week_number} <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </BrandButton>
                 </Link>
