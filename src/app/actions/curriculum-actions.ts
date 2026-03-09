@@ -193,24 +193,37 @@ export async function completeModule(moduleId: string, reflection?: string) {
 }
 
 export async function verifyPhase(weekId: number) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { success: false, error: 'Not authenticated' }
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return { success: false, error: 'Not authenticated' }
 
-  const { data: modules } = await supabase.from('modules').select('id').eq('week_id', weekId)
-  if (!modules || modules.length === 0) return { success: false, error: 'No modules' }
+    const { data: modules, error: modulesError } = await supabase
+      .from('modules')
+      .select('id')
+      .eq('week_id', weekId)
 
-  const progressEntries = modules.map(m => ({
-    user_id: user.id,
-    module_id: m.id,
-    completed_at: new Date().toISOString()
-  }))
+    if (modulesError) throw modulesError
+    if (!modules || modules.length === 0) return { success: false, error: 'No modules' }
 
-  const { error } = await supabase.from('member_progress').upsert(progressEntries, { onConflict: 'user_id,module_id' })
-  if (error) return { success: false, error: error.message }
+    const progressEntries = modules.map(m => ({
+      user_id: user.id,
+      module_id: m.id,
+      completed_at: new Date().toISOString()
+    }))
 
-  revalidatePath('/portal/curriculum')
-  return { success: true }
+    const { error: upsertError } = await supabase
+      .from('member_progress')
+      .upsert(progressEntries, { onConflict: 'user_id,module_id' })
+
+    if (upsertError) throw upsertError
+
+    revalidatePath('/portal/curriculum')
+    return { success: true }
+  } catch (err: any) {
+    console.error('[CURRICULUM] Verify phase failed:', err.message)
+    return { success: false, error: err.message }
+  }
 }
 
 export async function fetchResources() {
