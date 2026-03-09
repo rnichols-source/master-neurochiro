@@ -99,10 +99,11 @@ export const EmailService = {
   },
 
 // 4. Step 8: Onboarding Ready
-  async sendOnboardingReady(email: string, name: string, activationLink: string) {
+  async sendOnboardingReady(email: string, name: string, activationLink?: string) {
+    const finalLink = activationLink || `${process.env.NEXT_PUBLIC_SITE_URL}/portal`;
     console.log(`[EMAIL] Attempting 'Premium Onboarding' email to ${email}`);
     if (isMock) {
-      console.log(`[MOCK EMAIL] To: ${email} | Subject: Your NeuroChiro Mastermind Portal Is Ready | Link: ${activationLink}`);
+      console.log(`[MOCK EMAIL] To: ${email} | Subject: Your NeuroChiro Mastermind Portal Is Ready | Link: ${finalLink}`);
       return { data: { id: "mock_id" }, error: null };
     }
 
@@ -148,7 +149,7 @@ export const EmailService = {
                 </p>
 
                 <div align="center" style="margin-bottom: 48px;">
-                  <a href="${activationLink}" style="background-color: #E67E22; color: #ffffff; padding: 20px 40px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 16px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block;">
+                  <a href="${finalLink}" style="background-color: #E67E22; color: #ffffff; padding: 20px 40px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 16px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block;">
                     Activate Your Profile
                   </a>
                 </div>
