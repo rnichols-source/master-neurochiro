@@ -13,12 +13,10 @@ import {
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export default async function ModuleDetailPage({ 
-  params 
-}: { 
-  params: { slug: string; moduleSlug: string } 
+export default async function ModuleDetailPage(props: { 
+  params: Promise<{ slug: string; moduleSlug: string }> 
 }) {
-  const { slug, moduleSlug } = await params;
+  const { slug, moduleSlug } = await props.params;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   

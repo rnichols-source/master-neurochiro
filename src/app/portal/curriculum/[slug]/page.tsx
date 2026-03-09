@@ -37,7 +37,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
       .select('*')
       .eq('week_id', week.id);
     
-    if (data && !error) {
+    if (!error && data) {
       resources = data;
     }
   } catch (err) {
