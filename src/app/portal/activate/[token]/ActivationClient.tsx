@@ -11,7 +11,8 @@ import {
   CheckCircle2, 
   Loader2,
   MapPin,
-  Calendar
+  Calendar,
+  Zap
 } from "lucide-react";
 import { activateMemberProfile } from "@/app/actions/onboarding-actions";
 import { createClient } from "@/lib/supabase/client";
