@@ -7,6 +7,7 @@ import { fetchKPIEntries } from "@/app/actions/kpi-actions";
 import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
 import { fetchNextCall } from "@/app/actions/call-actions";
 import LiveCallBanner from "@/components/portal/LiveCallBanner";
+import GuidedTutorial from "@/components/portal/GuidedTutorial";
 import { 
   Play, 
   CheckCircle2, 
@@ -16,7 +17,9 @@ import {
   DollarSign,
   Video,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  Zap,
+  Sparkles
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -31,6 +34,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
   ]);
   const [currentWeek, setCurrentWeek] = useState<any>(null);
   const [nextCall, setNextCall] = useState<any>(null);
+  const [showWelcome, setShowWelcome] = useState(profile?.is_first_login);
 
   useEffect(() => {
     // Step 5: Redirect if profile is pending
@@ -100,8 +104,35 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
 
   return (
     <div className="space-y-8">
+      {/* Tutorial Trigger */}
+      {profile?.is_first_login && <GuidedTutorial />}
+
+      {/* Welcome Card for first time login */}
+      {showWelcome && (
+        <EliteCard className="p-8 border-brand-orange/40 bg-gradient-to-r from-brand-orange/10 to-transparent relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform">
+            <Sparkles size={120} className="text-brand-orange" />
+          </div>
+          <div className="relative z-10 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-brand-orange flex items-center justify-center text-white">
+                <Zap size={20} />
+              </div>
+              <h2 className="text-2xl font-black text-brand-navy uppercase tracking-tight">Installation Complete.</h2>
+            </div>
+            <p className="text-brand-gray max-w-2xl font-medium">
+              Welcome back, <span className="text-brand-navy font-bold">{profile.full_name}</span>. 
+              Your NeuroChiro Mastermind profile is now active. Everything you need—curriculum, implementation tools, and KPI tracking—is now integrated into this Command Center.
+            </p>
+            <BrandButton size="sm" onClick={() => setShowWelcome(false)}>
+              Enter Portal
+            </BrandButton>
+          </div>
+        </EliteCard>
+      )}
+
       {/* Welcome Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div id="dashboard-header" className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <p className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-2">
             Practice Intelligence
@@ -129,10 +160,10 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
       </div>
 
       {/* Live Call Banner */}
-      {!loading && <LiveCallBanner call={nextCall} />}
+      {!loading && <div id="live-call-banner"><LiveCallBanner call={nextCall} /></div>}
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div id="kpi-card" className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {loading ? (
           [1, 2, 3].map((i) => (
             <EliteCard key={i} className="h-32 flex items-center justify-center">
@@ -175,64 +206,66 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Active Learning */}
-        <EliteCard 
-          title="Current Focus" 
-          subtitle={currentWeek ? `Week ${currentWeek.week_number}` : 'Loading...'}
-          className="lg:col-span-2"
-        >
-          {loading ? (
-            <div className="h-48 flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-brand-orange" />
-            </div>
-          ) : currentWeek ? (
-            <div className="flex flex-col md:flex-row gap-8 items-center">
-                <div className="relative w-full md:w-64 aspect-video bg-brand-navy rounded-xl overflow-hidden group cursor-pointer">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-60 group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 flex items-center justify-center bg-brand-navy/40 group-hover:bg-brand-navy/20 transition-colors">
-                    <div className="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center shadow-xl shadow-brand-orange/40 group-hover:scale-110 transition-transform">
-                    <Play className="w-5 h-5 text-white fill-white ml-1" />
-                    </div>
-                </div>
-                </div>
-                
-                <div className="flex-1 space-y-4 text-center md:text-left w-full">
-                <div>
-                    <h4 className="text-xl font-black text-brand-navy">{currentWeek.title}</h4>
-                    <p className="text-sm text-brand-gray mt-1">
-                    Theme: <span className="italic">"{currentWeek.theme}"</span>
-                    </p>
-                </div>
-                
-                <div className="space-y-2">
-                    <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-brand-navy/40">
-                    <span>Phase Progress</span>
-                    <span>{currentWeek.status === 'completed' ? '100%' : 'In Progress'}</span>
-                    </div>
-                    <div className="h-2 w-full bg-brand-navy/5 rounded-full overflow-hidden">
-                    <div 
-                        className={cn(
-                            "h-full rounded-full transition-all duration-1000",
-                            currentWeek.status === 'completed' ? "bg-green-500 w-full" : "bg-brand-orange w-1/3"
-                        )}
-                    />
-                    </div>
-                </div>
+        <div id="curriculum-card" className="lg:col-span-2">
+          <EliteCard 
+            title="Current Focus" 
+            subtitle={currentWeek ? `Week ${currentWeek.week_number}` : 'Loading...'}
+            className="h-full"
+          >
+            {loading ? (
+              <div className="h-48 flex items-center justify-center">
+                  <Loader2 className="w-8 h-8 animate-spin text-brand-orange" />
+              </div>
+            ) : currentWeek ? (
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                  <div className="relative w-full md:w-64 aspect-video bg-brand-navy rounded-xl overflow-hidden group cursor-pointer">
+                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-60 group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute inset-0 flex items-center justify-center bg-brand-navy/40 group-hover:bg-brand-navy/20 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center shadow-xl shadow-brand-orange/40 group-hover:scale-110 transition-transform">
+                      <Play className="w-5 h-5 text-white fill-white ml-1" />
+                      </div>
+                  </div>
+                  </div>
+                  
+                  <div className="flex-1 space-y-4 text-center md:text-left w-full">
+                  <div>
+                      <h4 className="text-xl font-black text-brand-navy">{currentWeek.title}</h4>
+                      <p className="text-sm text-brand-gray mt-1">
+                      Theme: <span className="italic">"{currentWeek.theme}"</span>
+                      </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                      <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-brand-navy/40">
+                      <span>Phase Progress</span>
+                      <span>{currentWeek.status === 'completed' ? '100%' : 'In Progress'}</span>
+                      </div>
+                      <div className="h-2 w-full bg-brand-navy/5 rounded-full overflow-hidden">
+                      <div 
+                          className={cn(
+                              "h-full rounded-full transition-all duration-1000",
+                              currentWeek.status === 'completed' ? "bg-green-500 w-full" : "bg-brand-orange w-1/3"
+                          )}
+                      />
+                      </div>
+                  </div>
 
-                <Link 
-                    href={`/portal/curriculum/${currentWeek.slug}`}
-                    className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-brand-orange hover:gap-3 transition-all"
-                >
-                    {currentWeek.status === 'completed' ? 'Review Phase' : 'Continue Learning'} <ArrowRight className="w-4 h-4" />
-                </Link>
-                </div>
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center py-12 text-brand-navy/20">
-                <AlertCircle size={48} className="mb-4 opacity-10" />
-                <p className="font-black uppercase tracking-widest text-xs">No active phase found</p>
-            </div>
-          )}
-        </EliteCard>
+                  <Link 
+                      href={`/portal/curriculum/${currentWeek.slug}`}
+                      className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-brand-orange hover:gap-3 transition-all"
+                  >
+                      {currentWeek.status === 'completed' ? 'Review Phase' : 'Continue Learning'} <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  </div>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-12 text-brand-navy/20">
+                  <AlertCircle size={48} className="mb-4 opacity-10" />
+                  <p className="font-black uppercase tracking-widest text-xs">No active phase found</p>
+              </div>
+            )}
+          </EliteCard>
+        </div>
 
         {/* Quick Actions / Announcements */}
         <div className="space-y-6">

@@ -98,37 +98,90 @@ export const EmailService = {
     }
   },
 
-  // 4. Step 8: Onboarding Ready
-  async sendOnboardingReady(email: string, name: string) {
-    console.log(`[EMAIL] Attempting 'Onboarding Ready' email to ${email}`);
+// 4. Step 8: Onboarding Ready
+  async sendOnboardingReady(email: string, name: string, activationLink: string) {
+    console.log(`[EMAIL] Attempting 'Premium Onboarding' email to ${email}`);
     if (isMock) {
-      console.log(`[MOCK EMAIL] To: ${email} | Subject: Your NeuroChiro Command Center is Ready`);
+      console.log(`[MOCK EMAIL] To: ${email} | Subject: Your NeuroChiro Mastermind Portal Is Ready | Link: ${activationLink}`);
       return { data: { id: "mock_id" }, error: null };
     }
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Your NeuroChiro Mastermind Portal Is Ready</title>
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #0A192F; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #ffffff;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 0 auto; background-color: #0A192F;">
+            <tr>
+              <td align="center" style="padding: 40px 0;">
+                <img src="${process.env.NEXT_PUBLIC_SITE_URL}/logo-white.png" alt="NeuroChiro Mastermind" width="180" style="display: block; border: 0;">
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 0 40px;">
+                <p style="text-transform: uppercase; letter-spacing: 0.3em; font-size: 10px; font-weight: 900; color: #E67E22; margin-bottom: 16px;">System Upgrade</p>
+                <h1 style="font-size: 32px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 24px 0;">Your Mastermind Portal <br/>Is Ready.</h1>
+                
+                <p style="font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.7); margin-bottom: 32px;">
+                  Dr. ${name}, we have upgraded the NeuroChiro Mastermind platform. 
+                  Everything is now integrated into a single high-performance Command Center.
+                </p>
+
+                <div style="background-color: rgba(255,255,255,0.05); border-radius: 16px; padding: 24px; margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.1);">
+                  <h2 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: #ffffff; margin: 0 0 16px 0;">Inside Your New Portal:</h2>
+                  <ul style="padding: 0; margin: 0; list-style: none; color: rgba(255,255,255,0.6); font-size: 14px;">
+                    <li style="margin-bottom: 10px;">&bull; Complete 8-Week Curriculum</li>
+                    <li style="margin-bottom: 10px;">&bull; Proprietary Implementation Resources</li>
+                    <li style="margin-bottom: 10px;">&bull; Practice KPI Tracker</li>
+                    <li style="margin-bottom: 10px;">&bull; Live Call Replay Library</li>
+                    <li style="margin-bottom: 10px;">&bull; Direct Coaching Access</li>
+                  </ul>
+                </div>
+
+                <p style="font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.7); margin-bottom: 32px;">
+                  Your access is already included as an active Mastermind member. 
+                  Please activate your new profile to begin.
+                </p>
+
+                <div align="center" style="margin-bottom: 48px;">
+                  <a href="${activationLink}" style="background-color: #E67E22; color: #ffffff; padding: 20px 40px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 16px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block;">
+                    Activate Your Profile
+                  </a>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 48px 0;" />
+                
+                <p style="font-size: 11px; font-weight: bold; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.2em; text-align: center; margin-bottom: 40px;">
+                  NeuroChiro Mastermind &bull; Precision Clinical Intelligence
+                </p>
+              </td>
+            </tr>
+          </table>
+        </body>
+      </html>
+    `;
+
     try {
       const result = await resend!.emails.send({
         from: FROM_EMAIL,
         to: email,
-        subject: 'Your NeuroChiro Command Center is Ready',
-        html: `
-          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h1 style="font-size: 24px; font-weight: 900;">Your Command Center is Live.</h1>
-            <p>Dr. ${name}, the mastermind platform is now officially live for your cohort.</p>
-            <p><strong>Next Steps:</strong></p>
-            <ol>
-              <li>Log in to the portal</li>
-              <li>Complete your Profile Activation Wizard</li>
-              <li>Access Week 6: Care Plan Mastery</li>
-            </ol>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL}/portal" style="background: #1A232E; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">Access Command Center</a>
-          </div>
-        `
+        subject: 'Your NeuroChiro Mastermind Portal Is Ready',
+        html: html
       });
       return result;
     } catch (err) {
       console.error(`[EMAIL] Resend Error:`, err);
       throw err;
     }
+  },
+
+  async sendAdminPreview(adminEmail: string, previewName: string, previewLink: string) {
+    console.log(`[EMAIL] Sending Admin Preview to ${adminEmail}`);
+    return this.sendOnboardingReady(adminEmail, `ADMIN (${previewName})`, previewLink);
   },
 
   // 5. Step 9: Password Creation Flow

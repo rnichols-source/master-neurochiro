@@ -19,12 +19,14 @@ import {
   Calendar,
   Link as LinkIcon,
   Zap,
-  UserPlus
+  UserPlus,
+  Sparkles
 } from "lucide-react";
 import { useState } from "react";
 import { seedDashboardData, runEngagementPulse, sendAnnouncement } from "@/app/actions/admin-ops";
 import { activateApprovedMembers, syncWeek6Resources } from "@/app/actions/activation-actions";
 import { updateNextCall } from "@/app/actions/call-actions";
+import { triggerAdminPreview, triggerCohortOnboarding } from "@/app/actions/onboarding-actions";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -52,6 +54,9 @@ export function AdminDashboardClient({
   const [announcement, setAnnouncement] = useState({ title: '', content: '' });
   const [nextCallData, setNextCallData] = useState({ date: '', time: '', zoomUrl: '' });
   const [isSavingCall, setIsSavingCall] = useState(false);
+  
+  const [isTriggeringPreview, setIsTriggeringPreview] = useState(false);
+  const [isTriggeringCohort, setIsTriggeringCohort] = useState(false);
 
   const handleSeed = async () => {
     setIsSeeding(true);
@@ -126,6 +131,40 @@ export function AdminDashboardClient({
       alert("Error scheduling call. Please check date and time formats.");
     } finally {
       setIsSavingCall(false);
+    }
+  };
+
+  const handleTriggerPreview = async () => {
+    setIsTriggeringPreview(true);
+    try {
+      const res = await triggerAdminPreview();
+      if (res.success) {
+        alert("Admin Preview Email Sent! Check your inbox.");
+      } else {
+        alert(`Error: ${res.error}`);
+      }
+    } catch (err) {
+      alert("Failed to send preview email.");
+    } finally {
+      setIsTriggeringPreview(false);
+    }
+  };
+
+  const handleTriggerCohort = async () => {
+    if (!confirm("Are you sure you want to send onboarding emails to ALL approved members? This triggers the transition pipeline.")) return;
+    
+    setIsTriggeringCohort(true);
+    try {
+      const res = await triggerCohortOnboarding();
+      if (res.success) {
+        alert(`Onboarding emails sent to cohort! Results: ${res.results?.length} members notified.`);
+      } else {
+        alert(`Error: ${res.error}`);
+      }
+    } catch (err) {
+      alert("Failed to trigger cohort onboarding.");
+    } finally {
+      setIsTriggeringCohort(false);
     }
   };
 
@@ -220,6 +259,44 @@ export function AdminDashboardClient({
           <h3 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{stats?.avgCompletion || 0}%</h3>
         </EliteCard>
       </div>
+
+      {/* Onboarding System Control */}
+      <EliteCard className="p-8 border-brand-navy bg-brand-navy text-white overflow-hidden relative group">
+        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform">
+          <Send size={120} className="text-brand-orange" />
+        </div>
+        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-brand-orange flex items-center justify-center text-white">
+                <Zap size={20} />
+              </div>
+              <h2 className="text-2xl font-black uppercase tracking-tight leading-none">Onboarding Intelligence</h2>
+            </div>
+            <p className="text-white/60 max-w-xl font-medium">
+              Transition members into the new Command Center. Send highly branded activation emails with secure, unique profile setup links.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+            <BrandButton 
+              variant="outline" 
+              onClick={handleTriggerPreview}
+              isLoading={isTriggeringPreview}
+              className="border-white/20 text-white hover:bg-white/10 py-4 px-8"
+            >
+              Send Admin Preview
+            </BrandButton>
+            <BrandButton 
+              variant="accent" 
+              onClick={handleTriggerCohort}
+              isLoading={isTriggeringCohort}
+              className="py-4 px-8"
+            >
+              Invite Mastermind Cohort <ArrowRight className="ml-2 w-4 h-4" />
+            </BrandButton>
+          </div>
+        </div>
+      </EliteCard>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
         <EliteCard className="lg:col-span-2 p-6 md:p-8" title="Mastermind Activity" subtitle="Live Member Usage">
