@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { ResourceUploader } from "@/components/admin/ResourceUploader";
+import { addModule } from "@/app/actions/module-actions";
 
 export function CurriculumManagerClient({ initialWeeks, initialResources = [] }: { initialWeeks: any[], initialResources?: any[] }) {
   const [weeks, setWeeks] = useState(initialWeeks);
@@ -20,7 +21,35 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
   const [selectedWeek, setSelectedWeek] = useState<any>(initialWeeks[0] || null);
   const [selectedModule, setSelectedModule] = useState<any>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const supabase = createClient();
+
+  const handleAddModule = async () => {
+    if (!selectedWeek) return;
+    setIsAdding(true);
+    const nextOrder = (selectedWeek.modules?.length || 0) + 1;
+    const res = await addModule(selectedWeek.id, nextOrder);
+    
+    if (res.success && res.data) {
+      const newModule = res.data;
+      const updatedWeeks = weeks.map(w => {
+        if (w.id === selectedWeek.id) {
+          return {
+            ...w,
+            modules: [...(w.modules || []), newModule].sort((a, b) => a.order_index - b.order_index)
+          };
+        }
+        return w;
+      });
+      setWeeks(updatedWeeks);
+      const updatedWeek = updatedWeeks.find(w => w.id === selectedWeek.id);
+      setSelectedWeek(updatedWeek);
+      setSelectedModule(newModule);
+    } else {
+      alert("Error adding module: " + res.error);
+    }
+    setIsAdding(false);
+  };
 
   const handleSaveModule = async () => {
     if (!selectedModule) return;
@@ -99,7 +128,13 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                 <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-1">Editing Phase 0{selectedWeek.week_number}</p>
                 <h2 className="text-3xl font-black text-brand-navy tracking-tight">{selectedWeek.title}</h2>
               </div>
-              <BrandButton variant="outline" size="sm" className="gap-2 text-[10px]">
+              <BrandButton 
+                variant="outline" 
+                size="sm" 
+                className="gap-2 text-[10px]"
+                onClick={handleAddModule}
+                isLoading={isAdding}
+              >
                 <Plus className="w-3 h-3" /> Add Module
               </BrandButton>
             </div>
