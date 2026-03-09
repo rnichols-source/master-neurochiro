@@ -22,22 +22,35 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
   const [isMuted, setIsMuted] = useState(false)
   const [hasCompleted, setHasCompleted] = useState(false)
 
+  // 1. CLEAN THE INPUT (Handle if they pasted a full <iframe> tag)
+  let cleanUrl = videoUrl || '';
+  if (videoUrl?.includes('<iframe')) {
+    const srcMatch = videoUrl.match(/src="([^"]+)"/);
+    if (srcMatch && srcMatch[1]) {
+      cleanUrl = srcMatch[1];
+    }
+  }
+
   // Detect if URL is an embed (Vimeo/YouTube) or a direct file
-  const isVimeo = videoUrl?.includes('vimeo.com') || /^\d+$/.test(videoUrl);
-  const isYouTube = videoUrl?.includes('youtube.com') || videoUrl?.includes('youtu.be');
-  const isDirectFile = !isVimeo && !isYouTube && (videoUrl?.includes('.mp4') || videoUrl?.includes('.mov'));
+  const isVimeo = cleanUrl?.includes('vimeo.com') || /^\d+$/.test(cleanUrl);
+  const isYouTube = cleanUrl?.includes('youtube.com') || cleanUrl?.includes('youtu.be');
+  const isDirectFile = !isVimeo && !isYouTube && (cleanUrl?.includes('.mp4') || cleanUrl?.includes('.mov'));
 
   // Get clean embed URL
   const getEmbedUrl = () => {
     if (isVimeo) {
-      const id = videoUrl.split('/').pop();
+      // Extract ID robustly
+      let id = cleanUrl.split('/').pop()?.split('?')[0];
+      // If they just pasted the ID
+      if (/^\d+$/.test(cleanUrl)) id = cleanUrl;
+      
       return `https://player.vimeo.com/video/${id}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479`;
     }
     if (isYouTube) {
-      const id = videoUrl.includes('v=') ? videoUrl.split('v=')[1].split('&')[0] : videoUrl.split('/').pop();
+      const id = cleanUrl.includes('v=') ? cleanUrl.split('v=')[1].split('&')[0] : cleanUrl.split('/').pop()?.split('?')[0];
       return `https://www.youtube.com/embed/${id}?autoplay=1`;
     }
-    return videoUrl;
+    return cleanUrl;
   };
 
   const togglePlay = () => {
@@ -107,7 +120,7 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
     <div className="relative group bg-brand-navy rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-video">
       <video
         ref={videoRef}
-        src={videoUrl}
+        src={cleanUrl}
         className="w-full h-full object-cover"
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={() => setDuration(videoRef.current?.duration || 0)}
