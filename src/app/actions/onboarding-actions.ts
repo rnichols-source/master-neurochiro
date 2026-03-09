@@ -107,7 +107,7 @@ export async function activateMemberProfile(token: string, password: string, pro
 
   // 1. Validate token again
   const validation = await validateActivationToken(token)
-  if (!validation.success) return validation
+  if (!validation.success) return { success: false, error: validation.error }
   if (validation.isPreview) return { success: true, message: 'Preview mode: No account created.' }
 
   const invitation = validation.data!

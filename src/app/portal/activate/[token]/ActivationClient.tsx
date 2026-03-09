@@ -53,7 +53,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
     setError("");
 
     try {
-      const res = await activateMemberProfile(token, formData.password, formData);
+      const res = await activateMemberProfile(token, formData.password, formData) as any;
       
       if (res.success) {
         if (isPreview) {
