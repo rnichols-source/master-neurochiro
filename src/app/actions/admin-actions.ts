@@ -31,7 +31,10 @@ export async function fetchAdminStats() {
     .from('member_progress')
     .select('*', { count: 'exact', head: true })
 
-  if (progressError) return { success: false, error: progressError.message }
+  if (progressError) {
+    console.error('[ADMIN] ERROR: member_progress fetch failed in stats. Verify if table "member_progress" exists in production.', progressError.message)
+    return { success: false, error: `Progress fetch error: ${progressError.message}` }
+  }
 
   // 5. Total Modules count
   const { count: totalModules, error: modulesError } = await supabase

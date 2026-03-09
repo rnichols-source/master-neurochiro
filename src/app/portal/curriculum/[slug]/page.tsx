@@ -16,7 +16,6 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { notFound } from "next/navigation";
 
-// Next.js 15 requires params to be treated as a Promise
 export default async function WeekDetailPage(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
   const slug = params.slug;
@@ -36,7 +35,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
     const { data, error } = await supabase
       .from('resources')
       .select('*')
-      .in('module_id', (modules || []).map((m: any) => m.id));
+      .eq('week_id', week.id);
     
     if (data && !error) {
       resources = data;
@@ -50,6 +49,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
   const isPhaseFinished = completedCount === (modules || []).length && (modules || []).length > 0;
   const completionPercent = (modules || []).length > 0 ? Math.round((completedCount / modules.length) * 100) : 0;
 
+  // Mock questions for the quiz
   const quizQuestions = [
     {
       id: 1,
@@ -60,18 +60,12 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
     },
     {
       id: 2,
-      text: "According to Week 1, what determines how you practice?",
+      text: "According to the NeuroChiro framework, what determines how you practice?",
       options: ["Your Schooling", "Your Technique", "Who You Are", "Your Location"],
       correctIndex: 2,
       feedback: "Identity reconstruction is the first step. Who you are determines the frequency of your clinic."
     }
   ];
-
-  // Server Action Bridge for the Quiz
-  async function handlePhaseVerification() {
-    'use server'
-    await verifyPhase(week.id);
-  }
 
   return (
     <DashboardLayout>
@@ -119,7 +113,10 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
                 <CurriculumQuiz 
                   phaseTitle={week.title} 
                   questions={quizQuestions}
-                  onComplete={handlePhaseVerification}
+                  onComplete={async () => {
+                    'use server'
+                    await verifyPhase(week.id);
+                  }}
                 />
               </div>
             ) : (

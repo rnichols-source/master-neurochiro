@@ -19,8 +19,17 @@ export async function fetchCurriculumWithProgress() {
     .order('week_number', { ascending: true })
 
   if (weeksError) {
-    console.error('[CURRICULUM] Weeks fetch error:', weeksError.message)
-    return { success: false, error: weeksError.message }
+    console.error('[CURRICULUM] ERROR: Weeks table fetch failed. This might mean the table does not exist or columns are missing.', {
+      message: weeksError.message,
+      code: weeksError.code,
+      details: weeksError.details,
+      hint: weeksError.hint
+    })
+    return { success: false, error: `Weeks fetch error: ${weeksError.message}` }
+  }
+
+  if (!weeks || weeks.length === 0) {
+    console.warn('[CURRICULUM] WARNING: No weeks found in the database.')
   }
 
   // Fetch user progress
@@ -31,11 +40,17 @@ export async function fetchCurriculumWithProgress() {
       .select('module_id')
       .eq('user_id', user.id)
 
-    if (progress && !progressError) {
+    if (progressError) {
+      console.error('[CURRICULUM] ERROR: member_progress fetch failed. Verify if table "member_progress" exists in production.', {
+        message: progressError.message,
+        code: progressError.code
+      })
+      // We continue with empty progress to avoid total page failure
+    } else if (progress) {
       completedModuleIds = new Set(progress.map(p => p.module_id))
     }
-  } catch (err) {
-    console.warn('[CURRICULUM] Progress fetch failed, continuing with empty progress')
+  } catch (err: any) {
+    console.error('[CURRICULUM] Unexpected exception during progress fetch:', err?.message || err)
   }
 
   // Fetch all modules
@@ -44,22 +59,31 @@ export async function fetchCurriculumWithProgress() {
     .select('id, week_id')
 
   if (modulesError) {
-    console.error('[CURRICULUM] Modules fetch error:', modulesError.message)
+    console.error('[CURRICULUM] ERROR: Modules table fetch failed.', modulesError.message)
     return { success: false, error: modulesError.message }
   }
 
   // Fetch user profile for tier check
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('tier')
-    .eq('id', user.id)
-    .single()
+  let isAdmin = false
+  try {
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('tier')
+      .eq('id', user.id)
+      .single()
+    
+    if (profileError) {
+      console.warn('[CURRICULUM] Profile tier fetch failed, assuming non-admin:', profileError.message)
+    } else {
+      isAdmin = profile?.tier === 'admin'
+    }
+  } catch (err) {
+    console.error('[CURRICULUM] Profile fetch exception:', err)
+  }
   
-  const isAdmin = profile?.tier === 'admin'
-
   // Determine status for each week
-  const formattedWeeks = weeks.map((week, index) => {
-    const weekModules = modules.filter(m => m.week_id === week.id)
+  const formattedWeeks = (weeks || []).map((week, index) => {
+    const weekModules = (modules || []).filter(m => m.week_id === week.id)
     const isCompleted = weekModules.length > 0 && weekModules.every(m => completedModuleIds.has(m.id))
     
     let status: 'locked' | 'active' | 'completed' = 'locked'
@@ -70,7 +94,7 @@ export async function fetchCurriculumWithProgress() {
       status = 'active'
     } else {
       const prevWeek = weeks[index - 1]
-      const prevWeekModules = modules.filter(m => m.week_id === prevWeek.id)
+      const prevWeekModules = (modules || []).filter(m => m.week_id === prevWeek.id)
       const prevWeekCompleted = prevWeekModules.length > 0 && prevWeekModules.every(m => completedModuleIds.has(m.id))
       
       if (prevWeekCompleted) {
@@ -94,10 +118,14 @@ export async function fetchCurriculumWithProgress() {
 }
 
 export async function fetchWeekDetail(slug: string) {
+  console.log(`[CURRICULUM] Fetching detail for week: ${slug}`)
   const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { success: false, error: 'Not authenticated' }
+  if (!user) {
+    console.warn('[CURRICULUM] Week detail fetch failed: No user session')
+    return { success: false, error: 'Not authenticated' }
+  }
 
   // 1. Fetch week
   const { data: week, error: weekError } = await supabase
@@ -107,8 +135,11 @@ export async function fetchWeekDetail(slug: string) {
     .single()
 
   if (weekError || !week) {
-    console.error(`[CURRICULUM] Week not found for slug: ${slug}`, weekError)
-    return { success: false, error: 'Week not found' }
+    console.error(`[CURRICULUM] Week not found for slug: ${slug}`, {
+      message: weekError?.message,
+      code: weekError?.code
+    })
+    return { success: false, error: `Week not found: ${slug}` }
   }
 
   // 2. Fetch modules
@@ -120,35 +151,42 @@ export async function fetchWeekDetail(slug: string) {
 
   if (modulesError) {
     console.error('[CURRICULUM] Modules fetch error:', modulesError.message)
-    return { success: false, error: modulesError.message }
+    return { success: false, error: `Modules fetch error: ${modulesError.message}` }
   }
 
   // 3. Fetch progress (With resilience)
   let completedModuleIds = new Set<string>()
   try {
-    const { data: progress } = await supabase
+    const { data: progress, error: progressError } = await supabase
       .from('member_progress')
       .select('module_id')
       .eq('user_id', user.id)
-      .in('module_id', modules.map(m => m.id))
+      .in('module_id', (modules || []).map(m => m.id))
 
-    if (progress) {
+    if (progressError) {
+      console.error('[CURRICULUM] member_progress fetch error in Detail. Check table existence.', progressError.message)
+    } else if (progress) {
       completedModuleIds = new Set(progress.map(p => p.module_id))
     }
-  } catch (err) {
-    console.warn('[CURRICULUM] Progress fetch failed in Detail, continuing...')
+  } catch (err: any) {
+    console.warn('[CURRICULUM] Unexpected error in progress fetch (Detail):', err?.message)
   }
 
-  const { data: profile } = await supabase.from('profiles').select('tier').eq('id', user.id).single()
-  const isAdmin = profile?.tier === 'admin'
+  let isAdmin = false
+  try {
+    const { data: profile } = await supabase.from('profiles').select('tier').eq('id', user.id).single()
+    isAdmin = profile?.tier === 'admin'
+  } catch (e) {
+    console.warn('[CURRICULUM] Admin check failed in Detail, default to false')
+  }
 
-  const formattedModules = modules.map((mod, index) => {
+  const formattedModules = (modules || []).map((mod, index) => {
     const isCompleted = completedModuleIds.has(mod.id)
     let status: 'locked' | 'active' | 'completed' = 'locked'
 
     if (isCompleted) {
       status = 'completed'
-    } else if (index === 0 || completedModuleIds.has(modules[index - 1]?.id)) {
+    } else if (index === 0 || (modules && completedModuleIds.has(modules[index - 1]?.id))) {
       status = 'active'
     }
 
