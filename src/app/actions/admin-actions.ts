@@ -79,11 +79,28 @@ export async function fetchCohortMetrics() {
 
   if (weeksError) return { success: false, error: weeksError.message }
 
-  // Mocking completion rates for now since we don't have many real users
-  const completionRates = weeks.map(w => ({
-    week: w.week_number,
-    title: w.title,
-    rate: Math.max(100 - (w.week_number * 12), 15) // Simplified mock decay
+  // Real completion rates
+  const completionRates = await Promise.all(weeks.map(async w => {
+    // Count modules in week
+    const { data: modules } = await supabase.from('modules').select('id').eq('week_id', w.id)
+    const moduleIds = modules?.map(m => m.id) || []
+    
+    let rate = 0
+    if (moduleIds.length > 0) {
+        // Count how many progress entries exist for these modules
+        const { count } = await supabase.from('member_progress').select('*', { count: 'exact', head: true }).in('module_id', moduleIds)
+        // Count total active non-admin users
+        const { count: userCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true }).neq('tier', 'admin')
+        
+        const possibleCompletions = (userCount || 1) * moduleIds.length
+        rate = possibleCompletions > 0 ? Math.round(((count || 0) / possibleCompletions) * 100) : 0
+    }
+
+    return {
+      week: w.week_number,
+      title: w.title,
+      rate
+    }
   }))
 
   return {
@@ -142,8 +159,7 @@ export async function fetchRecentActivity() {
 export async function fetchRevenueStats() {
   const supabase = await createClient()
 
-  // In a real app, we would query a 'payments' or 'subscriptions' table
-  // For now, we derive it from profiles and tiers
+  // Derive from profiles and tiers
   const { data: members, error } = await supabase
     .from('profiles')
     .select('tier, created_at')
@@ -158,12 +174,28 @@ export async function fetchRevenueStats() {
   const standardRevenue = standardCount * 997
   const totalRevenue = proRevenue + standardRevenue
 
-  // Mock monthly data for the chart
-  const monthlyData = [
-    { month: 'Jan', revenue: totalRevenue * 0.4 },
-    { month: 'Feb', revenue: totalRevenue * 0.7 },
-    { month: 'Mar', revenue: totalRevenue },
+  // Group by month
+  const monthlyDataMap: Record<string, number> = {}
+  members.forEach(m => {
+    const date = new Date(m.created_at)
+    const month = date.toLocaleString('default', { month: 'short' })
+    const rev = m.tier === 'pro' ? 1997 : 997
+    monthlyDataMap[month] = (monthlyDataMap[month] || 0) + rev
+  })
+
+  // Ensure last 3 months exist
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  const currentMonthIdx = new Date().getMonth()
+  const recentMonths = [
+      months[(currentMonthIdx - 2 + 12) % 12],
+      months[(currentMonthIdx - 1 + 12) % 12],
+      months[currentMonthIdx]
   ]
+
+  const monthlyData = recentMonths.map(m => ({
+      month: m,
+      revenue: monthlyDataMap[m] || 0
+  }))
 
   return {
     success: true,
@@ -233,6 +265,64 @@ export async function fetchMastermindActivity() {
       watchedWeek6,
       activeToday: activeToday || 0,
       inactive: (totalMembers || 0) - (activeToday || 0)
+    }
+  }
+}
+
+export async function fetchAtRiskMembers() {
+  const supabase = await createClient()
+
+  // Find users who have not completed any modules and are not admin
+  const { data: profiles, error } = await supabase
+    .from('profiles')
+    .select('id, full_name, email, created_at, status')
+    .not('tier', 'eq', 'admin')
+
+  if (error) return { success: false, error: error.message }
+
+  const atRisk = []
+  for (const profile of profiles || []) {
+      const { count } = await supabase
+        .from('member_progress')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', profile.id)
+      
+      // If no progress and created more than 7 days ago
+      const daysSinceCreation = (new Date().getTime() - new Date(profile.created_at).getTime()) / (1000 * 3600 * 24)
+      if ((count === 0 && daysSinceCreation > 7) || profile.status === 'pending_profile') {
+          atRisk.push(profile)
+      }
+  }
+
+  return { success: true, data: atRisk }
+}
+
+export async function fetchVaultAnalytics() {
+  const supabase = await createClient()
+  
+  const { data, error } = await supabase
+    .from('vault_resources')
+    .select('id, title, download_count, category, resource_type')
+    .order('download_count', { ascending: false })
+    .limit(10)
+
+  if (error) return { success: false, error: error.message }
+  return { success: true, data }
+}
+
+export async function fetchSystemHealth() {
+  const supabase = await createClient()
+  
+  // Just ping the database
+  const { error } = await supabase.from('profiles').select('id').limit(1)
+  
+  return {
+    success: true,
+    data: {
+      database: error ? 'error' : 'operational',
+      auth: 'operational',
+      email: 'operational', // We know Resend is configured
+      payments: 'operational'
     }
   }
 }

@@ -244,7 +244,12 @@ export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admi
                               variant={res.resource_type === 'video' ? 'accent' : 'primary'} 
                               size="sm" 
                               className="py-2.5 px-5 text-[10px] rounded-xl"
-                              onClick={() => incrementDownload(res.id)}
+                              onClick={() => {
+                                incrementDownload(res.id);
+                                if (res.url) {
+                                  window.open(res.url, '_blank', 'noopener,noreferrer');
+                                }
+                              }}
                             >
                               {res.resource_type === 'video' ? 'Watch Now' : 'Access Library'}
                               <ChevronRight className="ml-1 w-3 h-3" />

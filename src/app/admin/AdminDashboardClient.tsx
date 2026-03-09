@@ -8,7 +8,6 @@ import {
   TrendingUp,
   Activity,
   ArrowRight,
-  ChevronRight,
   ShieldCheck,
   CheckCircle2,
   AlertTriangle,
@@ -20,7 +19,10 @@ import {
   Link as LinkIcon,
   Zap,
   UserPlus,
-  Sparkles
+  BarChart,
+  HardDrive,
+  MessageSquare,
+  Lock
 } from "lucide-react";
 import { useState } from "react";
 import { seedDashboardData, runEngagementPulse, sendAnnouncement } from "@/app/actions/admin-ops";
@@ -34,17 +36,30 @@ export function AdminDashboardClient({
   initialStats, 
   initialCohortData,
   initialActivity,
-  initialMastermindActivity
+  initialMastermindActivity,
+  initialRevenueData,
+  initialAtRisk,
+  initialVaultStats,
+  initialHealth
 }: { 
   initialStats: any, 
   initialCohortData: any,
   initialActivity: any[],
-  initialMastermindActivity: any
+  initialMastermindActivity: any,
+  initialRevenueData: any,
+  initialAtRisk: any[],
+  initialVaultStats: any[],
+  initialHealth: any
 }) {
-  const [stats, setStats] = useState(initialStats);
-  const [cohortData, setCohortData] = useState(initialCohortData);
-  const [recentActivity, setRecentActivity] = useState(initialActivity);
-  const [mastermindActivity, setMastermindActivity] = useState(initialMastermindActivity);
+  const [stats] = useState(initialStats);
+  const [cohortData] = useState(initialCohortData);
+  const [recentActivity] = useState(initialActivity);
+  const [mastermindActivity] = useState(initialMastermindActivity);
+  const [revenueData] = useState(initialRevenueData);
+  const [atRisk] = useState(initialAtRisk);
+  const [vaultStats] = useState(initialVaultStats);
+  const [health] = useState(initialHealth);
+
   const [isSeeding, setIsSeeding] = useState(false);
   const [isActivating, setIsActivating] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
@@ -112,7 +127,6 @@ export function AdminDashboardClient({
     e.preventDefault();
     setIsSavingCall(true);
     try {
-      // Append ET offset (-04:00 for March/DST)
       const fullDate = `${nextCallData.date}T${nextCallData.time}:00-04:00`;
       const res = await updateNextCall(
         fullDate, 
@@ -169,27 +183,21 @@ export function AdminDashboardClient({
   };
 
   return (
-    <div className="space-y-6 md:space-y-8 pb-32 md:pb-20">
+    <div className="space-y-10 pb-32">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-brand-navy/10 pb-8">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">System HQ</p>
-          <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tighter leading-none">Command Center</h1>
+          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">CEO Console</p>
+          <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Command Center</h1>
         </div>
         <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
-          <button 
-            onClick={handleSeed}
-            disabled={isSeeding}
-            className="p-3 bg-brand-navy/5 text-brand-navy/40 hover:text-brand-navy rounded-xl transition-all disabled:opacity-50"
-            title="Seed Demo Data"
-          >
-            <Database className={cn("w-4 h-4", isSeeding && "animate-spin")} />
-          </button>
+          <Link href="/portal/vault" className="flex-1 md:flex-none">
+            <BrandButton variant="outline" size="sm" className="w-full md:w-auto py-3 text-[10px] border-brand-navy text-brand-navy">
+              <Lock className="w-3 h-3 mr-2" /> Enter Vault
+            </BrandButton>
+          </Link>
           <Link href="/admin/curriculum" className="flex-1 md:flex-none">
             <BrandButton variant="outline" size="sm" className="w-full md:w-auto py-3 text-[10px]">Manage Content</BrandButton>
-          </Link>
-          <Link href="/admin/applications" className="flex-1 md:flex-none">
-            <BrandButton variant="outline" size="sm" className="w-full md:w-auto py-3 text-[10px]">Review Queue</BrandButton>
           </Link>
           <BrandButton 
             variant="accent" 
@@ -197,7 +205,7 @@ export function AdminDashboardClient({
             onClick={() => setShowAnnouncementModal(true)}
             className="flex-1 md:flex-none py-3 text-[10px]"
           >
-            New Announcement
+            Broadcast
           </BrandButton>
           <BrandButton 
             variant="primary" 
@@ -205,58 +213,51 @@ export function AdminDashboardClient({
             onClick={() => setShowCallModal(true)}
             className="flex-1 md:flex-none py-3 text-[10px]"
           >
-            Schedule Live Call
+            Schedule Call
           </BrandButton>
         </div>
       </div>
 
-      {/* Global Metrics */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        <EliteCard className="p-6 md:p-8">
+      {/* SEC 1: PLATFORM OVERVIEW & REVENUE */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <EliteCard className="p-6">
           <div className="flex justify-between items-start mb-4">
-            <div className="p-2.5 md:p-3 bg-blue-500/10 rounded-2xl">
-              <Users className="w-4 h-4 md:w-5 md:h-5 text-blue-500" />
-            </div>
+            <div className="p-2.5 bg-blue-500/10 rounded-2xl"><Users className="w-5 h-5 text-blue-500" /></div>
             <span className="text-[10px] font-black text-green-500 bg-green-50 px-2 py-1 rounded-lg">Active</span>
           </div>
           <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Total Members</p>
           <div className="flex items-baseline gap-2">
-            <h3 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{stats?.totalMembers || 0}</h3>
+            <h3 className="text-3xl font-black text-brand-navy tracking-tight">{stats?.totalMembers || 0}</h3>
             <p className="text-[10px] font-bold text-brand-navy/30">{stats?.proMembers || 0} Pro / {stats?.standardMembers || 0} Std</p>
           </div>
         </EliteCard>
 
-        <EliteCard className="p-6 md:p-8 border-brand-orange/20">
+        <EliteCard className="p-6">
           <div className="flex justify-between items-start mb-4">
-            <div className="p-2.5 md:p-3 bg-brand-orange/10 rounded-2xl">
-              <FileText className="w-4 h-4 md:w-5 md:h-5 text-brand-orange" />
-            </div>
-            {(stats?.pendingApps || 0) > 0 && (
-              <span className="animate-pulse w-2 h-2 rounded-full bg-brand-orange" />
-            )}
+            <div className="p-2.5 bg-green-500/10 rounded-2xl"><DollarSign className="w-5 h-5 text-green-500" /></div>
           </div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Pending Apps</p>
-          <h3 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{stats?.pendingApps || 0}</h3>
+          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Gross Revenue Est.</p>
+          <h3 className="text-3xl font-black text-brand-navy tracking-tight">${(revenueData?.totalRevenue || 0).toLocaleString()}</h3>
         </EliteCard>
 
-        <EliteCard className="p-6 md:p-8">
+        <EliteCard className="p-6">
           <div className="flex justify-between items-start mb-4">
-            <div className="p-2.5 md:p-3 bg-green-500/10 rounded-2xl">
-              <DollarSign className="w-4 h-4 md:w-5 md:h-5 text-green-500" />
-            </div>
-          </div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Revenue Est.</p>
-          <h3 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">${(stats?.revenue || 0).toLocaleString()}</h3>
-        </EliteCard>
-
-        <EliteCard className="p-6 md:p-8">
-          <div className="flex justify-between items-start mb-4">
-            <div className="p-2.5 md:p-3 bg-purple-500/10 rounded-2xl">
-              <Activity className="w-4 h-4 md:w-5 md:h-5 text-purple-500" />
-            </div>
+            <div className="p-2.5 bg-purple-500/10 rounded-2xl"><Activity className="w-5 h-5 text-purple-500" /></div>
           </div>
           <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Avg. Completion</p>
-          <h3 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{stats?.avgCompletion || 0}%</h3>
+          <h3 className="text-3xl font-black text-brand-navy tracking-tight">{stats?.avgCompletion || 0}%</h3>
+        </EliteCard>
+
+        <EliteCard className="p-6 border-brand-orange/20">
+          <div className="flex justify-between items-start mb-4">
+            <div className="p-2.5 bg-brand-orange/10 rounded-2xl"><FileText className="w-5 h-5 text-brand-orange" /></div>
+            {(stats?.pendingApps || 0) > 0 && <span className="animate-pulse w-2 h-2 rounded-full bg-brand-orange" />}
+          </div>
+          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Pending Apps</p>
+          <div className="flex items-center gap-4">
+            <h3 className="text-3xl font-black text-brand-navy tracking-tight">{stats?.pendingApps || 0}</h3>
+            <Link href="/admin/applications" className="text-brand-orange text-xs font-bold uppercase tracking-widest hover:underline">Review</Link>
+          </div>
         </EliteCard>
       </div>
 
@@ -271,7 +272,7 @@ export function AdminDashboardClient({
               <div className="w-10 h-10 rounded-xl bg-brand-orange flex items-center justify-center text-white">
                 <Zap size={20} />
               </div>
-              <h2 className="text-2xl font-black uppercase tracking-tight leading-none">Onboarding Intelligence</h2>
+              <h2 className="text-2xl font-black uppercase tracking-tight leading-none">Onboarding Pipeline</h2>
             </div>
             <p className="text-white/60 max-w-xl font-medium">
               Transition members into the new Command Center. Send highly branded activation emails with secure, unique profile setup links.
@@ -282,7 +283,7 @@ export function AdminDashboardClient({
               variant="outline" 
               onClick={handleTriggerPreview}
               isLoading={isTriggeringPreview}
-              className="border-white/20 text-white hover:bg-white/10 py-4 px-8"
+              className="border-white/20 text-white hover:bg-white/10"
             >
               Send Admin Preview
             </BrandButton>
@@ -290,7 +291,6 @@ export function AdminDashboardClient({
               variant="accent" 
               onClick={handleTriggerCohort}
               isLoading={isTriggeringCohort}
-              className="py-4 px-8"
             >
               Invite Mastermind Cohort <ArrowRight className="ml-2 w-4 h-4" />
             </BrandButton>
@@ -298,115 +298,137 @@ export function AdminDashboardClient({
         </div>
       </EliteCard>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-        <EliteCard className="lg:col-span-2 p-6 md:p-8" title="Mastermind Activity" subtitle="Live Member Usage">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* SEC 3: MEMBER ACTIVITY INTELLIGENCE */}
+        <EliteCard className="lg:col-span-2 p-6" title="Member Intelligence" subtitle="Live Engagement Data">
           <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="space-y-1">
-              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Profiles Created</p>
+            <div className="space-y-1 border-r border-brand-navy/5">
+              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Profiles Built</p>
               <h4 className="text-3xl font-black text-brand-navy">{mastermindActivity?.profilesCompleted || 0}</h4>
-              <p className="text-[8px] font-bold text-green-500 uppercase tracking-tighter">Ready for Week 6</p>
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1 border-r border-brand-navy/5">
               <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Active Today</p>
               <h4 className="text-3xl font-black text-brand-orange">{mastermindActivity?.activeToday || 0}</h4>
-              <p className="text-[8px] font-bold text-brand-gray uppercase tracking-tighter">Logged in last 24h</p>
             </div>
-            <div className="space-y-1">
-              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Watched Week 6</p>
+            <div className="space-y-1 border-r border-brand-navy/5">
+              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Watched W6</p>
               <h4 className="text-3xl font-black text-brand-navy">{mastermindActivity?.watchedWeek6 || 0}</h4>
-              <p className="text-[8px] font-bold text-brand-orange uppercase tracking-tighter">Day 1/2 Mastery</p>
             </div>
             <div className="space-y-1">
               <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Inactive</p>
               <h4 className="text-3xl font-black text-brand-gray/40">{mastermindActivity?.inactive || 0}</h4>
-              <p className="text-[8px] font-bold text-red-500 uppercase tracking-tighter">Requires Pulse</p>
             </div>
           </div>
           
-          <div className="mt-10 p-6 bg-brand-navy rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-4 border-white shadow-xl shadow-brand-navy/20">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white/10 rounded-xl">
-                <UserPlus className="text-brand-orange w-6 h-6" />
+          <div className="mt-8 space-y-4">
+            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-2">Live Stream</p>
+            {recentActivity.length > 0 ? recentActivity.map((act: any, i: number) => (
+              <div key={i} className="flex gap-4 p-3 bg-brand-navy/5 rounded-xl">
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold text-brand-navy truncate">{act.profiles?.full_name || 'System'}</p>
+                  <p className="text-[10px] text-brand-navy/40 font-medium truncate">Completed: {act.modules?.title}</p>
+                </div>
               </div>
-              <div>
-                <h4 className="text-white font-black uppercase tracking-tight">Activation Pipeline</h4>
-                <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Sync approved applications to platform accounts</p>
-              </div>
-            </div>
-            <BrandButton 
-              variant="accent" 
-              size="sm" 
-              onClick={handleActivateMembers}
-              isLoading={isActivating}
-              className="w-full md:w-auto"
-            >
-              Activate Approved Members
-            </BrandButton>
-          </div>
-
-          <div className="mt-4 p-6 bg-brand-navy/5 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-brand-navy/10">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-brand-orange/10 rounded-xl">
-                <Database className="text-brand-orange w-6 h-6" />
-              </div>
-              <div>
-                <h4 className="text-brand-navy font-black uppercase tracking-tight">Content Pipeline</h4>
-                <p className="text-brand-navy/40 text-[10px] font-bold uppercase tracking-widest">Hard-sync premium assets to Phase 6 curriculum</p>
-              </div>
-            </div>
-            <BrandButton 
-              variant="outline" 
-              size="sm" 
-              onClick={handleSyncResources}
-              isLoading={isSyncing}
-              className="w-full md:w-auto"
-            >
-              Sync Week 6 Resources
-            </BrandButton>
+            )) : (
+              <p className="text-[10px] font-bold text-brand-navy/20 uppercase tracking-widest py-4">No recent activity</p>
+            )}
           </div>
         </EliteCard>
 
-        <div className="space-y-6 md:space-y-8">
-          <EliteCard title="Live Stream" subtitle="Recent Implementations" className="p-6 md:p-8">
-            <div className="mt-4 md:mt-6 space-y-5 md:space-y-6">
-              {recentActivity.length > 0 ? recentActivity.map((act: any, i: number) => (
-                <div key={i} className="flex gap-4">
-                  <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold text-brand-navy truncate">{act.profiles?.full_name || 'System'}</p>
-                    <p className="text-[10px] text-brand-navy/40 font-medium truncate">Completed {act.modules?.title}</p>
-                  </div>
-                </div>
-              )) : (
-                <p className="text-[10px] font-bold text-brand-navy/20 uppercase tracking-widest py-4">No recent activity</p>
-              )}
-            </div>
-            <BrandButton variant="ghost" className="w-full mt-6 text-[10px] py-3">View Full Log</BrandButton>
-          </EliteCard>
+        {/* AT RISK SYSTEM */}
+        <EliteCard title="At Risk System" subtitle="Intervention Required" className="p-6 border-red-500/20 bg-red-500/5">
+          <div className="mt-4 space-y-4">
+            {atRisk.length > 0 ? (
+              <div className="space-y-3">
+                {atRisk.slice(0, 5).map((member: any, i: number) => (
+                   <div key={i} className="p-3 bg-white rounded-xl border border-red-100 flex flex-col gap-2">
+                     <div className="flex items-center gap-3">
+                       <AlertTriangle className="w-4 h-4 text-red-500" />
+                       <p className="text-xs font-bold text-brand-navy">{member.full_name}</p>
+                     </div>
+                     <div className="flex justify-between items-center">
+                       <p className="text-[10px] text-brand-navy/60">{member.status === 'pending_profile' ? 'Profile Not Setup' : 'Zero Progress'}</p>
+                       <a href={`mailto:${member.email}`} className="text-[10px] font-bold text-brand-orange uppercase">Email</a>
+                     </div>
+                   </div>
+                ))}
+                {atRisk.length > 5 && (
+                  <p className="text-xs text-center text-brand-navy/40 font-bold">+{atRisk.length - 5} more members</p>
+                )}
+              </div>
+            ) : (
+              <div className="p-6 flex flex-col items-center justify-center text-center bg-white rounded-2xl border border-green-500/20">
+                <CheckCircle2 className="w-8 h-8 text-green-500 mb-2" />
+                <p className="text-sm font-bold text-brand-navy">All Clear</p>
+                <p className="text-xs text-brand-navy/60">No members currently flagged as at risk.</p>
+              </div>
+            )}
 
-          <EliteCard title="At Risk" subtitle="Required Intervention" className="p-6 md:p-8 border-red-500/20">
-            <div className="mt-4 md:mt-6 space-y-4">
-              <div className="p-4 bg-red-50 rounded-xl border border-red-100 flex items-center gap-4">
-                <AlertTriangle className="w-5 h-5 text-red-500" />
-                <div>
-                  <p className="text-xs font-black text-brand-navy">Intervention Needed</p>
-                  <p className="text-[10px] font-bold text-red-500 uppercase">Members Stalled</p>
+            <BrandButton 
+              variant="outline" 
+              size="sm" 
+              className="w-full text-[10px] py-3 mt-4 bg-white hover:bg-red-500 hover:text-white hover:border-red-500"
+              onClick={handlePulse}
+              isLoading={isPulseRunning}
+            >
+              <Send className="w-3 h-3 mr-2" /> Run Engagement Pulse
+            </BrandButton>
+          </div>
+        </EliteCard>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* VAULT ANALYTICS */}
+        <EliteCard className="p-6" title="Vault Analytics" subtitle="Top performing intelligence">
+          <div className="mt-6 space-y-3">
+            {vaultStats.length > 0 ? vaultStats.map((item: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-3 bg-brand-navy/5 rounded-xl">
+                <div className="flex items-center gap-3 overflow-hidden">
+                  <div className="w-6 h-6 rounded bg-brand-orange/10 flex items-center justify-center shrink-0">
+                    <span className="text-[10px] font-black text-brand-orange">{i + 1}</span>
+                  </div>
+                  <p className="text-xs font-bold text-brand-navy truncate">{item.title}</p>
+                </div>
+                <div className="flex items-center gap-2 pl-4">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">{item.download_count} hits</p>
                 </div>
               </div>
-              <BrandButton 
-                variant="outline" 
-                size="sm" 
-                className="w-full text-[10px] py-3"
-                onClick={handlePulse}
-                isLoading={isPulseRunning}
-              >
-                {isPulseRunning ? "Sending..." : "Run Engagement Pulse"}
-              </BrandButton>
-            </div>
-          </EliteCard>
-        </div>
+            )) : (
+               <p className="text-xs text-brand-navy/40 py-4 text-center">No vault data yet.</p>
+            )}
+          </div>
+          <Link href="/portal/vault" className="block mt-6 text-center text-xs font-bold text-brand-orange uppercase tracking-widest hover:underline">
+            Manage Vault Assets
+          </Link>
+        </EliteCard>
+
+        {/* SYSTEM HEALTH */}
+        <EliteCard className="p-6" title="System Health" subtitle="Live Infrastructure Status">
+          <div className="mt-6 space-y-4">
+            {[
+              { label: "PostgreSQL Database", status: health?.database, icon: Database },
+              { label: "Authentication (GoTrue)", status: health?.auth, icon: ShieldCheck },
+              { label: "Automation Queue", status: "operational", icon: Activity },
+              { label: "Resend Email Gateway", status: health?.email, icon: Send },
+            ].map((sys, i) => (
+              <div key={i} className="flex items-center justify-between p-4 border border-brand-navy/5 rounded-xl">
+                <div className="flex items-center gap-3">
+                  <sys.icon className="w-5 h-5 text-brand-navy/40" />
+                  <span className="text-sm font-bold text-brand-navy">{sys.label}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className={cn("w-2 h-2 rounded-full", sys.status === 'operational' ? "bg-green-500 animate-pulse" : "bg-red-500 animate-pulse")} />
+                  <span className={cn("text-[10px] font-black uppercase tracking-widest", sys.status === 'operational' ? "text-green-500" : "text-red-500")}>
+                    {sys.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </EliteCard>
       </div>
 
       {/* Modals */}
@@ -415,8 +437,8 @@ export function AdminDashboardClient({
           <EliteCard className="w-full max-w-xl p-6 md:p-10 animate-in fade-in zoom-in duration-200">
             <div className="flex justify-between items-start mb-6 md:mb-8">
               <div>
-                <h3 className="text-xl md:text-2xl font-black text-brand-navy">Send Announcement</h3>
-                <p className="text-[10px] font-bold text-brand-orange uppercase tracking-widest mt-1">Broadcast to all active members</p>
+                <h3 className="text-xl md:text-2xl font-black text-brand-navy">Broadcast Message</h3>
+                <p className="text-[10px] font-bold text-brand-orange uppercase tracking-widest mt-1">Push to all active members</p>
               </div>
               <button onClick={() => setShowAnnouncementModal(false)} className="p-2 hover:bg-brand-navy/5 rounded-lg transition-all">
                 <X className="w-5 h-5 text-brand-navy/40" />
