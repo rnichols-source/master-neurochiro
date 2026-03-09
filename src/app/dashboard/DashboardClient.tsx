@@ -340,7 +340,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
             </div>
           </EliteCard>
 
-          <Link href="/portal/resources" className="block">
+          <Link href="/portal/playbooks" className="block mt-4">
             <EliteCard className="bg-brand-navy text-white hover:bg-brand-black transition-colors cursor-pointer group" delay={0.2}>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -349,7 +349,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
                         </div>
                         <div>
                             <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Quick Links</p>
-                            <h4 className="text-sm font-black uppercase tracking-tight">Implementation Resources</h4>
+                            <h4 className="text-sm font-black uppercase tracking-tight">Implementation Playbooks</h4>
                         </div>
                     </div>
                     <ArrowRight className="w-4 h-4 text-brand-orange group-hover:translate-x-1 transition-transform" />
@@ -357,16 +357,16 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
             </EliteCard>
           </Link>
           
-          <Link href="/portal/kpi" className="block">
-            <EliteCard className="bg-white hover:border-brand-orange/40 transition-colors cursor-pointer group" delay={0.3}>
+          <Link href="/portal/case-lab" className="block mt-4">
+            <EliteCard className="bg-white border-brand-navy/10 hover:border-brand-orange/40 transition-colors cursor-pointer group" delay={0.3}>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-brand-navy/5 rounded-lg group-hover:bg-brand-orange/10 transition-colors">
                           <TrendingUp className="text-brand-orange w-5 h-5" />
                         </div>
                         <div>
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-brand-navy/40">Weekly Metric</p>
-                            <h4 className="text-sm font-black uppercase tracking-tight text-brand-navy">Submit KPIs</h4>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-brand-navy/40">Clinical Intelligence</p>
+                            <h4 className="text-sm font-black uppercase tracking-tight text-brand-navy">Case Breakdown Lab</h4>
                         </div>
                     </div>
                     <ArrowRight className="w-4 h-4 text-brand-orange group-hover:translate-x-1 transition-transform" />

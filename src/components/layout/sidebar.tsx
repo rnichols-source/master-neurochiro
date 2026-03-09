@@ -21,9 +21,11 @@ import { PushNotificationManager } from "@/components/portal/push-manager";
 
 const navItems = [
   { name: "Dashboard", href: "/portal", icon: LayoutDashboard },
-  { name: "Manuscript", href: "/portal/manuscript", icon: BookOpen },
   { name: "Curriculum", href: "/portal/curriculum", icon: BookOpen },
+  { name: "Vault", href: "/portal/vault", icon: ShieldCheck },
   { name: "KPI Tracker", href: "/portal/kpi", icon: BarChart3 },
+  { name: "Playbooks", href: "/portal/playbooks", icon: FileText },
+  { name: "Case Lab", href: "/portal/case-lab", icon: Activity },
 ];
 
 export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
