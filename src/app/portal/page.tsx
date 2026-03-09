@@ -20,7 +20,7 @@ export default async function PortalDashboard() {
 
   // 0. Fetch real live call data
   const callResult = await fetchNextCall();
-  const nextCall = callResult.data || { next_call: new Date().toISOString(), zoom_url: 'https://zoom.us' };
+  const nextCall = callResult.data || { call_time: new Date().toISOString(), zoom_url: 'https://zoom.us' };
 
   // 1. Fetch real curriculum structure from DB
   const { data: weeks } = await supabase
@@ -59,7 +59,7 @@ export default async function PortalDashboard() {
       <div className="space-y-10">
         {/* Live Session Alert / Timer */}
         <LiveSessionTimer 
-          nextSessionTime={nextCall.next_call} 
+          nextSessionTime={nextCall.call_time} 
           zoomUrl={nextCall.zoom_url} 
         />
 

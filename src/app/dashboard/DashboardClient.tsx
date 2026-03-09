@@ -5,6 +5,8 @@ import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { cn } from "@/lib/utils";
 import { fetchKPIEntries } from "@/app/actions/kpi-actions";
 import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
+import { fetchNextCall } from "@/app/actions/call-actions";
+import LiveCallBanner from "@/components/portal/LiveCallBanner";
 import { 
   Play, 
   CheckCircle2, 
@@ -28,6 +30,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
     { label: "New Patients", value: "0", trend: "+0", icon: TrendingUp, metric: "new_patients" },
   ]);
   const [currentWeek, setCurrentWeek] = useState<any>(null);
+  const [nextCall, setNextCall] = useState<any>(null);
 
   useEffect(() => {
     // Step 5: Redirect if profile is pending
@@ -81,6 +84,12 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
         const active = curriculumResult.data.find((w: any) => w.status === 'active') || curriculumResult.data[curriculumResult.data.length - 1];
         setCurrentWeek(active);
       }
+
+      // Load Next Call
+      const callResult = await fetchNextCall();
+      if (callResult.success) {
+        setNextCall(callResult.data);
+      }
       
       setLoading(false);
     }
@@ -118,6 +127,9 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
             </Link>
         </div>
       </div>
+
+      {/* Live Call Banner */}
+      {!loading && <LiveCallBanner call={nextCall} />}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

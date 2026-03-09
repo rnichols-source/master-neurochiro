@@ -1,6 +1,8 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { EliteCard } from "@/components/ui/elite-ui";
 import { fetchWeekDetail } from "@/app/actions/curriculum-actions";
+import { fetchNextCall } from "@/app/actions/call-actions";
+import LiveCallBanner from "@/components/portal/LiveCallBanner";
 import { 
   Play, 
   CheckCircle2, 
@@ -34,12 +36,20 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
   const completedCount = safeModules.filter((m: any) => m.status === 'completed').length;
   const completionPercent = safeModules.length > 0 ? Math.round((completedCount / safeModules.length) * 100) : 0;
 
+  // Fetch next call to see if it belongs to this week
+  const callResult = await fetchNextCall();
+  const nextCall = callResult.success ? callResult.data : null;
+  const isWeek7 = slug === 'week-7-eq';
+
   return (
     <DashboardLayout>
       <div className="space-y-10">
         <Link href="/portal/curriculum" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-orange transition-colors">
           <ChevronLeft className="w-3 h-3" /> Back to Curriculum
         </Link>
+
+        {/* Live Call Banner for Week 7 */}
+        {isWeek7 && nextCall && <LiveCallBanner call={nextCall} />}
 
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 pb-10 border-b border-brand-navy/5">
           <div className="space-y-4">

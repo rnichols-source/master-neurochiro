@@ -51,6 +51,22 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
   const isJoinable = timeLeft.totalSeconds <= 600 && timeLeft.totalSeconds > -5400; 
   const isLive = timeLeft.totalSeconds <= 0 && timeLeft.totalSeconds > -5400;
 
+  const localTime = new Date(nextSessionTime).toLocaleString(undefined, {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short'
+  });
+
+  const etTime = new Date(nextSessionTime).toLocaleString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: 'America/New_York',
+    timeZoneName: 'short'
+  });
+
   return (
     <div className={cn(
       "w-full rounded-2xl border p-6 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-500",
@@ -64,7 +80,7 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
           {isLive ? <Video className="w-6 h-6 animate-pulse" /> : <Clock className="w-6 h-6" />}
         </div>
         
-        <div>
+        <div className="space-y-1">
           <p className={cn(
             "text-[10px] font-black uppercase tracking-[0.2em]",
             isLive ? "text-white/60" : "text-brand-navy/40"
@@ -77,6 +93,16 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
           )}>
             Coaching Call with Dr. Nichols
           </h4>
+          {!isLive && (
+            <div className="flex flex-col gap-0.5">
+              <p className={cn("text-[9px] font-bold uppercase tracking-wider", isLive ? "text-white/60" : "text-brand-navy/60")}>
+                {etTime} (Eastern Time)
+              </p>
+              <p className={cn("text-[8px] font-medium italic", isLive ? "text-white/40" : "text-brand-navy/30")}>
+                Your local time: {localTime}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 

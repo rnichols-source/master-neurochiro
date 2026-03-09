@@ -7,34 +7,38 @@ import { revalidatePath } from 'next/cache'
 export async function fetchNextCall() {
   const supabase = await createClient();
   
+  // Fetch the next uncompleted call
+  // We include calls that started up to 3 hours ago to account for live sessions
+  const threeHoursAgo = new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString();
+
   const { data, error } = await supabase
-    .from('mastermind_calls')
+    .from('live_calls')
     .select('*')
-    .order('next_call', { ascending: true })
-    .gt('next_call', new Date().toISOString())
+    .eq('is_completed', false)
+    .gt('call_time', threeHoursAgo)
+    .order('call_time', { ascending: true })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (error) {
     console.error("Error fetching call:", error);
-    // Fallback to a default if nothing found
-    return { 
-      success: false, 
-      data: { next_call: new Date().toISOString(), zoom_url: 'https://zoom.us' } 
-    };
+    return { success: false, error: error.message };
   }
 
   return { success: true, data };
 }
 
-export async function updateNextCall(date: string, zoomUrl: string) {
+export async function updateNextCall(date: string, zoomUrl: string, title?: string, description?: string) {
   const supabase = createAdminClient();
 
   const { error } = await supabase
-    .from('mastermind_calls')
+    .from('live_calls')
     .insert({
-      next_call: date,
-      zoom_url: zoomUrl
+      title: title || 'Weekly Mastermind Call',
+      description: description || 'Live coaching and Q&A session.',
+      call_time: date,
+      zoom_url: zoomUrl,
+      is_completed: false
     });
 
   if (error) return { success: false, error: error.message };
