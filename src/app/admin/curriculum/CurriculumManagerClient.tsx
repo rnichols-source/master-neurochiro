@@ -10,12 +10,13 @@ import {
   LayoutDashboard,
   Loader2,
   Database,
-  RefreshCcw
+  RefreshCcw,
+  Trash2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { ResourceUploader } from "@/components/admin/ResourceUploader";
-import { addModule } from "@/app/actions/module-actions";
+import { addModule, deleteModule } from "@/app/actions/module-actions";
 import { syncWeek6Resources } from "@/app/actions/activation-actions";
 
 export function CurriculumManagerClient({ initialWeeks, initialResources = [] }: { initialWeeks: any[], initialResources?: any[] }) {
@@ -26,6 +27,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
   const [isSaving, setIsSaving] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const supabase = createClient();
 
   const handleSync = async () => {
@@ -105,6 +107,34 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const handleDeleteModule = async () => {
+    if (!selectedModule) return;
+    if (!confirm(`Are you sure you want to delete "${selectedModule.title}"? This cannot be undone.`)) return;
+    
+    setIsDeleting(true);
+    const res = await deleteModule(selectedModule.id);
+    
+    if (res.success) {
+      const updatedWeeks = weeks.map(w => {
+        if (w.id === selectedWeek.id) {
+          return {
+            ...w,
+            modules: w.modules.filter((m: any) => m.id !== selectedModule.id)
+          };
+        }
+        return w;
+      });
+      setWeeks(updatedWeeks);
+      const currentUpdatedWeek = updatedWeeks.find(w => w.id === selectedWeek.id);
+      setSelectedWeek(currentUpdatedWeek);
+      setSelectedModule(null);
+      alert("Module deleted.");
+    } else {
+      alert("Error deleting: " + res.error);
+    }
+    setIsDeleting(false);
   };
 
   const handleUpdateResources = async () => {
@@ -249,6 +279,15 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                       >
                         <Save className="w-4 h-4 mr-2" /> Save Module
                       </BrandButton>
+
+                      <button 
+                        onClick={handleDeleteModule}
+                        disabled={isDeleting}
+                        className="w-full flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-red-500/40 hover:text-red-500 transition-colors py-2"
+                      >
+                        {isDeleting ? <Loader2 className="w-3 h-3 animate-spin" /> : <Trash2 className="w-3 h-3" />}
+                        Delete This Module
+                      </button>
                       
                       <div className="pt-6 border-t border-brand-navy/5">
                         <ResourceUploader 

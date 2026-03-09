@@ -24,3 +24,17 @@ export async function addModule(weekId: number, orderIndex: number) {
   revalidatePath('/admin/curriculum')
   return { success: true, data }
 }
+
+export async function deleteModule(moduleId: string) {
+  const supabase = createAdminClient()
+  
+  const { error } = await supabase
+    .from('modules')
+    .delete()
+    .eq('id', moduleId)
+
+  if (error) return { success: false, error: error.message }
+  
+  revalidatePath('/admin/curriculum')
+  return { success: true }
+}
