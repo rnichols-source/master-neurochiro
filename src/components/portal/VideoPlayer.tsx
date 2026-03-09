@@ -22,11 +22,32 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
   const [isMuted, setIsMuted] = useState(false)
   const [hasCompleted, setHasCompleted] = useState(false)
 
+  // Detect if URL is an embed (Vimeo/YouTube) or a direct file
+  const isVimeo = videoUrl?.includes('vimeo.com') || /^\d+$/.test(videoUrl);
+  const isYouTube = videoUrl?.includes('youtube.com') || videoUrl?.includes('youtu.be');
+  const isDirectFile = !isVimeo && !isYouTube && (videoUrl?.includes('.mp4') || videoUrl?.includes('.mov'));
+
+  // Get clean embed URL
+  const getEmbedUrl = () => {
+    if (isVimeo) {
+      const id = videoUrl.split('/').pop();
+      return `https://player.vimeo.com/video/${id}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479`;
+    }
+    if (isYouTube) {
+      const id = videoUrl.includes('v=') ? videoUrl.split('v=')[1].split('&')[0] : videoUrl.split('/').pop();
+      return `https://www.youtube.com/embed/${id}?autoplay=1`;
+    }
+    return videoUrl;
+  };
+
   const togglePlay = () => {
-    if (videoRef.current) {
+    if (isDirectFile && videoRef.current) {
       if (isPlaying) videoRef.current.pause()
       else videoRef.current.play()
       setIsPlaying(!isPlaying)
+    } else {
+      // For embeds, we just show the iframe
+      setIsPlaying(true)
     }
   }
 
@@ -36,7 +57,6 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
       const dur = videoRef.current.duration
       setProgress((current / dur) * 100)
 
-      // Step 3: Mark complete at 90%
       if (!hasCompleted && (current / dur) >= 0.9) {
         setHasCompleted(true)
         handleModuleComplete()
@@ -50,18 +70,39 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
     if (onComplete) onComplete()
   }
 
-  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (videoRef.current) {
-      const time = (parseFloat(e.target.value) / 100) * videoRef.current.duration
-      videoRef.current.currentTime = time
-      setProgress(parseFloat(e.target.value))
-    }
-  }
-
   useEffect(() => {
     trackActivity(userId, 'video_start', moduleId, { title })
   }, [userId, moduleId, title])
 
+  // If it's an embed, render Iframe
+  if (isVimeo || isYouTube) {
+    return (
+      <div className="relative group bg-brand-navy rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-video">
+        {!isPlaying ? (
+          <div 
+            className="absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-brand-navy/60 backdrop-blur-sm"
+            onClick={togglePlay}
+          >
+            <div className="w-20 h-20 rounded-full bg-brand-orange/20 backdrop-blur-sm flex items-center justify-center scale-100 hover:scale-110 transition-transform">
+              <Play size={40} className="text-brand-orange fill-brand-orange ml-1" />
+            </div>
+            <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
+                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">Training: {title}</span>
+            </div>
+          </div>
+        ) : (
+          <iframe
+            src={getEmbedUrl()}
+            className="w-full h-full"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+          />
+        )}
+      </div>
+    );
+  }
+
+  // Fallback to direct video file
   return (
     <div className="relative group bg-brand-navy rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-video">
       <video
@@ -76,7 +117,10 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
       />
 
       {/* Overlay Controls */}
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 space-y-4">
+      <div className={cn(
+        "absolute inset-0 bg-gradient-to-t from-brand-black/80 via-transparent to-transparent transition-opacity duration-300 flex flex-col justify-end p-6 space-y-4",
+        isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
+      )}>
         
         {/* Progress Bar */}
         <div className="space-y-1">
@@ -85,7 +129,7 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
             min="0"
             max="100"
             value={progress}
-            onChange={handleSeek}
+            readOnly
             className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-brand-orange"
           />
           <div className="flex justify-between text-[8px] font-black text-white/40 uppercase tracking-widest">
@@ -99,26 +143,14 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
             <button onClick={togglePlay} className="text-white hover:text-brand-orange transition-colors">
               {isPlaying ? <Pause size={24} /> : <Play size={24} className="fill-current" />}
             </button>
-            <button onClick={() => videoRef.current && (videoRef.current.currentTime -= 10)} className="text-white/60 hover:text-white transition-colors">
-              <RotateCcw size={18} />
-            </button>
-            <div className="flex items-center gap-2">
-              <button onClick={() => setIsMuted(!isMuted)} className="text-white/60 hover:text-white transition-colors">
-                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-              </button>
+            <div className="flex items-center gap-4">
+                {hasCompleted && (
+                <div className="flex items-center gap-2 bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/20">
+                    <CheckCircle2 size={12} />
+                    <span className="text-[8px] font-black uppercase tracking-widest">Module Complete</span>
+                </div>
+                )}
             </div>
-          </div>
-
-          <div className="flex items-center gap-4">
-            {hasCompleted && (
-              <div className="flex items-center gap-2 bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/20">
-                <CheckCircle2 size={12} />
-                <span className="text-[8px] font-black uppercase tracking-widest">Module Complete</span>
-              </div>
-            )}
-            <button className="text-white/60 hover:text-white transition-colors">
-              <Maximize size={18} />
-            </button>
           </div>
         </div>
       </div>
