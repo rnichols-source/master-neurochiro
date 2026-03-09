@@ -155,3 +155,40 @@ export async function trackActivity(userId: string, type: string, moduleId?: str
 
   return { success: !error }
 }
+
+/**
+ * One-click sync for Week 6 Premium Resources
+ */
+export async function syncWeek6Resources() {
+  const supabaseAdmin = createAdminClient()
+  
+  // Find Week 6 ID
+  const { data: week } = await supabaseAdmin
+    .from('weeks')
+    .select('id')
+    .eq('week_number', 6)
+    .single()
+
+  if (!week) return { success: false, error: 'Week 6 not found' }
+
+  // Clear existing to avoid duplicates
+  await supabaseAdmin.from('resources').delete().eq('week_id', week.id)
+
+  // Insert the New Premium Suite
+  const { error } = await supabaseAdmin.from('resources').insert([
+    { title: 'Week 6 Master Overview', url: '/resources/week-6/master-overview.html', type: 'link', week_id: week.id },
+    { title: 'Day 1 Playbook: Uncertainty', url: '/resources/week-6/day-1-playbook.html', type: 'link', week_id: week.id },
+    { title: 'Day 2 Playbook: Decision Architecture', url: '/resources/week-6/day-2-playbook.html', type: 'link', week_id: week.id },
+    { title: 'Day 3 Playbook: Stabilization', url: '/resources/week-6/day-3-playbook.html', type: 'link', week_id: week.id },
+    { title: 'The Biological Sequence', url: '/resources/week-6/biological-sequence.html', type: 'link', week_id: week.id },
+    { title: 'The Containment Protocol', url: '/resources/week-6/containment-protocol.html', type: 'link', week_id: week.id },
+    { title: 'The Physics of Frequency', url: '/resources/week-6/physics-of-frequency.html', type: 'link', week_id: week.id },
+    { title: 'The Doctrine of Clinical Mastery', url: '/resources/week-6/mastery-doctrine.html', type: 'link', week_id: week.id },
+    { title: 'Sequence Cheat Sheet', url: '/resources/week-6/sequence-cheat-sheet.html', type: 'link', week_id: week.id }
+  ])
+
+  if (error) return { success: false, error: error.message }
+  
+  revalidatePath('/portal/curriculum')
+  return { success: true }
+}

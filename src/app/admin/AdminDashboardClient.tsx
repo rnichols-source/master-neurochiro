@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { seedDashboardData, runEngagementPulse, sendAnnouncement } from "@/app/actions/admin-ops";
-import { activateApprovedMembers } from "@/app/actions/activation-actions";
+import { activateApprovedMembers, syncWeek6Resources } from "@/app/actions/activation-actions";
 import { updateNextCall } from "@/app/actions/call-actions";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -45,6 +45,7 @@ export function AdminDashboardClient({
   const [mastermindActivity, setMastermindActivity] = useState(initialMastermindActivity);
   const [isSeeding, setIsSeeding] = useState(false);
   const [isActivating, setIsActivating] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [isPulseRunning, setIsPulseRunning] = useState(false);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
   const [showCallModal, setShowCallModal] = useState(false);
@@ -78,6 +79,18 @@ export function AdminDashboardClient({
       alert(`Error: ${res.error}`);
     }
     setIsActivating(false);
+  };
+
+  const handleSyncResources = async () => {
+    setIsSyncing(true);
+    const res = await syncWeek6Resources();
+    if (res.success) {
+      alert("Week 6 Premium Resources Synced Successfully!");
+      window.location.reload();
+    } else {
+      alert(`Error Syncing: ${res.error}`);
+    }
+    setIsSyncing(false);
   };
 
   const handleAnnouncement = async (e: React.FormEvent) => {
@@ -244,6 +257,27 @@ export function AdminDashboardClient({
               Activate Approved Members
             </BrandButton>
           </div>
+
+          <div className="mt-4 p-6 bg-brand-navy/5 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-brand-navy/10">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-brand-orange/10 rounded-xl">
+                <Database className="text-brand-orange w-6 h-6" />
+              </div>
+              <div>
+                <h4 className="text-brand-navy font-black uppercase tracking-tight">Content Pipeline</h4>
+                <p className="text-brand-navy/40 text-[10px] font-bold uppercase tracking-widest">Hard-sync premium assets to Phase 6 curriculum</p>
+              </div>
+            </div>
+            <BrandButton 
+              variant="outline" 
+              size="sm" 
+              onClick={handleSyncResources}
+              isLoading={isSyncing}
+              className="w-full md:w-auto"
+            >
+              Sync Week 6 Resources
+            </BrandButton>
+          </div>
         </EliteCard>
 
         <div className="space-y-6 md:space-y-8">
@@ -336,7 +370,7 @@ export function AdminDashboardClient({
 
       {showCallModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-brand-navy/40 backdrop-blur-sm">
-          <EliteCard className="w-full max-w-md p-8 animate-in fade-in zoom-in duration-200">
+          <EliteCard className="w-full max-md p-8 animate-in fade-in zoom-in duration-200">
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">Schedule Live Mastermind</h3>
