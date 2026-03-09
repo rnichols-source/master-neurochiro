@@ -94,7 +94,7 @@ export async function seedDashboardData() {
       { user_id: mockMembers[0].id, module_id: mods[0].id, completed_at: new Date().toISOString() },
       { user_id: mockMembers[2].id, module_id: mods[0].id, completed_at: new Date().toISOString() },
     ]
-    await supabaseAdmin.from('progress').upsert(progress)
+    await supabaseAdmin.from('member_progress').upsert(progress)
   }
 
   console.log('[ADMIN-OPS] Seeding complete.')

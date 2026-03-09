@@ -17,10 +17,13 @@ import {
   X,
   Loader2,
   Calendar,
-  Link as LinkIcon
+  Link as LinkIcon,
+  Zap,
+  UserPlus
 } from "lucide-react";
 import { useState } from "react";
 import { seedDashboardData, runEngagementPulse, sendAnnouncement } from "@/app/actions/admin-ops";
+import { activateApprovedMembers } from "@/app/actions/activation-actions";
 import { updateNextCall } from "@/app/actions/call-actions";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -28,16 +31,20 @@ import { cn } from "@/lib/utils";
 export function AdminDashboardClient({ 
   initialStats, 
   initialCohortData,
-  initialActivity 
+  initialActivity,
+  initialMastermindActivity
 }: { 
   initialStats: any, 
   initialCohortData: any,
-  initialActivity: any[]
+  initialActivity: any[],
+  initialMastermindActivity: any
 }) {
   const [stats, setStats] = useState(initialStats);
   const [cohortData, setCohortData] = useState(initialCohortData);
   const [recentActivity, setRecentActivity] = useState(initialActivity);
+  const [mastermindActivity, setMastermindActivity] = useState(initialMastermindActivity);
   const [isSeeding, setIsSeeding] = useState(false);
+  const [isActivating, setIsActivating] = useState(false);
   const [isPulseRunning, setIsPulseRunning] = useState(false);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
   const [showCallModal, setShowCallModal] = useState(false);
@@ -59,6 +66,18 @@ export function AdminDashboardClient({
     await runEngagementPulse();
     alert("Engagement pulse complete. At-risk members notified.");
     setIsPulseRunning(false);
+  };
+
+  const handleActivateMembers = async () => {
+    setIsActivating(true);
+    const res = await activateApprovedMembers();
+    if (res.success) {
+      alert(`Activation complete! Members processed.`);
+      window.location.reload();
+    } else {
+      alert(`Error: ${res.error}`);
+    }
+    setIsActivating(false);
   };
 
   const handleAnnouncement = async (e: React.FormEvent) => {
@@ -181,22 +200,49 @@ export function AdminDashboardClient({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-        <EliteCard className="lg:col-span-2 p-6 md:p-8" title="Cohort Completion" subtitle="Progress by Phase">
-          <div className="mt-6 md:mt-8 space-y-5 md:space-y-6">
-            {cohortData?.completionRates?.map((week: any) => (
-              <div key={week.week} className="space-y-2">
-                <div className="flex justify-between items-end">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy">Phase {week.week}: {week.title}</p>
-                  <p className="text-[10px] font-black text-brand-orange">{week.rate}%</p>
-                </div>
-                <div className="h-2 w-full bg-brand-navy/5 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-brand-navy transition-all duration-1000" 
-                    style={{ width: `${week.rate}%` }} 
-                  />
-                </div>
+        <EliteCard className="lg:col-span-2 p-6 md:p-8" title="Mastermind Activity" subtitle="Live Member Usage">
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="space-y-1">
+              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Profiles Created</p>
+              <h4 className="text-3xl font-black text-brand-navy">{mastermindActivity?.profilesCompleted || 0}</h4>
+              <p className="text-[8px] font-bold text-green-500 uppercase tracking-tighter">Ready for Week 6</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Active Today</p>
+              <h4 className="text-3xl font-black text-brand-orange">{mastermindActivity?.activeToday || 0}</h4>
+              <p className="text-[8px] font-bold text-brand-gray uppercase tracking-tighter">Logged in last 24h</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Watched Week 6</p>
+              <h4 className="text-3xl font-black text-brand-navy">{mastermindActivity?.watchedWeek6 || 0}</h4>
+              <p className="text-[8px] font-bold text-brand-orange uppercase tracking-tighter">Day 1/2 Mastery</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Inactive</p>
+              <h4 className="text-3xl font-black text-brand-gray/40">{mastermindActivity?.inactive || 0}</h4>
+              <p className="text-[8px] font-bold text-red-500 uppercase tracking-tighter">Requires Pulse</p>
+            </div>
+          </div>
+          
+          <div className="mt-10 p-6 bg-brand-navy rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border-4 border-white shadow-xl shadow-brand-navy/20">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white/10 rounded-xl">
+                <UserPlus className="text-brand-orange w-6 h-6" />
               </div>
-            ))}
+              <div>
+                <h4 className="text-white font-black uppercase tracking-tight">Activation Pipeline</h4>
+                <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Sync approved applications to platform accounts</p>
+              </div>
+            </div>
+            <BrandButton 
+              variant="accent" 
+              size="sm" 
+              onClick={handleActivateMembers}
+              isLoading={isActivating}
+              className="w-full md:w-auto"
+            >
+              Activate Approved Members
+            </BrandButton>
           </div>
         </EliteCard>
 

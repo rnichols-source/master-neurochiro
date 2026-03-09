@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { cn } from "@/lib/utils";
 import { fetchKPIEntries } from "@/app/actions/kpi-actions";
+import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
 import { 
   Play, 
   CheckCircle2, 
@@ -12,24 +13,35 @@ import {
   Users, 
   DollarSign,
   Video,
-  Loader2
+  Loader2,
+  AlertCircle
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function DashboardClient() {
+export default function DashboardClient({ user, profile }: { user: any, profile: any }) {
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
   const [stats, setStats] = useState([
     { label: "Patient Visits", value: "0", trend: "0%", icon: Users, metric: "patient_visits" },
     { label: "Collections", value: "$0", trend: "0%", icon: DollarSign, metric: "collections" },
     { label: "New Patients", value: "0", trend: "+0", icon: TrendingUp, metric: "new_patients" },
   ]);
+  const [currentWeek, setCurrentWeek] = useState<any>(null);
 
   useEffect(() => {
-    async function loadStats() {
-      const result = await fetchKPIEntries();
-      if (result.success && result.data && result.data.length > 0) {
-        const latest = result.data[result.data.length - 1];
-        const previous = result.data.length > 1 ? result.data[result.data.length - 2] : null;
+    // Step 5: Redirect if profile is pending
+    if (profile?.status === 'pending_profile' || profile?.status === 'profile_started') {
+      router.push('/portal/onboarding');
+      return;
+    }
+
+    async function loadData() {
+      // Load Stats
+      const kpiResult = await fetchKPIEntries();
+      if (kpiResult.success && kpiResult.data && kpiResult.data.length > 0) {
+        const latest = kpiResult.data[kpiResult.data.length - 1];
+        const previous = kpiResult.data.length > 1 ? kpiResult.data[kpiResult.data.length - 2] : null;
 
         const calculateTrend = (metric: string) => {
           if (!previous || previous[metric] === 0) return "+0%";
@@ -61,22 +73,26 @@ export default function DashboardClient() {
           },
         ]);
       }
+
+      // Load Curriculum Progress
+      const curriculumResult = await fetchCurriculumWithProgress();
+      if (curriculumResult.success && curriculumResult.data) {
+        // Find the active week
+        const active = curriculumResult.data.find((w: any) => w.status === 'active') || curriculumResult.data[curriculumResult.data.length - 1];
+        setCurrentWeek(active);
+      }
+      
       setLoading(false);
     }
-    loadStats();
-  }, []);
+    loadData();
+  }, [profile, router]);
 
-  const currentWeek = {
-    number: 3,
-    title: "Communication Mastery",
-    progress: 65,
-    nextModule: "The Authority ROF",
-  };
+  if (!profile || profile.status === 'pending_profile') return null;
 
   return (
     <div className="space-y-8">
       {/* Welcome Header */}
-      <div className="flex items-end justify-between">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <p className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-2">
             Practice Intelligence
@@ -84,12 +100,22 @@ export default function DashboardClient() {
           <h1 className="text-4xl font-black text-brand-navy tracking-tight">
             Growth Command Hub
           </h1>
+          <p className="text-brand-gray font-medium mt-1">
+            Welcome back, <span className="text-brand-navy font-bold">{profile.full_name || 'Doctor'}</span>.
+          </p>
         </div>
-        <div className="bg-white px-4 py-2 rounded-xl border border-brand-navy/5 elite-shadow flex items-center gap-3">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-          <span className="text-xs font-bold uppercase tracking-wider text-brand-navy/60">
-            System Active
-          </span>
+        <div className="flex items-center gap-3">
+            <div className="bg-white px-4 py-2 rounded-xl border border-brand-navy/5 elite-shadow flex items-center gap-3">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-navy/60">
+                System Active
+            </span>
+            </div>
+            <Link href="/neurochiro-live">
+                <BrandButton variant="accent" size="sm" className="rounded-full">
+                    Join Live Room <Video className="ml-2 h-4 w-4" />
+                </BrandButton>
+            </Link>
         </div>
       </div>
 
@@ -139,69 +165,70 @@ export default function DashboardClient() {
         {/* Active Learning */}
         <EliteCard 
           title="Current Focus" 
-          subtitle={`Week ${currentWeek.number}`}
+          subtitle={currentWeek ? `Week ${currentWeek.week_number}` : 'Loading...'}
           className="lg:col-span-2"
         >
-          <div className="flex flex-col md:flex-row gap-8 items-center">
-            <div className="relative w-full md:w-64 aspect-video bg-brand-navy rounded-xl overflow-hidden group cursor-pointer">
-              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-60 group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute inset-0 flex items-center justify-center bg-brand-navy/40 group-hover:bg-brand-navy/20 transition-colors">
-                <div className="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center shadow-xl shadow-brand-orange/40 group-hover:scale-110 transition-transform">
-                  <Play className="w-5 h-5 text-white fill-white ml-1" />
-                </div>
-              </div>
+          {loading ? (
+            <div className="h-48 flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-brand-orange" />
             </div>
-            
-            <div className="flex-1 space-y-4 text-center md:text-left">
-              <div>
-                <h4 className="text-xl font-black text-brand-navy">{currentWeek.title}</h4>
-                <p className="text-sm text-brand-gray mt-1">
-                  Up next: <span className="font-bold text-brand-navy">{currentWeek.nextModule}</span>
-                </p>
-              </div>
-              
-              <div className="space-y-2">
-                <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-brand-navy/40">
-                  <span>Course Progress</span>
-                  <span>{currentWeek.progress}%</span>
+          ) : currentWeek ? (
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="relative w-full md:w-64 aspect-video bg-brand-navy rounded-xl overflow-hidden group cursor-pointer">
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-60 group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute inset-0 flex items-center justify-center bg-brand-navy/40 group-hover:bg-brand-navy/20 transition-colors">
+                    <div className="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center shadow-xl shadow-brand-orange/40 group-hover:scale-110 transition-transform">
+                    <Play className="w-5 h-5 text-white fill-white ml-1" />
+                    </div>
                 </div>
-                <div className="h-2 w-full bg-brand-navy/5 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-brand-orange rounded-full transition-all duration-1000" 
-                    style={{ width: `${currentWeek.progress}%` }} 
-                  />
                 </div>
-              </div>
+                
+                <div className="flex-1 space-y-4 text-center md:text-left w-full">
+                <div>
+                    <h4 className="text-xl font-black text-brand-navy">{currentWeek.title}</h4>
+                    <p className="text-sm text-brand-gray mt-1">
+                    Theme: <span className="italic">"{currentWeek.theme}"</span>
+                    </p>
+                </div>
+                
+                <div className="space-y-2">
+                    <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-brand-navy/40">
+                    <span>Phase Progress</span>
+                    <span>{currentWeek.status === 'completed' ? '100%' : 'In Progress'}</span>
+                    </div>
+                    <div className="h-2 w-full bg-brand-navy/5 rounded-full overflow-hidden">
+                    <div 
+                        className={cn(
+                            "h-full rounded-full transition-all duration-1000",
+                            currentWeek.status === 'completed' ? "bg-green-500 w-full" : "bg-brand-orange w-1/3"
+                        )}
+                    />
+                    </div>
+                </div>
 
-              <Link 
-                href={`/portal/curriculum/week-${currentWeek.number}`}
-                className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-brand-orange hover:gap-3 transition-all"
-              >
-                Continue Learning <ArrowRight className="w-4 h-4" />
-              </Link>
+                <Link 
+                    href={`/portal/curriculum/${currentWeek.slug}`}
+                    className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-brand-orange hover:gap-3 transition-all"
+                >
+                    {currentWeek.status === 'completed' ? 'Review Phase' : 'Continue Learning'} <ArrowRight className="w-4 h-4" />
+                </Link>
+                </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12 text-brand-navy/20">
+                <AlertCircle size={48} className="mb-4 opacity-10" />
+                <p className="font-black uppercase tracking-widest text-xs">No active phase found</p>
+            </div>
+          )}
         </EliteCard>
 
         {/* Quick Actions / Announcements */}
         <div className="space-y-6">
-          <EliteCard title="Upcoming Call" subtitle="Live Coaching" icon={Video}>
-            <div className="space-y-4">
-              <div className="p-4 bg-brand-cream rounded-xl border border-brand-navy/5">
-                <p className="text-xs font-bold text-brand-navy">Weekly Mastermind Q&A</p>
-                <p className="text-[10px] text-brand-orange font-black uppercase mt-1">Tomorrow @ 11:00 AM EST</p>
-              </div>
-              <button className="w-full py-3 bg-brand-navy text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-xl hover:bg-brand-black transition-colors">
-                Add to Calendar
-              </button>
-            </div>
-          </EliteCard>
-
-          <EliteCard title="Checklist" subtitle="Week 3 Tasks" icon={CheckCircle2}>
+          <EliteCard title="Next Implementation" subtitle="Week 6 Tasks" icon={CheckCircle2}>
             <div className="space-y-3">
               {[
-                { label: "Watch ROF Deep Dive", done: true },
-                { label: "Submit Script Practice", done: false },
+                { label: "Watch Day 1 Mastery", done: false },
+                { label: "Complete Care Plan Worksheet", done: false },
                 { label: "Update Weekly KPIs", done: false },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
@@ -221,6 +248,21 @@ export default function DashboardClient() {
               ))}
             </div>
           </EliteCard>
+
+          <Link href="/portal/curriculum" className="block">
+            <EliteCard className="bg-brand-navy text-white hover:bg-brand-black transition-colors cursor-pointer" delay={0.2}>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <Users className="text-brand-orange w-5 h-5" />
+                        <div>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Cohort Access</p>
+                            <h4 className="text-sm font-black uppercase tracking-tight">Full Curriculum</h4>
+                        </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-brand-orange" />
+                </div>
+            </EliteCard>
+          </Link>
         </div>
       </div>
     </div>

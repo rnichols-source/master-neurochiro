@@ -1,10 +1,11 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { fetchWeekDetail, completeModule } from "@/app/actions/curriculum-actions";
+import { createClient } from "@/lib/supabase/server";
+import VideoPlayer from "@/components/portal/VideoPlayer";
 import { 
   ChevronLeft,
   ChevronRight,
-  Play,
   CheckCircle2,
   FileText,
   MessageSquare
@@ -18,6 +19,13 @@ export default async function ModuleDetailPage({
   params: { slug: string; moduleSlug: string } 
 }) {
   const { slug, moduleSlug } = await params;
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (!user) {
+    notFound();
+  }
+
   const result = await fetchWeekDetail(slug);
   
   if (!result.success || !result.data) {
@@ -59,22 +67,16 @@ export default async function ModuleDetailPage({
               <h1 className="text-4xl font-black text-brand-navy tracking-tighter">{module.title}</h1>
             </div>
 
-            {/* Video Player Placeholder */}
-            <div className="aspect-video bg-brand-navy rounded-[2rem] overflow-hidden relative group">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-brand-orange/20 flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer">
-                  <Play className="w-8 h-8 text-brand-orange fill-brand-orange" />
-                </div>
-              </div>
-              {/* In a real app, embed Mux/Vimeo here */}
-              <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">Training Video: {module.title}</span>
-                <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">12:45</span>
-              </div>
-            </div>
+            {/* Real Video Player (Adaptive Streaming / 90% completion logic) */}
+            <VideoPlayer 
+              userId={user.id}
+              moduleId={module.id}
+              videoUrl={module.video_url || "https://www.w3schools.com/html/mov_bbb.mp4"}
+              title={module.title}
+            />
 
             <div className="prose prose-brand max-w-none">
-              <p className="text-brand-gray font-medium leading-relaxed">
+              <p className="text-brand-gray font-medium leading-relaxed whitespace-pre-line">
                 {module.content || "No additional content for this module."}
               </p>
             </div>

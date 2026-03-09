@@ -27,7 +27,7 @@ export async function fetchCurriculumWithProgress() {
   let completedModuleIds = new Set<string>()
   try {
     const { data: progress, error: progressError } = await supabase
-      .from('progress')
+      .from('member_progress')
       .select('module_id')
       .eq('user_id', user.id)
 
@@ -112,7 +112,7 @@ export async function fetchWeekDetail(slug: string) {
   let completedModuleIds = new Set<string>()
   try {
     const { data: progress } = await supabase
-      .from('progress')
+      .from('member_progress')
       .select('module_id')
       .eq('user_id', user.id)
       .in('module_id', modules.map(m => m.id))
@@ -156,7 +156,7 @@ export async function completeModule(moduleId: string, reflection?: string) {
   if (!user) return { success: false, error: 'Not authenticated' }
 
   const { error } = await supabase
-    .from('progress')
+    .from('member_progress')
     .upsert({
       user_id: user.id,
       module_id: moduleId,
@@ -192,7 +192,7 @@ export async function verifyPhase(weekId: number) {
   }))
 
   const { error } = await supabase
-    .from('progress')
+    .from('member_progress')
     .upsert(progressEntries, { onConflict: 'user_id,module_id' })
 
   if (error) return { success: false, error: error.message }

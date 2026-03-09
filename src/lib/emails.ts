@@ -97,6 +97,63 @@ export const EmailService = {
       throw err;
     }
   },
+
+  // 4. Step 8: Onboarding Ready
+  async sendOnboardingReady(email: string, name: string) {
+    console.log(`[EMAIL] Attempting 'Onboarding Ready' email to ${email}`);
+    if (isMock) {
+      console.log(`[MOCK EMAIL] To: ${email} | Subject: Your NeuroChiro Command Center is Ready`);
+      return { data: { id: "mock_id" }, error: null };
+    }
+    try {
+      const result = await resend!.emails.send({
+        from: FROM_EMAIL,
+        to: email,
+        subject: 'Your NeuroChiro Command Center is Ready',
+        html: `
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h1 style="font-size: 24px; font-weight: 900;">Your Command Center is Live.</h1>
+            <p>Dr. ${name}, the mastermind platform is now officially live for your cohort.</p>
+            <p><strong>Next Steps:</strong></p>
+            <ol>
+              <li>Log in to the portal</li>
+              <li>Complete your Profile Activation Wizard</li>
+              <li>Access Week 6: Care Plan Mastery</li>
+            </ol>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL}/portal" style="background: #1A232E; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">Access Command Center</a>
+          </div>
+        `
+      });
+      return result;
+    } catch (err) {
+      console.error(`[EMAIL] Resend Error:`, err);
+      throw err;
+    }
+  },
+
+  // 5. Step 9: Password Creation Flow
+  async sendPasswordReset(email: string, resetLink: string) {
+    console.log(`[EMAIL] Attempting 'Password Reset' email to ${email}`);
+    if (isMock) {
+      console.log(`[MOCK EMAIL] To: ${email} | Subject: Set Your Password | Link: ${resetLink}`);
+      return { data: { id: "mock_id" }, error: null };
+    }
+    try {
+      const result = await resend!.emails.send({
+        from: FROM_EMAIL,
+        to: email,
+        subject: 'Set Your Password',
+        html: `
+          <p>You have been invited to the NeuroChiro Mastermind Command Center.</p>
+          <p>Please use the link below to set your secure password. This link expires in 24 hours.</p>
+          <a href="${resetLink}">Set Your Password</a>
+        `
+      });
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  },
   // 4. Event Confirmation
   async sendEventConfirmation(email: string, name: string, eventTitle: string) {
     console.log(`[EMAIL] Attempting 'Event Confirmation' email to ${email}`);

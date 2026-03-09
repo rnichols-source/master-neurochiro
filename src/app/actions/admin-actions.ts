@@ -28,7 +28,7 @@ export async function fetchAdminStats() {
 
   // 4. Cohort Health (Average Progress - Optimized)
   const { count: totalProgress, error: progressError } = await supabase
-    .from('progress')
+    .from('member_progress')
     .select('*', { count: 'exact', head: true })
 
   if (progressError) return { success: false, error: progressError.message }
@@ -122,7 +122,7 @@ export async function fetchRecentActivity() {
   const supabase = await createClient()
 
   const { data: progress, error } = await supabase
-    .from('progress')
+    .from('member_progress')
     .select(`
       completed_at,
       profiles (full_name),
@@ -171,6 +171,65 @@ export async function fetchRevenueStats() {
       proCount,
       standardCount,
       monthlyData
+    }
+  }
+}
+
+export async function fetchMastermindActivity() {
+  const supabase = await createClient()
+
+  // 1. Total Members
+  const { count: totalMembers } = await supabase
+    .from('profiles')
+    .select('*', { count: 'exact', head: true })
+    .neq('tier', 'admin')
+
+  // 2. Members with profiles completed
+  const { count: profilesCompleted } = await supabase
+    .from('profiles')
+    .select('*', { count: 'exact', head: true })
+    .eq('status', 'profile_completed')
+
+  // 3. Members who watched Week 6 (Module 1)
+  const { data: week6 } = await supabase
+    .from('weeks')
+    .select('id')
+    .eq('slug', 'week-6-care-plans')
+    .single()
+    
+  let watchedWeek6 = 0
+  if (week6) {
+    const { data: w6Module } = await supabase
+        .from('modules')
+        .select('id')
+        .eq('week_id', week6.id)
+        .eq('order_index', 1)
+        .single()
+        
+    if (w6Module) {
+        const { count } = await supabase
+            .from('member_progress')
+            .select('*', { count: 'exact', head: true })
+            .eq('module_id', w6Module.id)
+        watchedWeek6 = count || 0
+    }
+  }
+
+  // 4. Recently active (last 24h)
+  const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+  const { count: activeToday } = await supabase
+    .from('member_activity')
+    .select('*', { count: 'exact', head: true })
+    .gt('created_at', oneDayAgo)
+
+  return {
+    success: true,
+    data: {
+      totalMembers: totalMembers || 0,
+      profilesCompleted: profilesCompleted || 0,
+      watchedWeek6,
+      activeToday: activeToday || 0,
+      inactive: (totalMembers || 0) - (activeToday || 0)
     }
   }
 }

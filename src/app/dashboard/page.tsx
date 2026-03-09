@@ -1,10 +1,25 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import DashboardClient from "./DashboardClient";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/mastermind/login");
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
   return (
     <DashboardLayout>
-      <DashboardClient />
+      <DashboardClient user={user} profile={profile} />
     </DashboardLayout>
   );
 }
