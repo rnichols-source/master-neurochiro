@@ -48,6 +48,15 @@ export async function fetchCurriculumWithProgress() {
     return { success: false, error: modulesError.message }
   }
 
+  // Fetch user profile for tier check
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('tier')
+    .eq('id', user.id)
+    .single()
+  
+  const isAdmin = profile?.tier === 'admin'
+
   // Determine status for each week
   const formattedWeeks = weeks.map((week, index) => {
     const weekModules = modules.filter(m => m.week_id === week.id)
@@ -67,6 +76,12 @@ export async function fetchCurriculumWithProgress() {
       if (prevWeekCompleted) {
         status = 'active'
       }
+    }
+
+    // OVERRIDE: Unlock Week 6 specifically for the current mastermind phase
+    // ALSO: Unlock all weeks for admins
+    if (isAdmin || week.week_number <= 6) {
+      if (status === 'locked') status = 'active'
     }
 
     return {
@@ -124,6 +139,9 @@ export async function fetchWeekDetail(slug: string) {
     console.warn('[CURRICULUM] Progress fetch failed in Detail, continuing...')
   }
 
+  const { data: profile } = await supabase.from('profiles').select('tier').eq('id', user.id).single()
+  const isAdmin = profile?.tier === 'admin'
+
   const formattedModules = modules.map((mod, index) => {
     const isCompleted = completedModuleIds.has(mod.id)
     let status: 'locked' | 'active' | 'completed' = 'locked'
@@ -132,6 +150,11 @@ export async function fetchWeekDetail(slug: string) {
       status = 'completed'
     } else if (index === 0 || completedModuleIds.has(modules[index - 1]?.id)) {
       status = 'active'
+    }
+
+    // OVERRIDE: Unlock for admins or for current focused weeks
+    if (isAdmin || week.week_number <= 6) {
+      if (status === 'locked') status = 'active'
     }
 
     return {
