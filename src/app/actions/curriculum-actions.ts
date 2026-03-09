@@ -212,3 +212,28 @@ export async function verifyPhase(weekId: number) {
   revalidatePath('/portal/curriculum')
   return { success: true }
 }
+
+export async function fetchResources() {
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return { success: false, error: 'Not authenticated' }
+
+    const { data: profile } = await supabase.from('profiles').select('tier').eq('id', user.id).single()
+    const isPro = profile?.tier === 'pro' || profile?.tier === 'admin'
+
+    const { data, error } = await supabase
+      .from('resources')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.warn('[RESOURCES] Fetch error:', error.message)
+      return { success: true, data: [] }
+    }
+
+    return { success: true, data: data.filter(r => isPro || !r.is_pro_only) }
+  } catch (err) {
+    return { success: true, data: [] }
+  }
+}
