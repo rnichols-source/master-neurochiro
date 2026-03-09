@@ -23,34 +23,53 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
   const [hasCompleted, setHasCompleted] = useState(false)
 
   // 1. CLEAN THE INPUT (Handle if they pasted a full <iframe> tag)
-  let cleanUrl = videoUrl || '';
-  if (videoUrl?.includes('<iframe')) {
-    const srcMatch = videoUrl.match(/src="([^"]+)"/);
+  let cleanUrl = (videoUrl || '').trim();
+  if (cleanUrl.includes('<iframe')) {
+    const srcMatch = cleanUrl.match(/src="([^"]+)"/);
     if (srcMatch && srcMatch[1]) {
       cleanUrl = srcMatch[1];
     }
   }
 
+  // 2. Decode common HTML entities that might break the URL
+  cleanUrl = cleanUrl.replaceAll('&amp;', '&');
+
   // Detect if URL is an embed (Vimeo/YouTube) or a direct file
-  const isVimeo = cleanUrl?.includes('vimeo.com') || /^\d+$/.test(cleanUrl);
-  const isYouTube = cleanUrl?.includes('youtube.com') || cleanUrl?.includes('youtu.be');
-  const isDirectFile = !isVimeo && !isYouTube && (cleanUrl?.includes('.mp4') || cleanUrl?.includes('.mov'));
+  const isVimeo = cleanUrl.includes('vimeo.com') || /^\d+$/.test(cleanUrl);
+  const isYouTube = cleanUrl.includes('youtube.com') || cleanUrl.includes('youtu.be');
+  const isDirectFile = !isVimeo && !isYouTube && (cleanUrl.includes('.mp4') || cleanUrl.includes('.mov'));
 
   // Get clean embed URL
   const getEmbedUrl = () => {
+    let finalUrl = cleanUrl;
+
     if (isVimeo) {
-      // Extract ID robustly
-      let id = cleanUrl.split('/').pop()?.split('?')[0];
-      // If they just pasted the ID
-      if (/^\d+$/.test(cleanUrl)) id = cleanUrl;
-      
-      return `https://player.vimeo.com/video/${id}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479`;
+      if (!finalUrl.includes('http')) {
+        finalUrl = `https://player.vimeo.com/video/${finalUrl}`;
+      }
+      // If it's a standard vimeo.com/ID link, convert to player link
+      if (finalUrl.includes('vimeo.com/') && !finalUrl.includes('player.vimeo.com')) {
+        const id = finalUrl.split('/').pop()?.split('?')[0];
+        finalUrl = `https://player.vimeo.com/video/${id}`;
+      }
+    } else if (isYouTube) {
+      if (!finalUrl.includes('http')) {
+        finalUrl = `https://www.youtube.com/embed/${finalUrl}`;
+      }
+      if (finalUrl.includes('watch?v=')) {
+        const id = finalUrl.split('v=')[1].split('&')[0];
+        finalUrl = `https://www.youtube.com/embed/${id}`;
+      }
     }
-    if (isYouTube) {
-      const id = cleanUrl.includes('v=') ? cleanUrl.split('v=')[1].split('&')[0] : cleanUrl.split('/').pop()?.split('?')[0];
-      return `https://www.youtube.com/embed/${id}?autoplay=1`;
+
+    // Add necessary embed params if not present
+    if (finalUrl.includes('?')) {
+      if (!finalUrl.includes('autoplay=')) finalUrl += '&autoplay=1';
+    } else {
+      finalUrl += '?autoplay=1';
     }
-    return cleanUrl;
+
+    return finalUrl;
   };
 
   const togglePlay = () => {
@@ -106,7 +125,7 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
         ) : (
           <iframe
             src={getEmbedUrl()}
-            className="w-full h-full"
+            className="w-full h-full border-none"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
           />
@@ -135,7 +154,6 @@ export default function VideoPlayer({ userId, moduleId, videoUrl, title, onCompl
         isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
       )}>
         
-        {/* Progress Bar */}
         <div className="space-y-1">
           <input
             type="range"
