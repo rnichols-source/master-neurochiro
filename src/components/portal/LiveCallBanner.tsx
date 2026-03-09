@@ -110,7 +110,7 @@ export default function LiveCallBanner({ call }: { call: LiveCall | null }) {
             </div>
           </div>
 
-          <div className="flex flex-col items-center md:items-end gap-6 shrink-0">
+          <div className="flex flex-col items-center md:items-end gap-6 shrink-0 w-full md:w-auto">
             {timeLeft && (
               <div className="flex gap-4">
                 {[
@@ -127,21 +127,54 @@ export default function LiveCallBanner({ call }: { call: LiveCall | null }) {
               </div>
             )}
 
-            <a 
-              href={call.zoom_url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-full md:w-auto"
-            >
-              <BrandButton 
-                variant={isLive ? "primary" : "accent"} 
-                size="lg"
-                className="rounded-full px-10 h-14 group"
+            <div className="w-full space-y-3">
+              <a 
+                href={call.zoom_url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full block"
               >
-                {isLive ? 'Join Live Room' : 'Join Zoom Call'} 
-                <ExternalLink className="ml-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </BrandButton>
-            </a>
+                <BrandButton 
+                  variant={isLive ? "primary" : "accent"} 
+                  size="lg"
+                  className="rounded-full px-10 h-14 w-full group"
+                >
+                  {isLive ? 'Join Live Room' : 'Join Zoom Call'} 
+                  <ExternalLink className="ml-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </BrandButton>
+              </a>
+
+              {!isLive && (
+                <div className="flex justify-center md:justify-end gap-2 text-[10px] font-bold uppercase tracking-widest text-white/60">
+                  <span className="mr-2">Add to:</span>
+                  <a 
+                    href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(call.title)}&dates=${new Date(call.call_time).toISOString().replace(/-|:|\.\d\d\d/g, "")}/${new Date(new Date(call.call_time).getTime() + 90 * 60000).toISOString().replace(/-|:|\.\d\d\d/g, "")}&details=${encodeURIComponent(call.description + '\n\nJoin URL: ' + call.zoom_url)}`}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
+                    Google
+                  </a>
+                  <span>&bull;</span>
+                  <a 
+                    href={`https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&startdt=${new Date(call.call_time).toISOString()}&enddt=${new Date(new Date(call.call_time).getTime() + 90 * 60000).toISOString()}&subject=${encodeURIComponent(call.title)}&body=${encodeURIComponent(call.description + '\n\nJoin URL: ' + call.zoom_url)}`}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
+                    Outlook
+                  </a>
+                  <span>&bull;</span>
+                  <a 
+                    href={`data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART:${new Date(call.call_time).toISOString().replace(/-|:|\.\d\d\d/g, "")}%0ADTEND:${new Date(new Date(call.call_time).getTime() + 90 * 60000).toISOString().replace(/-|:|\.\d\d\d/g, "")}%0ASUMMARY:${encodeURIComponent(call.title)}%0ADESCRIPTION:${encodeURIComponent(call.description + '\n\nJoin URL: ' + call.zoom_url)}%0AEND:VEVENT%0AEND:VCALENDAR`}
+                    download="mastermind_call.ics"
+                    className="hover:text-white transition-colors"
+                  >
+                    Apple
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

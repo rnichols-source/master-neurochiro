@@ -19,7 +19,9 @@ import {
   Loader2,
   AlertCircle,
   Zap,
-  Sparkles
+  Sparkles,
+  Trophy,
+  BookOpen
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -30,9 +32,10 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
   const [stats, setStats] = useState([
     { label: "Patient Visits", value: "0", trend: "0%", icon: Users, metric: "patient_visits" },
     { label: "Collections", value: "$0", trend: "0%", icon: DollarSign, metric: "collections" },
-    { label: "New Patients", value: "0", trend: "+0", icon: TrendingUp, metric: "new_patients" },
+    { label: "Implementation Score", value: "Top 15%", trend: "Advancing", icon: Trophy, metric: "implementation" },
   ]);
   const [currentWeek, setCurrentWeek] = useState<any>(null);
+  const [allWeeks, setAllWeeks] = useState<any[]>([]);
   const [nextCall, setNextCall] = useState<any>(null);
   const [showWelcome, setShowWelcome] = useState(profile?.is_first_login);
 
@@ -72,11 +75,11 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
             metric: "collections"
           },
           { 
-            label: "New Patients", 
-            value: latest.new_patients.toString(), 
-            trend: (latest.new_patients - (previous?.new_patients || 0)).toString(), 
-            icon: TrendingUp,
-            metric: "new_patients"
+            label: "Implementation Score", 
+            value: "Top 15%", 
+            trend: "Advancing", 
+            icon: Trophy,
+            metric: "implementation"
           },
         ]);
       }
@@ -84,6 +87,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
       // Load Curriculum Progress
       const curriculumResult = await fetchCurriculumWithProgress();
       if (curriculumResult.success && curriculumResult.data) {
+        setAllWeeks(curriculumResult.data);
         // Find the active week
         const active = curriculumResult.data.find((w: any) => w.status === 'active') || curriculumResult.data[curriculumResult.data.length - 1];
         setCurrentWeek(active);
@@ -103,28 +107,28 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
   if (!profile || profile.status === 'pending_profile') return null;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {/* Tutorial Trigger */}
       {profile?.is_first_login && <GuidedTutorial />}
 
       {/* Welcome Card for first time login */}
       {showWelcome && (
-        <EliteCard className="p-8 border-brand-orange/40 bg-gradient-to-r from-brand-orange/10 to-transparent relative overflow-hidden group">
+        <EliteCard className="p-6 md:p-8 border-brand-orange/40 bg-gradient-to-r from-brand-orange/10 to-transparent relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform">
             <Sparkles size={120} className="text-brand-orange" />
           </div>
           <div className="relative z-10 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-brand-orange flex items-center justify-center text-white">
+              <div className="w-10 h-10 rounded-xl bg-brand-orange flex items-center justify-center text-white shrink-0">
                 <Zap size={20} />
               </div>
-              <h2 className="text-2xl font-black text-brand-navy uppercase tracking-tight">Installation Complete.</h2>
+              <h2 className="text-xl md:text-2xl font-black text-brand-navy uppercase tracking-tight">Installation Complete.</h2>
             </div>
-            <p className="text-brand-gray max-w-2xl font-medium">
+            <p className="text-brand-gray max-w-2xl font-medium text-sm md:text-base">
               Welcome back, <span className="text-brand-navy font-bold">{profile.full_name}</span>. 
               Your NeuroChiro Mastermind profile is now active. Everything you need—curriculum, implementation tools, and KPI tracking—is now integrated into this Command Center.
             </p>
-            <BrandButton size="sm" onClick={() => setShowWelcome(false)}>
+            <BrandButton size="sm" onClick={() => setShowWelcome(false)} className="w-full md:w-auto">
               Enter Portal
             </BrandButton>
           </div>
@@ -134,39 +138,39 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
       {/* Welcome Header */}
       <div id="dashboard-header" className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <p className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-2">
+          <p className="text-brand-orange font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs mb-1 md:mb-2">
             Practice Intelligence
           </p>
-          <h1 className="text-4xl font-black text-brand-navy tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">
             Growth Command Hub
           </h1>
-          <p className="text-brand-gray font-medium mt-1">
+          <p className="text-brand-gray font-medium mt-1 text-sm md:text-base">
             Welcome back, <span className="text-brand-navy font-bold">{profile.full_name || 'Doctor'}</span>.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-            <div className="bg-white px-4 py-2 rounded-xl border border-brand-navy/5 elite-shadow flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+            <div className="flex-1 md:flex-none bg-white px-4 py-3 md:py-2 rounded-xl border border-brand-navy/5 elite-shadow flex items-center justify-center md:justify-start gap-3">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-navy/60">
+            <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-brand-navy/60">
                 System Active
             </span>
             </div>
-            <Link href="/neurochiro-live">
-                <BrandButton variant="accent" size="sm" className="rounded-full">
-                    Join Live Room <Video className="ml-2 h-4 w-4" />
-                </BrandButton>
-            </Link>
         </div>
       </div>
 
       {/* Live Call Banner */}
-      {!loading && <div id="live-call-banner"><LiveCallBanner call={nextCall} /></div>}
+      {!loading && nextCall && (
+        <div id="live-call-banner" className="w-full">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-navy/40 mb-3 ml-2">Upcoming Live Calls</p>
+          <LiveCallBanner call={nextCall} />
+        </div>
+      )}
 
       {/* Stats Grid */}
-      <div id="kpi-card" className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div id="kpi-card" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         {loading ? (
           [1, 2, 3].map((i) => (
-            <EliteCard key={i} className="h-32 flex items-center justify-center">
+            <EliteCard key={i} className="h-24 md:h-32 flex items-center justify-center">
               <Loader2 className="w-6 h-6 animate-spin text-brand-orange opacity-20" />
             </EliteCard>
           ))
@@ -175,41 +179,48 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
             <EliteCard 
               key={stat.label} 
               delay={i * 0.1}
-              className="bg-brand-navy text-white border-none"
+              className={cn(
+                "border-none",
+                stat.metric === 'implementation' ? "bg-brand-orange text-white" : "bg-brand-navy text-white"
+              )}
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-1">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/60 mb-1">
                     {stat.label}
                   </p>
-                  <h3 className="text-3xl font-black text-white">{stat.value}</h3>
+                  <h3 className="text-2xl md:text-3xl font-black text-white">{stat.value}</h3>
                 </div>
-                <div className="p-2 bg-white/10 rounded-lg">
-                  <stat.icon className="w-4 h-4 text-brand-orange" />
+                <div className="p-2 bg-white/10 rounded-lg shrink-0">
+                  <stat.icon className={cn("w-4 h-4", stat.metric === 'implementation' ? "text-white" : "text-brand-orange")} />
                 </div>
               </div>
               <div className="mt-4 flex items-center gap-2">
                 <span className={cn(
                   "text-[10px] font-bold px-2 py-0.5 rounded-full",
+                  stat.metric === 'implementation' ? "bg-white/20 text-white" :
                   stat.trend.startsWith('+') ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
                 )}>
                   {stat.trend}
                 </span>
-                <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider">
-                  vs Last Week
-                </span>
+                {stat.metric !== 'implementation' && (
+                  <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider">
+                    vs Last Week
+                  </span>
+                )}
               </div>
             </EliteCard>
           ))
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
         {/* Active Learning */}
-        <div id="curriculum-card" className="lg:col-span-2">
+        <div id="curriculum-card" className="lg:col-span-2 space-y-6">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-navy/40 ml-2">Current Curriculum Focus</p>
           <EliteCard 
-            title="Current Focus" 
-            subtitle={currentWeek ? `Week ${currentWeek.week_number}` : 'Loading...'}
+            title="Current Week" 
+            subtitle={currentWeek ? `Week ${currentWeek.week_number} – ${currentWeek.title}` : 'Loading...'}
             className="h-full"
           >
             {loading ? (
@@ -217,8 +228,8 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
                   <Loader2 className="w-8 h-8 animate-spin text-brand-orange" />
               </div>
             ) : currentWeek ? (
-              <div className="flex flex-col md:flex-row gap-8 items-center">
-                  <div className="relative w-full md:w-64 aspect-video bg-brand-navy rounded-xl overflow-hidden group cursor-pointer">
+              <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-center">
+                  <div className="relative w-full md:w-64 aspect-video bg-brand-navy rounded-xl overflow-hidden group cursor-pointer shrink-0">
                   <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-60 group-hover:scale-110 transition-transform duration-700" />
                   <div className="absolute inset-0 flex items-center justify-center bg-brand-navy/40 group-hover:bg-brand-navy/20 transition-colors">
                       <div className="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center shadow-xl shadow-brand-orange/40 group-hover:scale-110 transition-transform">
@@ -229,8 +240,8 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
                   
                   <div className="flex-1 space-y-4 text-center md:text-left w-full">
                   <div>
-                      <h4 className="text-xl font-black text-brand-navy">{currentWeek.title}</h4>
-                      <p className="text-sm text-brand-gray mt-1">
+                      <h4 className="text-xl md:text-2xl font-black text-brand-navy tracking-tight">{currentWeek.title}</h4>
+                      <p className="text-sm text-brand-gray mt-1 font-medium">
                       Theme: <span className="italic">"{currentWeek.theme}"</span>
                       </p>
                   </div>
@@ -265,20 +276,55 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
               </div>
             )}
           </EliteCard>
+
+          {/* Progress Tracking */}
+          <EliteCard title="Progress Tracking" subtitle="Mastermind Curriculum" icon={BookOpen}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+              {allWeeks.slice(0, 8).map((week, idx) => (
+                <Link href={`/portal/curriculum/${week.slug}`} key={idx}>
+                  <div className="flex items-center justify-between p-3 rounded-xl border border-brand-navy/5 hover:border-brand-orange/20 hover:bg-brand-navy/5 transition-colors group cursor-pointer">
+                    <div className="flex items-center gap-3">
+                      <div className={cn(
+                        "w-6 h-6 rounded-md flex items-center justify-center shrink-0",
+                        week.status === 'completed' ? "bg-green-500/10 text-green-500" : 
+                        week.status === 'active' ? "bg-brand-orange/10 text-brand-orange" : 
+                        "bg-brand-navy/5 text-brand-navy/20"
+                      )}>
+                        {week.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> : <span className="text-[10px] font-bold">{week.week_number}</span>}
+                      </div>
+                      <span className="text-xs font-bold text-brand-navy truncate max-w-[150px]">
+                        {week.title}
+                      </span>
+                    </div>
+                    <span className={cn(
+                      "text-[9px] font-black uppercase tracking-widest",
+                      week.status === 'completed' ? "text-green-500" : 
+                      week.status === 'active' ? "text-brand-orange" : 
+                      "text-brand-navy/20"
+                    )}>
+                      {week.status === 'completed' ? "Completed" : week.status === 'active' ? "In Progress" : "Unlocked"}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </EliteCard>
         </div>
 
         {/* Quick Actions / Announcements */}
         <div className="space-y-6">
-          <EliteCard title="Next Implementation" subtitle="Week 6 Tasks" icon={CheckCircle2}>
-            <div className="space-y-3">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-navy/40 ml-2">Quick Actions</p>
+          
+          <EliteCard title="Next Implementation Task" subtitle={currentWeek ? `Week ${currentWeek.week_number} Tasks` : "Tasks"} icon={CheckCircle2}>
+            <div className="space-y-3 mt-2">
               {[
                 { label: "Watch Day 1 Mastery", done: false },
                 { label: "Complete Care Plan Worksheet", done: false },
                 { label: "Update Weekly KPIs", done: false },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3">
+                <div key={i} className="flex items-center gap-3 p-2 hover:bg-brand-navy/5 rounded-lg transition-colors cursor-pointer">
                   <div className={cn(
-                    "w-4 h-4 rounded border flex items-center justify-center transition-colors",
+                    "w-5 h-5 rounded border flex items-center justify-center transition-colors shrink-0",
                     item.done ? "bg-green-500 border-green-500" : "border-brand-navy/20"
                   )}>
                     {item.done && <CheckCircle2 className="w-3 h-3 text-white" />}
@@ -294,17 +340,36 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
             </div>
           </EliteCard>
 
-          <Link href="/portal/curriculum" className="block">
-            <EliteCard className="bg-brand-navy text-white hover:bg-brand-black transition-colors cursor-pointer" delay={0.2}>
+          <Link href="/portal/resources" className="block">
+            <EliteCard className="bg-brand-navy text-white hover:bg-brand-black transition-colors cursor-pointer group" delay={0.2}>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Users className="text-brand-orange w-5 h-5" />
+                        <div className="p-2 bg-white/10 rounded-lg group-hover:bg-brand-orange/20 transition-colors">
+                          <Users className="text-brand-orange w-5 h-5" />
+                        </div>
                         <div>
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Cohort Access</p>
-                            <h4 className="text-sm font-black uppercase tracking-tight">Full Curriculum</h4>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Quick Links</p>
+                            <h4 className="text-sm font-black uppercase tracking-tight">Implementation Resources</h4>
                         </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-brand-orange" />
+                    <ArrowRight className="w-4 h-4 text-brand-orange group-hover:translate-x-1 transition-transform" />
+                </div>
+            </EliteCard>
+          </Link>
+          
+          <Link href="/portal/kpi" className="block">
+            <EliteCard className="bg-white hover:border-brand-orange/40 transition-colors cursor-pointer group" delay={0.3}>
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-brand-navy/5 rounded-lg group-hover:bg-brand-orange/10 transition-colors">
+                          <TrendingUp className="text-brand-orange w-5 h-5" />
+                        </div>
+                        <div>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-brand-navy/40">Weekly Metric</p>
+                            <h4 className="text-sm font-black uppercase tracking-tight text-brand-navy">Submit KPIs</h4>
+                        </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-brand-orange group-hover:translate-x-1 transition-transform" />
                 </div>
             </EliteCard>
           </Link>

@@ -80,7 +80,7 @@ export async function fetchCurriculumWithProgress() {
       }
 
       // OVERRIDE: Unlock for current mastermind phase
-      if (isAdmin || week.week_number <= 6) {
+      if (isAdmin || week.week_number <= 8) {
         if (status === 'locked') status = 'active'
       }
 
@@ -166,7 +166,7 @@ export async function fetchWeekDetail(slug: string) {
         status = 'active'
       }
 
-      if (isAdmin || week.week_number <= 6) {
+      if (isAdmin || week.week_number <= 8) {
         if (status === 'locked') status = 'active'
       }
 
