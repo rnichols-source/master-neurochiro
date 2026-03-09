@@ -8,12 +8,15 @@ import {
   ChevronRight, 
   Save, 
   LayoutDashboard,
-  Loader2
+  Loader2,
+  Database,
+  RefreshCcw
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { ResourceUploader } from "@/components/admin/ResourceUploader";
 import { addModule } from "@/app/actions/module-actions";
+import { syncWeek6Resources } from "@/app/actions/activation-actions";
 
 export function CurriculumManagerClient({ initialWeeks, initialResources = [] }: { initialWeeks: any[], initialResources?: any[] }) {
   const [weeks, setWeeks] = useState(initialWeeks);
@@ -22,7 +25,24 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
   const [selectedModule, setSelectedModule] = useState<any>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const supabase = createClient();
+
+  const handleSync = async () => {
+    if (!selectedWeek || selectedWeek.week_number !== 6) {
+        alert("This auto-sync is currently optimized for Week 6 assets. For other weeks, please use the manual uploader.");
+        return;
+    }
+    setIsSyncing(true);
+    const res = await syncWeek6Resources();
+    if (res.success) {
+      alert("Week 6 Premium Resources Synced Successfully!");
+      window.location.reload();
+    } else {
+      alert(`Error Syncing: ${res.error}`);
+    }
+    setIsSyncing(false);
+  };
 
   const handleAddModule = async () => {
     if (!selectedWeek) return;
@@ -128,15 +148,28 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                 <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-1">Editing Phase 0{selectedWeek.week_number}</p>
                 <h2 className="text-3xl font-black text-brand-navy tracking-tight">{selectedWeek.title}</h2>
               </div>
-              <BrandButton 
-                variant="outline" 
-                size="sm" 
-                className="gap-2 text-[10px]"
-                onClick={handleAddModule}
-                isLoading={isAdding}
-              >
-                <Plus className="w-3 h-3" /> Add Module
-              </BrandButton>
+              <div className="flex gap-2">
+                {selectedWeek.week_number === 6 && (
+                    <BrandButton 
+                        variant="ghost" 
+                        size="sm" 
+                        className="gap-2 text-[10px] text-brand-navy/40"
+                        onClick={handleSync}
+                        isLoading={isSyncing}
+                    >
+                        <RefreshCcw className={cn("w-3 h-3", isSyncing && "animate-spin")} /> Sync Assets
+                    </BrandButton>
+                )}
+                <BrandButton 
+                    variant="outline" 
+                    size="sm" 
+                    className="gap-2 text-[10px]"
+                    onClick={handleAddModule}
+                    isLoading={isAdding}
+                >
+                    <Plus className="w-3 h-3" /> Add Module
+                </BrandButton>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
