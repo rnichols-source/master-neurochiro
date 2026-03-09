@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro Resource 9: Sequence Cheat Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.4; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.5in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 12px; }
+        .logo-subtext { color: var(--orange); font-size: 8px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { background: var(--navy); color: var(--white); padding: 4px 12px; font-size: 8px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.25rem; }
+        .subtitle { font-size: 12px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; }
+
+        .dashboard-grid { display: grid; grid-template-cols: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+        .dashboard-col { background: var(--cream); border-radius: 12px; padding: 1.25rem; border: 1px solid rgba(0,0,0,0.05); }
+        .col-header { font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--orange); letter-spacing: 0.2em; margin-bottom: 1rem; display: block; }
+        .col-title { font-size: 18px; font-weight: 900; margin-bottom: 1rem; display: block; border-bottom: 2px solid var(--white); padding-bottom: 0.5rem; }
+        
+        .data-point { margin-bottom: 1rem; }
+        .data-label { font-size: 8px; font-weight: 900; text-transform: uppercase; color: var(--gray); letter-spacing: 0.1em; display: block; margin-bottom: 2px; }
+        .data-value { font-size: 11px; font-weight: 700; color: var(--navy); display: block; line-height: 1.4; }
+
+        .diagnostic-box { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+        .diagnostic-title { color: var(--orange); font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; margin-bottom: 1.5rem; display: block; }
+        
+        .diag-grid { display: grid; grid-template-cols: 1fr 1fr; gap: 2rem; }
+        .diag-item { border-left: 2px solid rgba(255,255,255,0.1); padding-left: 1rem; }
+        .diag-q { font-size: 13px; font-weight: 900; color: var(--white); display: block; margin-bottom: 4px; }
+        .diag-a { font-size: 11px; color: rgba(255,255,255,0.6); display: block; }
+
+        .mantra-bar { background: var(--orange); color: var(--white); padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; }
+        .mantra-txt { font-size: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        .command-list { display: flex; justify-content: space-between; gap: 1rem; }
+        .command-item { flex: 1; text-align: center; padding: 1rem; border: 1px solid var(--cream); border-radius: 8px; }
+        .cmd-num { color: var(--orange); font-weight: 900; font-size: 10px; display: block; margin-bottom: 4px; }
+        .cmd-txt { font-weight: 900; font-size: 11px; text-transform: uppercase; }
+
+        .footer { position: absolute; bottom: 0.4in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; align-items: center; font-size: 8px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">Quick Reference</div>
+        </div>
+
+        <header>
+            <h1>Sequence Cheat Sheet</h1>
+            <div class="subtitle">The Mastermind Architecture at a Glance</div>
+        </header>
+
+        <section class="dashboard-grid">
+            <div class="dashboard-col">
+                <span class="col-header">Phase 01</span>
+                <span class="col-title">Day 1</span>
+                <div class="data-point">
+                    <span class="data-label">Primary Job</span>
+                    <span class="data-value">Reduce Uncertainty. Gathering data without interpretation.</span>
+                </div>
+                <div class="data-point">
+                    <span class="data-label">The Transition</span>
+                    <span class="data-value">Anticipation. Validity found, clarity coming.</span>
+                </div>
+                <div class="data-point">
+                    <span class="data-label">Goal State</span>
+                    <span class="data-value">Patient feels safe and knows exactly what is next.</span>
+                </div>
+            </div>
+            <div class="dashboard-col">
+                <span class="col-header">Phase 02</span>
+                <span class="col-title">Day 2</span>
+                <div class="data-point">
+                    <span class="data-label">Primary Job</span>
+                    <span class="data-value">Create Clarity. Simple problem definition + Bio-Sequence.</span>
+                </div>
+                <div class="data-point">
+                    <span class="data-label">The Transition</span>
+                    <span class="data-value">Cognitive Agreement. The brain commits when uncertainty drops.</span>
+                </div>
+                <div class="data-point">
+                    <span class="data-label">Goal State</span>
+                    <span class="data-value">Decision made. Uncertainty removed from plan and price.</span>
+                </div>
+            </div>
+            <div class="dashboard-col">
+                <span class="col-header">Phase 03</span>
+                <span class="col-title">Day 3</span>
+                <div class="data-point">
+                    <span class="data-label">Primary Job</span>
+                    <span class="data-value">Stabilize Behavior. Establishing rhythm and rules of care.</span>
+                </div>
+                <div class="data-point">
+                    <span class="data-label">The Transition</span>
+                    <span class="data-value">Behavioral Commitment. Onboarding protects retention.</span>
+                </div>
+                <div class="data-point">
+                    <span class="data-label">Goal State</span>
+                    <span class="data-value">Patient is integrated into the architecture. Drift minimized.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="diagnostic-box">
+            <span class="diagnostic-title">Emergency Diagnostic</span>
+            <div class="diag-grid">
+                <div class="diag-item">
+                    <span class="diag-q">Conversion is down?</span>
+                    <span class="diag-a">Fix Day 2 Clarity. Is the recommendation a suggestion instead of a sequence?</span>
+                </div>
+                <div class="diag-item">
+                    <span class="diag-q">Retention is fragile?</span>
+                    <span class="diag-a">Fix Day 3 Onboarding. Did you skip behavioral stabilization?</span>
+                </div>
+                <div class="diag-item">
+                    <span class="diag-q">Tone is shaky?</span>
+                    <span class="diag-a">Fix Day 1 Orientation. Are you performing rather than leading?</span>
+                </div>
+                <div class="diag-item">
+                    <span class="diag-q">Objections are high?</span>
+                    <span class="diag-a">Fix Upstream Structure. Reduce cognitive load on Day 1.</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="mantra-bar">
+            <div class="mantra-txt">Sequence over Scripts. Posture over Performance.</div>
+        </div>
+
+        <section class="command-list">
+            <div class="command-item">
+                <span class="cmd-num">01</span>
+                <span class="cmd-txt">Move Slower</span>
+            </div>
+            <div class="command-item">
+                <span class="cmd-num">02</span>
+                <span class="cmd-txt">Say Less</span>
+            </div>
+            <div class="command-item">
+                <span class="cmd-num">03</span>
+                <span class="cmd-txt">Tolerate Silence</span>
+            </div>
+            <div class="command-item">
+                <span class="cmd-num">04</span>
+                <span class="cmd-txt">Hold Structure</span>
+            </div>
+        </section>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Week 6: Resources Suite</span>
+            <span>Clinical Operating System</span>
+        </div>
+    </div>
+</body>
+</html>

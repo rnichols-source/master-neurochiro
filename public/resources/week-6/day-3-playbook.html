@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro Resource 4: Day 3 Playbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--gray); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
+        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { border: 1px solid var(--gray); color: var(--gray); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
+
+        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--navy); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
+
+        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+
+        .onboard-step { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding: 1rem; border-radius: 8px; border: 1px solid var(--cream); }
+        .step-icon { width: 40px; height: 40px; background: var(--navy); color: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; flex-shrink: 0; }
+        .step-txt { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; }
+
+        .gray-card { background: var(--cream); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 1px solid rgba(0,0,0,0.05); }
+        .gray-card h3 { color: var(--navy); font-size: 14px; margin-bottom: 0.75rem; }
+        .gray-card p { color: var(--gray); font-size: 12px; margin-bottom: 0; }
+
+        .callout-box { border-left: 4px solid var(--gray); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+
+        .checklist { list-style: none; margin-top: 1rem; }
+        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
+        .check-box { width: 16px; height: 16px; border: 2px solid var(--gray); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
+
+        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">Implementation Guide</div>
+        </div>
+
+        <header>
+            <h1>Day 3: Behavioral<br>Stabilization</h1>
+            <div class="subtitle">Onboarding and the Protection of Clinical Outcomes</div>
+        </header>
+
+        <div class="section-header">01 / Stabilization over sales</div>
+        <div class="grid-2">
+            <div>
+                <p>Day 2 creates cognitive commitment (agreement), but Day 3 is where that commitment becomes <strong>behavioral (action).</strong></p>
+                <p>If you skip or rush this onboarding, retention will collapse quietly three to six weeks later. Motivation is a feeling; structure is a fact.</p>
+            </div>
+            <div>
+                <div class="onboard-step">
+                    <div class="step-icon">01</div>
+                    <div class="step-txt">Role Clarity</div>
+                </div>
+                <div class="onboard-step">
+                    <div class="step-icon">02</div>
+                    <div class="step-txt">Rhythm Establishment</div>
+                </div>
+                <div class="onboard-step">
+                    <div class="step-icon">03</div>
+                    <div class="step-txt">Re-Eval Strategy</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">02 / Compliance Mechanics</div>
+        <div class="grid-2">
+            <div>
+                <h3>Rhythm & Predictability</h3>
+                <p>Predictable frequency builds a behavioral pattern. When the patient knows exactly what to expect at every visit, their stress drops and compliance increases.</p>
+                <p><strong>Rhythm lowers stress.</strong> Structure makes behavior easier. When visits are predictable, the brain relaxes into the pattern.</p>
+            </div>
+            <div>
+                <h3>The Drift Factor</h3>
+                <p>Drift is subtle. It starts with a casual tone or a skipped onboarding conversation because the patient "seems to get it."</p>
+                <p><strong>Erosion:</strong> Without Day 3, the authority established on Day 2 begins to bleed out. Skipping Day 3 leaves behavior unstable.</p>
+            </div>
+        </div>
+
+        <div class="gray-card">
+            <h3>Structure vs. Motivation</h3>
+            <p>Onboarding is the process of setting the behavioral rhythm for the entire care plan. Motivation fades. Structure remains. Day 3 onboarding exists not to resell, but to protect behavior.</p>
+        </div>
+
+        <div class="callout-box">
+            <p class="callout-text">"Structure makes behavior easier. Motivation fades. Structure remains. Day 3 exists not to convince, but to contain."</p>
+        </div>
+
+        <div class="section-header">03 / Mastery Checklist</div>
+        <div class="grid-2">
+            <div>
+                <ul class="checklist">
+                    <li class="checklist-item"><div class="check-box"></div> Verify patient role clarity</li>
+                    <li class="checklist-item"><div class="check-box"></div> Conduct dedicated onboarding</li>
+                    <li class="checklist-item"><div class="check-box"></div> Establish visit rhythm</li>
+                </ul>
+            </div>
+            <div>
+                <ul class="checklist">
+                    <li class="checklist-item"><div class="check-box"></div> Set re-exam expectations</li>
+                    <li class="checklist-item"><div class="check-box"></div> Zero "selling" energy</li>
+                    <li class="checklist-item"><div class="check-box"></div> Predictability check</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Resource 04: Day 3 Playbook</span>
+            <span>Privileged & Confidential</span>
+        </div>
+    </div>
+</body>
+</html>

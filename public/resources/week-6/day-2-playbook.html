@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro Resource 3: Day 2 Playbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--orange); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
+        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; opacity: 0.6; }
+
+        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
+
+        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+
+        .pillar-box { border: 1px solid var(--cream); padding: 1.25rem; border-radius: 12px; margin-bottom: 1rem; }
+        .pillar-title { font-weight: 900; font-size: 13px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; color: var(--navy); }
+        .pillar-desc { font-size: 11px; color: var(--gray); }
+
+        .navy-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
+        .navy-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
+        .navy-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; }
+
+        .callout-box { border-left: 4px solid var(--navy); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+
+        .checklist { list-style: none; margin-top: 1rem; }
+        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
+        .check-box { width: 16px; height: 16px; border: 2px solid var(--navy); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
+
+        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">Implementation Guide</div>
+        </div>
+
+        <header>
+            <h1>Day 2: Decision<br>Architecture</h1>
+            <div class="subtitle">Clarifying Clinical Truth and Securing Behavioral Commitment</div>
+        </header>
+
+        <div class="section-header">01 / The 4 Pillars of Clarity</div>
+        <div class="grid-2">
+            <div>
+                <div class="pillar-box">
+                    <span class="pillar-title">01 / The Problem</span>
+                    <span class="pillar-desc">Define what is actually wrong in a simple, non-anatomical way. Reduce confusion to lower uncertainty.</span>
+                </div>
+                <div class="pillar-box">
+                    <span class="pillar-title">02 / The Consequence</span>
+                    <span class="pillar-desc">Clarify what happens if the current neurological pattern remains uncorrected.</span>
+                </div>
+            </div>
+            <div>
+                <div class="pillar-box">
+                    <span class="pillar-title">03 / The Recommendation</span>
+                    <span class="pillar-desc">Present a biologically justified sequence based on adaptation, repetition, and structural logic.</span>
+                </div>
+                <div class="pillar-box">
+                    <span class="pillar-title">04 / The Next Step</span>
+                    <span class="pillar-desc">Establish a clean, confident behavioral start. Remove all ambiguity from the transition.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">02 / Decision Environment Hazards</div>
+        <div class="grid-2">
+            <div>
+                <h3>Cognitive Fatigue</h3>
+                <p>The brain cannot deeply process complexity, evaluate risk, and commit to a long-term plan at the same time. Overloading findings creates mental weight.</p>
+                <p><strong>Clarity over volume:</strong> Shorter, structured explanations increase commitment because they lower the cognitive load.</p>
+            </div>
+            <div>
+                <h3>Reactivity & Containment</h3>
+                <p>When a patient hesitates, your nervous system often reacts by talking more or softening the plan. This is a collapse of authority.</p>
+                <p><strong>Silence is Leverage:</strong> Tolerate silence. It allows the patient's nervous system to regulate and communicates certainty.</p>
+            </div>
+        </div>
+
+        <div class="navy-card">
+            <h3>Recommendation vs. Suggestion</h3>
+            <p>A recommendation is a regulatory timeline designed for neurological reorganization. When you offer multiple frequencies because of your own insecurity, you shift from architecture to negotiation.</p>
+        </div>
+
+        <div class="callout-box">
+            <p class="callout-text">"Commitment is not excitement. Commitment is behavioral certainty. The brain commits when uncertainty drops, not when it is impressed."</p>
+        </div>
+
+        <div class="section-header">03 / Mastery Checklist</div>
+        <div class="grid-2">
+            <div>
+                <ul class="checklist">
+                    <li class="checklist-item"><div class="check-box"></div> Minimal unnecessary language</li>
+                    <li class="checklist-item"><div class="check-box"></div> Biologically grounded frequency</li>
+                    <li class="checklist-item"><div class="check-box"></div> Clean price delivery</li>
+                </ul>
+            </div>
+            <div>
+                <ul class="checklist">
+                    <li class="checklist-item"><div class="check-box"></div> Silence tolerance after ROF</li>
+                    <li class="checklist-item"><div class="check-box"></div> No emotional movement</li>
+                    <li class="checklist-item"><div class="check-box"></div> Zero performance energy</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Resource 03: Day 2 Playbook</span>
+            <span>Privileged & Confidential</span>
+        </div>
+    </div>
+</body>
+</html>

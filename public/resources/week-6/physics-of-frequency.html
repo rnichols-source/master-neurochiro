@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro Resource 7: The Physics of Frequency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--orange); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
+        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
+
+        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
+
+        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+
+        .frequency-visual { display: flex; justify-content: space-between; align-items: center; margin: 2rem 0; padding: 1.5rem; background: var(--cream); border-radius: 12px; }
+        .vis-node { width: 12px; height: 12px; background: var(--orange); border-radius: 50%; }
+        .vis-line { flex: 1; height: 2px; background: var(--navy); opacity: 0.1; margin: 0 10px; }
+
+        .physics-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
+        .physics-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
+        .physics-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; line-height: 1.6; }
+
+        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+
+        .checklist { list-style: none; margin-top: 1rem; }
+        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
+        .check-box { width: 16px; height: 16px; border: 2px solid var(--orange); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
+
+        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">Technical Reference</div>
+        </div>
+
+        <header>
+            <h1>The Physics of<br>Frequency</h1>
+            <div class="subtitle">Neurological Spacing and the Dynamics of Adaptation</div>
+        </header>
+
+        <div class="section-header">01 / Frequency as Spacing</div>
+        <div class="grid-2">
+            <div>
+                <p>Frequency is not a preference or a style. It is the <strong>spacing of neurological input</strong> required to reorganize patterns over time.</p>
+                <div class="frequency-visual">
+                    <div class="vis-node"></div>
+                    <div class="vis-line"></div>
+                    <div class="vis-node"></div>
+                    <div class="vis-line"></div>
+                    <div class="vis-node"></div>
+                    <div class="vis-line"></div>
+                    <div class="vis-node"></div>
+                </div>
+                <p style="font-size: 11px; font-style: italic;">Optimal spacing prevents the system from reverting to dominant biased patterns.</p>
+            </div>
+            <div>
+                <h3>Destabilization Dynamics</h3>
+                <p>Patterns don't change because of one good visit. They change because the system is exposed to consistent input over time. Spacing that is too wide allows old patterns to regain dominance.</p>
+            </div>
+        </div>
+
+        <div class="section-header">02 / Clinical Chain of Adaptation</div>
+        <div class="grid-2">
+            <div>
+                <h3>Repetition Drives Change</h3>
+                <p>Repetition without timing creates chaos. Timing without repetition creates nothing. Adaptation requires consistent exposure to input.</p>
+                <p><strong>Neural Plasticity:</strong> The brain rewires based on repeated, predictable input. Inconsistency kills adaptation.</p>
+            </div>
+            <div>
+                <h3>Soft Frequency Hazards</h3>
+                <p>Reducing frequency to avoid tension signals that biology is negotiable. Negotiation increases uncertainty, which increases hesitation.</p>
+                <p><strong>Operational Impact:</strong> Stable frequency builds behavioral rhythm, which stabilizes retention and PVA.</p>
+            </div>
+        </div>
+
+        <div class="physics-card">
+            <h3>Frequency is Fact, Not Preference</h3>
+            <p>If visits are too far apart early on, the pattern never destabilizes enough to change. If frequency gets negotiated emotionally, adaptation slows down. Certainty comes from biology, not ego.</p>
+        </div>
+
+        <div class="callout-box">
+            <p class="callout-text">"Frequency is not aggression. It is timing. And timing determines the pattern. If you get the timing right, retention stabilizes and business pressure drops."</p>
+        </div>
+
+        <div class="section-header">03 / Mastery Checklist</div>
+        <div class="grid-2">
+            <div>
+                <ul class="checklist">
+                    <li class="checklist-item"><div class="check-box"></div> Anchor frequency in biology</li>
+                    <li class="checklist-item"><div class="check-box"></div> No negotiation based on insecurity</li>
+                    <li class="checklist-item"><div class="check-box"></div> Explain spacing as strategy</li>
+                </ul>
+            </div>
+            <div>
+                <ul class="checklist">
+                    <li class="checklist-item"><div class="check-box"></div> Zero apology for the plan</li>
+                    <li class="checklist-item"><div class="check-box"></div> Tolerance for hesitation</li>
+                    <li class="checklist-item"><div class="check-box"></div> Protection of adaptation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Resource 07: Frequency blueprint</span>
+            <span>Privileged & Confidential</span>
+        </div>
+    </div>
+</body>
+</html>

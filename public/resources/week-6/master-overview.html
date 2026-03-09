@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro Resource 1: Master Overview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            background-color: #E5E7EB;
+            font-family: 'Inter', sans-serif;
+            color: var(--navy);
+            line-height: 1.5;
+        }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media print {
+            body { background: none; }
+            .page { margin: 0; box-shadow: none; width: 100%; }
+        }
+
+        /* Branding Elements */
+        .header-stripe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: var(--orange);
+        }
+
+        .logo-area {
+            display: flex;
+            justify-content:间;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-text {
+            font-family: 'Lato', sans-serif;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            font-size: 14px;
+        }
+
+        .logo-subtext {
+            color: var(--orange);
+            font-size: 10px;
+            font-weight: 700;
+            display: block;
+            margin-top: -2px;
+        }
+
+        .week-tag {
+            background: var(--navy);
+            color: var(--white);
+            padding: 4px 12px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 42px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 0.95;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--cream);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--orange);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--cream);
+            margin-left: 1rem;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        p {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        strong {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        /* Layout Blocks */
+        .grid-2 {
+            display: grid;
+            grid-template-cols: 1fr 1.2fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 12px;
+            height: 100%;
+        }
+
+        .pulse-box {
+            background: var(--navy);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .pulse-quote {
+            font-size: 20px;
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--white);
+        }
+
+        .pulse-tag {
+            color: var(--orange);
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .loop-diagram {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .loop-step {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 900;
+            margin: 0 auto 0.75rem;
+        }
+
+        .step-title {
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-desc {
+            font-size: 10px;
+            color: var(--gray);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0.5in;
+            left: 0.75in;
+            right: 0.75in;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--gray);
+            border-top: 1px solid var(--cream);
+            padding-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .marker-list {
+            list-style: none;
+        }
+
+        .marker-item {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .marker-bullet {
+            color: var(--orange);
+            font-weight: 900;
+        }
+
+        .marker-content strong {
+            display: block;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .marker-content span {
+            font-size: 13px;
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="week-tag">Week 06</div>
+        </div>
+
+        <header>
+            <h1>Clinical Architecture<br>Mastery</h1>
+            <div class="subtitle">The Executive Briefing on Sequencing, Leverage, and System Stability</div>
+        </header>
+
+        <section class="grid-2">
+            <div>
+                <h2>01 / Core Thesis</h2>
+                <h3>Architecture vs. Appointments</h3>
+                <p>Most clinics do not have a marketing problem; they have a <strong>sequencing problem.</strong> An appointment is merely a block of time on a schedule. A system is <strong>architecture.</strong></p>
+                <p>When architecture is absent, the clinician is forced to compensate with persuasion. True leverage exists when the system performs the heavy lifting, allowing the clinician to move with restraint and authority.</p>
+            </div>
+            <div class="card">
+                <h2>02 / Why It Matters</h2>
+                <p>Weak structure upstream always creates business instability downstream. Small structural corrections in your Day 1–3 sequence do more than increase conversion; they stabilize your entire clinical operating system.</p>
+                <p><strong>Sequence Leverage:</strong> Improving your sequence increases conversion, retention, authority, and tone stability simultaneously.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>03 / The Closed Loop</h2>
+            <div class="loop-diagram">
+                <div class="loop-step">
+                    <div class="step-num">01</div>
+                    <div class="step-title">Day 1: Orientation</div>
+                    <div class="step-desc">Reduces Uncertainty. The brain requires safety before commitment.</div>
+                </div>
+                <div class="loop-step">
+                    <div class="step-num">02</div>
+                    <div class="step-title">Day 2: Clarity</div>
+                    <div class="step-desc">Problem Definition. Clarifying truth vs. convincing patients.</div>
+                </div>
+                <div class="loop-step">
+                    <div class="step-num">03</div>
+                    <div class="step-title">Day 3: Behavior</div>
+                    <div class="step-desc">Onboarding. Stabilizing action and expectations.</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="pulse-box">
+            <span class="pulse-tag">The Operator's Pulse</span>
+            <blockquote class="pulse-quote">
+                "Authority isn't personality. Authority is stability under evaluation. When structure is strong, persuasion becomes unnecessary. When persuasion shows up, it is a sign that structure is weak."
+            </blockquote>
+        </div>
+
+        <section class="grid-2">
+            <div>
+                <h2>04 / Mastery Markers</h2>
+                <ul class="marker-list">
+                    <li class="marker-item">
+                        <div class="marker-bullet">/</div>
+                        <div class="marker-content">
+                            <strong>Pacing</strong>
+                            <span>Moves slower than everyone else. Does not rush the sequence.</span>
+                        </div>
+                    </li>
+                    <li class="marker-item">
+                        <div class="marker-bullet">/</div>
+                        <div class="marker-content">
+                            <strong>Restraint</strong>
+                            <span>Does not over-teach or leak reassurance. Speaks less, leads more.</span>
+                        </div>
+                    </li>
+                    <li class="marker-item">
+                        <div class="marker-bullet">/</div>
+                        <div class="marker-content">
+                            <strong>Transitions</strong>
+                            <span>Ends every visit with a structured next step, never a vague "we'll see."</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2>05 / CEO Reflection</h2>
+                <p><strong>Are you running architecture or improvising?</strong> Audit your last three conversion failures. Did you lose them because of marketing, or because your sequence drifted?</p>
+                <p><strong>Does your internal nervous system feel calm?</strong> If you are performing for approval, you are not operating a system.</p>
+            </div>
+        </section>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Week 6: Resources Suite</span>
+            <span>Privileged & Confidential</span>
+        </div>
+    </div>
+</body>
+</html>

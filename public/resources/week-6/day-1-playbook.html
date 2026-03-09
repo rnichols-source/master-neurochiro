@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro Resource 2: Day 1 Playbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--navy); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
+        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
+
+        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
+
+        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+
+        .job-card { background: var(--cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; }
+        .job-num { color: var(--orange); font-weight: 900; font-size: 12px; margin-bottom: 0.5rem; display: block; }
+        .job-title { font-weight: 900; font-size: 14px; text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
+        .job-desc { font-size: 12px; color: var(--gray); }
+
+        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+
+        .checklist { list-style: none; margin-top: 1rem; }
+        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
+        .check-box { width: 16px; height: 16px; border: 2px solid var(--orange); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
+
+        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">Implementation Guide</div>
+        </div>
+
+        <header>
+            <h1>Day 1: The Uncertainty<br>Reduction Phase</h1>
+            <div class="subtitle">Calibrating the Nervous System for Clinical Commitment</div>
+        </header>
+
+        <div class="section-header">01 / The 4 Jobs of Day 1</div>
+        <div class="grid-2">
+            <div>
+                <div class="job-card">
+                    <span class="job-num">JOB 01</span>
+                    <span class="job-title">Reduce Uncertainty</span>
+                    <span class="job-desc">The brain requires safety before it can evaluate risk or commit. Orientation is the tool of safety.</span>
+                </div>
+                <div class="job-card">
+                    <span class="job-num">JOB 02</span>
+                    <span class="job-title">Establish Authority</span>
+                    <span class="job-desc">Authority is stability under evaluation. It is signaled through restraint and steady pacing.</span>
+                </div>
+            </div>
+            <div>
+                <div class="job-card">
+                    <span class="job-num">JOB 03</span>
+                    <span class="job-title">Gather Clean Data</span>
+                    <span class="job-desc">Collection is not interpretation. Gather findings without the urge to solve out loud.</span>
+                </div>
+                <div class="job-card">
+                    <span class="job-num">JOB 04</span>
+                    <span class="job-title">Create Anticipation</span>
+                    <span class="job-desc">End the visit with three states: validity, anticipation of clarity, and a structured next step.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">02 / Clinical Mechanics</div>
+        <div class="grid-2">
+            <div>
+                <h3>The 10-Minute Orientation</h3>
+                <p>The first ten minutes of Day 1 matter more than the rest of the visit. Orientation means the patient knows where they are, what is happening, what will happen next, and why.</p>
+                <p><strong>Predictability lowers stress.</strong> When the nervous system knows the sequence, it relaxes enough to stay engaged.</p>
+            </div>
+            <div>
+                <h3>Cognitive Load Management</h3>
+                <p>The brain cannot deeply learn, evaluate risk, feel safe, and commit all at once. Overloading Day 1 with philosophy creates mental weight.</p>
+                <p><strong>Clarity over Volume:</strong> If they leave exhausted, you've done too much. If they leave curious, you've done enough.</p>
+            </div>
+        </div>
+
+        <div class="callout-box">
+            <p class="callout-text">"Sloppy data collection creates unstable recommendations. Premature explanation weakens Day 2 because it dilutes the impact of clarity later."</p>
+        </div>
+
+        <div class="section-header">03 / Mastery Checklist</div>
+        <div class="grid-2">
+            <div>
+                <ul class="checklist">
+                    <li class="checklist-item"><div class="check-box"></div> Conduct 10-min Orientation</li>
+                    <li class="checklist-item"><div class="check-box"></div> Maintain Pacing (Slow Down)</li>
+                    <li class="checklist-item"><div class="check-box"></div> Tolerate Silence During Testing</li>
+                </ul>
+            </div>
+            <div>
+                <ul class="checklist">
+                    <li class="checklist-item"><div class="check-box"></div> End with Clean Next Step</li>
+                    <li class="checklist-item"><div class="check-box"></div> Zero Philosophy Lectures</li>
+                    <li class="checklist-item"><div class="check-box"></div> RestrainedTone Under Evaluation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Resource 02: Day 1 Playbook</span>
+            <span>Privileged & Confidential</span>
+        </div>
+    </div>
+</body>
+</html>
