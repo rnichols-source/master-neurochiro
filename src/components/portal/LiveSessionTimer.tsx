@@ -47,9 +47,9 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
 
   if (!timeLeft) return null;
 
-  // Show button 10 minutes (600 seconds) before and during the session (up to 90 mins after start)
-  const isJoinable = timeLeft.totalSeconds <= 600 && timeLeft.totalSeconds > -5400; 
-  const isLive = timeLeft.totalSeconds <= 0 && timeLeft.totalSeconds > -5400;
+  // Show button 10 minutes (600 seconds) before and during the session (up to 3 hours after start)
+  const isJoinable = timeLeft.totalSeconds <= 600 && timeLeft.totalSeconds > -10800; 
+  const isLive = timeLeft.totalSeconds <= 0 && timeLeft.totalSeconds > -10800;
 
   const localTime = new Date(nextSessionTime).toLocaleString(undefined, {
     weekday: 'short',

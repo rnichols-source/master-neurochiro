@@ -107,14 +107,23 @@ export function AdminDashboardClient({
     e.preventDefault();
     setIsSavingCall(true);
     try {
-      const fullDate = new Date(`${nextCallData.date}T${nextCallData.time}`).toISOString();
-      const res = await updateNextCall(fullDate, nextCallData.zoomUrl);
+      // Append ET offset (-04:00 for March/DST)
+      const fullDate = `${nextCallData.date}T${nextCallData.time}:00-04:00`;
+      const res = await updateNextCall(
+        fullDate, 
+        nextCallData.zoomUrl,
+        "Week 7 Live Call",
+        "Live mastermind session for Week 7: EQ + Psychosomatic Patterns."
+      );
       if (res.success) {
-        alert("Live call scheduled!");
+        alert("Live call schedule synced successfully!");
         setShowCallModal(false);
+        window.location.reload();
+      } else {
+        alert(`Error: ${res.error}`);
       }
     } catch (err) {
-      alert("Error scheduling call. Check date format.");
+      alert("Error scheduling call. Please check date and time formats.");
     } finally {
       setIsSavingCall(false);
     }

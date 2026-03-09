@@ -31,19 +31,50 @@ export async function fetchNextCall() {
 export async function updateNextCall(date: string, zoomUrl: string, title?: string, description?: string) {
   const supabase = createAdminClient();
 
-  const { error } = await supabase
+  // 1. Try to find the most recent uncompleted call to update
+  const { data: existingCall } = await supabase
     .from('live_calls')
-    .insert({
-      title: title || 'Weekly Mastermind Call',
-      description: description || 'Live coaching and Q&A session.',
-      call_time: date,
-      zoom_url: zoomUrl,
-      is_completed: false
-    });
+    .select('id')
+    .eq('is_completed', false)
+    .order('call_time', { ascending: true })
+    .limit(1)
+    .maybeSingle();
 
-  if (error) return { success: false, error: error.message };
+  let error;
+
+  if (existingCall) {
+    // Update existing
+    const { error: updateError } = await supabase
+      .from('live_calls')
+      .update({
+        call_time: date,
+        zoom_url: zoomUrl,
+        title: title || 'Weekly Mastermind Call',
+        description: description || 'Live coaching and Q&A session.'
+      })
+      .eq('id', existingCall.id);
+    error = updateError;
+  } else {
+    // Insert new
+    const { error: insertError } = await supabase
+      .from('live_calls')
+      .insert({
+        title: title || 'Weekly Mastermind Call',
+        description: description || 'Live coaching and Q&A session.',
+        call_time: date,
+        zoom_url: zoomUrl,
+        is_completed: false
+      });
+    error = insertError;
+  }
+
+  if (error) {
+    console.error("Error updating/inserting call:", error);
+    return { success: false, error: error.message };
+  }
 
   revalidatePath('/portal');
+  revalidatePath('/dashboard');
   revalidatePath('/admin');
   return { success: true };
 }
