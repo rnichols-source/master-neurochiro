@@ -24,7 +24,8 @@ import {
   FileText,
   Video,
   ChevronRight,
-  Star
+  Star,
+  X
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchVaultResources, toggleBookmark, incrementDownload } from "@/app/actions/vault-actions";
@@ -49,6 +50,7 @@ export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admi
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [readingResource, setReadingResource] = useState<any | null>(null);
   const isPro = userTier === 'pro' || userTier === 'admin';
 
   useEffect(() => {
@@ -64,9 +66,7 @@ export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admi
   }, [activeCategory, searchQuery]);
 
   const handleBookmark = async (id: string) => {
-    // Optimistic UI could be added here
     await toggleBookmark(id);
-    // Refresh list or update state locally
     setResources(prev => prev.map(r => {
       if (r.id === id) {
         const hasBookmark = r.vault_bookmarks && r.vault_bookmarks.length > 0;
@@ -94,6 +94,63 @@ export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admi
 
   return (
     <div className="space-y-10 pb-20">
+      {/* Document Reader Modal */}
+      <AnimatePresence>
+        {readingResource && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-brand-navy/95 backdrop-blur-xl flex flex-col"
+          >
+            <div className="flex justify-between items-center p-6 border-b border-white/10 bg-brand-navy">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-brand-orange/20 flex items-center justify-center text-brand-orange">
+                  <FileText size={20} />
+                </div>
+                <div>
+                  <h3 className="text-white font-black uppercase tracking-tight">{readingResource.title}</h3>
+                  <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Premium Intelligence Document</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setReadingResource(null)}
+                className="p-3 hover:bg-white/5 rounded-xl text-white/40 hover:text-white transition-all"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-6 md:p-20 flex justify-center bg-brand-cream/5">
+              <div className="max-w-3xl w-full space-y-12">
+                {readingResource.content?.split('\n\n').map((page: string, i: number) => (
+                  <EliteCard key={i} className="p-12 md:p-20 bg-white shadow-2xl min-h-[800px] flex flex-col">
+                    <div className="flex justify-between items-start mb-20">
+                      <div className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">NeuroChiro OS</div>
+                      <span className="text-[10px] font-bold text-brand-navy/20">Phase 0{i + 1}</span>
+                    </div>
+                    
+                    <div className="flex-1">
+                      <h4 className="text-3xl font-black text-brand-navy mb-8 tracking-tighter">
+                        {page.split('\n')[0]}
+                      </h4>
+                      <div className="text-lg text-brand-gray leading-relaxed space-y-6 whitespace-pre-wrap">
+                        {page.split('\n').slice(1).join('\n')}
+                      </div>
+                    </div>
+
+                    <div className="mt-20 pt-8 border-t border-brand-navy/5 flex justify-between items-center">
+                      <p className="text-[9px] font-bold text-brand-navy/40 uppercase tracking-widest">© 2026 NeuroChiro Mastermind</p>
+                      <p className="text-[9px] font-bold text-brand-navy/40 uppercase tracking-widest italic">Confidential Internal Resource</p>
+                    </div>
+                  </EliteCard>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
         <div className="space-y-2">
@@ -246,12 +303,14 @@ export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admi
                               className="py-2.5 px-5 text-[10px] rounded-xl"
                               onClick={() => {
                                 incrementDownload(res.id);
-                                if (res.url) {
+                                if (res.resource_type === 'pdf' && res.content) {
+                                  setReadingResource(res);
+                                } else if (res.url) {
                                   window.open(res.url, '_blank', 'noopener,noreferrer');
                                 }
                               }}
                             >
-                              {res.resource_type === 'video' ? 'Watch Now' : 'Access Library'}
+                              {res.resource_type === 'video' ? 'Watch Now' : (res.resource_type === 'pdf' && res.content ? 'Read Full Guide' : 'Access Library')}
                               <ChevronRight className="ml-1 w-3 h-3" />
                             </BrandButton>
                           </div>
