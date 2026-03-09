@@ -126,7 +126,17 @@ export async function fetchWeekDetail(slug: string) {
       return { success: false, error: 'Error fetching modules' }
     }
 
-    // 3. Fetch progress
+    // 3. Fetch resources
+    let resources = []
+    try {
+      const { data: resData } = await supabase
+        .from('resources')
+        .select('*')
+        .eq('week_id', week.id)
+      if (resData) resources = resData
+    } catch (e) {}
+
+    // 4. Fetch progress
     let completedModuleIds = new Set<string>()
     try {
       const { data: progress } = await supabase
@@ -165,7 +175,7 @@ export async function fetchWeekDetail(slug: string) {
 
     return { 
       success: true, 
-      data: { week, modules: formattedModules } 
+      data: { week, modules: formattedModules, resources } 
     }
   } catch (err: any) {
     console.error('[CURRICULUM] Global crash in fetchWeekDetail:', err.message)

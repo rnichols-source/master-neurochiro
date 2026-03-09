@@ -1,8 +1,6 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
-import { fetchWeekDetail, verifyPhase } from "@/app/actions/curriculum-actions";
-import { CurriculumQuiz } from "@/components/portal/curriculum-quiz";
-import { createClient } from "@/lib/supabase/server";
+import { EliteCard } from "@/components/ui/elite-ui";
+import { fetchWeekDetail } from "@/app/actions/curriculum-actions";
 import { 
   Play, 
   CheckCircle2, 
@@ -17,56 +15,22 @@ import { cn } from "@/lib/utils";
 import { notFound } from "next/navigation";
 
 export default async function WeekDetailPage(props: { params: Promise<{ slug: string }> }) {
-  const params = await props.params;
-  const slug = params?.slug;
+  const { slug } = await props.params;
   
   if (!slug) notFound();
 
   const result = await fetchWeekDetail(slug);
   
   if (!result.success || !result.data) {
-    console.error(`[CURRICULUM] Failed to fetch week: ${slug}`, result.error);
     notFound();
   }
 
-  const { week, modules } = result.data;
-
-  // 1. Fetch resources safely
-  let resources: any[] = [];
-  try {
-    const supabase = await createClient();
-    const { data } = await supabase
-      .from('resources')
-      .select('*')
-      .eq('week_id', week.id);
-    if (data) resources = data;
-  } catch (err) {
-    console.warn("[CURRICULUM] Resources fetch failed.");
-  }
-  
-  // Calculate completion
+  const { week, modules, resources } = result.data;
   const safeModules = modules || [];
+  const safeResources = resources || [];
+  
   const completedCount = safeModules.filter((m: any) => m.status === 'completed').length;
-  const isPhaseFinished = completedCount === safeModules.length && safeModules.length > 0;
   const completionPercent = safeModules.length > 0 ? Math.round((completedCount / safeModules.length) * 100) : 0;
-
-  // Mock quiz questions
-  const quizQuestions = [
-    {
-      id: 1,
-      text: "What is the primary anchor of a Nervous System-First Doctor?",
-      options: ["Patient Satisfaction", "Clinical Certainty", "Insurance Reimbursement", "Marketing Reach"],
-      correctIndex: 1,
-      feedback: "Certainty is the non-negotiable anchor. Without it, you are just a technician chasing a yes."
-    },
-    {
-      id: 2,
-      text: "According to the NeuroChiro framework, what determines how you practice?",
-      options: ["Your Schooling", "Your Technique", "Who You Are", "Your Location"],
-      correctIndex: 2,
-      feedback: "Identity reconstruction is the first step. Who you are determines the frequency of your clinic."
-    }
-  ];
 
   return (
     <DashboardLayout>
@@ -105,63 +69,47 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2 space-y-6">
-            {isPhaseFinished ? (
-              <div className="space-y-8">
-                <div className="flex items-center gap-3 px-2">
-                  <div className="p-2 bg-green-500/10 rounded-xl"><CheckCircle2 className="w-5 h-5 text-green-500" /></div>
-                  <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">Units Complete. Final Validation Required.</h3>
-                </div>
-                <CurriculumQuiz 
-                  phaseTitle={week?.title || ""} 
-                  questions={quizQuestions}
-                  onComplete={verifyPhase.bind(null, week?.id || 0)}
-                />
-              </div>
-            ) : (
-              <>
-                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 ml-2">Training Units</h3>
-                <div className="space-y-4">
-                  {safeModules.map((mod: any) => (
-                    <EliteCard 
-                      key={mod.id} 
-                      className={cn(
-                        "p-6 transition-all group",
-                        mod.status === 'locked' ? "opacity-50" : "hover:border-brand-orange/40"
-                      )}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-6">
-                          <div className={cn(
-                            "w-12 h-12 rounded-xl flex items-center justify-center transition-colors",
-                            mod.status === 'completed' ? "bg-green-500/10 text-green-500" :
-                            mod.status === 'active' ? "bg-brand-orange/10 text-brand-orange" : "bg-brand-navy/5 text-brand-navy/20"
-                          )}>
-                            {mod.status === 'completed' ? <CheckCircle2 className="w-5 h-5" /> :
-                             mod.status === 'active' ? <Play className="w-5 h-5 fill-brand-orange ml-0.5" /> : <Lock className="w-5 h-5" />}
-                          </div>
-                          <div>
-                            <p className="text-[8px] font-black uppercase text-brand-navy/40">Module {week?.week_number}.{mod.order_index}</p>
-                            <h4 className="text-lg font-black text-brand-navy group-hover:text-brand-orange transition-colors">{mod.title}</h4>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          {mod.status !== 'locked' ? (
-                            <Link 
-                              href={`/portal/curriculum/${week.slug}/${mod.slug}`}
-                              className="px-6 py-2 bg-brand-navy text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all flex items-center gap-2 group/btn"
-                            >
-                              View Unit <ChevronRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
-                            </Link>
-                          ) : (
-                            <Lock className="w-4 h-4 text-brand-navy/20" />
-                          )}
-                        </div>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 ml-2">Training Units</h3>
+            <div className="space-y-4">
+              {safeModules.map((mod: any) => (
+                <EliteCard 
+                  key={mod.id} 
+                  className={cn(
+                    "p-6 transition-all group",
+                    mod.status === 'locked' ? "opacity-50" : "hover:border-brand-orange/40"
+                  )}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-6">
+                      <div className={cn(
+                        "w-12 h-12 rounded-xl flex items-center justify-center transition-colors",
+                        mod.status === 'completed' ? "bg-green-500/10 text-green-500" :
+                        mod.status === 'active' ? "bg-brand-orange/10 text-brand-orange" : "bg-brand-navy/5 text-brand-navy/20"
+                      )}>
+                        {mod.status === 'completed' ? <CheckCircle2 className="w-5 h-5" /> :
+                         mod.status === 'active' ? <Play className="w-5 h-5 fill-brand-orange ml-0.5" /> : <Lock className="w-5 h-5" />}
                       </div>
-                    </EliteCard>
-                  ))}
-                </div>
-              </>
-            )}
+                      <div>
+                        <p className="text-[8px] font-black uppercase text-brand-navy/40">Module {week?.week_number}.{mod.order_index}</p>
+                        <h4 className="text-lg font-black text-brand-navy group-hover:text-brand-orange transition-colors">{mod.title}</h4>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      {mod.status !== 'locked' ? (
+                        <Link 
+                          href={`/portal/curriculum/${week.slug}/${mod.slug}`}
+                          className="px-6 py-2 bg-brand-navy text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all flex items-center gap-2 group/btn"
+                        >
+                          View Unit <ChevronRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
+                        </Link>
+                      ) : (
+                        <Lock className="w-4 h-4 text-brand-navy/20" />
+                      )}
+                    </div>
+                  </div>
+                </EliteCard>
+              ))}
+            </div>
           </div>
 
           <div className="space-y-8">
@@ -182,7 +130,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
 
             <EliteCard title="Proprietary Assets" subtitle="Downloads" icon={FileText}>
               <div className="space-y-3 mt-4">
-                {resources.length > 0 ? resources.map((asset: any, i: number) => (
+                {safeResources.length > 0 ? safeResources.map((asset: any, i: number) => (
                   <a 
                     key={i} href={asset.url} target="_blank" rel="noopener noreferrer"
                     className="w-full p-4 bg-brand-navy/5 hover:bg-brand-orange/5 rounded-xl border border-transparent hover:border-brand-orange/20 transition-all text-left flex justify-between items-center group"
