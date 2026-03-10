@@ -219,7 +219,7 @@ export function EconomicsEngineClient() {
             <div className="absolute top-0 right-0 p-8 opacity-5"><TrendingUp size={160} /></div>
             <div className="space-y-10 relative z-10">
               <div className="flex justify-between items-start">
-                <div><p className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-orange mb-2">Required CPV</p><h2 className="text-7xl font-black tracking-tighter leading-none">${requiredCPV}</h2></div>
+                <div><p className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-orange mb-2">Required CPV</p><h2 className="text-7xl font-black tracking-tighter leading-none">${reqCPV}</h2></div>
                 <div className="text-right"><p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-2">Current Gap</p><p className={cn("text-2xl font-black", cpvGap > 0 ? "text-red-400" : "text-green-400")}>{cpvGap > 0 ? `+$${cpvGap}` : "Aligned"}</p></div>
               </div>
               <div className="space-y-2">
