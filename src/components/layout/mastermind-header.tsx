@@ -63,8 +63,8 @@ export function MastermindHeader() {
           </nav>
 
           <div className="flex items-center gap-6 border-l border-brand-navy/10 pl-10">
-            <Link href="/login" className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-navy">
-              Login
+            <Link href="/login" className="text-[10px] font-black uppercase tracking-widest text-brand-navy hover:text-brand-orange transition-colors">
+              Member Login
             </Link>
             <Link href="/apply">
               <BrandButton variant="primary" size="sm">Apply for Admission</BrandButton>
@@ -102,9 +102,14 @@ export function MastermindHeader() {
                 </Link>
               ))}
               <hr className="border-brand-navy/5" />
-              <Link href="/apply" className="block" onClick={() => setIsMobileMenuOpen(false)}>
-                <BrandButton variant="accent" className="w-full">Apply Now</BrandButton>
-              </Link>
+              <div className="space-y-4">
+                <Link href="/login" className="block" onClick={() => setIsMobileMenuOpen(false)}>
+                  <BrandButton variant="outline" className="w-full">Member Sign In</BrandButton>
+                </Link>
+                <Link href="/apply" className="block" onClick={() => setIsMobileMenuOpen(false)}>
+                  <BrandButton variant="primary" className="w-full">Apply for Admission</BrandButton>
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}
