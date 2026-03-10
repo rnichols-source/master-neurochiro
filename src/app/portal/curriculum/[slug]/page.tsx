@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { notFound } from "next/navigation";
+import { TwoPathsTransition } from "@/components/portal/TwoPathsTransition";
 
 export default async function WeekDetailPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
@@ -163,6 +164,18 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
             </EliteCard>
           </div>
         </div>
+
+        {/* Transition Logic for Week 8 Completion */}
+        {week?.week_number === 8 && completionPercent === 100 && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="pt-10 border-t border-brand-navy/5"
+          >
+            <TwoPathsTransition />
+          </motion.div>
+        )}
       </div>
     </DashboardLayout>
   );
