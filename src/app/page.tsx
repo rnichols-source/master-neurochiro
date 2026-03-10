@@ -174,18 +174,6 @@ export default function MastermindLandingPage() {
           <ValueStack />
         </div>
       </section>
-
-      {/* Floating Admin Quick Access */}
-      <div className="fixed bottom-8 right-8 z-50">
-        <Link href="/admin">
-          <button className="w-14 h-14 bg-brand-navy text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-brand-orange transition-all group border-2 border-white/10">
-            <Settings size={24} className="group-hover:rotate-90 transition-transform duration-500" />
-            <span className="absolute right-full mr-4 bg-brand-navy text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/5">
-              Admin Access
-            </span>
-          </button>
-        </Link>
-      </div>
     </div>
   );
 }

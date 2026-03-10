@@ -38,14 +38,17 @@ export function StealthFounderTrigger() {
 
   const triggerSequence = () => {
     if (isAuthenticated) {
-      setIsPanelOpen(true);
+      window.location.href = "/admin";
     } else {
       setShowPassphrasePrompt(true);
     }
   };
 
-  // Mobile/Invisible Hotspot Trigger: 5 rapid taps
-  const handleHotspotClick = () => {
+  // Mobile/Invisible Hotspot Trigger: 5 rapid taps in the bottom right
+  const handleHotspotClick = (e: React.MouseEvent | React.TouchEvent) => {
+    // Prevent accidental triggers during normal interaction
+    if (e.type === 'touchstart') return; 
+    
     clickCount.current += 1;
     
     if (clickTimer.current) clearTimeout(clickTimer.current);
@@ -56,7 +59,7 @@ export function StealthFounderTrigger() {
     } else {
       clickTimer.current = setTimeout(() => {
         clickCount.current = 0;
-      }, 2000); // Must complete 5 taps within 2 seconds
+      }, 1500); // Must complete 5 taps within 1.5 seconds
     }
   };
 
@@ -75,7 +78,8 @@ export function StealthFounderTrigger() {
         setIsAuthenticated(true);
         setShowPassphrasePrompt(false);
         setPassphrase("");
-        setIsPanelOpen(true);
+        // Redirect directly to admin center
+        window.location.href = "/admin";
       } else {
         setError(true);
         setTimeout(() => setError(false), 2000);

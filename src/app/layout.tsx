@@ -44,7 +44,6 @@ export default function RootLayout({
       >
         <PWARegistration />
         <StealthFounderTrigger />
-        <AdminQuickAccess />
         {children}
       </body>
     </html>
