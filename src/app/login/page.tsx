@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { BrandButton } from "@/components/ui/elite-ui";
-import { Lock, Mail, ArrowRight, Loader2, AlertCircle } from "lucide-react";
+import { Lock, Mail, ArrowRight, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { signIn, resetPassword } from "@/app/actions/auth-actions";
 import { useState } from "react";
