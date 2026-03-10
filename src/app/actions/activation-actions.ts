@@ -208,6 +208,24 @@ export async function activateSpecificEmails(emails: string[]) {
 }
 
 /**
+ * Step 11: Track Engagement
+ */
+export async function trackActivity(userId: string, type: string, moduleId?: string, details?: any) {
+  const supabaseAdmin = createAdminClient()
+  
+  const { error } = await supabaseAdmin
+    .from('member_activity')
+    .insert({
+        user_id: userId,
+        activity_type: type,
+        module_id: moduleId,
+        details: details || {}
+    })
+
+  return { success: !error }
+}
+
+/**
  * One-click sync for Week 6 Premium Resources
  */
 export async function syncWeek6Resources() {
