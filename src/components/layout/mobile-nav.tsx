@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 const mobileItems = [
   { name: "Home", href: "/portal", icon: LayoutDashboard },
   { name: "Units", href: "/portal/curriculum", icon: BookOpen },
-  { name: "Vault", href: "/portal/vault", icon: Zap },
+  { name: "Engine", href: "/portal/clinical-engine", icon: Zap },
   { name: "KPIs", href: "/portal/kpi", icon: BarChart3 },
 ];
 

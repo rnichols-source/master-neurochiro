@@ -14,7 +14,8 @@ import {
   Activity,
   TrendingUp,
   Lock,
-  MessageSquare
+  MessageSquare,
+  Zap
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -24,6 +25,7 @@ const navItems = [
   { name: "Dashboard", href: "/portal", icon: LayoutDashboard },
   { name: "Curriculum", href: "/portal/curriculum", icon: BookOpen },
   { name: "Vault", href: "/portal/vault", icon: ShieldCheck },
+  { name: "Clinical Engine", href: "/portal/clinical-engine", icon: Zap },
   { name: "KPI Tracker", href: "/portal/kpi", icon: BarChart3 },
   { name: "Playbooks", href: "/portal/playbooks", icon: FileText },
   { name: "Case Lab", href: "/portal/case-lab", icon: Activity },
