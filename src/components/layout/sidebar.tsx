@@ -13,7 +13,8 @@ import {
   Users,
   Activity,
   TrendingUp,
-  Lock
+  Lock,
+  MessageSquare
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
