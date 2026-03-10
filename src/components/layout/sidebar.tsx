@@ -100,6 +100,13 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
             <ShieldCheck className={cn("w-4 h-4", pathname === "/portal/council" ? "text-brand-orange" : "text-white/50 group-hover:text-white")} />
             Council Dashboard
           </Link>
+          <Link
+            href="mailto:support@neurochiromastermind.com"
+            className="group flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-all text-white/70 hover:bg-white/5 hover:text-white"
+          >
+            <MessageSquare className="w-4 h-4 text-white/50 group-hover:text-white" />
+            Help & Support
+          </Link>
         </div>
 
         {userTier === 'admin' && (

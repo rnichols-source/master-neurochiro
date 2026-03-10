@@ -52,11 +52,11 @@ export async function middleware(request: NextRequest) {
     
     const { data: profile } = await supabase
       .from('profiles')
-      .select('role')
+      .select('tier')
       .eq('id', user.id)
       .single()
 
-    if (profile?.role !== 'admin') {
+    if (profile?.tier !== 'admin') {
       return NextResponse.redirect(new URL('/portal', request.url))
     }
   }
