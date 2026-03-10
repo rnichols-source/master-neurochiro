@@ -98,10 +98,10 @@ export const EmailService = {
     }
   },
 
-// 4. Step 8: Onboarding Ready
+// 4. Step 8: Onboarding Ready (Mastermind Transition)
   async sendOnboardingReady(email: string, name: string, activationLink?: string) {
     const finalLink = activationLink || `${process.env.NEXT_PUBLIC_SITE_URL}/portal`;
-    console.log(`[EMAIL] Attempting 'Premium Onboarding' email to ${email}`);
+    console.log(`[EMAIL] Attempting 'Premium Transition' email to ${email}`);
     if (isMock) {
       console.log(`[MOCK EMAIL] To: ${email} | Subject: Your NeuroChiro Mastermind Portal Is Ready | Link: ${finalLink}`);
       return { data: { id: "mock_id" }, error: null };
@@ -116,52 +116,81 @@ export const EmailService = {
           <title>Your NeuroChiro Mastermind Portal Is Ready</title>
         </head>
         <body style="margin: 0; padding: 0; background-color: #0A192F; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #ffffff;">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 0 auto; background-color: #0A192F;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 0 auto; background-color: #0A192F; border-radius: 24px; overflow: hidden; margin-top: 40px; margin-bottom: 40px;">
             <tr>
-              <td align="center" style="padding: 40px 0;">
-                <img src="${process.env.NEXT_PUBLIC_SITE_URL}/logo-white.png" alt="NeuroChiro Mastermind" width="180" style="display: block; border: 0;">
+              <td align="center" style="padding: 60px 0 40px 0; background: linear-gradient(180deg, #162C4E 0%, #0A192F 100%);">
+                <img src="https://neurochiromastermind.com/logo-white.png" alt="NeuroChiro Mastermind" width="220" style="display: block; border: 0;">
               </td>
             </tr>
             <tr>
-              <td style="padding: 0 40px;">
-                <p style="text-transform: uppercase; letter-spacing: 0.3em; font-size: 10px; font-weight: 900; color: #E67E22; margin-bottom: 16px;">System Upgrade</p>
-                <h1 style="font-size: 32px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 24px 0;">Your Mastermind Portal <br/>Is Ready.</h1>
+              <td style="padding: 0 50px 60px 50px;">
+                <p style="text-transform: uppercase; letter-spacing: 0.4em; font-size: 11px; font-weight: 900; color: #E67E22; margin-bottom: 20px; text-align: center;">Platform Transition</p>
+                <h1 style="font-size: 36px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 32px 0; text-align: center;">Your Mastermind Portal <br/>Is Ready.</h1>
                 
-                <p style="font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.7); margin-bottom: 32px;">
-                  Dr. ${name}, we have upgraded the NeuroChiro Mastermind platform. 
-                  Everything is now integrated into a single high-performance Command Center.
+                <p style="font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.8); margin-bottom: 32px;">
+                  Dr. ${name}, we are moving the Mastermind into the new NeuroChiro platform for the <strong>final two weeks</strong> of the program.
                 </p>
 
-                <div style="background-color: rgba(255,255,255,0.05); border-radius: 16px; padding: 24px; margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.1);">
-                  <h2 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: #ffffff; margin: 0 0 16px 0;">Inside Your New Portal:</h2>
-                  <ul style="padding: 0; margin: 0; list-style: none; color: rgba(255,255,255,0.6); font-size: 14px;">
-                    <li style="margin-bottom: 10px;">&bull; Complete 8-Week Curriculum</li>
-                    <li style="margin-bottom: 10px;">&bull; Proprietary Implementation Resources</li>
-                    <li style="margin-bottom: 10px;">&bull; Practice KPI Tracker</li>
-                    <li style="margin-bottom: 10px;">&bull; Live Call Replay Library</li>
-                    <li style="margin-bottom: 10px;">&bull; Direct Coaching Access</li>
-                  </ul>
+                <p style="font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.6); margin-bottom: 40px;">
+                  This upgrade gives you immediate, centralized access to the full ecosystem we've built:
+                </p>
+
+                <div style="background-color: rgba(255,255,255,0.03); border-radius: 20px; padding: 32px; margin-bottom: 48px; border: 1px solid rgba(255,255,255,0.08);">
+                  <h2 style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.15em; color: #ffffff; margin: 0 0 20px 0; font-weight: 800;">Inside Your Command Center:</h2>
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td style="padding-bottom: 12px; font-size: 15px; color: rgba(255,255,255,0.7);">&bull; Weeks 1–8 Curriculum Unlocked</td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 12px; font-size: 15px; color: rgba(255,255,255,0.7);">&bull; The Script & ROF Vault</td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 12px; font-size: 15px; color: rgba(255,255,255,0.7);">&bull; Clinical Operating Playbooks</td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 12px; font-size: 15px; color: rgba(255,255,255,0.7);">&bull; Practice KPI Tracking Tools</td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 12px; font-size: 15px; color: rgba(255,255,255,0.7);">&bull; Live Call Replay Library</td>
+                    </tr>
+                  </table>
                 </div>
 
-                <p style="font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.7); margin-bottom: 32px;">
-                  Your access is already included as an active Mastermind member. 
-                  Please activate your new profile to begin.
-                </p>
+                <div style="margin-bottom: 48px;">
+                  <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #E67E22; margin-bottom: 24px; font-weight: 800;">Activation Steps:</h3>
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-size: 15px; color: rgba(255,255,255,0.8);">
+                    <tr><td style="padding-bottom: 8px;"><strong>Step 1:</strong> Click the activation button below.</td></tr>
+                    <tr><td style="padding-bottom: 8px;"><strong>Step 2:</strong> Create your profile.</td></tr>
+                    <tr><td style="padding-bottom: 8px;"><strong>Step 3:</strong> Set your secure password.</td></tr>
+                    <tr><td style="padding-bottom: 8px;"><strong>Step 4:</strong> Log in and access the portal.</td></tr>
+                  </table>
+                </div>
 
-                <div align="center" style="margin-bottom: 48px;">
-                  <a href="${finalLink}" style="background-color: #E67E22; color: #ffffff; padding: 20px 40px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 16px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block;">
-                    Activate Your Profile
+                <div align="center" style="margin-bottom: 56px;">
+                  <a href="${finalLink}" style="background-color: #E67E22; color: #ffffff; padding: 22px 44px; border-radius: 14px; text-decoration: none; font-weight: 900; font-size: 16px; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; box-shadow: 0 10px 20px rgba(230, 126, 34, 0.2);">
+                    Activate Your Mastermind Portal
                   </a>
                 </div>
 
-                <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 48px 0;" />
-                
-                <p style="font-size: 11px; font-weight: bold; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.2em; text-align: center; margin-bottom: 40px;">
-                  NeuroChiro Mastermind &bull; Precision Clinical Intelligence
+                <p style="font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.5); font-style: italic; margin-bottom: 48px; text-align: center;">
+                  "We're actively refining the platform and your feedback over these final two weeks will help shape the future of the NeuroChiro experience."
                 </p>
+
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px;">
+                  <tr>
+                    <td>
+                      <p style="font-size: 16px; color: #ffffff; margin: 0 0 4px 0; font-weight: 800;">Looking forward to finishing strong,</p>
+                      <p style="font-size: 18px; color: #E67E22; margin: 0 0 8px 0; font-weight: 900;">Dr. Raymond Nichols</p>
+                      <p style="font-size: 12px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin: 0;">Founder &bull; NeuroChiro</p>
+                    </td>
+                  </tr>
+                </table>
               </td>
             </tr>
           </table>
+          <p style="font-size: 10px; font-weight: bold; color: rgba(255,255,255,0.2); text-transform: uppercase; letter-spacing: 0.2em; text-align: center; margin-bottom: 60px;">
+            NeuroChiro Global Mastermind &bull; Precision Clinical Intelligence
+          </p>
         </body>
       </html>
     `;

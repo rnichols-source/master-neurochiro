@@ -139,21 +139,72 @@ export async function saveProfileData(userId: string, data: any) {
 }
 
 /**
- * Step 11: Track Engagement
+ * Migration Helper: Activate Specific Emails
  */
-export async function trackActivity(userId: string, type: string, moduleId?: string, details?: any) {
+export async function activateSpecificEmails(emails: string[]) {
   const supabaseAdmin = createAdminClient()
   
-  const { error } = await supabaseAdmin
-    .from('member_activity')
-    .insert({
-        user_id: userId,
-        activity_type: type,
-        module_id: moduleId,
-        details: details || {}
+  const { data: approvedApps, error: appsError } = await supabaseAdmin
+    .from('applications')
+    .select('*')
+    .in('email', emails)
+
+  if (appsError) return { success: false, error: appsError.message }
+  
+  const results = []
+
+  for (const app of approvedApps) {
+    const { data: existingProfile } = await supabaseAdmin
+      .from('profiles')
+      .select('id')
+      .eq('email', app.email)
+      .single()
+
+    if (existingProfile) {
+      await supabaseAdmin.from('profiles').update({ 
+        role: 'mastermind_member',
+        full_name: app.full_name
+      }).eq('id', existingProfile.id)
+      results.push({ email: app.email, status: 'updated' })
+      continue
+    }
+
+    const tempPassword = Math.random().toString(36).slice(-12) + '!'
+    const { data: authUser, error: authError } = await supabaseAdmin.auth.admin.createUser({
+      email: app.email,
+      password: tempPassword,
+      email_confirm: true,
+      user_metadata: { full_name: app.full_name, source: 'ghl_migration' }
     })
 
-  return { success: !error }
+    if (authError) {
+      results.push({ email: app.email, status: 'error', error: authError.message })
+      continue
+    }
+
+    await supabaseAdmin.from('profiles').upsert({
+      id: authUser.user.id,
+      email: app.email,
+      full_name: app.full_name,
+      role: 'mastermind_member',
+      status: 'pending_profile'
+    })
+
+    results.push({ email: app.email, status: 'created' })
+    await EmailService.sendOnboardingReady(app.email, app.full_name);
+    
+    const { data: resetData } = await supabaseAdmin.auth.admin.generateLink({
+      type: 'recovery',
+      email: app.email,
+      options: { redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/portal` }
+    })
+    
+    if (resetData?.properties?.action_link) {
+      await EmailService.sendPasswordReset(app.email, resetData.properties.action_link);
+    }
+  }
+
+  return { success: true, results }
 }
 
 /**

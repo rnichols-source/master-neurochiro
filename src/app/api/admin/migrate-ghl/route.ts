@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/admin';
-import { activateSpecificEmails } from '@/app/actions/activation-actions';
+import { activateApprovedMembers } from '@/app/actions/activation-actions';
 
 export async function POST(req: NextRequest) {
   try {
     const supabase = createAdminClient();
     
+    // The contacts from the CSV
     const contacts = [
       { email: "hanleng1129@outlook.com", first: "Michelle", last: "Leong", phone: "+61481941209", business: "CCA" },
       { email: "mmhill@sbcglobal.net", first: "Melissa", last: "Hill", phone: "+12814554318", business: "Aloepath Wellness" },
@@ -15,22 +16,37 @@ export async function POST(req: NextRequest) {
       { email: "ramps73@yahoo.co.uk", first: "Rekha", last: "Rampersad", phone: "+447951558473", business: "Chiropractic Wellness Centre" }
     ];
 
-    console.log(`[MIGRATION] Staging ${contacts.length} users.`);
+    console.log(`Starting migration for ${contacts.length} contacts.`);
 
-    for (const c of contacts) {
-      await supabase.from('applications').upsert({
-        email: c.email,
-        full_name: `${c.first} ${c.last}`,
-        phone: c.phone,
-        status: 'approved',
-        responses: { source: 'ghl_migration', business_name: c.business }
-      }, { onConflict: 'email' });
+    for (const contact of contacts) {
+      const fullName = `${contact.first} ${contact.last}`;
+      
+      const { error: appError } = await supabase
+        .from('applications')
+        .upsert({
+          email: contact.email,
+          full_name: fullName,
+          phone: contact.phone,
+          status: 'approved',
+          responses: { source: 'ghl_migration', business_name: contact.business },
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'email' });
+
+      if (appError) {
+        console.error(`Error importing ${contact.email}:`, appError.message);
+      }
     }
 
-    console.log(`[MIGRATION] Triggering activation...`);
-    const result = await activateSpecificEmails(contacts.map(c => c.email));
+    // Now trigger the actual activation (account creation + emails)
+    console.log("Triggering activation process...");
+    const activationResult = await activateApprovedMembers();
 
-    return NextResponse.json({ success: true, result });
+    return NextResponse.json({ 
+      success: true, 
+      migrationCount: contacts.length,
+      activationResult 
+    });
+
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
