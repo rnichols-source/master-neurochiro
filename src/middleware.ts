@@ -32,26 +32,26 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
 
   // 1. Redirect authenticated users away from public login page to portal
-  if (user && request.nextUrl.pathname === '/mastermind/login') {
+  if (user && request.nextUrl.pathname === '/login') {
     return NextResponse.redirect(new URL('/portal', request.url))
   }
 
   // 2. Protect Portal routes (Members only)
   if (!user && request.nextUrl.pathname.startsWith('/portal')) {
-    return NextResponse.redirect(new URL('/mastermind/login', request.url))
+    return NextResponse.redirect(new URL('/login', request.url))
   }
 
   // 3. Protect Admin routes (Admin only)
   if (request.nextUrl.pathname.startsWith('/admin')) {
-    if (!user) return NextResponse.redirect(new URL('/mastermind/login', request.url))
+    if (!user) return NextResponse.redirect(new URL('/login', request.url))
     
     const { data: profile } = await supabase
       .from('profiles')
-      .select('tier')
+      .select('role')
       .eq('id', user.id)
       .single()
 
-    if (profile?.tier !== 'admin') {
+    if (profile?.role !== 'admin') {
       return NextResponse.redirect(new URL('/portal', request.url))
     }
   }
@@ -60,5 +60,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/portal/:path*', '/admin/:path*', '/mastermind/login'],
+  matcher: ['/portal/:path*', '/admin/:path*', '/login'],
 }
