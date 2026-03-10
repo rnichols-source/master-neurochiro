@@ -3,6 +3,7 @@ import { Lato, Montserrat } from "next/font/google";
 import "./globals.css";
 import { PWARegistration } from "@/components/layout/pwa-registration";
 import { AdminQuickAccess } from "@/components/admin/admin-quick-access";
+import { StealthFounderTrigger } from "@/components/admin/StealthFounderTrigger";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -42,6 +43,7 @@ export default function RootLayout({
         className={`${lato.variable} ${montserrat.variable} font-sans antialiased`}
       >
         <PWARegistration />
+        <StealthFounderTrigger />
         <AdminQuickAccess />
         {children}
       </body>
