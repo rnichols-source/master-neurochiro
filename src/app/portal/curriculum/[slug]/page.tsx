@@ -16,6 +16,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import { TwoPathsTransition } from "@/components/portal/TwoPathsTransition";
+import { motion } from "framer-motion";
 
 export default async function WeekDetailPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
