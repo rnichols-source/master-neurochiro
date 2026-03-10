@@ -4,8 +4,8 @@ const resendApiKey = process.env.RESEND_API_KEY;
 const isMock = !resendApiKey || resendApiKey === 're_your_key';
 const resend = isMock ? null : new Resend(resendApiKey);
 
-// SANDBOX RULE: Resend requires 'onboarding@resend.dev' as sender in free tier/sandbox
-const FROM_EMAIL = 'onboarding@resend.dev';
+// PRODUCTION SENDER: Verified domain required
+const FROM_EMAIL = 'support@neurochirodirectory.com';
 
 export const EmailService = {
   // 1. Application Received
