@@ -160,7 +160,7 @@ export function EconomicsEngineClient() {
 
             {step === 5 && (
               <motion.div key="s5" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
-                <div><h2 className="text-2xl font-black text-brand-navy tracking-tight text-center">Architecture Pricing Builder</h2><p className="text-sm text-brand-gray font-medium text-center">Recommended Care Plan prices based on your Required CPV (${requiredCPV}).</p></div>
+                <div><h2 className="text-2xl font-black text-brand-navy tracking-tight text-center">Architecture Pricing Builder</h2><p className="text-sm text-brand-gray font-medium text-center">Recommended Care Plan prices based on your Required CPV (${reqCPV}).</p></div>
                 <div className="grid grid-cols-1 gap-4">
                   {[
                     { label: "CP1 - Correction (28 Visits)", val: cp1, desc: "Stabilization phase focus." },
