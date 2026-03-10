@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { User, Settings, LogOut, ShieldCheck, ChevronDown, Bell } from "lucide-react";
+import { User, Settings, LogOut, ShieldCheck, ChevronDown, Bell, MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
