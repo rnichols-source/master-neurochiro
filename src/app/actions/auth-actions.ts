@@ -27,4 +27,17 @@ export async function signOut() {
   redirect("/login");
 }
 
+export async function resetPassword(email: string) {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "https://neurochiromastermind.com/login",
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { success: true };
+}
+
 import { revalidatePath } from "next/cache";

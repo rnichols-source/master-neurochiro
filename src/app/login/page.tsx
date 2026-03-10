@@ -4,17 +4,20 @@ import { motion } from "framer-motion";
 import { BrandButton } from "@/components/ui/elite-ui";
 import { Lock, Mail, ArrowRight, Loader2, AlertCircle } from "lucide-react";
 import Link from "next/link";
-import { signIn } from "@/app/actions/auth-actions";
+import { signIn, resetPassword } from "@/app/actions/auth-actions";
 import { useState } from "react";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
+    setSuccess(null);
 
     const formData = new FormData(event.currentTarget);
     const result = await signIn(formData);
@@ -22,6 +25,26 @@ export default function LoginPage() {
     if (result?.error) {
       setError(result.error);
       setIsLoading(false);
+    }
+  }
+
+  async function handleForgotPassword() {
+    if (!email) {
+      setError("Please enter your email first.");
+      return;
+    }
+    
+    setIsLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    const result = await resetPassword(email);
+    setIsLoading(false);
+
+    if (result?.error) {
+      setError(result.error);
+    } else {
+      setSuccess("Reset link sent. Please check your email.");
     }
   }
 
@@ -57,6 +80,13 @@ export default function LoginPage() {
               </div>
             )}
 
+            {success && (
+              <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-xl flex items-center gap-3 text-green-400 text-xs font-bold">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                {success}
+              </div>
+            )}
+
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-widest text-white/60 ml-1">Practice Email</label>
               <div className="relative">
@@ -65,6 +95,8 @@ export default function LoginPage() {
                   name="email"
                   type="email" 
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="doctor@practice.com"
                   className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white text-sm focus:ring-2 focus:ring-brand-orange/40 transition-all placeholder:text-white/20 outline-none" 
                 />
@@ -74,7 +106,14 @@ export default function LoginPage() {
             <div className="space-y-2">
               <div className="flex justify-between items-center ml-1">
                 <label className="text-[10px] font-black uppercase tracking-widest text-white/60">Secure Password</label>
-                <button type="button" className="text-[9px] font-black uppercase tracking-widest text-brand-orange hover:text-white transition-colors">Forgot?</button>
+                <button 
+                  type="button" 
+                  onClick={handleForgotPassword}
+                  className="text-[9px] font-black uppercase tracking-widest text-brand-orange hover:text-white transition-colors disabled:opacity-50"
+                  disabled={isLoading}
+                >
+                  Forgot?
+                </button>
               </div>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
