@@ -144,7 +144,7 @@ export function EconomicsEngineClient() {
                   {[
                     { stage: "Stage 1: Alignment", val: s1, strategy: "Restructure care plans & stabilize Day 1 orientation." },
                     { stage: "Stage 2: Authority", val: s2, strategy: "Refine Day 2 clarity & improve clinical communication." },
-                    { stage: "Stage 3: Mastery", val: stage3, strategy: "Full operational stability. 100% Structural Alignment." },
+                    { stage: "Stage 3: Mastery", val: reqCPV, strategy: "Full operational stability. 100% Structural Alignment." },
                   ].map((s, i) => (
                     <EliteCard key={i} className="p-6 border-brand-navy/5 bg-white relative overflow-hidden group">
                       <div className="flex justify-between items-center relative z-10">
