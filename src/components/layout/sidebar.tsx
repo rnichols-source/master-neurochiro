@@ -27,6 +27,7 @@ const navItems = [
   { name: "Vault", href: "/portal/vault", icon: ShieldCheck },
   { name: "Clinical Engine", href: "/portal/clinical-engine", icon: Zap },
   { name: "KPI Tracker", href: "/portal/kpi", icon: BarChart3 },
+  { name: "Clinical Economics", href: "/portal/economics-engine", icon: TrendingUp },
   { name: "Playbooks", href: "/portal/playbooks", icon: FileText },
   { name: "Case Lab", href: "/portal/case-lab", icon: Activity },
 ];
