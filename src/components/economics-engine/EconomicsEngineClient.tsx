@@ -183,7 +183,7 @@ export function EconomicsEngineClient() {
                   {[
                     { label: "Current Reality (As-Is)", val: currRev, note: `${util}% capacity used` },
                     { label: "Full Schedule, Current CPV", val: fullCapRev, note: "If you filled every slot at current prices" },
-                    { label: "Current Volume, Aligned CPV", val: currMonthlyVisits * requiredCPV, note: "Same volume, better architecture" },
+                    { label: "Current Volume, Aligned CPV", val: currMonthlyVisits * reqCPV, note: "Same volume, better architecture" },
                     { label: "Fully Aligned Clinic", val: reqRev, note: "Target revenue at target capacity" },
                   ].map((s, i) => (
                     <EliteCard key={i} className="p-6 bg-white border-brand-navy/5 flex justify-between items-center group">
