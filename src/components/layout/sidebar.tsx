@@ -84,6 +84,24 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
           </Link>
         </div>
 
+        {/* The Council Section */}
+        <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
+          <p className="px-2 pb-2 text-[10px] font-bold text-brand-orange uppercase tracking-widest flex items-center justify-between">
+            The Council
+            <ShieldCheck className="w-2.5 h-2.5 opacity-40" />
+          </p>
+          <Link
+            href="/portal/council"
+            className={cn(
+              "group flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-all relative",
+              pathname === "/portal/council" ? "bg-white/10 text-brand-orange" : "text-white/70 hover:bg-white/5 hover:text-white"
+            )}
+          >
+            <ShieldCheck className={cn("w-4 h-4", pathname === "/portal/council" ? "text-brand-orange" : "text-white/50 group-hover:text-white")} />
+            Council Dashboard
+          </Link>
+        </div>
+
         {userTier === 'admin' && (
           <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
             <p className="px-2 pb-2 text-[10px] font-bold text-white/40 uppercase tracking-widest">Admin Command</p>
