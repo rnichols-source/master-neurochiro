@@ -71,7 +71,7 @@ export default function MastermindLandingPage() {
                   Apply for Admission <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </BrandButton>
               </Link>
-              <Link href="/manifesto" className="flex items-center gap-4 text-brand-navy/60 hover:text-brand-navy transition-colors font-bold uppercase tracking-[0.2em] text-[10px]">
+              <Link href="/vision" className="flex items-center gap-4 text-brand-navy/60 hover:text-brand-navy transition-colors font-bold uppercase tracking-[0.2em] text-[10px]">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-brand-navy/10 flex items-center justify-center bg-white shadow-xl shadow-brand-navy/5 group hover:border-brand-orange/40 transition-all">
                   <BookOpen className="w-4 h-4 text-brand-navy group-hover:text-brand-orange transition-colors" />
                 </div>
@@ -82,11 +82,11 @@ export default function MastermindLandingPage() {
             {/* Micro Stats Row */}
             <div className="pt-8 border-t border-brand-navy/5 flex flex-wrap justify-center lg:justify-start gap-8 md:gap-12 opacity-60">
               <div>
-                <p className="text-xl font-black text-brand-navy tracking-tight">500+</p>
+                <p className="text-xl font-black text-brand-navy tracking-tight">150+</p>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray">Doctors in Network</p>
               </div>
               <div>
-                <p className="text-xl font-black text-brand-navy tracking-tight">12+</p>
+                <p className="text-xl font-black text-brand-navy tracking-tight">5</p>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray">Countries</p>
               </div>
               <div>
