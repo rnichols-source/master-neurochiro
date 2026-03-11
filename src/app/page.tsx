@@ -8,6 +8,7 @@ import { ValueStack, CohortStatus } from "@/components/marketing/conversion-modu
 import { PracticeROISimulator } from "@/components/marketing/roi-simulator";
 import { ClinicOSPreview } from "@/components/marketing/clinic-os-preview";
 import { CaseStudyFilter } from "@/components/marketing/case-study-filter";
+import { FounderAuthorityCard } from "@/components/marketing/founder-card";
 import { 
   ArrowRight, 
   Play, 
@@ -16,7 +17,8 @@ import {
   Target, 
   ShieldCheck, 
   ChevronRight,
-  Settings
+  Settings,
+  BookOpen
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -38,54 +40,65 @@ export default function MastermindLandingPage() {
 
       {/* Hero Section */}
       <section className="pt-32 lg:pt-48 pb-20 lg:pb-32 px-6 lg:px-8 overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="space-y-8 lg:space-y-10 text-center lg:text-left">
-            <div className="space-y-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          {/* Left Column: Authority Copy */}
+          <div className="space-y-10 lg:space-y-12 text-center lg:text-left relative z-10">
+            <div className="space-y-6 lg:space-y-8">
               <div className="flex justify-center lg:justify-start">
                 <CohortStatus />
               </div>
-              <h1 className="text-4xl md:text-6xl lg:text-display text-brand-navy mt-8 leading-[1.1]">
-                Stop Guessing. <br />
-                <span className="text-brand-orange">Own Your Authority.</span>
-              </h1>
-              <p className="text-lg md:text-xl text-brand-gray font-medium leading-relaxed max-w-xl mx-auto lg:mx-0">
-                The awkwardness of recommending care is a symptom of a missing OS. We give you the clinical certainty to lead your patients—without the sales pitch or the burnout.
-              </p>
+              <div className="space-y-4">
+                <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] text-brand-navy font-black tracking-tight leading-[0.95]">
+                  Stop Guessing. <br />
+                  <span className="text-brand-orange">Own Your Authority.</span>
+                </h1>
+                <div className="h-1.5 w-24 bg-brand-orange mx-auto lg:mx-0 rounded-full" />
+              </div>
+              
+              <div className="space-y-6 max-w-2xl mx-auto lg:mx-0">
+                <p className="text-xl md:text-2xl text-brand-navy font-bold leading-tight">
+                  Built by Dr. Raymond Nichols to help chiropractors and students develop the clinical certainty and communication architecture modern chiropractic requires.
+                </p>
+                <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
+                  The awkwardness of recommending care is a symptom of a missing OS. We give you the clinical certainty to lead your patients—without the sales pitch or the burnout.
+                </p>
+              </div>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
               <Link href="/apply" className="w-full sm:w-auto">
-                <BrandButton variant="primary" size="lg" className="group py-6 px-10 w-full sm:w-auto text-sm">
+                <BrandButton variant="primary" size="lg" className="group py-7 px-12 w-full sm:w-auto text-sm shadow-2xl">
                   Apply for Admission <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </BrandButton>
               </Link>
-              <button 
-                onClick={() => setIsVideoModalOpen(true)}
-                className="flex items-center gap-4 text-brand-navy/60 hover:text-brand-navy transition-colors font-bold uppercase tracking-widest text-[10px]"
-              >
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-brand-navy/10 flex items-center justify-center bg-white shadow-xl shadow-brand-navy/5">
-                  <Play className="w-4 h-4 fill-brand-navy ml-1" />
+              <Link href="/manifesto" className="flex items-center gap-4 text-brand-navy/60 hover:text-brand-navy transition-colors font-bold uppercase tracking-[0.2em] text-[10px]">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-brand-navy/10 flex items-center justify-center bg-white shadow-xl shadow-brand-navy/5 group hover:border-brand-orange/40 transition-all">
+                  <BookOpen className="w-4 h-4 text-brand-navy group-hover:text-brand-orange transition-colors" />
                 </div>
-                Watch the Vision
-              </button>
+                Read the Vision
+              </Link>
+            </div>
+
+            {/* Micro Stats Row */}
+            <div className="pt-8 border-t border-brand-navy/5 flex flex-wrap justify-center lg:justify-start gap-8 md:gap-12 opacity-60">
+              <div>
+                <p className="text-xl font-black text-brand-navy tracking-tight">500+</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray">Doctors in Network</p>
+              </div>
+              <div>
+                <p className="text-xl font-black text-brand-navy tracking-tight">12+</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray">Countries</p>
+              </div>
+              <div>
+                <p className="text-xl font-black text-brand-navy tracking-tight">8 Weeks</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gray">Total Transformation</p>
+              </div>
             </div>
           </div>
 
-          <div className="relative mt-12 lg:mt-0">
-            <div className="absolute inset-0 bg-brand-orange/5 blur-3xl rounded-full -m-10 lg:-m-20 animate-pulse" />
-            <EliteCard className="relative p-0 overflow-hidden border-brand-navy/10 shadow-2xl rounded-[2rem] lg:rounded-[3rem]">
-              <div className="aspect-[4/5] bg-brand-navy relative group">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80')] bg-cover bg-center mix-blend-overlay opacity-60" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                   <button 
-                    onClick={() => setIsVideoModalOpen(true)}
-                    className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-brand-orange/90 flex items-center justify-center shadow-2xl shadow-brand-orange/40 hover:scale-110 transition-transform"
-                   >
-                     <Play className="w-6 h-6 md:w-8 md:h-8 text-white fill-white ml-1" />
-                   </button>
-                </div>
-              </div>
-            </EliteCard>
+          {/* Right Column: Founder Authority Card */}
+          <div className="relative mt-12 lg:mt-0 max-w-xl mx-auto lg:max-w-none">
+            <FounderAuthorityCard />
           </div>
         </div>
       </section>
