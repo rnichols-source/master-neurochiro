@@ -1,6 +1,7 @@
 import { Sidebar } from "./sidebar";
 import { MobileNav } from "./mobile-nav";
 import { NeuralDumpButton } from "@/components/portal/neural-dump-button";
+import { SupportConcierge } from "./SupportConcierge";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,7 +14,7 @@ export async function DashboardLayout({
 }: { 
   children: React.ReactNode;
 }) {
-  // 1. Fetch user on the server
+  // ... (keep rest of logic)
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   
@@ -76,6 +77,7 @@ export async function DashboardLayout({
       
       {/* Mobile Floating Actions */}
       <NeuralDumpButton />
+      <SupportConcierge />
     </div>
   );
 }

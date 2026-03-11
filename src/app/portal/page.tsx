@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PhaseRoadmap } from "@/components/portal/PhaseRoadmap";
 import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { WinsConstellation } from "@/components/portal/wins-constellation";
+import { OnboardingChecklist } from "@/components/portal/OnboardingChecklist";
 import { fetchNextCall } from "@/app/actions/call-actions";
 import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
 import { 
@@ -19,15 +20,24 @@ export default async function PortalDashboard() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // 0. Fetch real live call data
+  // Fetch profile for first login check
+  let isFirstLogin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_first_login')
+      .eq('id', user.id)
+      .single();
+    isFirstLogin = !!profile?.is_first_login;
+  }
+
+  // ... (keep rest of fetch logic)
   const callResult = await fetchNextCall();
   const nextCall = callResult.data || { call_time: new Date().toISOString(), zoom_url: 'https://zoom.us' };
 
-  // 1. Fetch real curriculum structure from DB
   const curriculumResult = await fetchCurriculumWithProgress();
   const weeks = curriculumResult.success && curriculumResult.data ? curriculumResult.data : [];
   
-  // 2. Determine where the user is (Find first active or default to Week 1)
   const activeWeek = weeks.find((w: any) => w.status === 'active') || weeks[0] || {
     week_number: 1,
     title: "Identity of a Nervous System Doctor",
@@ -39,12 +49,11 @@ export default async function PortalDashboard() {
 
   const roadmapPhases = weeks.map((w: any) => ({
     number: w.week_number,
-    title: w.title.split(' ')[0], // Keep it short for the roadmap label
+    title: w.title.split(' ')[0], 
     status: w.status as PhaseStatus,
     slug: w.slug
   }));
 
-  // Fallback roadmap if DB is empty
   if (roadmapPhases.length === 0) {
     [1,2,3,4,5,6,7,8].forEach(n => {
       roadmapPhases.push({ 
@@ -58,8 +67,9 @@ export default async function PortalDashboard() {
 
   return (
     <DashboardLayout>
+      <OnboardingChecklist isFirstLogin={isFirstLogin} />
       <div className="space-y-10">
-        {/* Live Session Alert / Timer */}
+        {/* ... (rest of the page) */}
         <LiveSessionTimer 
           nextSessionTime={nextCall.call_time} 
           zoomUrl={nextCall.zoom_url} 

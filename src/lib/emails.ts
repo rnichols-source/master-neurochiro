@@ -83,9 +83,16 @@ export const EmailService = {
     return this.send(email, 'Application Received: NeuroChiro Mastermind', html, 'app_received');
   },
 
-  async sendAppApproved(email: string, name: string, checkoutUrl: string) {
-    const action = `<a href="${checkoutUrl}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Complete Enrollment</a>`;
-    const html = getEmailTemplate(`Congratulations, Dr. ${name}.`, 'Admission Decision: Approved', `<p>You have been selected for the NeuroChiro Mastermind.</p>`, action);
+  async sendAppApproved(email: string, name: string, checkoutUrl: string, planUrl?: string) {
+    const pifAction = `<a href="${checkoutUrl}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Option 1: Paid in Full</a>`;
+    const planAction = planUrl ? `<a href="${planUrl}" style="background-color: #2D3748; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; margin-left: 12px;">Option 2: 3-Month Plan</a>` : '';
+    
+    const html = getEmailTemplate(
+      `Congratulations, Dr. ${name}.`,
+      'Admission Decision: Approved',
+      `<p>You have been selected for the NeuroChiro Mastermind. After reviewing your practice data, we believe you are a strong fit for this reconstruction.</p><p>Please select your preferred enrollment option below to secure your seat:</p>`,
+      `<div style="display: flex; flex-wrap: wrap; gap: 12px;">${pifAction}${planAction}</div>`
+    );
     return this.send(email, 'Admission Decision: Approved', html, 'app_approved');
   },
 

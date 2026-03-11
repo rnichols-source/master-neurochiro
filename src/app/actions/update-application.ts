@@ -29,30 +29,41 @@ export async function updateApplicationStatus(id: string, status: string, notes:
     
     console.log(`[ADMIN] Detected Tier: ${isPro ? 'PRO' : 'STANDARD'} from raw: "${tierRaw}"`);
 
-    // Choose correct PIF link based on tier
+    // Choose correct PIF and Plan links based on tier
     let checkoutUrl = isPro 
       ? process.env.NEXT_PUBLIC_STRIPE_PRO_PIF 
       : process.env.NEXT_PUBLIC_STRIPE_STANDARD_PIF;
+    
+    let planUrl = isPro
+      ? process.env.NEXT_PUBLIC_STRIPE_PRO_PLAN
+      : process.env.NEXT_PUBLIC_STRIPE_STANDARD_PLAN;
 
-    // --- ENHANCED GEAR: Convert to Smart Link ---
-    if (checkoutUrl) {
-      const url = new URL(checkoutUrl);
+    // --- ENHANCED GEAR: Convert to Smart Links ---
+    const generateSmartLink = (base: string | undefined) => {
+      if (!base) return undefined;
+      const url = new URL(base);
       url.searchParams.set('client_reference_id', id);
       url.searchParams.set('prefilled_email', application.email);
-      checkoutUrl = url.toString();
-    }
+      return url.toString();
+    };
 
-    console.log(`[ADMIN] Sending Smart Link to ${application.email}: ${checkoutUrl}`);
+    const smartCheckoutUrl = generateSmartLink(checkoutUrl);
+    const smartPlanUrl = generateSmartLink(planUrl);
 
-    if (checkoutUrl) {
+    console.log(`[ADMIN] Sending Smart Links to ${application.email}: PIF: ${smartCheckoutUrl}, Plan: ${smartPlanUrl}`);
+
+    if (smartCheckoutUrl) {
       try {
-        const emailResult = await EmailService.sendAppApproved(application.email, application.full_name, checkoutUrl);
+        const emailResult = await EmailService.sendAppApproved(
+          application.email, 
+          application.full_name, 
+          smartCheckoutUrl, 
+          smartPlanUrl
+        );
         console.log(`[ADMIN] Email sent result:`, emailResult);
       } catch (emailErr) {
         console.error("[ADMIN] Email Error:", emailErr);
       }
-    } else {
-      console.warn("[ADMIN] WARNING: No Stripe checkout URL found in environment variables!");
     }
   }
 
