@@ -30,7 +30,7 @@ export async function signOut() {
 export async function resetPassword(email: string) {
   const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: "https://neurochiromastermind.com/login",
+    redirectTo: "https://neurochiromastermind.com/portal",
   });
 
   if (error) {
