@@ -17,8 +17,8 @@ export default function AutomationDashboard() {
       fetchAutomationLogs(),
       fetchAutomationStats()
     ]);
-    if (logsRes.success) setLogs(logsRes.data);
-    if (statsRes.success) setStats(statsRes.data);
+    if (logsRes.success) setLogs(logsRes.data || []);
+    if (statsRes.success) setStats(statsRes.data || null);
     setIsLoading(false);
   }
 
