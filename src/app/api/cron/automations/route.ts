@@ -70,13 +70,12 @@ export async function GET(request: Request) {
     }
 
     // 4. LIVE CALL REMINDERS
- (Example logic, assumes an 'events' table with 'start_time')
     const oneHourFromNow = new Date(Date.now() + 60 * 60 * 1000).toISOString();
     const { data: upcomingCalls } = await supabase
       .from('events')
       .select('*')
-      .gte('start_time', new Date().toISOString())
-      .lte('start_time', oneHourFromNow);
+      .gte('start_date', new Date().toISOString())
+      .lte('start_date', oneHourFromNow);
 
     if (upcomingCalls) {
       const { data: allMembers } = await supabase.from('profiles').select('email, full_name').neq('tier', 'admin');
