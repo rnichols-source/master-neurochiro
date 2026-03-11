@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { 
   ShieldCheck, 
   GraduationCap, 
@@ -414,10 +415,12 @@ export default function NeuroChiroLivePage() {
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
               <div className="aspect-[4/5] bg-white/5 rounded-[4rem] flex items-center justify-center border border-white/5 relative group overflow-hidden">
-                <img 
-                  src="/dr-raymond.jpg" 
+                <Image 
+                  src="/dr-raymond.png" 
                   alt="Dr. Raymond Nichols" 
-                  className="absolute inset-0 w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
+                  fill
+                  priority
+                  className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-brand-navy/20 group-hover:bg-transparent transition-colors duration-700" />
               </div>

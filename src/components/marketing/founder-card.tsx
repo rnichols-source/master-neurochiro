@@ -24,7 +24,7 @@ export function FounderAuthorityCard() {
           {/* Photo Section */}
           <div className="relative aspect-[4/5] w-full overflow-hidden bg-brand-navy">
             <Image 
-              src="/dr-raymond.jpg" 
+              src="/dr-raymond.png" 
               alt="Dr. Raymond Nichols" 
               fill
               className="object-cover object-top filter brightness-110 contrast-[1.05]"
