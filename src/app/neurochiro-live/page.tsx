@@ -416,7 +416,7 @@ export default function NeuroChiroLivePage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
               <div className="aspect-[4/5] bg-white/5 rounded-[4rem] flex items-center justify-center border border-white/5 relative group overflow-hidden">
                 <Image 
-                  src="/dr-raymond.png" 
+                  src="/dr-raymond.jpg" 
                   alt="Dr. Raymond Nichols" 
                   fill
                   priority
