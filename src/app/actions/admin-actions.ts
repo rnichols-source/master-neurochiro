@@ -310,6 +310,38 @@ export async function fetchVaultAnalytics() {
   return { success: true, data }
 }
 
+export async function fetchAutomationLogs() {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('automation_logs')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(100)
+
+  if (error) return { success: false, error: error.message }
+  return { success: true, data }
+}
+
+export async function fetchAutomationStats() {
+  const supabase = await createClient()
+
+  const { data: logs, error } = await supabase
+    .from('automation_logs')
+    .select('status, event_type')
+
+  if (error) return { success: false, error: error.message }
+
+  const stats = {
+    totalSent: logs.filter(l => l.status === 'sent').length,
+    totalFailed: logs.filter(l => l.status === 'failed').length,
+    reminders: logs.filter(l => l.event_type === 'call_reminder').length,
+    reengagements: logs.filter(l => l.event_type === 'reengagement').length
+  }
+
+  return { success: true, data: stats }
+}
+
 export async function fetchSystemHealth() {
   const supabase = await createClient()
   

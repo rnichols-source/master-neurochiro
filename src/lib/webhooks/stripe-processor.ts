@@ -167,9 +167,13 @@ export const StripeProcessor = {
         });
     }
 
-    // 4. Welcome Email
+    // 4. Welcome Email (Tier Based)
     try {
-      await EmailService.sendWelcome(customerEmail, customerName);
+      if (tier === 'pro') {
+        await EmailService.sendProWelcome(customerEmail, customerName);
+      } else {
+        await EmailService.sendWelcome(customerEmail, customerName);
+      }
     } catch (emailErr) {
       console.error("Welcome email error:", emailErr);
     }
