@@ -173,6 +173,17 @@ export const EmailService = {
     const html = getEmailTemplate('The Next Evolution', 'Mastermind Completion', `<p>Dr. ${name}, congratulations on completing the 8-week framework.</p>`, action);
     return this.send(email, 'Next Steps: NeuroChiro Council', html, 'council_transition');
   },
+
+  async sendAdminPreview(adminEmail: string, previewName: string, previewLink: string) {
+    const action = `<a href="${previewLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">View Admin Preview</a>`;
+    const html = getEmailTemplate(
+      'System: Onboarding Preview', 
+      'Admin Utility', 
+      `<p>You are viewing a preview of the onboarding sequence for: <strong>${previewName}</strong>.</p>`, 
+      action
+    );
+    return this.send(adminEmail, `Admin Preview: ${previewName}`, html, 'admin_preview');
+  },
   
   async sendEventConfirmation(email: string, name: string, eventTitle: string) {
     const html = getEmailTemplate('Seat Reserved', 'Event Confirmation', `<p>Dr. ${name}, you are registered for <strong>${eventTitle}</strong>.</p>`);
