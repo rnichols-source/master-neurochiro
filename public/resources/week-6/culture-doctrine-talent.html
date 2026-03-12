@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro: The Culture Doctrine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
+        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
+
+        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
+
+        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+
+        .culture-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
+        .culture-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
+        .culture-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; line-height: 1.6; }
+
+        .talent-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--navy); margin-bottom: 1rem; }
+        .talent-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
+        .talent-desc { font-size: 11px; color: var(--gray); }
+
+        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+
+        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">Team Doctrine</div>
+        </div>
+
+        <header>
+            <h1>The Culture Doctrine:<br>Recruiting & Retaining Elite Talent</h1>
+            <div class="subtitle">Building a Team of Owners through Architectural Clarity and Leadership Certainty</div>
+        </header>
+
+        <div class="section-header">01 / The Talent Filter</div>
+        <div class="grid-2">
+            <div>
+                <p>You don't have a "staffing problem"; you have a **Standard Problem.** Elite talent is not attracted to mediocre organizations. To recruit the best, you must build an environment where the standard of excellence is non-negotiable.</p>
+                <p>Pulling from leadership experts like Simon Sinek and elite practice owners, we know that people don't work for a paycheck—they work for a <strong>Mission.</strong> If your team doesn't understand the "Why" behind the "How," they will never own the outcome.</p>
+            </div>
+            <div>
+                <div class="talent-box">
+                    <span class="talent-title">Values-Based Hiring</span>
+                    <span class="talent-desc">Hire for identity and alignment, train for skill. Skills can be taught; certain identity cannot.</span>
+                </div>
+                <div class="talent-box">
+                    <span class="talent-title">The Onboarding Sprint</span>
+                    <span class="talent-desc">The first 90 days determine the longevity of a team member. Build a rigid structure for integration.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">02 / Engineering Ownership</div>
+        <div class="grid-2">
+            <div>
+                <h3>Delegation of Authority</h3>
+                <p>Ownership requires the transfer of authority. If you are still the bottleneck for every decision, your team will never rise to the level of owners. Empower them to execute within the Clinical OS.</p>
+            </div>
+            <div>
+                <h3>Incentivizing Results</h3>
+                <p>Elite talent wants to be rewarded for their impact, not just their presence. Build bonus structures that are tied to the key metrics of the practice (Collections, PVA, Retention).</p>
+            </div>
+        </div>
+
+        <div class="culture-card">
+            <h3>The Leadership Standard</h3>
+            <p>Culture is what happens when the CEO is not in the room. It is the invisible force that drives the team to go above and beyond for the patient. A high-performance culture is built on trust, transparency, and a relentless pursuit of clinical excellence. Lead by example, hold the line on the standards, and your team will become your greatest asset. You are building an army of leaders, not a group of followers.</p>
+        </div>
+
+        <div class="callout-box">
+            <p class="callout-text">"The strength of your practice is the strength of your team. Invest in your people as heavily as you invest in your equipment."</p>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Culture Doctrine Series</span>
+            <span>Privileged & Confidential</span>
+        </div>
+    </div>
+</body>
+</html>

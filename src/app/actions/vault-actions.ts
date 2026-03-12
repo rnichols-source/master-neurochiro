@@ -201,6 +201,66 @@ export async function fetchVaultResources(category?: string, query?: string) {
         content: 'Premium Branded HTML Asset'
       },
       {
+        id: 'premium-leadership-1',
+        title: 'The CEO Standard: Leading from Certainty',
+        description: 'Master the identity and posture of a high-performance CEO. Shift from technician to visionary leader.',
+        category: 'leadership',
+        resource_type: 'pdf',
+        url: '/resources/week-6/ceo-standard.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-leadership-2',
+        title: 'The Clinical OS: Architecture of a Scaling Practice',
+        description: 'The infrastructure for predictable growth. Build self-correcting systems that run without you.',
+        category: 'leadership',
+        resource_type: 'pdf',
+        url: '/resources/week-6/clinical-os-architecture.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-leadership-3',
+        title: 'The Profit Pivot: High-Leverage Economics',
+        description: 'Engineering $5k+ case values and high-margin operations to fuel your mission and your freedom.',
+        category: 'leadership',
+        resource_type: 'pdf',
+        url: '/resources/week-6/profit-pivot-economics.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-leadership-4',
+        title: 'The Culture Doctrine: Elite Talent Systems',
+        description: 'How to recruit, onboard, and retain a team of owners who enforce your standard autonomously.',
+        category: 'leadership',
+        resource_type: 'pdf',
+        url: '/resources/week-6/culture-doctrine-talent.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-leadership-5',
+        title: 'The Vision Architect: The 10-Year Strategy',
+        description: 'Positioning and legacy building. Decisions today that make your 10-year growth inevitable.',
+        category: 'leadership',
+        resource_type: 'pdf',
+        url: '/resources/week-6/vision-architect-strategy.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-leadership-6',
+        title: 'The Freedom Metric: Decoupling Time from Income',
+        description: 'Decouple your income from your presence. The blueprint for scaling impact through high-leverage systems.',
+        category: 'leadership',
+        resource_type: 'pdf',
+        url: '/resources/week-6/freedom-metric-leverage.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
         id: 'premium-edu-1',
         title: 'The Human Potential: Neurological Regulation',
         description: 'Explain the "Why" of NeuroChiro with elite clarity. Move patients from pain-focus to regulation-focus.',

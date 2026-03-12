@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro: The Freedom Metric</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
+        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
+
+        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
+
+        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+
+        .freedom-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
+        .freedom-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
+        .freedom-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; line-height: 1.6; }
+
+        .leverage-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--navy); margin-bottom: 1rem; }
+        .lev-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
+        .lev-desc { font-size: 11px; color: var(--gray); }
+
+        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+
+        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">Scalability Doctrine</div>
+        </div>
+
+        <header>
+            <h1>The Freedom Metric:<br>Decoupling Time from Income</h1>
+            <div class="subtitle">The Blueprint for Scaling Impact through Leverage, Delegation, and Systems</div>
+        </header>
+
+        <div class="section-header">01 / The Leverage Gap</div>
+        <div class="grid-2">
+            <div>
+                <p>Most chiropractors are trapped in a "Linear Income" model. If they don't adjust, they don't get paid. This is not a business; it is a job where you are the most overworked employee. To achieve freedom, you must move from **Linear Income** to **Leveraged Economics.**</p>
+                <p>Pulling from scalability masters like Naval Ravikant and elite practice architects, we know that leverage comes from three sources: Code/Content, Capital, and Labor. In your practice, leverage comes from your systems, your team, and your clinical results.</p>
+            </div>
+            <div>
+                <div class="leverage-box">
+                    <span class="lev-title">System Leverage</span>
+                    <span class="lev-desc">The ability for the practice to generate revenue and results without the CEO's direct involvement.</span>
+                </div>
+                <div class="leverage-box">
+                    <span class="lev-title">Team Leverage</span>
+                    <span class="lev-desc">Building a team of owners who can execute the Clinical OS at a high level autonomously.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">02 / The Path to Freedom</div>
+        <div class="grid-2">
+            <div>
+                <h3>The Value of Your Hour</h3>
+                <p>A CEO must know the value of their hour. If you are doing tasks that can be done for $25/hr, you are discounting your potential. Delegate the low-value and focus on the high-leverage.</p>
+            </div>
+            <div>
+                <h3>Scaling Results</h3>
+                <p>Scaling isn't just about more patients; it's about better results with less effort. Use the Clinical OS to deliver elite neurological reorganization at scale.</p>
+            </div>
+        </div>
+
+        <div class="freedom-card">
+            <h3>The Freedom Standard</h3>
+            <p>Freedom is the ultimate goal of the CEO. It is the ability to choose how you spend your time, who you work with, and what impact you want to make on the world. This requires a relentless focus on leverage. By decoupling your time from your income, you ensure that your practice can continue to grow and thrive even when you are not there. This is the difference between a successful practice and a successful life. Build for freedom, and the success will follow.</p>
+        </div>
+
+        <div class="callout-box">
+            <p class="callout-text">"The goal of a business is to free the creator to do their best work. Don't let your practice become your prison. Architect your freedom today."</p>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Freedom Metric Series</span>
+            <span>Privileged & Confidential</span>
+        </div>
+    </div>
+</body>
+</html>
