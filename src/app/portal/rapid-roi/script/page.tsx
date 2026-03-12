@@ -8,7 +8,12 @@ import {
   Target, 
   Zap,
   AlertTriangle,
-  MessageSquare
+  MessageSquare,
+  Scale,
+  Brain,
+  Timer,
+  CheckCircle2,
+  FileCheck
 } from "lucide-react";
 import Link from "next/link";
 
@@ -19,139 +24,169 @@ export default function RescueScriptPage() {
 
   return (
     <div className="min-h-screen bg-brand-cream py-12 px-6 print:bg-white print:py-0 print:px-0">
-      <div className="max-w-4xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto space-y-8">
         
         {/* Navigation / Header - Hidden on Print */}
         <div className="flex justify-between items-center print:hidden">
           <Link href="/portal/rapid-roi" className="flex items-center gap-2 text-brand-navy/60 hover:text-brand-navy font-black text-[10px] uppercase tracking-widest transition-colors">
             <ArrowLeft size={14} /> Back to ROI Center
           </Link>
-          <button 
-            onClick={handlePrint}
-            className="flex items-center gap-2 bg-brand-navy text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-brand-orange transition-all shadow-xl"
-          >
-            <Printer size={14} /> Print Script
-          </button>
+          <div className="flex gap-4">
+            <button 
+              onClick={handlePrint}
+              className="flex items-center gap-2 bg-brand-navy text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-brand-orange transition-all shadow-xl"
+            >
+              <Printer size={14} /> Download / Print Script
+            </button>
+          </div>
         </div>
 
         {/* The Script Document */}
-        <EliteCard className="bg-white p-12 md:p-20 shadow-2xl border-brand-navy/5 relative overflow-hidden print:shadow-none print:border-none print:p-0">
+        <EliteCard className="bg-white p-12 md:p-24 shadow-2xl border-brand-navy/5 relative overflow-hidden print:shadow-none print:border-none print:p-0">
           
           {/* Branded Watermark */}
-          <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none">
-            <ShieldCheck size={400} className="text-brand-navy" />
+          <div className="absolute top-0 right-0 p-12 opacity-[0.02] pointer-events-none">
+            <ShieldCheck size={600} className="text-brand-navy" />
           </div>
 
-          <div className="relative space-y-12">
+          <div className="relative space-y-16">
             
             {/* Document Header */}
-            <div className="flex justify-between items-start border-b-4 border-brand-navy pb-8">
+            <div className="flex justify-between items-start border-b-8 border-brand-navy pb-10">
               <div>
-                <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Internal Mastermind Resource</p>
-                <h1 className="text-4xl font-black text-brand-navy tracking-tighter uppercase">Emergency Case Rescue</h1>
-                <p className="text-brand-gray font-bold text-xs mt-1">PROTOCOL: High-Authority Neurological Pivot</p>
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange text-white rounded-md mb-4">
+                  <Zap size={12} fill="white" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">High Velocity Protocol</span>
+                </div>
+                <h1 className="text-5xl font-black text-brand-navy tracking-tighter uppercase leading-none">Emergency Case Rescue</h1>
+                <p className="text-brand-gray font-bold text-sm mt-2">INTERNAL CLINICAL ARCHITECTURE: The Neurological Pivot</p>
               </div>
               <div className="text-right">
-                <div className="text-2xl font-black text-brand-navy">PHASE 00</div>
-                <div className="text-[10px] font-bold text-brand-navy/40 uppercase tracking-widest">Rapid ROI Series</div>
+                <div className="text-3xl font-black text-brand-navy">PHASE 00</div>
+                <div className="text-[10px] font-bold text-brand-navy/40 uppercase tracking-widest">Mastermind Confidential</div>
               </div>
             </div>
 
-            {/* Context Section */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-brand-navy/5 p-8 rounded-3xl border border-brand-navy/5">
-              <div className="space-y-2">
-                <h4 className="flex items-center gap-2 text-brand-navy font-black text-[10px] uppercase tracking-widest">
-                  <Target size={14} className="text-brand-orange" /> The Objective
-                </h4>
-                <p className="text-xs text-brand-gray font-medium leading-relaxed">
-                  To interrupt the patient's "Financial Objection" and pivot back to the "Neurological Crisis" they are currently experiencing.
-                </p>
-              </div>
-              <div className="space-y-2">
-                <h4 className="flex items-center gap-2 text-brand-navy font-black text-[10px] uppercase tracking-widest">
-                  <AlertTriangle size={14} className="text-brand-orange" /> When to use
-                </h4>
-                <p className="text-xs text-brand-gray font-medium leading-relaxed">
-                  Immediately after the patient says: "I need to think about it," "I can't afford it," or "I'll talk to my spouse."
-                </p>
+            {/* Section 1: The Crisis Matrix */}
+            <div className="space-y-6">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">01. The Crisis Matrix</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  { title: "The Symptom", desc: "Patient focuses on money or scheduling 'friction'.", icon: AlertTriangle },
+                  { title: "The Reality", desc: "Patient is experiencing a flight-or-fight response to the price.", icon: Scale },
+                  { title: "The Solution", desc: "Interrupt the pattern and re-anchor to their neurological crisis.", icon: Brain }
+                ].map((item, i) => (
+                  <div key={i} className="p-6 bg-brand-navy/5 rounded-3xl border border-brand-navy/5">
+                    <item.icon size={20} className="text-brand-orange mb-4" />
+                    <h5 className="text-xs font-black text-brand-navy uppercase mb-2">{item.title}</h5>
+                    <p className="text-xs text-brand-gray font-medium leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* The Script Flow */}
-            <div className="space-y-12">
+            {/* Section 2: The Script Flow */}
+            <div className="space-y-10">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">02. Execution Protocol</h4>
               
-              {/* Step 1 */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-brand-navy text-white flex items-center justify-center font-black text-xs shrink-0">1</div>
-                  <h3 className="text-lg font-black text-brand-navy uppercase tracking-tight">The Empathetic Anchor</h3>
+              <div className="space-y-12">
+                {/* Step 1 */}
+                <div className="relative pl-16">
+                  <div className="absolute left-0 top-0 w-10 h-10 rounded-2xl bg-brand-navy text-white flex items-center justify-center font-black text-lg">1</div>
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">The Empathetic Anchor</h3>
+                    <p className="text-xs text-brand-gray font-bold uppercase tracking-widest">INTENT: Diffuse the financial tension.</p>
+                    <div className="p-8 bg-brand-cream border-l-8 border-brand-orange italic font-bold text-xl text-brand-navy leading-relaxed shadow-sm">
+                      "I understand. Most people say they need to 'think about it' when they are looking at this as a line-item expense rather than a <span className="text-brand-orange underline">Neurological Reconstruction</span>."
+                    </div>
+                  </div>
                 </div>
-                <div className="ml-12 p-6 bg-brand-cream border-l-4 border-brand-orange italic font-medium text-brand-navy leading-relaxed">
-                  "I understand. Most people say they need to think about it when they are looking at this as a 'line-item expense' rather than a 'Neurological Reconstruction'."
+
+                {/* Step 2 */}
+                <div className="relative pl-16">
+                  <div className="absolute left-0 top-0 w-10 h-10 rounded-2xl bg-brand-navy text-white flex items-center justify-center font-black text-lg">2</div>
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">The pattern Interrupt</h3>
+                    <p className="text-xs text-brand-gray font-bold uppercase tracking-widest">INTENT: Illustrate the cost of inaction.</p>
+                    <div className="p-8 bg-brand-cream border-l-8 border-brand-orange italic font-bold text-xl text-brand-navy leading-relaxed shadow-sm">
+                      "If we walk away today, the numbers might stay in your bank account, but the <span className="text-brand-orange underline">decay we saw on your scans</span>—that neurological interference—doesn't stop. It accelerates."
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 3 */}
+                <div className="relative pl-16">
+                  <div className="absolute left-0 top-0 w-10 h-10 rounded-2xl bg-brand-navy text-white flex items-center justify-center font-black text-lg">3</div>
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">The High-Authority Pivot</h3>
+                    <p className="text-xs text-brand-gray font-bold uppercase tracking-widest">INTENT: Re-establish clinical leadership.</p>
+                    <div className="p-8 bg-brand-navy text-white border-l-8 border-brand-orange italic font-bold text-xl leading-relaxed shadow-xl rounded-r-3xl">
+                      "My job isn't to help you save money today. My job is to ensure your brain can communicate with your body properly. Knowing that, do you want to <span className="text-brand-orange">wait for the next crisis</span>, or do you want to start the reconstruction now?"
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              {/* Step 2 */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-brand-navy text-white flex items-center justify-center font-black text-xs shrink-0">2</div>
-                  <h3 className="text-lg font-black text-brand-navy uppercase tracking-tight">The Pattern Interrupt (The Logic)</h3>
-                </div>
-                <div className="ml-12 p-6 bg-brand-cream border-l-4 border-brand-orange italic font-medium text-brand-navy leading-relaxed">
-                  "If we walk away today, the numbers might stay in your bank account, but the decay we saw on your scans—that neurological interference—doesn't stop. It accelerates."
-                </div>
-              </div>
-
-              {/* Step 3 */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-brand-navy text-white flex items-center justify-center font-black text-xs shrink-0">3</div>
-                  <h3 className="text-lg font-black text-brand-navy uppercase tracking-tight">The High-Authority Pivot</h3>
-                </div>
-                <div className="ml-12 p-6 bg-brand-cream border-l-4 border-brand-orange italic font-medium text-brand-navy leading-relaxed">
-                  "My job isn't to help you save money today. My job is to ensure your brain can communicate with your body properly so you don't lose your quality of life in five years. Knowing that, do you want to wait for the next crisis, or do you want to start the reconstruction now?"
-                </div>
-              </div>
-
             </div>
 
-            {/* Pro Tips */}
-            <div className="border-t-2 border-brand-navy/10 pt-12">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 mb-6">Expert Execution Notes</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex gap-4">
-                  <div className="w-6 h-6 rounded-lg bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
-                    <Zap size={12} />
-                  </div>
-                  <p className="text-[10px] font-bold text-brand-gray leading-relaxed uppercase">
-                    Maintain eye contact. Do not blink during Step 3. Your conviction is more important than the words.
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <div className="w-6 h-6 rounded-lg bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
-                    <MessageSquare size={12} />
-                  </div>
-                  <p className="text-[10px] font-bold text-brand-gray leading-relaxed uppercase">
-                    If they still hesitate, ask: "Is it the money, or are you not convinced that your nervous system is the priority?"
-                  </p>
+            {/* Section 3: Immutable Laws */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t-2 border-brand-navy/10 pt-16">
+              <div className="space-y-6">
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">03. Immutable Laws of the Rescue</h4>
+                <ul className="space-y-4">
+                  {[
+                    "Never defend the price. Only defend the clinical need.",
+                    "Maintain absolute eye contact during the Step 3 pivot.",
+                    "The first person to speak after the pivot loses authority.",
+                    "If they talk about money, bring it back to brain-body communication."
+                  ].map((law, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle2 size={16} className="text-brand-orange shrink-0 mt-0.5" />
+                      <p className="text-xs font-bold text-brand-navy uppercase leading-relaxed">{law}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="space-y-6">
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">04. The Recovery Timeline</h4>
+                <div className="relative space-y-4">
+                  <div className="absolute left-2 top-2 bottom-2 w-0.5 bg-brand-orange/20" />
+                  {[
+                    { t: "T-Minus 0", d: "Patient hesitates / objects." },
+                    { t: "T-Plus 30s", d: "Deliver the 3-step pivot." },
+                    { t: "T-Plus 2m", d: "Handle logistical onboarding." },
+                    { t: "T-Plus 24h", d: "Patient receives first reconstruction visit." }
+                  ].map((step, i) => (
+                    <div key={i} className="relative pl-8">
+                      <div className="absolute left-0 top-1 w-4 h-4 rounded-full bg-white border-2 border-brand-orange" />
+                      <p className="text-[10px] font-black text-brand-navy">{step.t}: <span className="text-brand-gray font-bold">{step.d}</span></p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
             {/* Footer */}
-            <div className="mt-20 pt-8 border-t border-brand-navy/5 flex justify-between items-center text-[8px] font-black uppercase tracking-[0.3em] text-brand-navy/20">
-              <p>© 2026 NeuroChiro Mastermind - Confidential</p>
-              <p>Property of Dr. Raymond Nichols</p>
+            <div className="mt-20 pt-10 border-t-4 border-brand-navy flex justify-between items-end">
+              <div className="space-y-2">
+                <p className="text-[10px] font-black text-brand-navy uppercase tracking-widest">Property of Dr. Raymond Nichols</p>
+                <p className="text-[8px] font-bold text-brand-gray uppercase tracking-widest">© 2026 NeuroChiro Mastermind | Unauthorized distribution is a breach of contract.</p>
+              </div>
+              <div className="flex items-center gap-4 opacity-40">
+                <ShieldCheck size={40} className="text-brand-navy" />
+                <div className="h-10 w-px bg-brand-navy/20" />
+                <div className="text-[10px] font-black text-brand-navy tracking-tighter uppercase leading-tight">Authentic<br />NeuroChiro OS</div>
+              </div>
             </div>
 
           </div>
         </EliteCard>
 
-        {/* Print Instructions - Hidden on Print */}
-        <div className="text-center space-y-4 print:hidden">
-          <p className="text-brand-gray text-xs font-medium italic">
-            "One saved case pays for your entire month. Go execute."
-          </p>
+        {/* Closing Quote - Hidden on Print */}
+        <div className="text-center pb-12 print:hidden">
+          <div className="inline-flex items-center gap-2 text-brand-orange font-black text-[10px] uppercase tracking-[0.3em]">
+            <FileCheck size={14} /> Authorized Member Resource
+          </div>
         </div>
 
       </div>
