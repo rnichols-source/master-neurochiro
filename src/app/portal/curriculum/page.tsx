@@ -12,107 +12,214 @@ import {
   Target,
   BarChart3,
   Users,
+  Timer,
+  DollarSign,
+  Download,
+  Star,
+  Trophy
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-const iconMap: Record<number, any> = {
-  1: Brain,
-  2: Zap,
-  3: Target,
-  4: Brain,
-  5: BarChart3,
-  6: Users,
-  7: Brain,
-  8: Target,
+const hormoziMetadata: Record<number, any> = {
+  1: {
+    outcomeTitle: "The High-Authority Asset",
+    subTitle: "Becoming the $1M Nervous System Doctor",
+    timeToImplement: "14 mins",
+    expectedROI: "Instant Authority Shift",
+    quickAsset: { name: "Identity Calibration Worksheet", link: "/portal/triage?category=clinic_os" },
+    statusBadge: "Authorized Provider"
+  },
+  2: {
+    outcomeTitle: "The Clinical Engine",
+    subTitle: "Engineered Certainty for Complex Cases",
+    timeToImplement: "22 mins",
+    expectedROI: "100% Clinical Confidence",
+    quickAsset: { name: "Case Presentation Deck", link: "/portal/triage?category=patient_edu" },
+    statusBadge: "Clinical Architect"
+  },
+  3: {
+    outcomeTitle: "The Conversion Engine",
+    subTitle: "Closing $5,000 Care Plans with Zero Resistance",
+    timeToImplement: "18 mins",
+    expectedROI: "Save 1 lost case/mo ($5k+)",
+    quickAsset: { name: "The Neurological Pivot Script", link: "/portal/rapid-roi/script" },
+    statusBadge: "Master Communicator"
+  },
+  4: {
+    outcomeTitle: "The Philosophical Anchor",
+    subTitle: "How to Build a Practice That Never Quits",
+    timeToImplement: "12 mins",
+    expectedROI: "Lifetime Patient Retention",
+    quickAsset: { name: "Retention Language Patterns", link: "/portal/triage?category=communication" },
+    statusBadge: "Philosophical Lead"
+  },
+  5: {
+    outcomeTitle: "The Freedom Framework",
+    subTitle: "Scaling to 100% Profitability & Freedom",
+    timeToImplement: "25 mins",
+    expectedROI: "$10k+ Monthly Profit Increase",
+    quickAsset: { name: "Profitability Calculator", link: "/portal/engine" },
+    statusBadge: "Practice CEO"
+  },
+  6: {
+    outcomeTitle: "The Leadership Lab",
+    subTitle: "Building a Team That Runs Without You",
+    timeToImplement: "20 mins",
+    expectedROI: "10+ Hours Saved/Week",
+    quickAsset: { name: "Staff Training Manual", link: "/portal/triage?category=staff" },
+    statusBadge: "Elite Leader"
+  },
+  7: {
+    outcomeTitle: "The Market Dominator",
+    subTitle: "Omnipresence in Your Local Community",
+    timeToImplement: "15 mins",
+    expectedROI: "5-10 New Patients/Mo",
+    quickAsset: { name: "The Reactivation Campaign", link: "/portal/triage?category=marketing" },
+    statusBadge: "Market Authority"
+  },
+  8: {
+    outcomeTitle: "The Mastermind Exit",
+    subTitle: "Final Installation & Scale Optimization",
+    timeToImplement: "30 mins",
+    expectedROI: "Total Practice Autonomy",
+    quickAsset: { name: "The Scale Blueprint", link: "/portal/triage?category=leadership" },
+    statusBadge: "Mastermind Graduate"
+  }
 };
 
 export default async function PortalCurriculumPage() {
-  console.log('[PAGE] Fetching curriculum...');
   const result = await fetchCurriculumWithProgress();
-  console.log('[PAGE] Curriculum result:', JSON.stringify(result));
   const phases = result.success && result.data ? result.data : [];
 
   return (
     <DashboardLayout>
       <div className="space-y-12 pb-20">
-        <div className="max-w-2xl">
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">The Installation</p>
-          <h1 className="text-5xl font-black text-brand-navy tracking-tighter">OS Curriculum</h1>
-          <p className="text-brand-gray text-lg font-medium mt-4">
-            Follow the engineered sequence. Do not skip phases. Each layer 
-            builds upon the previous reconstruction.
+        <div className="max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
+            <Zap size={14} className="fill-brand-orange" />
+            <p className="text-[10px] font-black uppercase tracking-widest">Implementation Machine</p>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">The Installation</h1>
+          <p className="text-brand-gray text-lg font-medium mt-6 leading-relaxed">
+            Stop collecting information. Start installing assets. Each level below is a 
+            direct upgrade to your clinic's bottom line.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-8">
           {phases.length === 0 ? (
             <div className="flex items-center justify-center py-20 text-brand-navy/20 font-black uppercase tracking-widest">
-              No curriculum phases found.
+              No curriculum levels found.
             </div>
-          ) : phases.map((phase: any, i: number) => (
-            <EliteCard 
-              key={phase.id}
-              className={cn(
-                "p-0 overflow-hidden transition-all group",
-                phase.status === 'locked' ? "opacity-60 bg-white/50" : "hover:border-brand-orange/40 bg-white shadow-xl shadow-brand-navy/5"
-              )}
-            >
-              <div className="flex flex-col md:flex-row items-stretch">
-                {/* Status Indicator */}
-                <div className={cn(
-                  "w-2 md:w-3 shrink-0 transition-colors duration-500",
-                  phase.status === 'completed' ? "bg-green-500" :
-                  phase.status === 'active' ? "bg-brand-orange" : "bg-brand-navy/10"
-                )} />
+          ) : phases.map((phase: any, i: number) => {
+            const meta = hormoziMetadata[phase.week_number] || {};
+            const isLocked = phase.status === 'locked';
+            
+            return (
+              <EliteCard 
+                key={phase.id}
+                className={cn(
+                  "p-0 overflow-hidden transition-all duration-500 group border-2",
+                  isLocked 
+                    ? "opacity-60 bg-brand-cream/20 grayscale border-transparent" 
+                    : "hover:border-brand-orange/40 bg-white shadow-2xl border-brand-navy/5"
+                )}
+              >
+                <div className="flex flex-col lg:flex-row items-stretch min-h-[200px]">
+                  {/* Status Indicator Bar */}
+                  <div className={cn(
+                    "w-full lg:w-4 shrink-0 transition-colors duration-700 h-2 lg:h-auto",
+                    phase.status === 'completed' ? "bg-green-500" :
+                    phase.status === 'active' ? "bg-brand-orange animate-pulse" : "bg-brand-navy/10"
+                  )} />
 
-                <div className="flex-1 p-8 flex flex-col md:flex-row justify-between items-center gap-8">
-                  <div className="flex items-center gap-8">
-                    <div className={cn(
-                      "w-16 h-16 rounded-2xl flex flex-col items-center justify-center font-black transition-all duration-500",
-                      phase.status === 'locked' ? "bg-brand-navy/5 text-brand-navy/20" : "bg-brand-navy text-white shadow-lg"
-                    )}>
-                      <span className="text-[8px] uppercase tracking-tighter opacity-40">Phase</span>
-                      <span className="text-2xl leading-none">0{phase.week_number}</span>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-xl font-black text-brand-navy tracking-tight group-hover:text-brand-orange transition-colors">
-                        {phase.title}
-                      </h3>
-                      <div className="flex items-center gap-4 mt-2">
-                        {phase.status === 'completed' && <span className="flex items-center gap-1 text-[8px] font-black uppercase text-green-500 tracking-widest"><CheckCircle2 className="w-3 h-3" /> Fully Installed</span>}
-                        {phase.status === 'active' && <span className="flex items-center gap-1 text-[8px] font-black uppercase text-brand-orange tracking-widest"><Play className="w-3 h-3 fill-brand-orange" /> In Progress</span>}
-                        {phase.status === 'locked' && <span className="flex items-center gap-1 text-[8px] font-black uppercase text-brand-navy/20 tracking-widest"><Lock className="w-3 h-3" /> Locked Phase</span>}
+                  <div className="flex-1 p-8 lg:p-10">
+                    <div className="flex flex-col md:flex-row justify-between gap-10">
+                      {/* Title & Badges */}
+                      <div className="space-y-6 flex-1">
+                        <div className="flex items-center gap-4">
+                          <div className={cn(
+                            "w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black transition-all",
+                            isLocked ? "bg-brand-navy/5 text-brand-navy/20" : "bg-brand-navy text-white shadow-xl"
+                          )}>
+                            <span className="text-[8px] uppercase tracking-tighter opacity-40">Level</span>
+                            <span className="text-2xl leading-none">0{phase.week_number}</span>
+                          </div>
+                          <div>
+                            <div className="flex flex-wrap gap-2 mb-2">
+                              {!isLocked && (
+                                <>
+                                  <div className="flex items-center gap-1 px-2 py-0.5 bg-brand-orange/10 text-brand-orange rounded text-[8px] font-black uppercase tracking-widest">
+                                    <Timer size={10} /> {meta.timeToImplement}
+                                  </div>
+                                  <div className="flex items-center gap-1 px-2 py-0.5 bg-green-500/10 text-green-600 rounded text-[8px] font-black uppercase tracking-widest">
+                                    <DollarSign size={10} /> ROI: {meta.expectedROI}
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            <h3 className={cn(
+                              "text-2xl font-black tracking-tight leading-none",
+                              isLocked ? "text-brand-navy/40" : "text-brand-navy group-hover:text-brand-orange transition-colors"
+                            )}>
+                              {meta.outcomeTitle || phase.title}
+                            </h3>
+                            <p className="text-brand-gray font-bold text-xs mt-1 uppercase tracking-tight">{meta.subTitle}</p>
+                          </div>
+                        </div>
+
+                        {/* Quick Asset Hook */}
+                        {!isLocked && meta.quickAsset && (
+                          <div className="flex items-center gap-4 p-4 bg-brand-cream/50 rounded-2xl border border-brand-navy/5 w-fit">
+                            <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-brand-orange shadow-sm">
+                              <Download size={14} />
+                            </div>
+                            <div>
+                              <p className="text-[8px] font-black text-brand-navy/40 uppercase tracking-widest leading-none mb-1">Quick Win Asset</p>
+                              <Link href={meta.quickAsset.link} className="text-[10px] font-bold text-brand-navy hover:text-brand-orange underline transition-colors">
+                                {meta.quickAsset.name}
+                              </Link>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex flex-col justify-center items-end gap-4 w-full md:w-auto">
+                        {phase.status === 'completed' ? (
+                          <div className="flex items-center gap-3 px-6 py-3 bg-green-500/10 text-green-600 rounded-2xl border border-green-500/20">
+                            <Trophy size={18} className="fill-green-500/20" />
+                            <div>
+                              <p className="text-[8px] font-black uppercase tracking-widest leading-none mb-1">Status Unlocked</p>
+                              <p className="text-xs font-black uppercase">{meta.statusBadge}</p>
+                            </div>
+                          </div>
+                        ) : phase.status === 'active' ? (
+                          <div className="flex flex-col gap-3 w-full md:w-auto">
+                            <Link href={`/portal/curriculum/${phase.slug}`} className="w-full">
+                              <BrandButton variant="primary" className="w-full justify-between gap-8 group py-6">
+                                <span className="text-xs font-black uppercase tracking-[0.2em]">Access Installation</span>
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                              </BrandButton>
+                            </Link>
+                            <ImplementationProof 
+                              phaseId={phase.id} 
+                              phaseTitle={meta.outcomeTitle || phase.title} 
+                            />
+                          </div>
+                        ) : (
+                          <div className="px-8 py-4 bg-brand-navy/5 rounded-2xl text-[10px] font-black text-brand-navy/20 uppercase tracking-[0.2em] border border-brand-navy/5 text-center w-full min-w-[200px]">
+                            Level 0{phase.week_number} Locked
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </div>
-
-                  <div className="flex items-center gap-8 w-full md:w-auto">
-                    {/* Note: ImplementationProof is a client component and will need to handle revalidation */}
-                    {phase.status === 'active' && (
-                      <ImplementationProof 
-                        phaseId={phase.id} 
-                        phaseTitle={phase.title} 
-                      />
-                    )}
-                    
-                    {phase.status !== 'locked' ? (
-                      <Link href={`/portal/curriculum/${phase.slug}`} className="w-full md:w-auto">
-                        <BrandButton variant={phase.status === 'active' ? 'primary' : 'outline'} size="sm" className="w-full md:w-auto group">
-                          Access Phase <ArrowRight className="ml-2 w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                        </BrandButton>
-                      </Link>
-                    ) : (
-                      <div className="px-6 py-2 bg-brand-navy/5 rounded-xl text-[10px] font-black text-brand-navy/20 uppercase tracking-widest border border-brand-navy/5 w-full md:w-auto text-center">
-                        Complete Phase 0{phase.week_number - 1} to Unlock
-                      </div>
-                    )}
                   </div>
                 </div>
-              </div>
-            </EliteCard>
-          ))}
+              </EliteCard>
+            );
+          })}
         </div>
       </div>
     </DashboardLayout>
