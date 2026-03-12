@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro: The Modern Subluxation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
+        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
+
+        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
+
+        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+
+        .sublux-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
+        .sublux-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
+        .sublux-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; line-height: 1.6; }
+
+        .problem-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--navy); margin-bottom: 1rem; }
+        .prob-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
+        .prob-desc { font-size: 11px; color: var(--gray); }
+
+        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+
+        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">The Problem</div>
+        </div>
+
+        <header>
+            <h1>The Modern Subluxation:<br>Brain in Survival Mode</h1>
+            <div class="subtitle">Why Your Brain is Stuck in a Loop of Stress, Protection, and Dysfunction</div>
+        </header>
+
+        <div class="section-header">01 / Beyond the Bone</div>
+        <div class="grid-2">
+            <div>
+                <p>The original chiros talked about "bones out of place." In 2026, we know the truth is much deeper. A subluxation is a <strong>neurological stuck-point.</strong> It is a state where your brain has lost its ability to accurately perceive its environment.</p>
+                <p>When the brain feels threatened (physically, chemically, or emotionally), it pulls the body into a protective "survival loop." Over time, the brain forgets how to exit this loop. This is the modern subluxation.</p>
+            </div>
+            <div>
+                <div class="problem-box">
+                    <span class="prob-title">Noise vs. Signal</span>
+                    <span class="prob-desc">Subluxation creates "noise" in the nervous system, preventing the brain from receiving the clear signals it needs to regulate the body.</span>
+                </div>
+                <div class="problem-box">
+                    <span class="prob-title">The Survival Loop</span>
+                    <span class="prob-desc">Your brain stays in "High Alert" mode, leading to chronic tension, poor sleep, and a suppressed immune system.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">02 / The Cost of Interference</div>
+        <div class="grid-2">
+            <div>
+                <h3>Decreased Resilience</h3>
+                <p>A subluxated nervous system is brittle. It can't handle the normal pressures of life without breaking down. This leads to the cycle of "feeling good one day and crashing the next."</p>
+            </div>
+            <div>
+                <h3>Regulatory Exhaustion</h3>
+                <p>Your brain spends so much energy trying to "protect" you from perceived threats that it has no energy left for repair and growth. This is the root of burnout and chronic fatigue.</p>
+            </div>
+        </div>
+
+        <div class="sublux-card">
+            <h3>The Path to Reorganization</h3>
+            <p>We don't just "move bones" to relieve pain. We provide precise neurological inputs to interrupt the survival loop and remind your brain how to regulate itself. By clearing the interference, we allow your system to move from a state of <strong>Protection</strong> to a state of <strong>Growth.</strong> This is the only way to achieve permanent health results in the modern world.</p>
+        </div>
+
+        <div class="callout-box">
+            <p class="callout-text">"Subluxation is not just a physical misalignment; it is a neurological limitation on your potential. Clear the interference, and unlock the life you were meant to lead."</p>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>The Modern Subluxation Series</span>
+            <span>Confidential Patient Resource</span>
+        </div>
+    </div>
+</body>
+</html>

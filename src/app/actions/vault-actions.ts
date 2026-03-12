@@ -199,6 +199,66 @@ export async function fetchVaultResources(category?: string, query?: string) {
         url: '/resources/week-6/ownership-architecture.html',
         tier: 'pro',
         content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-edu-1',
+        title: 'The Human Potential: Neurological Regulation',
+        description: 'Explain the "Why" of NeuroChiro with elite clarity. Move patients from pain-focus to regulation-focus.',
+        category: 'patient_edu',
+        resource_type: 'pdf',
+        url: '/resources/week-6/edu-neurological-regulation.html',
+        tier: 'standard',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-edu-2',
+        title: 'The Stress Adaptation Blueprint',
+        description: 'Why the body breaks down. A deep dive into the 3 Ts (Thoughts, Traumas, Toxins) and neurological thresholds.',
+        category: 'patient_edu',
+        resource_type: 'pdf',
+        url: '/resources/week-6/edu-stress-adaptation.html',
+        tier: 'standard',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-edu-3',
+        title: 'The Wave of Healing: What to Expect',
+        description: 'The nonlinear path of recovery. Explain retracing, flare-ups, and regulatory shifts with authority.',
+        category: 'patient_edu',
+        resource_type: 'pdf',
+        url: '/resources/week-6/edu-wave-of-healing.html',
+        tier: 'standard',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-edu-4',
+        title: 'The Vagus Nerve Standard',
+        description: 'The Master Regulator. Why Vagal Tone is the key to unlocking system recovery and long-term stability.',
+        category: 'patient_edu',
+        resource_type: 'pdf',
+        url: '/resources/week-6/edu-vagus-nerve.html',
+        tier: 'standard',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-edu-5',
+        title: 'The Modern Subluxation: Survival Mode',
+        description: 'Updated for 2026. Explain why the brain gets "stuck" in protection and how to interrupt the loop.',
+        category: 'patient_edu',
+        resource_type: 'pdf',
+        url: '/resources/week-6/edu-modern-subluxation.html',
+        tier: 'standard',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-edu-6',
+        title: 'The Lifetime Standard: Architecture of Longevity',
+        description: 'The vision for continuous optimization. Why neurological regulation is a life-long standard, not a project.',
+        category: 'patient_edu',
+        resource_type: 'pdf',
+        url: '/resources/week-6/edu-lifetime-standard.html',
+        tier: 'standard',
+        content: 'Premium Branded HTML Asset'
       }
     ];
 

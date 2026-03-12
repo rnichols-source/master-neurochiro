@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro: The Wave of Healing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
+        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
+
+        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
+
+        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+
+        .healing-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
+        .healing-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
+        .healing-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; line-height: 1.6; }
+
+        .phase-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--navy); margin-bottom: 1rem; }
+        .phase-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
+        .phase-desc { font-size: 11px; color: var(--gray); }
+
+        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+
+        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">The Process</div>
+        </div>
+
+        <header>
+            <h1>The Wave of Healing:<br>What to Expect During Care</h1>
+            <div class="subtitle">The Nonlinear Path of Neurological Reorganization</div>
+        </header>
+
+        <div class="section-header">01 / Healing is Not a Straight Line</div>
+        <div class="grid-2">
+            <div>
+                <p>Most medical treatments focus on the immediate suppression of symptoms. If the pain goes away, you assume you are "better." In NeuroChiro, we focus on the reorganization of patterns. This process is <strong>nonlinear.</strong></p>
+                <p>As your nervous system begins to regulate, you will experience shifts. Some days you will feel incredible clarity and energy. Other days, your body may feel like it is working through old layers of stress. This is not a setback; it is progress.</p>
+            </div>
+            <div>
+                <div class="phase-box">
+                    <span class="phase-title">Phase 01: Stabilization</span>
+                    <span class="phase-desc">The system is learning to hold a new tone. You may experience temporary fluctuations in how you feel.</span>
+                </div>
+                <div class="phase-box">
+                    <span class="phase-title">Phase 02: Reorganization</span>
+                    <span class="phase-desc">Old patterns are being dismantled. This is where "Retracing" often occurs as the body processes stored stress.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">02 / Understanding Retracing</div>
+        <div class="grid-2">
+            <div>
+                <h3>The Path Back</h3>
+                <p>Retracing is the body's way of finishing old healing business. As we break modern stress patterns, your system may briefly revisit old injuries or emotional states. It is the body's way of moving forward by cleaning up the past.</p>
+            </div>
+            <div>
+                <h3>Regulatory Shifts</h3>
+                <p>Expect shifts in your sleep, your digestion, and your emotional resilience. These are the "invisible" markers that your nervous system is finding its balance.</p>
+            </div>
+        </div>
+
+        <div class="healing-card">
+            <h3>The Mastery of Pacing</h3>
+            <p>Your care plan is designed to match the speed of your body's ability to reorganize. We don't rush the process because neurological change requires time and repetition. When you experience a "flare-up" or a shift, don't panic. It means the signal is working. Stay the course, trust the architecture, and allow the wave of healing to do its work.</p>
+        </div>
+
+        <div class="callout-box">
+            <p class="callout-text">"Healing takes time. It takes consistency. And it takes a nervous system that is free from interference. Focus on the pattern, not the symptom."</p>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>The Healing Series</span>
+            <span>Confidential Patient Resource</span>
+        </div>
+    </div>
+</body>
+</html>
