@@ -19,7 +19,8 @@ import {
   Calendar,
   FileSpreadsheet,
   Target,
-  Loader2
+  Loader2,
+  Activity
 } from "lucide-react";
 
 export function KPITrackerClient({ initialData, userName = "Doctor" }: { initialData: any[], userName?: string }) {
@@ -48,15 +49,28 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
     patient_visits: 0,
     collections: 0,
     new_patients: 0,
+    care_plans_accepted: 0,
     wins: "No entries yet",
     bottlenecks: "No entries yet"
+  };
+
+  const conversionRate = latestStats.new_patients > 0 
+    ? Math.round((latestStats.care_plans_accepted / latestStats.new_patients) * 100) 
+    : 0;
+
+  // Mastermind Benchmarks
+  const benchmarks = {
+    collections: { avg: 45000, elite: 120000 },
+    new_patients: { avg: 15, elite: 40 },
+    patient_visits: { avg: 120, elite: 350 },
+    conversion: { avg: 65, elite: 92 }
   };
 
   const calculateGrowth = (metric: string) => {
     if (kpiData.length < 2) return 0;
     const current = kpiData[kpiData.length - 1][metric];
     const previous = kpiData[kpiData.length - 2][metric];
-    if (previous === 0) return 100;
+    if (!previous || previous === 0) return 100;
     return Math.round(((current - previous) / previous) * 100);
   };
 
@@ -66,10 +80,10 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-4">
         <div>
           <p className="text-brand-orange font-black uppercase tracking-[0.2em] text-[10px] md:text-xs mb-2">
-            Office Stats
+            The Benchmark Mirror
           </p>
-          <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">
-            Practice Dashboard
+          <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight uppercase">
+            Practice Intelligence
           </h1>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
@@ -179,36 +193,87 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         </div>
       </EliteCard>
 
-      {/* Insight Grid */}
+      {/* Insight Grid / Benchmark Mirror */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         <EliteCard title="New Patients" subtitle="Recent Entry" icon={Plus} className="p-6 md:p-8">
-          <div className="flex items-end gap-2 mt-2">
-            <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.new_patients}</span>
-            <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('new_patients') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
-              {calculateGrowth('new_patients') >= 0 ? '+' : ''}{calculateGrowth('new_patients')}%
-            </span>
+          <div className="flex flex-col gap-4 mt-2">
+            <div className="flex items-end gap-2">
+              <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.new_patients}</span>
+              <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('new_patients') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+                {calculateGrowth('new_patients') >= 0 ? '+' : ''}{calculateGrowth('new_patients')}%
+              </span>
+            </div>
+            <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
+                <span className="text-[10px] font-black text-brand-navy/60">{benchmarks.new_patients.avg}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
+                <span className="text-[10px] font-black text-brand-orange">{benchmarks.new_patients.elite}</span>
+              </div>
+            </div>
           </div>
         </EliteCard>
+
         <EliteCard title="Collections" subtitle="Recent Entry" icon={TrendingUp} className="p-6 md:p-8">
-          <div className="flex items-end gap-2 mt-2">
-            <span className="text-2xl md:text-3xl font-black text-brand-navy">${(latestStats.collections / 1000).toFixed(1)}k</span>
-            <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
-              {calculateGrowth('collections') >= 0 ? '+' : ''}{calculateGrowth('collections')}%
-            </span>
+          <div className="flex flex-col gap-4 mt-2">
+            <div className="flex items-end gap-2">
+              <span className="text-2xl md:text-3xl font-black text-brand-navy">${(latestStats.collections / 1000).toFixed(1)}k</span>
+              <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+                {calculateGrowth('collections') >= 0 ? '+' : ''}{calculateGrowth('collections')}%
+              </span>
+            </div>
+            <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
+                <span className="text-[10px] font-black text-brand-navy/60">${(benchmarks.collections.avg/1000)}k</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
+                <span className="text-[10px] font-black text-brand-orange">${(benchmarks.collections.elite/1000)}k</span>
+              </div>
+            </div>
           </div>
         </EliteCard>
-        <EliteCard title="Visits" subtitle="Recent Entry" icon={Target} className="p-6 md:p-8">
-          <div className="flex items-end gap-2 mt-2">
-            <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.patient_visits}</span>
-            <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
-              {calculateGrowth('patient_visits') >= 0 ? '+' : ''}{calculateGrowth('patient_visits')}%
-            </span>
+
+        <EliteCard title="ROF Conversion" subtitle="Recent Entry" icon={Target} className="p-6 md:p-8">
+          <div className="flex flex-col gap-4 mt-2">
+            <div className="flex items-end gap-2">
+              <span className="text-2xl md:text-3xl font-black text-brand-navy">{conversionRate}%</span>
+              <span className="text-[10px] md:text-xs font-bold mb-1 text-brand-navy/40 uppercase tracking-widest">Target: 90%+</span>
+            </div>
+            <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
+                <span className="text-[10px] font-black text-brand-navy/60">{benchmarks.conversion.avg}%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
+                <span className="text-[10px] font-black text-brand-orange">{benchmarks.conversion.elite}%</span>
+              </div>
+            </div>
           </div>
         </EliteCard>
-        <EliteCard title="Total Entries" subtitle="Continuity" icon={Calendar} className="p-6 md:p-8">
-          <div className="flex items-end gap-2 mt-2">
-            <span className="text-2xl md:text-3xl font-black text-brand-navy">{kpiData.length}</span>
-            <span className="text-[10px] md:text-xs font-bold text-brand-orange mb-1">Weeks</span>
+
+        <EliteCard title="Weekly Visits" subtitle="Recent Entry" icon={Activity} className="p-6 md:p-8">
+          <div className="flex flex-col gap-4 mt-2">
+            <div className="flex items-end gap-2">
+              <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.patient_visits}</span>
+              <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+                {calculateGrowth('patient_visits') >= 0 ? '+' : ''}{calculateGrowth('patient_visits')}%
+              </span>
+            </div>
+            <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
+                <span className="text-[10px] font-black text-brand-navy/60">{benchmarks.patient_visits.avg}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-[8px] font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
+                <span className="text-[10px] font-black text-brand-orange">{benchmarks.patient_visits.elite}</span>
+              </div>
+            </div>
           </div>
         </EliteCard>
       </div>
