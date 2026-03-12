@@ -361,7 +361,8 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                               className="py-2.5 px-5 text-[10px] rounded-xl"
                               onClick={() => {
                                 incrementDownload(res.id);
-                                if (res.resource_type === 'pdf' && res.content) {
+                                const isPremium = res.id.startsWith('premium-');
+                                if (res.resource_type === 'pdf' && res.content && !isPremium) {
                                   setReadingResource(res);
                                 } else if (res.url) {
                                   window.open(res.url, '_blank', 'noopener,noreferrer');
