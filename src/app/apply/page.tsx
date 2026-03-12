@@ -119,7 +119,7 @@ export default function ApplicationPage() {
               manually review your responses. You will receive a decision via email within 24-48 hours.
             </p>
           </div>
-          <Link href="/mastermind"><BrandButton variant="outline">Return to Home</BrandButton></Link>
+          <Link href="/"><BrandButton variant="outline">Return to Home</BrandButton></Link>
         </motion.div>
       </div>
     );

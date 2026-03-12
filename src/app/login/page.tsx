@@ -61,7 +61,7 @@ export default function LoginPage() {
         className="w-full max-w-md space-y-8 relative z-10"
       >
         <div className="text-center space-y-6">
-          <Link href="/mastermind" className="inline-flex items-center gap-3">
+          <Link href="/" className="inline-flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-brand-orange flex items-center justify-center font-black text-white text-2xl shadow-xl shadow-brand-orange/20">N</div>
             <span className="font-lato font-black uppercase tracking-[0.2em] text-white text-xl">NeuroChiro</span>
           </Link>

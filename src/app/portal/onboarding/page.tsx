@@ -7,7 +7,7 @@ export default async function OnboardingPage() {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/mastermind/login')
+    redirect('/login')
   }
 
   const { data: profile } = await supabase
