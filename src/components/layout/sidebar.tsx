@@ -15,7 +15,8 @@ import {
   TrendingUp,
   Lock,
   MessageSquare,
-  Zap
+  Zap,
+  Star
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -103,6 +104,24 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
           >
             <ShieldCheck className={cn("w-4 h-4", pathname === "/portal/council" ? "text-brand-orange" : "text-white/50 group-hover:text-white")} />
             Council Dashboard
+          </Link>
+        </div>
+
+        {/* Private Mentorship Section */}
+        <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
+          <p className="px-2 pb-2 text-[10px] font-bold text-white/40 uppercase tracking-widest flex items-center justify-between">
+            Elite Access
+            <Star className="w-2.5 h-2.5 text-brand-orange" />
+          </p>
+          <Link
+            href="/mentorship"
+            className={cn(
+              "group flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-all relative",
+              pathname === "/mentorship" ? "bg-white/10 text-brand-orange" : "text-white/70 hover:bg-white/5 hover:text-white"
+            )}
+          >
+            <Zap className={cn("w-4 h-4", pathname === "/mentorship" ? "text-brand-orange" : "text-white/50 group-hover:text-white")} />
+            The Architecture Room
           </Link>
           <Link
             href="mailto:support@neurochiromastermind.com"
