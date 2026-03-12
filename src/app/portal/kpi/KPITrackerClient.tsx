@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { KPIEntryModal } from "@/components/portal/KPIEntryModal";
 import { fetchKPIEntries } from "@/app/actions/kpi-actions";
@@ -20,8 +20,12 @@ import {
   FileSpreadsheet,
   Target,
   Loader2,
-  Activity
+  Activity,
+  AlertCircle,
+  Zap,
+  ArrowRight
 } from "lucide-react";
+import Link from "next/link";
 
 export function KPITrackerClient({ initialData, userName = "Doctor" }: { initialData: any[], userName?: string }) {
   const [activeMetric, setActiveMetric] = useState<"patient_visits" | "collections">("patient_visits");
@@ -66,6 +70,42 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
     conversion: { avg: 65, elite: 92 }
   };
 
+  // Profit Leak Detection Logic
+  const profitLeak = useMemo(() => {
+    if (kpiData.length === 0) return null;
+
+    const leaks = [];
+
+    // Check Conversion Leak
+    if (conversionRate < benchmarks.conversion.avg) {
+      const lostRevenue = Math.round((benchmarks.conversion.avg - conversionRate) / 100 * latestStats.new_patients * 5000);
+      leaks.push({
+        type: 'conversion',
+        severity: 'critical',
+        title: 'Conversion Leak Detected',
+        message: `Your conversion rate (${conversionRate}%) is below the mastermind average. You are leaving an estimated $${lostRevenue.toLocaleString()} on the table this month.`,
+        action: 'Watch "The Conversion Engine" Module',
+        link: '/portal/curriculum/week-3-communication'
+      });
+    }
+
+    // Check NP Volume Leak
+    if (latestStats.new_patients < benchmarks.new_patients.avg) {
+      leaks.push({
+        type: 'marketing',
+        severity: 'warning',
+        title: 'Growth Velocity Warning',
+        message: 'Your New Patient volume is below benchmark. Your clinical engine is ready, but your marketing omnipresence is lagging.',
+        action: 'Open "Market Authority" Training',
+        link: '/portal/curriculum/week-7-marketing'
+      });
+    }
+
+    // Check PVA/Retention Leak (if we had PV / NP data over time)
+    
+    return leaks.sort((a, b) => (a.severity === 'critical' ? -1 : 1))[0] || null;
+  }, [latestStats, conversionRate, kpiData]);
+
   const calculateGrowth = (metric: string) => {
     if (kpiData.length < 2) return 0;
     const current = kpiData[kpiData.length - 1][metric];
@@ -99,6 +139,48 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           </BrandButton>
         </div>
       </div>
+
+      {/* Profit Leak Alert */}
+      {profitLeak && (
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={cn(
+            "p-6 rounded-[2rem] border-2 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group",
+            profitLeak.severity === 'critical' ? "bg-red-50 border-red-100" : "bg-brand-orange/5 border-brand-orange/10"
+          )}
+        >
+          <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+            <AlertCircle size={120} className={profitLeak.severity === 'critical' ? "text-red-600" : "text-brand-orange"} />
+          </div>
+          
+          <div className="flex items-center gap-6 relative z-10">
+            <div className={cn(
+              "w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg",
+              profitLeak.severity === 'critical' ? "bg-red-600 text-white shadow-red-200" : "bg-brand-orange text-white shadow-brand-orange/20"
+            )}>
+              <Zap size={28} />
+            </div>
+            <div className="max-w-xl">
+              <h3 className={cn("text-xl font-black tracking-tight", profitLeak.severity === 'critical' ? "text-red-900" : "text-brand-navy")}>
+                {profitLeak.title}
+              </h3>
+              <p className={cn("text-sm font-medium mt-1 leading-relaxed", profitLeak.severity === 'critical' ? "text-red-700" : "text-brand-gray")}>
+                {profitLeak.message}
+              </p>
+            </div>
+          </div>
+
+          <Link href={profitLeak.link} className="w-full md:w-auto relative z-10">
+            <button className={cn(
+              "px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all shadow-xl flex items-center justify-center gap-2 group/btn",
+              profitLeak.severity === 'critical' ? "bg-red-600 text-white hover:bg-red-700" : "bg-brand-navy text-white hover:bg-brand-orange"
+            )}>
+              {profitLeak.action} <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+            </button>
+          </Link>
+        </motion.div>
+      )}
 
       {/* Overview Chart */}
       <EliteCard className="p-0 overflow-hidden">
