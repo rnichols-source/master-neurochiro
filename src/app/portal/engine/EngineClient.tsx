@@ -6,6 +6,7 @@ import { PracticeGrowthSimulator } from "@/components/portal/PracticeGrowthSimul
 import { KPITrackerClient } from "@/app/portal/kpi/KPITrackerClient";
 import { EconomicsEngineClient } from "@/components/economics-engine/EconomicsEngineClient";
 import { RevenueForecaster } from "@/components/portal/pro/RevenueForecaster";
+import { KPIEntryModal } from "@/components/portal/KPIEntryModal";
 import { cn } from "@/lib/utils";
 import { 
   Activity, 
@@ -22,6 +23,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function EngineClient({ 
   initialData, 
@@ -33,7 +35,10 @@ export function EngineClient({
   userTier?: string
 }) {
   const [activeTab, setActiveTab] = useState("kpi");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [localData, setLocalData] = useState(initialData);
   const isPro = userTier === 'pro' || userTier === 'admin';
+  const router = useRouter();
 
   const tabs = [
     { id: "kpi", label: "KPI Tracker", icon: BarChart3 },
@@ -44,7 +49,7 @@ export function EngineClient({
 
   // Logic for "The Next $10k Move"
   const nextMove = useMemo(() => {
-    if (!initialData || initialData.length === 0) {
+    if (!localData || localData.length === 0) {
       return {
         title: "Initialize Your Engine",
         desc: "You haven't recorded any data yet. Your first move is to baseline your stats.",
@@ -54,7 +59,7 @@ export function EngineClient({
       };
     }
 
-    const latest = initialData[initialData.length - 1];
+    const latest = localData[localData.length - 1];
     const conversion = latest.new_patients > 0 ? (latest.care_plans_accepted / latest.new_patients) : 1;
 
     // 1. Bottleneck: Conversion
@@ -94,7 +99,13 @@ export function EngineClient({
       action: "Open Leadership Mastery",
       link: "/portal/curriculum/week-6-leadership"
     };
-  }, [initialData]);
+  }, [localData]);
+
+  const handleModalSuccess = () => {
+    setIsModalOpen(false);
+    router.refresh();
+    // In a real app, we might re-fetch data here or the refresh handles it
+  };
 
   return (
     <div className="space-y-10 pb-20">
@@ -121,11 +132,21 @@ export function EngineClient({
           <p className="text-white/40 text-xs font-medium leading-relaxed mb-6">
             {nextMove.desc}
           </p>
-          <Link href={nextMove.link}>
-            <button className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 group/btn">
+          
+          {nextMove.isModal ? (
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 group/btn"
+            >
               {nextMove.action} <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
             </button>
-          </Link>
+          ) : (
+            <Link href={nextMove.link}>
+              <button className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 group/btn">
+                {nextMove.action} <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+              </button>
+            </Link>
+          )}
         </div>
       </div>
 
@@ -159,7 +180,7 @@ export function EngineClient({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
           >
-            <KPITrackerClient initialData={initialData} userName={userName} />
+            <KPITrackerClient initialData={localData} userName={userName} />
           </motion.div>
         )}
 
@@ -218,6 +239,12 @@ export function EngineClient({
           </motion.div>
         )}
       </AnimatePresence>
+
+      <KPIEntryModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onSuccess={handleModalSuccess}
+      />
     </div>
   );
 }
