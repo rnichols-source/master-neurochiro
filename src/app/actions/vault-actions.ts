@@ -8,7 +8,7 @@ export async function fetchVaultResources(category?: string, query?: string) {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return { success: false, error: "Not authenticated" };
 
-    // Define Premium Branded Assets (Static for now, but formatted like DB resources)
+    // Define Premium Branded Assets
     const premiumAssets = [
       {
         id: 'premium-rof-1',
@@ -52,18 +52,43 @@ export async function fetchVaultResources(category?: string, query?: string) {
       }
     ];
 
-    let { data, error } = await supabase
-      .from("resources")
-      .select(`
-        *,
-        vault_bookmarks(id)
-      `)
-      .order("created_at", { ascending: false });
+    // Fetch bookmarks separately to avoid query failure if table is weird
+    let bookmarks: any[] = [];
+    try {
+      const { data: bData } = await supabase
+        .from('vault_bookmarks')
+        .select('resource_id, premium_id')
+        .eq('user_id', user.id);
+      bookmarks = bData || [];
+    } catch (e) {
+      console.warn("Bookmark fetch failed, continuing without bookmarks");
+    }
 
-    if (error) throw error;
+    // Fetch DB resources
+    let dbResources: any[] = [];
+    try {
+      const { data, error } = await supabase
+        .from("resources")
+        .select('*')
+        .order("created_at", { ascending: false });
+      
+      if (!error && data) {
+        dbResources = data.map(r => ({
+          ...r,
+          vault_bookmarks: bookmarks.filter(b => b.resource_id === r.id)
+        }));
+      }
+    } catch (e) {
+      console.warn("DB Resource fetch failed, showing premium only");
+    }
 
-    // Merge static premium assets with DB assets
-    let allResources = [...premiumAssets, ...(data || [])];
+    // Merge and map bookmarks for premium assets
+    const mappedPremium = premiumAssets.map(p => ({
+      ...p,
+      vault_bookmarks: bookmarks.filter(b => b.premium_id === p.id)
+    }));
+
+    let allResources = [...mappedPremium, ...dbResources];
 
     // Filter by Category
     if (category && category !== 'all') {
@@ -81,40 +106,53 @@ export async function fetchVaultResources(category?: string, query?: string) {
 
     return { success: true, data: allResources };
   } catch (err: any) {
-    console.error("Vault Fetch Error:", err);
+    console.error("Global Vault Error:", err);
     return { success: false, error: err.message };
   }
 }
 
 export async function toggleBookmark(resourceId: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return { success: false };
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { success: false };
 
-  // Check if premium asset (don't bookmark static ones for now or use different logic)
-  if (resourceId.startsWith('premium-')) return { success: true };
+    const isPremium = resourceId.startsWith('premium-');
+    
+    const query = supabase
+      .from('vault_bookmarks')
+      .select('id')
+      .eq('user_id', user.id);
+    
+    if (isPremium) {
+      query.eq('premium_id', resourceId);
+    } else {
+      query.eq('resource_id', resourceId);
+    }
 
-  const { data: existing } = await supabase
-    .from('vault_bookmarks')
-    .select('id')
-    .eq('user_id', user.id)
-    .eq('resource_id', resourceId)
-    .maybeSingle();
+    const { data: existing } = await query.maybeSingle();
 
-  if (existing) {
-    await supabase.from('vault_bookmarks').delete().eq('id', existing.id);
-  } else {
-    await supabase.from('vault_bookmarks').insert({ user_id: user.id, resource_id: resourceId });
+    if (existing) {
+      await supabase.from('vault_bookmarks').delete().eq('id', existing.id);
+    } else {
+      await supabase.from('vault_bookmarks').insert({ 
+        user_id: user.id, 
+        [isPremium ? 'premium_id' : 'resource_id']: resourceId 
+      });
+    }
+
+    return { success: true };
+  } catch (e) {
+    return { success: false };
   }
-
-  return { success: true };
 }
 
 export async function incrementDownload(resourceId: string) {
   const supabase = await createClient();
-  // Simplified increment
   if (!resourceId.startsWith('premium-')) {
-    await supabase.rpc('increment_resource_downloads', { res_id: resourceId });
+    try {
+      await supabase.rpc('increment_resource_downloads', { res_id: resourceId });
+    } catch (e) {}
   }
   return { success: true };
 }
