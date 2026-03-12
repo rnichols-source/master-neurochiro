@@ -49,6 +49,46 @@ export async function fetchVaultResources(category?: string, query?: string) {
         url: '/portal/rapid-roi/script',
         tier: 'pro',
         content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-marketing-1',
+        title: 'The Behavior Blueprint: Mastering Human Drift',
+        description: 'Understand why long-term patients drift and how to build a firewall against it.',
+        category: 'marketing',
+        resource_type: 'pdf',
+        url: '/resources/week-6/behavior-blueprint.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-marketing-2',
+        title: 'The Drift Defender: Neutralizing No-Shows',
+        description: 'The exact protocol to handle missed visits without losing authority or momentum.',
+        category: 'marketing',
+        resource_type: 'pdf',
+        url: '/resources/week-6/drift-defender.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-marketing-3',
+        title: 'The Emotional Arc: Certainty Engineering',
+        description: 'Map the patient experience to predict and prevent the "I am good now" drift point.',
+        category: 'marketing',
+        resource_type: 'pdf',
+        url: '/resources/week-6/emotional-arc.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-staff-1',
+        title: 'The Containment Protocol: Enforcing Structure',
+        description: 'Training for your team on how to maintain the clinical container under pressure.',
+        category: 'staff',
+        resource_type: 'pdf',
+        url: '/resources/week-6/containment-protocol.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
       }
     ];
 
