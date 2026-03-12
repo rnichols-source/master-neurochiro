@@ -89,6 +89,26 @@ export async function fetchVaultResources(category?: string, query?: string) {
         url: '/resources/week-6/containment-protocol.html',
         tier: 'pro',
         content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-staff-2',
+        title: 'The Culture Calibration: Performance Audit',
+        description: 'Elite diagnostic tool to identify hidden leaks in your team culture and authority.',
+        category: 'staff',
+        resource_type: 'pdf',
+        url: '/resources/week-6/culture-calibration.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-staff-3',
+        title: 'The Ownership Architecture: Accountability Systems',
+        description: 'How to transition from micro-management to a high-leverage ownership culture.',
+        category: 'staff',
+        resource_type: 'pdf',
+        url: '/resources/week-6/ownership-architecture.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
       }
     ];
 
