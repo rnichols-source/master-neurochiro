@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { PracticeGrowthSimulator } from "@/components/portal/PracticeGrowthSimulator";
 import { KPITrackerClient } from "@/app/portal/kpi/KPITrackerClient";
@@ -15,9 +15,13 @@ import {
   Zap,
   Plus,
   Lock,
-  Target
+  Target,
+  ArrowRight,
+  TrendingDown,
+  Sparkles
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export function EngineClient({ 
   initialData, 
@@ -38,11 +42,65 @@ export function EngineClient({
     { id: "simulator", label: "Growth Simulator", icon: Zap },
   ];
 
+  // Logic for "The Next $10k Move"
+  const nextMove = useMemo(() => {
+    if (!initialData || initialData.length === 0) {
+      return {
+        title: "Initialize Your Engine",
+        desc: "You haven't recorded any data yet. Your first move is to baseline your stats.",
+        action: "Enter Your First KPI",
+        link: "#",
+        isModal: true
+      };
+    }
+
+    const latest = initialData[initialData.length - 1];
+    const conversion = latest.new_patients > 0 ? (latest.care_plans_accepted / latest.new_patients) : 1;
+
+    // 1. Bottleneck: Conversion
+    if (conversion < 0.65) {
+      return {
+        title: "The Conversion Move",
+        desc: "Your acceptance rate is the primary leak. Fixing this is worth $10k+ this month.",
+        action: "Master the Neurological Pivot",
+        link: "/portal/curriculum/week-3-communication"
+      };
+    }
+
+    // 2. Bottleneck: NP Volume
+    if (latest.new_patients < 15) {
+      return {
+        title: "The Velocity Move",
+        desc: "Your clinical engine is ready but your volume is low. You need more 'At Bats'.",
+        action: "Launch Reactivation Campaign",
+        link: "/portal/curriculum/week-7-marketing"
+      };
+    }
+
+    // 3. Bottleneck: Low PV (Retention)
+    if (latest.patient_visits < 100) {
+      return {
+        title: "The Retention Move",
+        desc: "Your visits are low relative to your NP volume. You're losing them in the 'Middle'." ,
+        action: "Strengthen Your Philosophy",
+        link: "/portal/curriculum/week-4-philosophy"
+      };
+    }
+
+    // 4. Default: Scale
+    return {
+      title: "The Scaling Move",
+      desc: "Your fundamentals are strong. Now it's time to build the team that runs it for you.",
+      action: "Open Leadership Mastery",
+      link: "/portal/curriculum/week-6-leadership"
+    };
+  }, [initialData]);
+
   return (
     <div className="space-y-10 pb-20">
       {/* Engine Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-        <div>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
+        <div className="flex-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
             <Activity size={14} />
             <p className="text-[10px] font-black uppercase tracking-widest">High Performance Engine</p>
@@ -51,6 +109,23 @@ export function EngineClient({
           <p className="text-brand-gray text-lg font-medium mt-4 max-w-xl">
             Consolidated clinical and financial intelligence. Stop guessing, start operating.
           </p>
+        </div>
+
+        {/* The Next $10k Move Card */}
+        <div className="w-full md:w-96 bg-brand-navy rounded-[2rem] p-8 text-white relative overflow-hidden group shadow-2xl">
+          <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+            <Sparkles size={60} className="text-brand-orange" />
+          </div>
+          <p className="text-[8px] font-black uppercase tracking-[0.3em] text-brand-orange mb-4">The Next $10k Move</p>
+          <h3 className="text-xl font-black tracking-tight mb-2">{nextMove.title}</h3>
+          <p className="text-white/40 text-xs font-medium leading-relaxed mb-6">
+            {nextMove.desc}
+          </p>
+          <Link href={nextMove.link}>
+            <button className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 group/btn">
+              {nextMove.action} <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+            </button>
+          </Link>
         </div>
       </div>
 
