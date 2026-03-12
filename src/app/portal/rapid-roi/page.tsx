@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
+import VideoPlayer from "@/components/portal/VideoPlayer";
 import { 
   Zap, 
   Play, 
@@ -8,11 +12,29 @@ import {
   CheckCircle2,
   Clock,
   ShieldCheck,
-  Download
+  Download,
+  Printer,
+  ChevronRight
 } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function RapidROIPage() {
+  const [completedItems, setCompletedItems] = useState<number[]>([]);
+
+  const toggleItem = (index: number) => {
+    setCompletedItems(prev => 
+      prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+    );
+  };
+
+  const checklistItems = [
+    "Watch the 5-minute briefing",
+    "Print the Rescue Script",
+    "Use the 'Pattern Interrupt' on 1 patient today",
+    "Report your win in The Council"
+  ];
+
   return (
     <DashboardLayout>
       <div className="max-w-5xl mx-auto space-y-12 pb-20">
@@ -31,21 +53,17 @@ export default function RapidROIPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Video Section */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="relative aspect-video bg-brand-navy rounded-[2.5rem] overflow-hidden shadow-2xl group border border-white/10">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-24 h-24 bg-brand-orange rounded-full flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform cursor-pointer">
-                  <Play size={32} fill="white" className="ml-1" />
-                </div>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-brand-navy to-transparent">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-lg text-[10px] font-black text-white uppercase tracking-widest">
-                    <Clock size={12} /> 5:12
-                  </div>
-                  <h3 className="text-white font-black uppercase tracking-tight">The Emergency Case Rescue</h3>
-                </div>
-              </div>
-            </div>
+            <VideoPlayer 
+              userId="current-user" 
+              moduleId="rapid-roi-briefing"
+              videoUrl="https://player.vimeo.com/video/912345678" // Placeholder high-quality video
+              title="The Emergency Case Rescue Briefing"
+              checklist={{
+                do: "Print the Rescue Script and keep it visible during your next ROF.",
+                say: "When a patient hesitates, use the 'Neurological Pivot' pattern.",
+                track: "Post 'WIN' in the Council once you save the case."
+              }}
+            />
 
             <div className="space-y-4">
               <h3 className="text-xl font-black text-brand-navy">The "Rescue" Protocol</h3>
@@ -57,34 +75,50 @@ export default function RapidROIPage() {
 
           {/* Action/Resources Section */}
           <div className="space-y-8">
-            <EliteCard className="p-8 bg-brand-navy text-white border-none shadow-2xl">
+            <EliteCard className="p-8 bg-brand-navy text-white border-none shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                <Printer size={80} />
+              </div>
               <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-6 flex items-center gap-2">
                 <FileText size={14} className="text-brand-orange" /> Required Resource
               </h3>
-              <div className="space-y-6">
+              <div className="space-y-6 relative z-10">
                 <div>
                   <h4 className="text-xl font-black">Emergency Case Rescue Script</h4>
                   <p className="text-white/40 text-xs mt-2 font-medium">Download this and keep it on your desk for your next ROF.</p>
                 </div>
-                <button className="w-full bg-brand-orange text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-white hover:text-brand-navy transition-all flex items-center justify-center gap-3 group shadow-xl">
-                  <Download size={16} /> Download PDF <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </button>
+                <Link href="/portal/rapid-roi/script" className="block">
+                  <button className="w-full bg-brand-orange text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-white hover:text-brand-navy transition-all flex items-center justify-center gap-3 group shadow-xl">
+                    <Download size={16} /> DOWNLOAD PDF <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </Link>
               </div>
             </EliteCard>
 
             <EliteCard className="p-8 space-y-6">
-              <h3 className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-2">The ROI Checklist</h3>
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-2">THE ROI CHECKLIST</h3>
               <div className="space-y-4">
-                {[
-                  "Watch the 5-minute briefing",
-                  "Print the Rescue Script",
-                  "Use the 'Pattern Interrupt' on 1 patient today",
-                  "Report your win in The Council"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="mt-1 w-4 h-4 rounded-full border-2 border-brand-orange flex-shrink-0" />
-                    <p className="text-sm font-bold text-brand-navy">{item}</p>
-                  </div>
+                {checklistItems.map((item, i) => (
+                  <button 
+                    key={i} 
+                    onClick={() => toggleItem(i)}
+                    className="flex items-start gap-3 w-full text-left group"
+                  >
+                    <div className={cn(
+                      "mt-1 w-5 h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-all",
+                      completedItems.includes(i) 
+                        ? "bg-brand-orange border-brand-orange text-white" 
+                        : "border-brand-navy/10 group-hover:border-brand-orange/40"
+                    )}>
+                      {completedItems.includes(i) && <CheckCircle2 size={12} />}
+                    </div>
+                    <p className={cn(
+                      "text-sm font-bold transition-colors",
+                      completedItems.includes(i) ? "text-brand-navy/40 line-through" : "text-brand-navy"
+                    )}>
+                      {item}
+                    </p>
+                  </button>
                 ))}
               </div>
             </EliteCard>
@@ -102,8 +136,8 @@ export default function RapidROIPage() {
               After you use this script to save a case, you've essentially gotten the NeuroChiro OS for free this month. Now you can focus on the long-term curriculum with zero pressure.
             </p>
             <Link href="/portal/curriculum">
-              <button className="text-brand-orange font-black text-[10px] uppercase tracking-[0.2em] hover:text-brand-navy transition-colors">
-                Proceed to Phase 01 Curriculum <ArrowRight size={12} className="inline ml-1" />
+              <button className="bg-brand-navy text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brand-orange transition-all shadow-xl">
+                Proceed to Phase 01 Curriculum <ArrowRight size={14} className="inline ml-2" />
               </button>
             </Link>
           </div>
