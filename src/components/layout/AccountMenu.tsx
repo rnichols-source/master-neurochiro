@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { User, Settings, LogOut, ShieldCheck, ChevronDown, Bell, MessageSquare } from "lucide-react";
+import { User, Settings, LogOut, ShieldCheck, ChevronDown, Bell, MessageSquare, Activity } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -52,12 +52,12 @@ export function AccountMenu({ userEmail, userTier }: { userEmail: string, userTi
                   <span className="text-xs font-bold">My Profile</span>
                 </Link>
                 <Link 
-                  href="/portal/kpi" 
+                  href="/portal/engine" 
                   className="flex items-center gap-3 px-4 py-3 text-brand-navy hover:bg-brand-navy/5 rounded-xl transition-colors group"
                   onClick={() => setIsOpen(false)}
                 >
-                  <Settings size={16} className="text-brand-navy/40 group-hover:text-brand-orange transition-colors" />
-                  <span className="text-xs font-bold">Account Settings</span>
+                  <Activity size={16} className="text-brand-navy/40 group-hover:text-brand-orange transition-colors" />
+                  <span className="text-xs font-bold">Practice Engine</span>
                 </Link>
                 {userTier === 'admin' && (
                   <Link 

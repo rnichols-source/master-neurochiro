@@ -10,16 +10,16 @@ import {
   Star,
   Zap,
   ShieldCheck,
-  PieChart
+  PieChart,
+  Activity
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const mobileItems = [
   { name: "Home", href: "/portal", icon: LayoutDashboard },
   { name: "Units", href: "/portal/curriculum", icon: BookOpen },
-  { name: "Engine", href: "/portal/clinical-engine", icon: Zap },
-  { name: "Economics", href: "/portal/economics-engine", icon: PieChart },
-  { name: "KPIs", href: "/portal/kpi", icon: BarChart3 },
+  { name: "The Engine", href: "/portal/engine", icon: Activity },
+  { name: "Clinical", href: "/portal/clinical-engine", icon: Zap },
 ];
 
 export function MobileNav({ userTier = "standard" }: { userTier?: string }) {

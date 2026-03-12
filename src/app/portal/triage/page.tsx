@@ -1,12 +1,12 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { VaultClient } from "./VaultClient";
+import { TriageClient } from "./TriageClient";
 import { createClient } from "@/lib/supabase/server";
 
-export default async function ScriptVaultPage() {
+export default async function TriagePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   
-  let userTier: 'standard' | 'pro' | 'admin' = 'standard';
+  let userTier: 'standard' | 'pro' | 'admin' | 'council' = 'standard';
   
   if (user) {
     const { data: profile } = await supabase
@@ -22,7 +22,7 @@ export default async function ScriptVaultPage() {
 
   return (
     <DashboardLayout>
-      <VaultClient userTier={userTier} />
+      <TriageClient userTier={userTier} />
     </DashboardLayout>
   );
 }

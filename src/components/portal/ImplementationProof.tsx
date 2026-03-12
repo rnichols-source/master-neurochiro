@@ -12,7 +12,9 @@ import {
   AlertCircle,
   FileText,
   Video,
-  X
+  X,
+  Target,
+  Zap
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -46,7 +48,7 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
       setTimeout(() => {
         setIsOpen(false);
         router.refresh();
-      }, 2000);
+      }, 3000);
     } else {
       setStep('upload');
       setError(result.error || "Verification failed");
@@ -98,16 +100,18 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
                 {step === 'upload' && (
                   <div className="space-y-8">
                     <div className="space-y-2">
-                      <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Verification Required</p>
+                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-2">
+                        <Target size={12} />
+                        <p className="text-[10px] font-black uppercase tracking-widest">+100 Mastery Points</p>
+                      </div>
                       <h3 className="text-3xl font-black text-brand-navy tracking-tighter">Submit Proof: Phase 0{phaseId}</h3>
                       <p className="text-brand-gray text-sm font-medium">
-                        To unlock the next phase, you must upload proof of your 1:1 clinical reconstruction. 
-                        This can be a video of your consultation or a copy of your new clinic scripts.
+                        Upload your ROF recording or clinical scripts to earn 100 Mastery Points and unlock the next phase.
                       </p>
                     </div>
 
                     <div 
-                      onClick={() => !fileName && setFileName("clinic_reconstruction_v1.pdf")}
+                      onClick={() => !fileName && setFileName("rof_recording_march.mp4")}
                       className={cn(
                         "border-2 border-dashed rounded-[2rem] p-12 text-center space-y-4 transition-all cursor-pointer group",
                         fileName ? "border-green-500 bg-green-50/50" : "border-brand-navy/10 hover:border-brand-orange/40"
@@ -123,12 +127,12 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
                       {fileName ? (
                         <div>
                           <p className="text-sm font-black text-brand-navy">{fileName}</p>
-                          <p className="text-[10px] font-bold text-green-600 uppercase tracking-widest mt-1">Ready for AI Scan</p>
+                          <p className="text-[10px] font-bold text-green-600 uppercase tracking-widest mt-1">Ready for Neural Analysis</p>
                         </div>
                       ) : (
                         <div>
-                          <p className="text-sm font-black text-brand-navy uppercase tracking-widest">Click to Upload Proof</p>
-                          <p className="text-[10px] font-bold text-brand-navy/40 uppercase tracking-widest mt-1">PDF, MP4, or MOV supported</p>
+                          <p className="text-sm font-black text-brand-navy uppercase tracking-widest">Click to Upload ROF/Scripts</p>
+                          <p className="text-[10px] font-bold text-brand-navy/40 uppercase tracking-widest mt-1">Video, Audio, or PDF</p>
                         </div>
                       )}
                     </div>
@@ -138,7 +142,7 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
                       onClick={simulateVerification}
                       className="w-full py-6 group"
                     >
-                      Run AI Verification <Sparkles className="ml-2 w-4 h-4 group-hover:rotate-12 transition-transform" />
+                      Verify Implementation <Sparkles className="ml-2 w-4 h-4 group-hover:rotate-12 transition-transform" />
                     </BrandButton>
                   </div>
                 )}
@@ -150,16 +154,8 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
                       <Sparkles className="w-10 h-10 text-brand-orange absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                     </div>
                     <div className="space-y-2">
-                      <h3 className="text-2xl font-black text-brand-navy">AI Neural Scan in Progress...</h3>
-                      <p className="text-brand-gray text-sm font-medium animate-pulse">Checking for key Authority markers and script compliance.</p>
-                    </div>
-                    <div className="w-full max-w-xs bg-brand-navy/5 h-1.5 rounded-full overflow-hidden">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: "100%" }}
-                        transition={{ duration: 3 }}
-                        className="h-full bg-brand-orange"
-                      />
+                      <h3 className="text-2xl font-black text-brand-navy">Neural Scan in Progress...</h3>
+                      <p className="text-brand-gray text-sm font-medium animate-pulse">Checking for authority markers and implementation compliance.</p>
                     </div>
                   </div>
                 )}
@@ -169,18 +165,34 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
                     <motion.div 
                       initial={{ scale: 0.5, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="w-24 h-24 rounded-full bg-green-500 flex items-center justify-center text-white shadow-2xl shadow-green-500/20"
+                      className="relative"
                     >
-                      <CheckCircle2 className="w-12 h-12" />
+                      <div className="w-24 h-24 rounded-full bg-green-500 flex items-center justify-center text-white shadow-2xl shadow-green-500/20">
+                        <CheckCircle2 className="w-12 h-12" />
+                      </div>
+                      <motion.div 
+                        initial={{ y: 0, opacity: 1 }}
+                        animate={{ y: -50, opacity: 0 }}
+                        transition={{ duration: 1 }}
+                        className="absolute top-0 left-0 right-0 text-brand-orange font-black text-xl"
+                      >
+                        +100 PTS
+                      </motion.div>
                     </motion.div>
                     <div className="space-y-2">
-                      <h3 className="text-3xl font-black text-brand-navy">Identity Verified.</h3>
-                      <p className="text-green-600 font-bold uppercase tracking-[0.2em] text-xs">Phase 0{phaseId + 1} is now Unlocked</p>
+                      <h3 className="text-3xl font-black text-brand-navy">Implementation Verified!</h3>
+                      <p className="text-green-600 font-bold uppercase tracking-[0.2em] text-xs">Mastery Score Updated</p>
                     </div>
-                    <p className="text-brand-gray text-sm font-medium max-w-xs">
-                      Excellent work, Doctor. Your implementation meets the NeuroChiro standard. 
-                      Proceed to the next phase.
-                    </p>
+                    <div className="p-6 bg-brand-navy text-white rounded-2xl w-full">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-black uppercase text-white/40">New Score</span>
+                        <span className="text-xl font-black text-brand-orange">950 PTS</span>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Zap size={10} className="text-brand-orange fill-brand-orange" />
+                        <p className="text-[8px] font-black uppercase tracking-widest text-white/60">Community Status: Active Member</p>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>

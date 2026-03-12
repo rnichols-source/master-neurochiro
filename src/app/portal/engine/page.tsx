@@ -12,12 +12,24 @@ export default async function EnginePage() {
     redirect("/login");
   }
 
+  let userTier = "standard";
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('tier')
+    .eq('id', user.id)
+    .single();
+  if (profile) userTier = profile.tier;
+
   const kpiResult = await fetchKPIEntries();
   const initialData = kpiResult.success ? (kpiResult.data || []) : [];
 
   return (
     <DashboardLayout>
-      <EngineClient initialData={initialData} userName={user.user_metadata?.full_name || "Doctor"} />
+      <EngineClient 
+        initialData={initialData} 
+        userName={user.user_metadata?.full_name || "Doctor"} 
+        userTier={userTier}
+      />
     </DashboardLayout>
   );
 }

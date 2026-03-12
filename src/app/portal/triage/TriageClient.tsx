@@ -25,7 +25,8 @@ import {
   Video,
   ChevronRight,
   Star,
-  X
+  X,
+  Activity
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchVaultResources, toggleBookmark, incrementDownload } from "@/app/actions/vault-actions";
@@ -46,7 +47,7 @@ const categories = [
   { id: 'masterclass', name: 'Masterclass Archive', icon: Video },
 ];
 
-export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admin' | 'council' }) {
+export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'admin' | 'council' }) {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('category') || 'all';
   const [loading, setLoading] = useState(true);
@@ -160,12 +161,12 @@ export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admi
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
         <div className="space-y-2">
           <div className="flex items-center gap-3 text-brand-orange">
-            <ShieldCheck className="w-5 h-5" />
-            <p className="font-black uppercase tracking-[0.4em] text-[10px]">Private Intelligence Library</p>
+            <Activity className="w-5 h-5" />
+            <p className="font-black uppercase tracking-[0.4em] text-[10px]">The Triage Center</p>
           </div>
-          <h1 className="text-5xl font-black text-brand-navy tracking-tighter leading-none">The NeuroChiro Vault</h1>
+          <h1 className="text-5xl font-black text-brand-navy tracking-tighter leading-none">Emergency Resources</h1>
           <p className="text-brand-gray font-medium max-w-xl">
-            Access the complete NeuroChiro operating system. From high-authority clinical communication to advanced practice growth frameworks.
+            Don't search. Solve. Click the button that matches your current practice pain point.
           </p>
         </div>
 
@@ -173,7 +174,7 @@ export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admi
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-navy/20 group-focus-within:text-brand-orange transition-colors" />
           <input 
             type="text"
-            placeholder="Search the intelligence library..."
+            placeholder="Search for a specific solution..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-white border border-brand-navy/5 rounded-2xl py-4 pl-12 pr-6 text-sm font-bold text-brand-navy focus:outline-none focus:border-brand-orange/40 transition-all shadow-sm"
@@ -181,23 +182,74 @@ export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admi
         </div>
       </div>
 
-      {/* Category Navigation */}
-      <div className="flex overflow-x-auto no-scrollbar gap-3 pb-4 -mx-2 px-2 snap-x">
-        {categories.map((cat) => (
+      {/* Triage Pain Points */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { 
+            label: "I have a ROF tomorrow and I'm nervous.", 
+            category: 'rof',
+            color: 'bg-brand-orange',
+            icon: Target 
+          },
+          { 
+            label: "A long-term patient just quit.", 
+            category: 'marketing',
+            color: 'bg-brand-navy',
+            icon: Users 
+          },
+          { 
+            label: "My team is underperforming.", 
+            category: 'staff',
+            color: 'bg-red-600',
+            icon: GraduationCap 
+          }
+        ].map((triage) => (
           <button
-            key={cat.id}
-            onClick={() => setActiveCategory(cat.id)}
+            key={triage.label}
+            onClick={() => setActiveCategory(triage.category)}
             className={cn(
-              "px-6 py-4 rounded-2xl flex items-center gap-3 transition-all font-black uppercase tracking-widest text-[9px] whitespace-nowrap snap-start border",
-              activeCategory === cat.id 
-                ? "bg-brand-navy text-white border-brand-navy shadow-xl shadow-brand-navy/20" 
-                : "bg-white text-brand-navy/40 border-brand-navy/5 hover:border-brand-orange/20"
+              "p-8 rounded-[2rem] text-left transition-all hover:scale-[1.02] hover:shadow-2xl relative overflow-hidden group border bg-white",
+              activeCategory === triage.category 
+                ? "border-brand-orange ring-2 ring-brand-orange/20" 
+                : "border-brand-navy/5"
             )}
           >
-            <cat.icon className={cn("w-4 h-4", activeCategory === cat.id ? "text-brand-orange" : "text-brand-navy/20")} />
-            {cat.name}
+            <div className={cn("absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity", triage.color === 'bg-brand-orange' ? 'text-white' : 'text-brand-orange')}>
+              <triage.icon size={80} />
+            </div>
+            <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center mb-6 shadow-lg", triage.color, "text-white")}>
+              <triage.icon size={20} />
+            </div>
+            <h3 className="text-xl font-black text-brand-navy leading-tight pr-10">
+              "{triage.label}"
+            </h3>
+            <div className="mt-6 flex items-center gap-2 text-brand-orange font-black uppercase tracking-widest text-[9px]">
+              Access Solutions <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+            </div>
           </button>
         ))}
+      </div>
+
+      {/* Category Navigation */}
+      <div className="pt-10 border-t border-brand-navy/5">
+        <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-6">Or browse by category</p>
+        <div className="flex overflow-x-auto no-scrollbar gap-3 pb-4 -mx-2 px-2 snap-x">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={cn(
+                "px-6 py-4 rounded-2xl flex items-center gap-3 transition-all font-black uppercase tracking-widest text-[9px] whitespace-nowrap snap-start border",
+                activeCategory === cat.id 
+                  ? "bg-brand-navy text-white border-brand-navy shadow-xl shadow-brand-navy/20" 
+                  : "bg-white text-brand-navy/40 border-brand-navy/5 hover:border-brand-orange/20"
+              )}
+            >
+              <cat.icon className={cn("w-4 h-4", activeCategory === cat.id ? "text-brand-orange" : "text-brand-navy/20")} />
+              {cat.name}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Resource Grid */}
