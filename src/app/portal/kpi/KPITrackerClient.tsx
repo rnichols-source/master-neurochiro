@@ -74,10 +74,10 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-4">
         <div>
           <p className="text-brand-orange font-black uppercase tracking-[0.2em] text-[10px] md:text-xs mb-2">
-            Performance Intelligence
+            Office Stats
           </p>
           <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">
-            Clinical KPI Dashboard
+            Practice Dashboard
           </h1>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
@@ -102,7 +102,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
               onClick={() => setActiveMetric("patient_visits")}
               className={`text-left transition-all ${activeMetric === "patient_visits" ? "opacity-100" : "opacity-40 hover:opacity-60"}`}
             >
-              <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Visit Volume</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Total Visits</p>
               <h4 className="text-xl md:text-2xl font-black text-brand-navy">
                 {latestStats.patient_visits} 
                 <span className={`text-[10px] md:text-xs font-bold ml-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
@@ -223,12 +223,12 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
 
       {/* Wins & Bottlenecks */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-4">
-        <EliteCard title="Identity Expansion" subtitle="Recent Wins" className="bg-green-50/50 border-green-100 p-6 md:p-8">
+        <EliteCard title="Your Wins" subtitle="Recent Wins" className="bg-green-50/50 border-green-100 p-6 md:p-8">
           <div className="mt-2 text-sm font-medium text-brand-navy whitespace-pre-wrap leading-relaxed">
             {latestStats.wins || "No wins recorded for this period."}
           </div>
         </EliteCard>
-        <EliteCard title="Bottlenecks" subtitle="Focus Area" className="bg-orange-50/50 border-orange-100 p-6 md:p-8">
+        <EliteCard title="Stuck Points" subtitle="Focus Area" className="bg-orange-50/50 border-orange-100 p-6 md:p-8">
           <div className="mt-2 text-sm font-medium text-brand-navy whitespace-pre-wrap leading-relaxed">
             {latestStats.bottlenecks || "No bottlenecks recorded for this period."}
           </div>

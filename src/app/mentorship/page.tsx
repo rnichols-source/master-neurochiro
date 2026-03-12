@@ -18,39 +18,39 @@ import Link from "next/link";
 import StructuredData from "@/components/layout/StructuredData";
 
 export const metadata = {
-  title: "Private Mentorship | The Architecture Room with Dr. Raymond Nichols",
-  description: "Elite 1-on-1 practice architecture for high-performance chiropractors. Master clinical authority, structural certainty, and predictable practice velocity.",
+  title: "Private 1-on-1 Help | The Architecture Room with Dr. Raymond Nichols",
+  description: "Direct 1-on-1 help for your practice. Master leadership, certainty in your plan, and steady growth.",
 };
 
 export default function MentorshipLandingPage() {
   const transformation = [
-    { from: "Reactive Doctor", to: "Practice Architect", icon: Brain },
-    { from: "Soft Pricing", to: "Structural Certainty", icon: ShieldCheck },
-    { from: "Retention Drift", to: "Predictable Velocity", icon: TrendingUp },
-    { from: "Motivation-Based", to: "System-Driven", icon: Cpu }
+    { from: "Reactive Doctor", to: "Practice Leader", icon: Brain },
+    { from: "Soft Pricing", to: "Certainty in Your Plan", icon: ShieldCheck },
+    { from: "Retention Drift", to: "Steady Growth", icon: TrendingUp },
+    { from: "Motivation-Based", to: "Easy Systems", icon: Cpu }
   ];
 
   const options = [
     {
       title: "90-Day Overhaul",
-      subtitle: "The OS Installation",
+      subtitle: "The Basic Systems",
       price: "$7,500",
-      focus: "Clinical Communication & ROF Architecture",
-      features: ["2 Private Calls / Mo", "Initial Clinic Audit", "ROF Communication Audit", "Voice Memo Support (M-Th)"]
+      focus: "Communication & The Report of Findings Process",
+      features: ["2 Private Calls / Mo", "Initial Clinic Audit", "Communication Audit", "Voice Memo Support (M-Th)"]
     },
     {
       title: "6-Month Scale",
-      subtitle: "Operational Depth",
+      subtitle: "Building Your Team",
       price: "$14,000",
-      focus: "Team Growth & Systems Automation",
-      features: ["2 Private Calls / Mo", "Quarterly System Audits", "Team Training SOPs", "Priority Voice Support"]
+      focus: "Team Growth & Automatic Systems",
+      features: ["2 Private Calls / Mo", "Quarterly System Audits", "Team Training Guides", "Priority Voice Support"]
     },
     {
       title: "12-Month Executive",
-      subtitle: "Legacy & Vision",
+      subtitle: "Long-term Vision",
       price: "Invite Only",
-      focus: "Multi-Clinic Expansion & Board-Level Strategy",
-      features: ["Board-Level Strategy", "2 Private Intensives", "Legacy Vision Mapping", "Private Red-Phone Access"]
+      focus: "Opening More Offices & High-level Strategy",
+      features: ["High-level Strategy", "2 Private Intensives", "Vision Mapping", "Private Red-Phone Access"]
     }
   ];
 
@@ -58,7 +58,7 @@ export default function MentorshipLandingPage() {
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "NeuroChiro Private Mentorship",
-    "description": "Executive 1-on-1 coaching for chiropractors by Dr. Raymond Nichols.",
+    "description": "Private 1-on-1 help for your practice by Dr. Raymond Nichols.",
     "provider": {
       "@type": "Person",
       "name": "Dr. Raymond Nichols"
@@ -86,7 +86,7 @@ export default function MentorshipLandingPage() {
             <span className="text-brand-orange">Start Operating.</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/60 font-medium max-w-2xl mx-auto">
-            Executive 1-on-1 Practice Architecture for the Elite DC who refuses to live in the "Self-Employed Trap."
+            Direct 1-on-1 help for your practice for the Elite DC who refuses to live in the "Self-Employed Trap."
           </p>
           <div className="pt-8">
             <Link href="/apply/mentorship">
@@ -134,15 +134,15 @@ export default function MentorshipLandingPage() {
               </p>
               <div className="p-8 bg-brand-navy rounded-[2rem] text-white space-y-6">
                  <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white/40">The Conversion Lift</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Better Acceptance</span>
                     <span className="text-2xl font-black text-brand-orange">+25% Acceptance</span>
                  </div>
                  <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white/40">The Retention Lift</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Patients Staying Longer</span>
                     <span className="text-2xl font-black text-brand-orange">+15 PVA</span>
                  </div>
                  <div className="flex justify-between items-end">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Estimated Revenue Impact</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Extra Money Each Year</span>
                     <span className="text-2xl font-black text-green-400">+$120k / Year</span>
                  </div>
               </div>
@@ -176,18 +176,18 @@ export default function MentorshipLandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
             <div className="space-y-4">
               <Microscope className="w-8 h-8 text-brand-orange mx-auto" />
-              <h4 className="text-xl font-black text-brand-navy uppercase">Diagnostic</h4>
-              <p className="text-xs text-brand-gray font-medium leading-relaxed">Deep-dive into your current KPIs and communication film to find the specific leaks.</p>
+              <h4 className="text-xl font-black text-brand-navy uppercase">Clinic Audit</h4>
+              <p className="text-xs text-brand-gray font-medium leading-relaxed">Checking your current numbers and communication to find the specific leaks.</p>
             </div>
             <div className="space-y-4">
               <Focus className="w-8 h-8 text-brand-orange mx-auto" />
-              <h4 className="text-xl font-black text-brand-navy uppercase">Correction</h4>
-              <p className="text-xs text-brand-gray font-medium leading-relaxed">Real-time re-architecture of your ROF, pricing, and operational SOPs.</p>
+              <h4 className="text-xl font-black text-brand-navy uppercase">The Fix</h4>
+              <p className="text-xs text-brand-gray font-medium leading-relaxed">Fixing your Report of Findings, your prices, and your daily procedures.</p>
             </div>
             <div className="space-y-4">
               <Target className="w-8 h-8 text-brand-orange mx-auto" />
-              <h4 className="text-xl font-black text-brand-navy uppercase">Velocity</h4>
-              <p className="text-xs text-brand-gray font-medium leading-relaxed">Systematizing your clinic so results are predictable and growth is inevitable.</p>
+              <h4 className="text-xl font-black text-brand-navy uppercase">Steady Growth</h4>
+              <p className="text-xs text-brand-gray font-medium leading-relaxed">Setting up systems so your results stay steady and growth is easy.</p>
             </div>
           </div>
         </div>
