@@ -9,9 +9,9 @@ import { PracticeROISimulator } from "@/components/marketing/roi-simulator";
 import { ClinicOSPreview } from "@/components/marketing/clinic-os-preview";
 import { CaseStudyFilter } from "@/components/marketing/case-study-filter";
 import { FounderAuthorityCard } from "@/components/marketing/founder-card";
+import { SEOFooter } from "@/components/layout/seo-footer";
 import { 
   ArrowRight, 
-  Play, 
   Brain, 
   Zap, 
   Target, 
@@ -22,9 +22,65 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import StructuredData from "@/components/layout/StructuredData";
 
 export default function MastermindLandingPage() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NeuroChiro Mastermind",
+    "url": "https://neurochiromastermind.com",
+    "logo": "https://neurochiromastermind.com/logo-dark.png",
+    "description": "The elite 8-week chiropractic mastermind and coaching program. Master patient communication, clinical certainty, and practice growth.",
+    "founder": {
+      "@type": "Person",
+      "name": "Dr. Raymond Nichols",
+      "jobTitle": "Chiropractor and Founder"
+    }
+  };
+
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Dr. Raymond Nichols",
+    "url": "https://neurochiromastermind.com",
+    "jobTitle": "Chiropractor and Founder of NeuroChiro",
+    "alumniOf": "Chiropractic College",
+    "description": "Dr. Raymond Nichols is a leading chiropractor and educator dedicated to helping doctors master clinical certainty and patient communication."
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the NeuroChiro Mastermind?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The NeuroChiro Mastermind is an elite 8-week coaching program designed for chiropractors and students to master patient communication, clinical certainty, and practice systems."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long is the program?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The program is structured over 8 intensive weeks of curriculum, coaching, and implementation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it suitable for chiropractic students?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we have a dedicated path for chiropractic students to build their clinical authority before they even graduate."
+        }
+      }
+    ]
+  };
 
   const mechanisms = [
     { id: "os", systemID: "NC-01", title: "The Clinical OS", desc: "An engineered framework that aligns your neurological results with your revenue velocity.", icon: Brain },
@@ -35,24 +91,9 @@ export default function MastermindLandingPage() {
 
   return (
     <div className="min-h-screen bg-brand-cream selection:bg-brand-orange selection:text-white pb-20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "NeuroChiro",
-            "url": "https://neurochiromastermind.com",
-            "logo": "https://neurochiromastermind.com/logo-dark.png",
-            "description": "The elite 8-week chiropractic mastermind and coaching program.",
-            "founder": {
-              "@type": "Person",
-              "name": "Dr. Raymond Nichols",
-              "jobTitle": "Chiropractor and Founder"
-            }
-          })
-        }}
-      />
+      <StructuredData data={organizationSchema} />
+      <StructuredData data={personSchema} />
+      <StructuredData data={faqSchema} />
       <MastermindHeader />
       <VideoModal isOpen={isVideoModalOpen} onClose={() => setIsVideoModalOpen(false)} />
 
@@ -67,6 +108,7 @@ export default function MastermindLandingPage() {
               </div>
               <div className="space-y-4">
                 <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] text-brand-navy font-black tracking-tight leading-[0.95]">
+                  <span className="sr-only">Elite Chiropractic Coaching & Mastermind: </span>
                   Stop Guessing. <br />
                   <span className="text-brand-orange">Own Your Authority.</span>
                 </h1>
@@ -205,6 +247,8 @@ export default function MastermindLandingPage() {
           <ValueStack />
         </div>
       </section>
+
+      <SEOFooter />
     </div>
   );
 }

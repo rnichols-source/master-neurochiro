@@ -40,6 +40,7 @@ export function MastermindHeader() {
                 alt="NeuroChiro Logo" 
                 fill 
                 className="object-contain group-hover:scale-110 transition-transform" 
+                priority
              />
           </div>
           <div>
