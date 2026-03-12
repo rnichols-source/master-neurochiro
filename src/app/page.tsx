@@ -35,6 +35,24 @@ export default function MastermindLandingPage() {
 
   return (
     <div className="min-h-screen bg-brand-cream selection:bg-brand-orange selection:text-white pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "NeuroChiro",
+            "url": "https://neurochiromastermind.com",
+            "logo": "https://neurochiromastermind.com/logo-dark.png",
+            "description": "The elite 8-week chiropractic mastermind and coaching program.",
+            "founder": {
+              "@type": "Person",
+              "name": "Dr. Raymond Nichols",
+              "jobTitle": "Chiropractor and Founder"
+            }
+          })
+        }}
+      />
       <MastermindHeader />
       <VideoModal isOpen={isVideoModalOpen} onClose={() => setIsVideoModalOpen(false)} />
 
@@ -57,7 +75,7 @@ export default function MastermindLandingPage() {
               
               <div className="space-y-6 max-w-2xl mx-auto lg:mx-0">
                 <p className="text-xl md:text-2xl text-brand-navy font-bold leading-tight">
-                  Built by Dr. Raymond Nichols to help chiropractors and students develop the clinical certainty and communication architecture modern chiropractic requires.
+                  The elite 8-week chiropractic mastermind built by Dr. Raymond Nichols to help doctors and students develop the clinical certainty and communication architecture modern practice requires.
                 </p>
                 <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
                   The awkwardness of recommending care is a symptom of a missing OS. We give you the clinical certainty to lead your patients—without the sales pitch or the burnout.

@@ -18,17 +18,22 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Master NeuroChiro Mastermind",
-  description: "The elite growth ecosystem for Nervous-System-First Chiropractors.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://neurochiromastermind.com"),
+  title: {
+    default: "NeuroChiro | The Elite Chiropractic Mastermind & Coaching",
+    template: "%s | NeuroChiro Mastermind",
+  },
+  description: "The elite 8-week chiropractic mastermind and coaching program. Master patient communication, clinical certainty, and practice growth.",
   manifest: "/manifest.json",
   icons: {
     icon: "/logo-dark.png",
     apple: "/logo-dark.png",
   },
   openGraph: {
-    title: "Master NeuroChiro Mastermind",
-    description: "The elite growth ecosystem for Nervous-System-First Chiropractors.",
+    title: "NeuroChiro | The Elite Chiropractic Mastermind & Coaching",
+    description: "The elite 8-week chiropractic mastermind and coaching program. Master patient communication, clinical certainty, and practice growth.",
     images: ["/logo-dark.png"],
+    type: "website",
   }
 };
 
