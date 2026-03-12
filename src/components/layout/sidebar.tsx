@@ -25,12 +25,11 @@ import { PushNotificationManager } from "@/components/portal/push-manager";
 const navItems = [
   { name: "Dashboard", href: "/portal", icon: LayoutDashboard },
   { name: "Curriculum", href: "/portal/curriculum", icon: BookOpen },
-  { name: "Vault", href: "/portal/vault", icon: ShieldCheck },
+  { name: "The Vault", href: "/portal/vault", icon: ShieldCheck },
+  { name: "The Engine", href: "/portal/engine", icon: Activity },
   { name: "Clinical Engine", href: "/portal/clinical-engine", icon: Zap },
-  { name: "KPI Tracker", href: "/portal/kpi", icon: BarChart3 },
-  { name: "Practice Money", href: "/portal/economics-engine", icon: TrendingUp },
   { name: "Playbooks", href: "/portal/playbooks", icon: FileText },
-  { name: "Case Lab", href: "/portal/case-lab", icon: Activity },
+  { name: "Case Lab", href: "/portal/case-lab", icon: MessageSquare },
 ];
 
 export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
@@ -69,25 +68,6 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
             </Link>
           );
         })}
-
-        {/* Pro Section */}
-        <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
-          <p className="px-2 pb-2 text-[10px] font-bold text-white/40 uppercase tracking-widest flex items-center justify-between">
-            Pro Mastery
-            {!isPro && <Lock className="w-2.5 h-2.5 opacity-40" />}
-          </p>
-          <Link
-            href="/portal/pro/forecaster"
-            className={cn(
-              "group flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-all relative",
-              pathname === "/portal/pro/forecaster" ? "bg-white/10 text-brand-orange" : "text-white/70 hover:bg-white/5 hover:text-white"
-            )}
-          >
-            <TrendingUp className={cn("w-4 h-4", pathname === "/portal/pro/forecaster" ? "text-brand-orange" : "text-white/50 group-hover:text-white")} />
-            Revenue Forecaster
-            {!isPro && <Lock className="w-3 h-3 ml-auto text-white/20" />}
-          </Link>
-        </div>
 
         {/* The Council Section */}
         <div className="pt-4 mt-4 border-t border-white/5 space-y-1">

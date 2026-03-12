@@ -5,7 +5,7 @@ import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { TrendingUp, Zap, ArrowRight, DollarSign } from "lucide-react";
 import { motion } from "framer-motion";
 
-export function RevenueVelocity() {
+export function PracticeGrowthSimulator() {
   const [inputs, setFormData] = useState({
     monthlyCollections: 45000,
     conversionRate: 65,

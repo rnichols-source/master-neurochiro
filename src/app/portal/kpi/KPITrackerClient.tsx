@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
-import { RevenueVelocity } from "@/components/portal/RevenueVelocity";
 import { KPIEntryModal } from "@/components/portal/KPIEntryModal";
-import { FocusEngine } from "@/components/portal/focus-engine";
 import { fetchKPIEntries } from "@/app/actions/kpi-actions";
 import { 
   XAxis, 
@@ -64,12 +62,6 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
 
   return (
     <div className="space-y-8 md:space-y-12 pb-20 md:pb-0">
-      {/* Active Intelligence */}
-      <FocusEngine data={kpiData} userName={userName} />
-
-      {/* Revenue Velocity Engine */}
-      <RevenueVelocity />
-
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-4">
         <div>
