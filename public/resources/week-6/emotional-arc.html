@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro Resource 15: The Emotional Arc</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.4; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.5in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 12px; }
+        .logo-subtext { color: var(--orange); font-size: 8px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { background: var(--navy); color: var(--white); padding: 4px 12px; font-size: 8px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.25rem; }
+        .subtitle { font-size: 12px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; }
+
+        .cycle-visual { display: flex; justify-content: space-between; align-items: center; margin: 3rem 0; position: relative; padding: 0 2rem; }
+        .cycle-step { flex: 1; text-align: center; position: relative; z-index: 2; }
+        .cycle-dot { width: 40px; height: 40px; background: var(--navy); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; margin: 0 auto 1rem; border: 4px solid var(--white); box-shadow: 0 0 0 2px var(--navy); }
+        .cycle-dot.active { background: var(--orange); box-shadow: 0 0 0 2px var(--orange); }
+        .cycle-label { font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--navy); letter-spacing: 0.1em; }
+        .cycle-line { position: absolute; top: 20px; left: 4rem; right: 4rem; height: 2px; background: var(--navy); opacity: 0.1; z-index: 1; }
+
+        .dashboard-grid { display: grid; grid-template-cols: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+        .dashboard-col { background: var(--cream); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(0,0,0,0.05); }
+        .col-header { font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--orange); letter-spacing: 0.2em; margin-bottom: 1rem; display: block; }
+        
+        .phase-block { margin-bottom: 1.5rem; }
+        .phase-title { font-size: 14px; font-weight: 900; text-transform: uppercase; color: var(--navy); display: block; margin-bottom: 4px; }
+        .phase-desc { font-size: 11px; color: var(--gray); display: block; line-height: 1.4; }
+
+        .mantra-bar { background: var(--navy); color: var(--white); padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; }
+        .mantra-txt { font-size: 16px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; }
+        .mantra-sub { font-size: 10px; color: var(--orange); font-weight: 700; text-transform: uppercase; display: block; margin-top: 4px; }
+
+        .reflection-box { background: var(--cream); padding: 2rem; border-radius: 16px; margin-bottom: 2rem; border-left: 4px solid var(--orange); }
+        .reflection-title { color: var(--navy); font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; margin-bottom: 1rem; display: block; }
+        .reflection-q { font-size: 12px; color: var(--gray); font-style: italic; line-height: 1.6; }
+
+        .footer { position: absolute; bottom: 0.4in; left: 0.5in; right: 0.5in; display: flex; justify-content: space-between; align-items: center; font-size: 8px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">Quick Reference</div>
+        </div>
+
+        <header>
+            <h1>The Emotional Arc:<br>Certainty Engineering</h1>
+            <div class="subtitle">Understanding Behavior Patterns So You Stop Reacting</div>
+        </header>
+
+        <section class="cycle-visual">
+            <div class="cycle-line"></div>
+            <div class="cycle-step">
+                <div class="cycle-dot">1</div>
+                <span class="cycle-label">Hope</span>
+            </div>
+            <div class="cycle-step">
+                <div class="cycle-dot">2</div>
+                <span class="cycle-label">Relief</span>
+            </div>
+            <div class="cycle-step">
+                <div class="cycle-dot active">3</div>
+                <span class="cycle-label">Doubt</span>
+            </div>
+            <div class="cycle-step">
+                <div class="cycle-dot">4</div>
+                <span class="cycle-label">Testing</span>
+            </div>
+            <div class="cycle-step">
+                <div class="cycle-dot">5</div>
+                <span class="cycle-label">Commit</span>
+            </div>
+        </section>
+
+        <section class="dashboard-grid">
+            <div class="dashboard-col">
+                <span class="col-header">Phase Analysis</span>
+                <div class="phase-block">
+                    <span class="phase-title">Hope (Day 1-14)</span>
+                    <span class="phase-desc">High excitement and motivation. Danger: Over-promising or creating unrealistic expectations.</span>
+                </div>
+                <div class="phase-block">
+                    <span class="phase-title">Relief (Week 3-6)</span>
+                    <span class="phase-desc">Symptoms drop. "This is magic." Risk: Patient assumes they are fixed and drifts early.</span>
+                </div>
+                <div class="phase-block">
+                    <span class="phase-title">Doubt (Week 6-10)</span>
+                    <span class="phase-desc">The plateau. "Do I still need this?" This is where certainty resets are mandatory.</span>
+                </div>
+            </div>
+            <div class="dashboard-col">
+                <span class="col-header">The Crisis Point</span>
+                <div class="phase-block">
+                    <span class="phase-title">Testing (Ongoing)</span>
+                    <span class="phase-desc">Stretching visits to see if structure holds. Testing is evaluation, not rejection.</span>
+                </div>
+                <div class="phase-block">
+                    <span class="phase-title">Recommitment</span>
+                    <span class="phase-desc">If the doctor holds structure during testing, the patient recommits to the long-term plan.</span>
+                </div>
+                <div class="phase-block">
+                    <span class="phase-title">Drift</span>
+                    <span class="phase-desc">If the doctor panics or softens during testing, the patient drifts out of care quietly.</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="mantra-bar">
+            <div class="mantra-txt">Predictability Calms Nervous Systems.</div>
+            <span class="mantra-sub">Stable Chiropractor = Stable Clinic</span>
+        </div>
+
+        <section class="reflection-box">
+            <span class="reflection-title">The Internal Audit</span>
+            <p class="reflection-q">"When a patient starts doubting care, what happens inside you? Do you tighten up? Do you start explaining more? Or do you recognize the phase and hold the system steady?"</p>
+        </section>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Resource 15: The Emotional Arc</span>
+            <span>Population Behavior</span>
+        </div>
+    </div>
+</body>
+</html>
