@@ -111,6 +111,36 @@ export async function fetchVaultResources(category?: string, query?: string) {
         content: 'Premium Branded HTML Asset'
       },
       {
+        id: 'premium-objection-1',
+        title: 'The "Think About It" Terminator: The End of Indecision',
+        description: 'Elite protocol to eliminate the uncertainty loop and secure clinical commitment without being defensive.',
+        category: 'objections',
+        resource_type: 'pdf',
+        url: '/resources/week-6/objection-think-about-it.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-objection-2',
+        title: 'The Insurance Immunity Protocol: Value over Coverage',
+        description: 'Advanced framework for transitioning patients from financial permission to clinical necessity.',
+        category: 'objections',
+        resource_type: 'pdf',
+        url: '/resources/week-6/objection-insurance-immunity.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-objection-3',
+        title: 'The Decision Shield: Neutralizing Interference',
+        description: 'Protect the patient’s commitment from the doubts of spouses, medical doctors, and Google.',
+        category: 'objections',
+        resource_type: 'pdf',
+        url: '/resources/week-6/objection-decision-shield.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
         id: 'premium-marketing-1',
         title: 'The Behavior Blueprint: Mastering Human Drift',
         description: 'Understand why long-term patients drift and how to build a firewall against it.',

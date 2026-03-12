@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroChiro Resource: The Decision Shield</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1A232E;
+            --orange: #FF6600;
+            --cream: #F9F7F2;
+            --gray: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+
+        .page {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.75in;
+            margin: 2rem auto;
+            background: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--navy); }
+        
+        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
+        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
+        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+
+        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
+
+        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
+
+        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
+        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+
+        .doctrine-card { background: var(--navy); color: var(--white); padding: 2.5rem; border-radius: 16px; margin: 2rem 0; position: relative; }
+        .doctrine-card h3 { color: var(--orange); font-size: 16px; margin-bottom: 1rem; }
+        .doctrine-card p { color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.7; margin-bottom: 0; }
+
+        .shield-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--navy); margin-bottom: 1rem; }
+        .shield-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
+        .shield-desc { font-size: 11px; color: var(--gray); }
+
+        .callout-box { border-left: 4px solid var(--navy); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
+        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+
+        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-stripe"></div>
+        
+        <div class="logo-area">
+            <div>
+                <span class="logo-text">NeuroChiro</span>
+                <span class="logo-subtext">MASTERMIND</span>
+            </div>
+            <div class="type-tag">The Protocol</div>
+        </div>
+
+        <header>
+            <h1>The Decision Shield:<br>Neutralizing Interference</h1>
+            <div class="subtitle">Protecting the Patient from the Doubts of Spouses, Doctors, and Google</div>
+        </header>
+
+        <div class="section-header">01 / The Fragility of Commitment</div>
+        <div class="grid-2">
+            <div>
+                <p>A patient's commitment is never more fragile than the moment they walk out of your office after committing to a care plan. Their nervous system has found clarity, but the world they are returning to is filled with <strong>interference.</strong></p>
+                <p>Interference comes from three primary sources: the uninformed spouse, the skeptical medical doctor, and the algorithmic noise of the internet. If you don't shield the decision, it will be dismantled within 24 hours.</p>
+            </div>
+            <div>
+                <div class="shield-box">
+                    <span class="shield-title">The Spouse Shield</span>
+                    <span class="shield-desc">Equip the patient with the clinical findings so they can lead the conversation at home, rather than asking for permission.</span>
+                </div>
+                <div class="shield-box">
+                    <span class="shield-title">The MD Firewall</span>
+                    <span class="shield-desc">Establish that your objective (Function) is different from the MD's objective (Symptoms), removing the basis for comparison.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">02 / Engineering the Shield</div>
+        <div class="grid-2">
+            <div>
+                <h3>Anticipatory Leadership</h3>
+                <p>Bring up the interference before they do. "When you go home and tell your husband about this, he’s going to ask why you can't just get a massage or take a pill. Here is why..."</p>
+            </div>
+            <div>
+                <h3>The Authority Gap</h3>
+                <p>Remind the patient that they are the only person who has seen their scans and understands their clinical need. Anyone else's opinion is based on incomplete data.</p>
+            </div>
+        </div>
+
+        <div class="doctrine-card">
+            <h3>The Shielding Doctrine</h3>
+            <p>Your job is to protect the patient's potential. If you allow a third party who has never met the patient to talk them out of the care they need, you have failed as a clinical leader. Pulling from the greats like CJ Mertz, we know that the "Spouse Objection" is usually a "Certainty Objection" in disguise. Build the shield of certainty, and no outside interference can break the commitment.</p>
+        </div>
+
+        <div class="callout-box">
+            <p class="callout-text">"You are not just adjusting a spine; you are defending a life. Don't let someone else's ignorance determine your patient's future."</p>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 NeuroChiro Mastermind</span>
+            <span>Decision Shield Protocol</span>
+            <span>Privileged & Confidential</span>
+        </div>
+    </div>
+</body>
+</html>
