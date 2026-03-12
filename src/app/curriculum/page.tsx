@@ -71,11 +71,11 @@ const weeks = [
   },
   {
     number: 7,
-    title: "Patient Behavior & Population Thinking",
-    why: "Life interferes with routines. You need a system that absorbs variability.",
-    change: "Shift from emotional reactivity to structural management and containment.",
-    skills: ["Population Thinking", "The Containment Protocol", "Identity Detachment"],
-    mistakes: ["Taking missed visits personally", "Reacting to symptoms", "Chasing motivation"],
+    title: "Understanding Your Patients",
+    why: "Every patient is different. You need to read them.",
+    change: "How to handle different personalities and emotional states.",
+    skills: ["Reading People", "Stress & Trauma Talk", "Building Trust"],
+    mistakes: ["One-size-fits-all", "Ignoring the person"],
     icon: Brain
   },
   {
