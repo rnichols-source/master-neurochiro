@@ -81,6 +81,36 @@ export async function fetchVaultResources(category?: string, query?: string) {
         content: 'Premium Branded HTML Asset'
       },
       {
+        id: 'premium-care-1',
+        title: 'The Masterplan: Architecture of Pattern Reorganization',
+        description: 'Deep-dive clinical logic for frequency and duration, pulling from BJ Palmer, Gonstead, and modern neurological research.',
+        category: 'care_plan',
+        resource_type: 'pdf',
+        url: '/resources/week-6/masterplan-architecture.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-care-2',
+        title: 'The Value Anchor: Engineering High-Ticket Certainty',
+        description: 'Master the economics of value and the presentation architecture required for $5k+ care plans.',
+        category: 'care_plan',
+        resource_type: 'pdf',
+        url: '/resources/week-6/value-anchor-engineering.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-care-3',
+        title: 'The Retention Architect: Transitioning to Lifetime Care',
+        description: 'The blueprint for preventing the "I am better now" exit point and building the bridge to lifetime wellness.',
+        category: 'care_plan',
+        resource_type: 'pdf',
+        url: '/resources/week-6/retention-architect.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
         id: 'premium-marketing-1',
         title: 'The Behavior Blueprint: Mastering Human Drift',
         description: 'Understand why long-term patients drift and how to build a firewall against it.',
