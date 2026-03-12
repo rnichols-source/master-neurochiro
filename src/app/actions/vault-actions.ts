@@ -11,6 +11,36 @@ export async function fetchVaultResources(category?: string, query?: string) {
     // Define Premium Branded Assets
     const premiumAssets = [
       {
+        id: 'premium-comm-1',
+        title: 'The Authority Consultation: The First 2 Minutes',
+        description: 'Elite framing protocol to establish clinical leadership and eliminate neediness before the exam begins.',
+        category: 'communication',
+        resource_type: 'pdf',
+        url: '/resources/week-6/authority-consultation.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-comm-2',
+        title: 'The Certainty Framework: Neutralizing Hesitation',
+        description: 'Advanced communication framework for transitioning from clinical findings to financial commitment with elite posture.',
+        category: 'communication',
+        resource_type: 'pdf',
+        url: '/resources/week-6/certainty-framework.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
+        id: 'premium-comm-3',
+        title: 'The Restraint Manual: The Architecture of Tone',
+        description: 'Mastering the psychology of silence and the power of minimal language to stabilize the room during high-ticket reports.',
+        category: 'communication',
+        resource_type: 'pdf',
+        url: '/resources/week-6/restraint-manual.html',
+        tier: 'pro',
+        content: 'Premium Branded HTML Asset'
+      },
+      {
         id: 'premium-rof-1',
         title: 'The Authority Reset: Pre-ROF Frame',
         description: 'Framing protocol to establish clinical leadership in the first 2 minutes of your report.',
