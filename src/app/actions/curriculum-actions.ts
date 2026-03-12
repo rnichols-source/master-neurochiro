@@ -126,15 +126,18 @@ export async function fetchWeekDetail(slug: string) {
       return { success: false, error: 'Error fetching modules' }
     }
 
-    // 3. Fetch resources
+    // 3. Fetch resources (Linked to week OR any module in the week)
     let resources = []
     try {
+      const moduleIds = modules?.map(m => m.id) || []
       const { data: resData } = await supabase
         .from('resources')
         .select('*')
-        .eq('week_id', week.id)
+        .or(`week_id.eq.${week.id},module_id.in.(${moduleIds.join(',')})`)
       if (resData) resources = resData
-    } catch (e) {}
+    } catch (e) {
+      console.warn('[CURRICULUM] Resources fetch failed:', e)
+    }
 
     // 4. Fetch progress
     let completedModuleIds = new Set<string>()
