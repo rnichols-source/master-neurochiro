@@ -26,10 +26,13 @@ export default async function ModuleDetailPage(props: {
   const result = await fetchWeekDetail(slug);
   if (!result.success || !result.data) notFound();
 
-  const { week, modules } = result.data;
+  const { week, modules, resources } = result.data;
   const safeModules = modules || [];
   const module = safeModules.find((m: any) => m.slug === moduleSlug);
   if (!module) notFound();
+
+  // Filter resources for this specific module
+  const moduleResources = (resources || []).filter((r: any) => r.module_id === module.id);
 
   const moduleIndex = safeModules.findIndex((m: any) => m.slug === moduleSlug);
   const nextModule = safeModules[moduleIndex + 1];
@@ -115,9 +118,22 @@ export default async function ModuleDetailPage(props: {
           <div className="space-y-8">
             <EliteCard title="Resources" subtitle="Module Assets">
               <div className="space-y-3 mt-4">
-                <div className="w-full p-4 bg-brand-navy/5 rounded-xl border border-transparent text-left">
-                  <span className="text-xs font-bold text-brand-navy/40 uppercase">No individual unit assets</span>
-                </div>
+                {moduleResources.length > 0 ? moduleResources.map((asset: any, i: number) => (
+                  <a 
+                    key={asset.id || i} 
+                    href={asset.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-full p-4 bg-brand-navy/5 hover:bg-brand-orange/5 rounded-xl border border-transparent hover:border-brand-orange/20 transition-all text-left flex justify-between items-center group"
+                  >
+                    <span className="text-xs font-bold text-brand-navy group-hover:text-brand-orange transition-colors">{asset.title}</span>
+                    <span className="text-[8px] font-black text-brand-navy/30 uppercase">{asset.type}</span>
+                  </a>
+                )) : (
+                  <div className="w-full p-4 bg-brand-navy/5 rounded-xl border border-transparent text-left">
+                    <span className="text-xs font-bold text-brand-navy/40 uppercase">No individual unit assets</span>
+                  </div>
+                )}
               </div>
             </EliteCard>
 
