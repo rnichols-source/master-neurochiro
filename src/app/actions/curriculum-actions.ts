@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { awardMasteryPoints } from './mastery-actions'
 
 export async function fetchCurriculumWithProgress() {
   try {
@@ -201,6 +202,10 @@ export async function completeModule(moduleId: string, reflection?: string) {
     }, { onConflict: 'user_id,module_id' })
 
   if (error) return { success: false, error: error.message }
+  
+  // Award Points
+  await awardMasteryPoints('module_complete');
+  
   revalidatePath('/portal/curriculum')
   return { success: true }
 }
@@ -230,6 +235,9 @@ export async function verifyPhase(weekId: number) {
       .upsert(progressEntries, { onConflict: 'user_id,module_id' })
 
     if (upsertError) throw upsertError
+
+    // Award Points for Status Claim
+    await awardMasteryPoints('status_claim');
 
     revalidatePath('/portal/curriculum')
     return { success: true }

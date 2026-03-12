@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { awardMasteryPoints } from "./mastery-actions";
 
 export interface KPIEntry {
   week_start_date: string;
@@ -37,8 +38,12 @@ export async function submitKPIEntry(entry: KPIEntry) {
     return { success: false, error: error.message };
   }
 
+  // Award points for consistency
+  await awardMasteryPoints('kpi_entry');
+
   revalidatePath("/kpi");
   revalidatePath("/dashboard");
+  revalidatePath("/portal/engine");
   return { success: true, data };
 }
 
