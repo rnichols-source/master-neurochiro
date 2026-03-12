@@ -16,73 +16,66 @@ import {
   DollarSign,
   Download,
   Star,
-  Trophy
+  Trophy,
+  Activity
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const hormoziMetadata: Record<number, any> = {
   1: {
-    outcomeTitle: "The High-Authority Asset",
-    subTitle: "Becoming the $1M Nervous System Doctor",
-    timeToImplement: "14 mins",
+    outcomeTitle: "Clinical Identity Reconstruction",
+    subTitle: "Phase 01: Becoming the $1M Nervous System Doctor",
     expectedROI: "Instant Authority Shift",
     quickAsset: { name: "Identity Calibration Worksheet", link: "/portal/triage?category=clinic_os" },
-    statusBadge: "Authorized Provider"
+    statusBadge: "Authorized Identity"
   },
   2: {
-    outcomeTitle: "The Clinical Engine",
-    subTitle: "Engineered Certainty for Complex Cases",
-    timeToImplement: "22 mins",
-    expectedROI: "100% Clinical Confidence",
+    outcomeTitle: "Clinical Certainty Engine",
+    subTitle: "Phase 02: Engineered Neurology for REAL Practice",
+    expectedROI: "100% Case Certainty",
     quickAsset: { name: "Case Presentation Deck", link: "/portal/triage?category=patient_edu" },
     statusBadge: "Clinical Architect"
   },
   3: {
-    outcomeTitle: "The Conversion Engine",
-    subTitle: "Closing $5,000 Care Plans with Zero Resistance",
-    timeToImplement: "18 mins",
+    outcomeTitle: "The Communication Engine",
+    subTitle: "Phase 03: Closing $5,000 Care Plans with Zero Resistance",
     expectedROI: "Save 1 lost case/mo ($5k+)",
     quickAsset: { name: "The Neurological Pivot Script", link: "/portal/rapid-roi/script" },
-    statusBadge: "Master Communicator"
+    statusBadge: "Authorized Communicator"
   },
   4: {
     outcomeTitle: "The Philosophical Anchor",
-    subTitle: "How to Build a Practice That Never Quits",
-    timeToImplement: "12 mins",
+    subTitle: "Phase 04: Building a Practice That Never Quits",
     expectedROI: "Lifetime Patient Retention",
     quickAsset: { name: "Retention Language Patterns", link: "/portal/triage?category=communication" },
     statusBadge: "Philosophical Lead"
   },
   5: {
-    outcomeTitle: "The Freedom Framework",
-    subTitle: "Scaling to 100% Profitability & Freedom",
-    timeToImplement: "25 mins",
+    outcomeTitle: "The Business Freedom Lab",
+    subTitle: "Phase 05: Scaling to 100% Profitability & Freedom",
     expectedROI: "$10k+ Monthly Profit Increase",
     quickAsset: { name: "Profitability Calculator", link: "/portal/engine" },
     statusBadge: "Practice CEO"
   },
   6: {
-    outcomeTitle: "The Leadership Lab",
-    subTitle: "Building a Team That Runs Without You",
-    timeToImplement: "20 mins",
+    outcomeTitle: "The Leadership Mastery Lab",
+    subTitle: "Phase 06: Building a Team That Runs Without You",
     expectedROI: "10+ Hours Saved/Week",
     quickAsset: { name: "Staff Training Manual", link: "/portal/triage?category=staff" },
     statusBadge: "Elite Leader"
   },
   7: {
-    outcomeTitle: "The Market Dominator",
-    subTitle: "Omnipresence in Your Local Community",
-    timeToImplement: "15 mins",
+    outcomeTitle: "The Market Authority Engine",
+    subTitle: "Phase 07: Omnipresence & Local Community Dominance",
     expectedROI: "5-10 New Patients/Mo",
     quickAsset: { name: "The Reactivation Campaign", link: "/portal/triage?category=marketing" },
     statusBadge: "Market Authority"
   },
   8: {
     outcomeTitle: "The Mastermind Exit",
-    subTitle: "Final Installation & Scale Optimization",
-    timeToImplement: "30 mins",
-    expectedROI: "Total Practice Autonomy",
+    subTitle: "Phase 08: Final Installation & Practice Autonomy",
+    expectedROI: "Total Practice Freedom",
     quickAsset: { name: "The Scale Blueprint", link: "/portal/triage?category=leadership" },
     statusBadge: "Mastermind Graduate"
   }
@@ -97,20 +90,20 @@ export default async function PortalCurriculumPage() {
       <div className="space-y-12 pb-20">
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
-            <Zap size={14} className="fill-brand-orange" />
-            <p className="text-[10px] font-black uppercase tracking-widest">Implementation Machine</p>
+            <Activity size={14} className="fill-brand-orange" />
+            <p className="text-[10px] font-black uppercase tracking-widest">Installation Status</p>
           </div>
-          <h1 className="text-5xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">The Installation</h1>
+          <h1 className="text-5xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">The Roadmap</h1>
           <p className="text-brand-gray text-lg font-medium mt-6 leading-relaxed">
-            Stop collecting information. Start installing assets. Each level below is a 
-            direct upgrade to your clinic's bottom line.
+            Don't just watch videos. **Claim Your Status.** Each level represents a 
+            fundamental upgrade to your clinical and financial architecture.
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-8">
           {phases.length === 0 ? (
             <div className="flex items-center justify-center py-20 text-brand-navy/20 font-black uppercase tracking-widest">
-              No curriculum levels found.
+              No roadmap levels found.
             </div>
           ) : phases.map((phase: any, i: number) => {
             const meta = hormoziMetadata[phase.week_number] || {};
@@ -149,14 +142,9 @@ export default async function PortalCurriculumPage() {
                           <div>
                             <div className="flex flex-wrap gap-2 mb-2">
                               {!isLocked && (
-                                <>
-                                  <div className="flex items-center gap-1 px-2 py-0.5 bg-brand-orange/10 text-brand-orange rounded text-[8px] font-black uppercase tracking-widest">
-                                    <Timer size={10} /> {meta.timeToImplement}
-                                  </div>
-                                  <div className="flex items-center gap-1 px-2 py-0.5 bg-green-500/10 text-green-600 rounded text-[8px] font-black uppercase tracking-widest">
-                                    <DollarSign size={10} /> ROI: {meta.expectedROI}
-                                  </div>
-                                </>
+                                <div className="flex items-center gap-1 px-2 py-0.5 bg-green-500/10 text-green-600 rounded text-[8px] font-black uppercase tracking-widest">
+                                  <DollarSign size={10} /> ROI: {meta.expectedROI}
+                                </div>
                               )}
                             </div>
                             <h3 className={cn(
@@ -188,7 +176,7 @@ export default async function PortalCurriculumPage() {
                       {/* Actions */}
                       <div className="flex flex-col justify-center items-end gap-4 w-full md:w-auto">
                         {phase.status === 'completed' ? (
-                          <div className="flex items-center gap-3 px-6 py-3 bg-green-500/10 text-green-600 rounded-2xl border border-green-500/20">
+                          <div className="flex items-center gap-3 px-6 py-3 bg-green-500/10 text-green-600 rounded-2xl border border-green-500/20 shadow-lg shadow-green-500/5">
                             <Trophy size={18} className="fill-green-500/20" />
                             <div>
                               <p className="text-[8px] font-black uppercase tracking-widest leading-none mb-1">Status Unlocked</p>
@@ -199,7 +187,7 @@ export default async function PortalCurriculumPage() {
                           <div className="flex flex-col gap-3 w-full md:w-auto">
                             <Link href={`/portal/curriculum/${phase.slug}`} className="w-full">
                               <BrandButton variant="primary" className="w-full justify-between gap-8 group py-6">
-                                <span className="text-xs font-black uppercase tracking-[0.2em]">Access Installation</span>
+                                <span className="text-xs font-black uppercase tracking-[0.2em]">Open Training Room</span>
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                               </BrandButton>
                             </Link>

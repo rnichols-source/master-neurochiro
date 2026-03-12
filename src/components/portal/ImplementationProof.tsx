@@ -69,7 +69,7 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
         className="w-full md:w-auto"
         onClick={() => setIsOpen(true)}
       >
-        Submit Proof of Work
+        Claim Your Status
       </BrandButton>
 
       <AnimatePresence>
