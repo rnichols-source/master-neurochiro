@@ -17,7 +17,8 @@ import {
   ArrowRight,
   TrendingUp,
   Zap,
-  Globe
+  Globe,
+  BarChart3
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -138,22 +139,30 @@ export function CouncilClient() {
                 { id: "scripts", title: "Script Vault", desc: "Advanced operational language", icon: MessageSquare, href: "/portal/vault?category=council" },
                 { id: "library", title: "CEO Library", desc: "Quarterly implementation toolkits", icon: FileText, href: "/portal/vault?category=council" },
                 { id: "triage", title: "Call Archives", desc: "Search the triage database", icon: Video },
-              ].map((action, i) => (
-                <Link key={i} href={action.href || "#"}>
+              ].map((action, i) => {
+                const Card = (
                   <EliteCard 
-                    className="bg-white border-brand-navy/5 hover:border-brand-orange/40 transition-all group p-6 cursor-pointer"
-                    onClick={() => !action.href && setActiveTab(action.id as any)}
+                    key={i}
+                    className="bg-white border-brand-navy/5 hover:border-brand-orange/40 transition-all group p-6"
+                    onClick={!action.href ? () => setActiveTab(action.id as any) : undefined}
                   >
-                  <div className="w-10 h-10 rounded-xl bg-brand-navy/5 flex items-center justify-center mb-4 group-hover:bg-brand-orange transition-colors">
-                    <action.icon size={18} className="text-brand-navy group-hover:text-white transition-colors" />
-                  </div>
-                  <h3 className="text-sm font-black text-brand-navy uppercase mb-1">{action.title}</h3>
-                  <p className="text-[10px] font-medium text-brand-gray leading-relaxed mb-4">{action.desc}</p>
-                  <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-brand-orange group-hover:gap-3 transition-all">
-                    Access <ArrowRight size={12} />
-                  </div>
-                </EliteCard>
-              ))}
+                    <div className="w-10 h-10 rounded-xl bg-brand-navy/5 flex items-center justify-center mb-4 group-hover:bg-brand-orange transition-colors">
+                      <action.icon size={18} className="text-brand-navy group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-sm font-black text-brand-navy uppercase mb-1">{action.title}</h3>
+                    <p className="text-[10px] font-medium text-brand-gray leading-relaxed mb-4">{action.desc}</p>
+                    <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-brand-orange group-hover:gap-3 transition-all">
+                      Access <ArrowRight size={12} />
+                    </div>
+                  </EliteCard>
+                );
+
+                if (action.href) {
+                  return <Link key={i} href={action.href}>{Card}</Link>;
+                }
+
+                return Card;
+              })}
             </div>
           </motion.div>
         )}
