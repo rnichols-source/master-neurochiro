@@ -29,9 +29,11 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchVaultResources, toggleBookmark, incrementDownload } from "@/app/actions/vault-actions";
+import { useSearchParams } from "next/navigation";
 
 const categories = [
   { id: 'all', name: 'All Resources', icon: LayoutDashboard },
+  { id: 'council', name: 'Council Intelligence', icon: ShieldCheck },
   { id: 'communication', name: 'Clinical Communication', icon: MessageSquare },
   { id: 'rof', name: 'ROF System', icon: Target },
   { id: 'care_plan', name: 'Care Plan Architecture', icon: Zap },
@@ -44,14 +46,17 @@ const categories = [
   { id: 'masterclass', name: 'Masterclass Archive', icon: Video },
 ];
 
-export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admin' }) {
+export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admin' | 'council' }) {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category') || 'all';
   const [loading, setLoading] = useState(true);
   const [resources, setResources] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [readingResource, setReadingResource] = useState<any | null>(null);
-  const isPro = userTier === 'pro' || userTier === 'admin';
+  const isPro = userTier === 'pro' || userTier === 'admin' || userTier === 'council';
+  const isCouncil = userTier === 'council' || userTier === 'admin';
 
   useEffect(() => {
     async function loadResources() {
@@ -206,7 +211,8 @@ export function VaultClient({ userTier }: { userTier: 'standard' | 'pro' | 'admi
             ))
           ) : filteredResources.length > 0 ? (
             filteredResources.map((res, idx) => {
-              const isLocked = res.tier === 'pro' && !isPro;
+              const isCouncilCategory = res.category === 'council';
+              const isLocked = (res.tier === 'pro' && !isPro) || (isCouncilCategory && !isCouncil);
               const hasBookmark = res.vault_bookmarks && res.vault_bookmarks.length > 0;
               const Icon = categories.find(c => c.id === res.category)?.icon || FileText;
 

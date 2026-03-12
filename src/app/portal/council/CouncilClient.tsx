@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { cn } from "@/lib/utils";
 import { 
@@ -134,15 +135,15 @@ export function CouncilClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { id: "caselab", title: "Case Rescue", desc: "Submit difficult cases for review", icon: Activity },
-                { id: "scripts", title: "Script Vault", desc: "Advanced operational language", icon: MessageSquare },
-                { id: "library", title: "CEO Library", desc: "Quarterly implementation toolkits", icon: FileText },
+                { id: "scripts", title: "Script Vault", desc: "Advanced operational language", icon: MessageSquare, href: "/portal/vault?category=council" },
+                { id: "library", title: "CEO Library", desc: "Quarterly implementation toolkits", icon: FileText, href: "/portal/vault?category=council" },
                 { id: "triage", title: "Call Archives", desc: "Search the triage database", icon: Video },
               ].map((action, i) => (
-                <EliteCard 
-                  key={i} 
-                  className="bg-white border-brand-navy/5 hover:border-brand-orange/40 transition-all group p-6 cursor-pointer"
-                  onClick={() => setActiveTab(action.id as any)}
-                >
+                <Link key={i} href={action.href || "#"}>
+                  <EliteCard 
+                    className="bg-white border-brand-navy/5 hover:border-brand-orange/40 transition-all group p-6 cursor-pointer"
+                    onClick={() => !action.href && setActiveTab(action.id as any)}
+                  >
                   <div className="w-10 h-10 rounded-xl bg-brand-navy/5 flex items-center justify-center mb-4 group-hover:bg-brand-orange transition-colors">
                     <action.icon size={18} className="text-brand-navy group-hover:text-white transition-colors" />
                   </div>
