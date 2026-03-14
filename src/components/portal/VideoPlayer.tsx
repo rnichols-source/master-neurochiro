@@ -5,7 +5,7 @@ import { Play, Pause, RotateCcw, Volume2, VolumeX, Maximize, CheckCircle2, Zap }
 import { completeModule } from '@/app/actions/curriculum-actions'
 import { trackActivity } from '@/app/actions/activation-actions'
 import { cn } from '@/lib/utils'
-
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 interface VideoPlayerProps {
@@ -37,7 +37,6 @@ export default function VideoPlayer({
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [duration, setDuration] = useState(0)
-  const [isMuted, setIsMuted] = useState(false)
   const [hasCompleted, setHasCompleted] = useState(false)
 
   // 1. CLEAN THE INPUT (Handle if they pasted a full <iframe> tag)
@@ -74,7 +73,6 @@ export default function VideoPlayer({
       if (!finalUrl.includes('http')) {
         finalUrl = `https://player.vimeo.com/video/${finalUrl}`;
       }
-      // If it's a standard vimeo.com/ID link, convert to player link
       if (finalUrl.includes('vimeo.com/') && !finalUrl.includes('player.vimeo.com')) {
         const id = finalUrl.split('/').pop()?.split('?')[0];
         finalUrl = `https://player.vimeo.com/video/${id}`;
@@ -89,7 +87,6 @@ export default function VideoPlayer({
       }
     }
 
-    // Add necessary embed params if not present
     if (finalUrl.includes('?')) {
       if (!finalUrl.includes('autoplay=')) finalUrl += '&autoplay=1';
     } else {
@@ -105,7 +102,6 @@ export default function VideoPlayer({
       else videoRef.current.play()
       setIsPlaying(!isPlaying)
     } else {
-      // For embeds, we just show the iframe
       setIsPlaying(true)
     }
   }
@@ -163,12 +159,13 @@ export default function VideoPlayer({
     </div>
   )
 
-  // Coming Soon Overlay
+  // ---------------------------------------------------------
+  // RENDER: Coming Soon Overlay
+  // ---------------------------------------------------------
   if (isPlaceholder) {
     return (
       <div className="space-y-8">
         <div className="relative bg-brand-navy rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white aspect-video flex flex-col items-center justify-center p-8 text-center group">
-          {/* Background Texture */}
           <div className="absolute inset-0 opacity-10 pointer-events-none">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-orange/20 via-transparent to-transparent" />
           </div>
@@ -204,9 +201,11 @@ export default function VideoPlayer({
     )
   }
 
-  // If it's an embed, render Iframe
+  // ---------------------------------------------------------
+  // RENDER: Vimeo / YouTube Embed
+  // ---------------------------------------------------------
   if (isVimeo || isYouTube) {
-...    return (
+    return (
       <div className="space-y-8">
         <div className="relative group bg-brand-navy rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-video">
           {!isPlaying ? (
@@ -232,10 +231,12 @@ export default function VideoPlayer({
         </div>
         {renderChecklist()}
       </div>
-    );
+    )
   }
 
-  // Fallback to direct video file
+  // ---------------------------------------------------------
+  // RENDER: Direct Video File Fallback
+  // ---------------------------------------------------------
   return (
     <div className="space-y-8">
       <div className="relative group bg-brand-navy rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-video">
@@ -250,7 +251,6 @@ export default function VideoPlayer({
           onPause={() => setIsPlaying(false)}
         />
 
-        {/* Overlay Controls */}
         <div className={cn(
           "absolute inset-0 bg-gradient-to-t from-brand-black/80 via-transparent to-transparent transition-opacity duration-300 flex flex-col justify-end p-6 space-y-4",
           isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
@@ -288,7 +288,6 @@ export default function VideoPlayer({
           </div>
         </div>
 
-        {/* Big Play Button (when paused) */}
         {!isPlaying && (
           <div 
             className="absolute inset-0 flex items-center justify-center cursor-pointer"
