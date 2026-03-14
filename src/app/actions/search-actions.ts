@@ -2,7 +2,16 @@
 
 import { createClient } from '@/lib/supabase/server'
 
-export async function searchPortal(query: string) {
+export interface SearchResult {
+  success: boolean;
+  data?: {
+    modules: any[];
+    resources: any[];
+  };
+  error?: string;
+}
+
+export async function searchPortal(query: string): Promise<SearchResult> {
   if (!query || query.length < 2) return { success: true, data: { modules: [], resources: [] } };
 
   const supabase = await createClient();

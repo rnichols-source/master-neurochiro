@@ -78,6 +78,9 @@ export async function submitApplication(formData: ApplicationFormData) {
 
   if (error) {
     console.error("Submission Error:", error);
+    if ((error as any).code === '23505') {
+      return { success: false, error: "This email is already registered." };
+    }
     return { success: false, error: error.message };
   }
 

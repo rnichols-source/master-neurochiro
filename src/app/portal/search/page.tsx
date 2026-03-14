@@ -16,7 +16,7 @@ export default async function SearchResultsPage(props: {
   const { q: query } = await props.searchParams;
   
   const result = await searchPortal(query);
-  const { modules, resources } = result.success ? result.data : { modules: [], resources: [] };
+  const { modules, resources } = result.success && result.data ? result.data : { modules: [], resources: [] };
   
   const totalResults = modules.length + resources.length;
 
