@@ -8,6 +8,8 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { NotificationCenter } from "./NotificationCenter";
 import { AccountMenu } from "./AccountMenu";
+import { SearchBar } from "./SearchBar";
+import { Suspense } from "react";
 
 export async function DashboardLayout({ 
   children
@@ -47,14 +49,9 @@ export async function DashboardLayout({
                  <Image src="/logo-white.png" alt="NeuroChiro" fill className="object-contain bg-brand-navy rounded-lg p-1" />
                </div>
              </Link>
-             <div className="relative w-40 md:w-96">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 md:w-4 md:h-4 text-brand-navy/30" />
-                <input 
-                  type="text" 
-                  placeholder="Search..." 
-                  className="w-full bg-brand-navy/5 border-none rounded-full py-2 pl-8 md:pl-10 pr-4 text-xs focus:ring-2 focus:ring-brand-orange/40 transition-all placeholder:text-brand-navy/30outline-none"
-                />
-             </div>
+             <Suspense fallback={<div className="relative w-40 md:w-96 h-10 bg-brand-navy/5 rounded-full animate-pulse" />}>
+               <SearchBar />
+             </Suspense>
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
