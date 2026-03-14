@@ -6,6 +6,8 @@ import { completeModule } from '@/app/actions/curriculum-actions'
 import { trackActivity } from '@/app/actions/activation-actions'
 import { cn } from '@/lib/utils'
 
+import Image from 'next/image'
+
 interface VideoPlayerProps {
   userId: string
   moduleId: string
@@ -40,6 +42,15 @@ export default function VideoPlayer({
 
   // 1. CLEAN THE INPUT (Handle if they pasted a full <iframe> tag)
   let cleanUrl = (videoUrl || '').trim();
+  
+  // 2. DETECT PLACEHOLDERS OR MISSING URLS
+  const isPlaceholder = !cleanUrl || 
+                        cleanUrl === '' || 
+                        cleanUrl.toLowerCase().includes('test') || 
+                        cleanUrl.toLowerCase().includes('placeholder') ||
+                        cleanUrl === 'https://youtube.com' ||
+                        cleanUrl === 'https://vimeo.com';
+
   if (cleanUrl.includes('<iframe')) {
     const srcMatch = cleanUrl.match(/src="([^"]+)"/);
     if (srcMatch && srcMatch[1]) {
@@ -47,13 +58,13 @@ export default function VideoPlayer({
     }
   }
 
-  // 2. Decode common HTML entities that might break the URL
+  // 2b. Decode common HTML entities that might break the URL
   cleanUrl = cleanUrl.replaceAll('&amp;', '&');
 
   // Detect if URL is an embed (Vimeo/YouTube) or a direct file
-  const isVimeo = cleanUrl.includes('vimeo.com') || /^\d+$/.test(cleanUrl);
-  const isYouTube = cleanUrl.includes('youtube.com') || cleanUrl.includes('youtu.be');
-  const isDirectFile = !isVimeo && !isYouTube && (cleanUrl.includes('.mp4') || cleanUrl.includes('.mov'));
+  const isVimeo = !isPlaceholder && (cleanUrl.includes('vimeo.com') || /^\d+$/.test(cleanUrl));
+  const isYouTube = !isPlaceholder && (cleanUrl.includes('youtube.com') || cleanUrl.includes('youtu.be'));
+  const isDirectFile = !isPlaceholder && !isVimeo && !isYouTube && (cleanUrl.includes('.mp4') || cleanUrl.includes('.mov'));
 
   // Get clean embed URL
   const getEmbedUrl = () => {
@@ -152,9 +163,50 @@ export default function VideoPlayer({
     </div>
   )
 
+  // Coming Soon Overlay
+  if (isPlaceholder) {
+    return (
+      <div className="space-y-8">
+        <div className="relative bg-brand-navy rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white aspect-video flex flex-col items-center justify-center p-8 text-center group">
+          {/* Background Texture */}
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-orange/20 via-transparent to-transparent" />
+          </div>
+          
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative z-10 space-y-6 max-w-md"
+          >
+            <div className="w-20 h-20 relative mx-auto mb-2">
+              <Image src="/logo-white.png" alt="NeuroChiro Logo" fill className="object-contain animate-pulse" />
+            </div>
+            
+            <div className="space-y-2">
+              <span className="text-[10px] font-black text-brand-orange uppercase tracking-[0.4em]">Premium Coming Soon</span>
+              <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight leading-none uppercase">Update in Progress</h3>
+            </div>
+            
+            <p className="text-white/40 text-sm font-medium leading-relaxed">
+              This Masterclass is currently being updated for the latest session. Check back soon!
+            </p>
+            
+            <div className="pt-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10">
+                <div className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-ping" />
+                <span className="text-[8px] font-black text-white/60 uppercase tracking-widest">Clinical Update: 84% Complete</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+        {renderChecklist()}
+      </div>
+    )
+  }
+
   // If it's an embed, render Iframe
   if (isVimeo || isYouTube) {
-    return (
+...    return (
       <div className="space-y-8">
         <div className="relative group bg-brand-navy rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-video">
           {!isPlaying ? (

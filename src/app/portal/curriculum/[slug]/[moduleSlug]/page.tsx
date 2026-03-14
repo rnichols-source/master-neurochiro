@@ -59,7 +59,7 @@ export default async function ModuleDetailPage(props: {
             <VideoPlayer 
               userId={user.id}
               moduleId={module.id}
-              videoUrl={module.video_url || "https://www.w3schools.com/html/mov_bbb.mp4"}
+              videoUrl={module.video_url || ""}
               title={module.title}
             />
 
