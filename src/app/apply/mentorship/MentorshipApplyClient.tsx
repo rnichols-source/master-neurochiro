@@ -109,8 +109,10 @@ export default function MentorshipApplyClient() {
 
     try {
       // Map formData to the structure expected by the server action
-      // We convert arrays to strings for easier backend processing or just keep them as arrays if JSONB supports it
-      const result = await submitApplication(formData as any);
+      const result = await submitApplication({
+        ...formData,
+        application_type: 'Private Coaching'
+      } as any);
       
       if (result.success) {
         setIsSubmitted(true);

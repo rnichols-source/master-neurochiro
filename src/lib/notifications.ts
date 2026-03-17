@@ -7,13 +7,15 @@ export class NotificationService {
     score: number;
     role: string;
     id: string;
+    type?: 'Mastermind' | 'Private Coaching';
   }) {
     if (!this.WEBHOOK_URL) return;
     const isSlack = this.WEBHOOK_URL.includes("hooks.slack.com");
     const reviewUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/admin/applications`;
+    const appType = app.type || 'Mastermind';
 
     const payload = isSlack ? {
-      text: `🚀 *New Admission Application Received*`,
+      text: `🚀 *New ${appType} Application Received*`,
       attachments: [{
         color: app.score > 40 ? "#22c55e" : "#d66829",
         fields: [
@@ -27,8 +29,8 @@ export class NotificationService {
       username: "NeuroChiro Intelligence",
       avatar_url: "https://www.neurochiromastermind.com/favicon.ico",
       embeds: [{
-        title: "🚀 New Admission Application",
-        description: `A new doctor has applied for the Mastermind.`,
+        title: `🚀 New ${appType} Application`,
+        description: `A new clinic diagnostic has been submitted for ${appType}.`,
         color: app.score > 40 ? 2278750 : 14051369,
         fields: [
           { name: "Name", value: app.full_name, inline: true },

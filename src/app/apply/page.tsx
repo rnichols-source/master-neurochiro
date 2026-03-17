@@ -90,7 +90,10 @@ export default function ApplicationPage() {
       window.scrollTo(0, 0);
     } else {
       setIsSubmitting(true);
-      const result = await submitApplication(formData);
+      const result = await submitApplication({
+        ...formData,
+        application_type: 'Mastermind'
+      });
       setIsSubmitting(false);
       if (result.success) {
         setIsSuccess(true);

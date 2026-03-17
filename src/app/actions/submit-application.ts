@@ -6,45 +6,53 @@ import { EmailService } from "@/lib/emails";
 import { NotificationService } from "@/lib/notifications";
 
 export interface ApplicationFormData {
+  application_type?: 'Mastermind' | 'Private Coaching';
   // Section 1: Identity
   full_name: string;
   email: string;
   phone: string;
   instagram?: string;
   current_role: string;
-  years_in_practice: string;
-  clinic_status: string;
+  years_in_practice?: string;
+  years_practicing?: string; // Legacy/Mastermind
+  clinic_status?: string;
+  student_info?: string; // Mastermind
 
   // Section 2: Numbers
   weekly_visits: string;
   monthly_revenue: string;
   avg_collection_per_visit?: string;
   conversion_percentage?: string;
+  conversion_rate?: string; // Mastermind
   pva?: string;
-  team_size: string;
-  track_kpis: string;
+  team_size?: string;
+  track_kpis?: string;
 
-  // Section 3: Systems
-  rof_system: string;
-  care_plans: string;
-  patient_flow: string;
-  retention_system: string;
-  team_training: string;
+  // Section 3: Systems (Private Coaching)
+  rof_system?: string;
+  care_plans?: string;
+  patient_flow?: string;
+  retention_system?: string;
+  team_training?: string;
 
   // Section 4: Problems
-  challenges: string[];
-  not_working_description: string;
+  challenges?: string[];
+  biggest_struggle?: string; // Mastermind
+  not_working_description?: string;
 
   // Section 5: Outcome
-  success_goals: string[];
-  life_impact: string;
+  success_goals?: string[];
+  success_vision?: string; // Mastermind
+  life_impact?: string;
 
   // Section 6: Commitment
-  willing_to_implement: string;
-  willing_to_change: string;
-  coachable: string;
+  willing_to_implement?: string;
+  willing_to_change?: string;
+  coachable?: string;
   why_now: string;
-  investment_preparedness: string;
+  investment_preparedness?: string;
+  financial_ready?: string; // Mastermind
+  seriousness_score?: number; // Mastermind
 }
 
 export async function submitApplication(formData: ApplicationFormData) {
@@ -58,10 +66,15 @@ export async function submitApplication(formData: ApplicationFormData) {
   
   const supabase = await createClient();
 
-  // 1. Calculate Readiness Score
+  // 1. Calculate Readiness Score (Combined Logic)
   let score = 0;
   
-  // Commitment Factor (Max 60)
+  // Mastermind Legacy Scoring
+  if (formData.seriousness_score) score += Number(formData.seriousness_score) * 5;
+  if (formData.current_role?.includes("Clinic Owner")) score += 10;
+  if (formData.financial_ready?.includes("Yes")) score += 10;
+
+  // Private Coaching Scoring
   if (formData.investment_preparedness === 'Yes') score += 30;
   else if (formData.investment_preparedness === 'Serious but options') score += 15;
   
@@ -69,12 +82,12 @@ export async function submitApplication(formData: ApplicationFormData) {
   if (formData.willing_to_implement === 'Yes') score += 10;
   if (formData.coachable === 'Yes') score += 10;
 
-  // Data Intelligence Factor (Max 20)
+  // Data Intelligence Factor
   if (formData.track_kpis === 'Yes') score += 10;
-  if (formData.conversion_percentage && formData.conversion_percentage !== "") score += 5;
-  if (formData.pva && formData.pva !== "") score += 5;
+  if (formData.conversion_percentage || formData.conversion_rate) score += 5;
+  if (formData.pva) score += 5;
 
-  // Clinical Status Factor (Max 20)
+  // Clinical Status Factor
   if (formData.clinic_status === 'Scaling') score += 20;
   else if (formData.clinic_status === 'Growing') score += 15;
   else if (formData.clinic_status === 'Plateaued') score += 10;
@@ -113,7 +126,8 @@ export async function submitApplication(formData: ApplicationFormData) {
       email: data.email,
       score: data.score,
       role: formData.current_role,
-      id: data.id
+      id: data.id,
+      type: formData.application_type
     });
   } catch (notifyError) {
     console.error("Error sending admin notification:", notifyError);
