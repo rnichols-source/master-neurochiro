@@ -4,24 +4,28 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { EmailService } from '@/lib/emails'
 import crypto from 'crypto'
-
 /**
  * Security Shield: Verifies that the current user has administrative authority.
- * Throws a 403 error immediately if the user is not an admin.
  */
 async function checkAdmin(supabase: any) {
-  const { data: { user } } = await supabase.auth.getUser();
-  
-  if (!user || user.app_metadata?.role !== 'admin') {
-    throw new Error('403 Unauthorized: Administrative access required.');
+  try {
+    const { data, error } = await supabase.auth.getUser();
+    if (error || !data?.user) return false;
+    return data.user.app_metadata?.role === 'admin';
+  } catch (err) {
+    console.error("[SECURITY] Error checking admin status:", err);
+    return false;
   }
 }
 
 export async function sendPortalInvite(email: string, fullName: string) {
   const supabase = await createClient()
-  await checkAdmin(supabase)
-  
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: '403 Unauthorized: Administrative access required.' }
+
   const adminClient = createAdminClient()
+  // ... rest of the function ...
+
   console.log(`[ADMIN] Manually sending custom portal invite to: ${email}`);
 
   // 1. Generate unique token for the project's custom activation flow
@@ -59,7 +63,8 @@ export async function sendPortalInvite(email: string, fullName: string) {
 
 export async function fetchAdminStats() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
   // 1. Members count (Optimized: Direct DB counts)
   const [proRes, stdRes] = await Promise.all([
@@ -118,7 +123,8 @@ export async function fetchAdminStats() {
 
 export async function fetchCohortMetrics() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
   // Fetch all cohorts
   const { data: cohorts, error: cohortsError } = await supabase
@@ -171,7 +177,8 @@ export async function fetchCohortMetrics() {
 
 export async function fetchMembersWithHealth() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
   const { data: members, error } = await supabase
     .from('profiles')
@@ -198,7 +205,8 @@ export async function fetchMembersWithHealth() {
 
 export async function fetchRecentActivity() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
   const { data: progress, error } = await supabase
     .from('member_progress')
@@ -217,7 +225,8 @@ export async function fetchRecentActivity() {
 
 export async function fetchRevenueStats() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
   // Derive from profiles and tiers
   const { data: members, error } = await supabase
@@ -272,7 +281,8 @@ export async function fetchRevenueStats() {
 
 export async function fetchMastermindActivity() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
   // 1. Total Members
   const { count: totalMembers } = await supabase
@@ -332,7 +342,8 @@ export async function fetchMastermindActivity() {
 
 export async function fetchAtRiskMembers() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
   // Find users who have not completed any modules and are not admin
   const { data: profiles, error } = await supabase
@@ -361,7 +372,8 @@ export async function fetchAtRiskMembers() {
 
 export async function fetchVaultAnalytics() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
   
   const { data, error } = await supabase
     .from('vault_resources')
@@ -375,7 +387,8 @@ export async function fetchVaultAnalytics() {
 
 export async function fetchAutomationLogs() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
   const { data, error } = await supabase
     .from('automation_logs')
@@ -389,7 +402,8 @@ export async function fetchAutomationLogs() {
 
 export async function fetchAutomationStats() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
   const { data: logs, error } = await supabase
     .from('automation_logs')
@@ -409,7 +423,8 @@ export async function fetchAutomationStats() {
 
 export async function fetchSystemHealth() {
   const supabase = await createClient()
-  await checkAdmin(supabase)
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
   
   // Just ping the database
   const { error } = await supabase.from('profiles').select('id').limit(1)
