@@ -7,7 +7,7 @@ export class NotificationService {
     score: number;
     role: string;
     id: string;
-    type?: 'Mastermind' | 'Private Coaching';
+    type?: 'Mastermind' | 'Private Coaching' | 'Council';
   }) {
     if (!this.WEBHOOK_URL) return;
     const isSlack = this.WEBHOOK_URL.includes("hooks.slack.com");
