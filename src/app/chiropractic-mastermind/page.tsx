@@ -92,6 +92,75 @@ export default function ChiropracticMastermindPage() {
         </div>
       </section>
 
+      {/* Next Step / The Council */}
+      <section className="py-32 px-8 bg-brand-cream">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-navy/5 border border-brand-navy/10 rounded-full">
+                <span className="w-2 h-2 bg-brand-orange rounded-full" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-navy/60">Phase 2: Execution</span>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-brand-navy tracking-tighter leading-none">
+                Beyond the <br />
+                <span className="text-brand-orange">Mastermind.</span>
+              </h2>
+              <p className="text-xl text-brand-gray font-medium leading-relaxed">
+                The Mastermind is where you learn the architecture. The <span className="text-brand-navy font-bold italic">Council</span> is where you install it. 
+                Ongoing, elite coaching for graduates who refuse to let their practice drift.
+              </p>
+              <div className="flex gap-8">
+                 <div className="space-y-2">
+                    <p className="text-3xl font-black text-brand-navy">12 Months</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-brand-orange">Implementation Roadmap</p>
+                 </div>
+                 <div className="space-y-2">
+                    <p className="text-3xl font-black text-brand-navy">2x / Month</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-brand-orange">Live Triage Calls</p>
+                 </div>
+              </div>
+              <div className="pt-4">
+                <Link href="/council">
+                  <BrandButton variant="outline" size="lg" className="group px-12 rounded-full border-brand-navy">
+                    Explore The Council <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </BrandButton>
+                </Link>
+              </div>
+            </div>
+            <div className="relative group">
+               <div className="absolute -inset-4 bg-brand-orange/20 rounded-[4rem] blur-2xl group-hover:bg-brand-orange/30 transition-all duration-700" />
+               <EliteCard className="relative bg-brand-navy text-white p-12 border-none space-y-8 overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/10 blur-3xl -mr-16 -mt-16" />
+                  <h3 className="text-3xl font-black tracking-tight leading-none">The Council standard.</h3>
+                  <div className="space-y-6">
+                    <div className="flex gap-4 items-start">
+                      <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center shrink-0 mt-1">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange" />
+                      </div>
+                      <p className="text-white/60 text-sm font-medium">Real-time case troubleshooting and triage.</p>
+                    </div>
+                    <div className="flex gap-4 items-start">
+                      <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center shrink-0 mt-1">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange" />
+                      </div>
+                      <p className="text-white/60 text-sm font-medium">Advanced communication scripts and team training.</p>
+                    </div>
+                    <div className="flex gap-4 items-start">
+                      <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center shrink-0 mt-1">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange" />
+                      </div>
+                      <p className="text-white/60 text-sm font-medium">Monthly KPI auditing and benchmarking.</p>
+                    </div>
+                  </div>
+                  <div className="pt-6">
+                     <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">Elite Installation Environment</p>
+                  </div>
+               </EliteCard>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="px-8 mt-20">
         <EliteCard className="max-w-4xl mx-auto bg-brand-navy text-white p-16 text-center space-y-8 rounded-[3rem] border-none shadow-2xl">

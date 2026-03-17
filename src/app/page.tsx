@@ -248,6 +248,47 @@ export default function MastermindLandingPage() {
         </div>
       </section>
 
+      {/* The Council - Post Mastermind Phase */}
+      <section className="py-32 px-6 lg:px-8 bg-brand-navy relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-orange/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="space-y-8 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+                <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">Elite Alumni Tier</span>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
+                Beyond the <br />
+                <span className="text-brand-orange">8 Weeks.</span>
+              </h2>
+              <p className="text-xl text-white/40 font-medium leading-relaxed max-w-xl mx-auto lg:mx-0">
+                The Mastermind is the installation. The <span className="text-white font-bold italic underline decoration-brand-orange">Council</span> is the execution. Ongoing elite coaching for high-performers who refuse to let their practice drift.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
+                <Link href="/council" className="w-full sm:w-auto">
+                  <BrandButton variant="accent" size="lg" className="w-full sm:w-auto px-12 py-7 shadow-2xl group">
+                    Explore The Council <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </BrandButton>
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <EliteCard className="bg-white/5 border-white/10 p-8 space-y-4">
+                <Target className="w-8 h-8 text-brand-orange" />
+                <h3 className="text-xl font-black text-white">Ongoing Triage</h3>
+                <p className="text-sm text-white/40 font-medium">Bi-weekly live calls to solve your specific clinical bottlenecks.</p>
+              </EliteCard>
+              <EliteCard className="bg-white/5 border-white/10 p-8 space-y-4">
+                <ShieldCheck className="w-8 h-8 text-brand-orange" />
+                <h3 className="text-xl font-black text-white">Case Rescue</h3>
+                <p className="text-sm text-white/40 font-medium">Direct feedback on your most difficult patient communications.</p>
+              </EliteCard>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <SEOFooter />
     </div>
   );

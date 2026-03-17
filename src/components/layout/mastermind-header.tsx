@@ -23,6 +23,7 @@ export function MastermindHeader() {
     { name: "Live Event", href: "/neurochiro-live" },
     { name: "Mechanisms", href: "/#mechanisms" },
     { name: "Case Studies", href: "/case-studies" },
+    { name: "The Council", href: "/council" },
     { name: "Pricing", href: "/pricing" },
   ];
 
