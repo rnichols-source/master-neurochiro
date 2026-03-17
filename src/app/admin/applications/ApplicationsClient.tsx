@@ -223,7 +223,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                         <BrandButton 
                           onClick={() => handleSendInvite(selectedApp.email, selectedApp.full_name)}
                           disabled={isInviting}
-                          variant="orange"
+                          variant="accent"
                           className="px-6 py-3 rounded-2xl flex items-center gap-2 group"
                         >
                           <Zap className={cn("w-4 h-4 transition-all group-hover:scale-110", isInviting && "animate-pulse")} />
