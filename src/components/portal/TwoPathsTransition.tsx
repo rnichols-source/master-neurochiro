@@ -84,7 +84,7 @@ export function TwoPathsTransition() {
               </BrandButton>
             </Link>
             <p className="text-center text-[9px] font-black uppercase tracking-[0.2em] text-brand-navy/30 mt-4">
-              Ongoing Monthly OS &bull; $197/mo
+              Ongoing Monthly OS &bull; $297/mo
             </p>
           </div>
         </EliteCard>

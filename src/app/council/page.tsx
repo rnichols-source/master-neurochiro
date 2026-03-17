@@ -476,7 +476,7 @@ const CouncilPage = () => {
                 <span className="text-white/30 font-black uppercase tracking-[0.3em] text-[10px] mb-6">Founder Tier Recurring Subscription</span>
                 <div className="flex items-start gap-1">
                   <span className="text-4xl font-black mt-4 text-brand-orange tracking-tighter">$</span>
-                  <span className="text-[10rem] md:text-[12rem] font-black leading-none tracking-[ -0.05em]">197</span>
+                  <span className="text-[10rem] md:text-[12rem] font-black leading-none tracking-[ -0.05em]">297</span>
                   <span className="text-2xl font-bold text-white/30 self-end mb-6 ml-2">/mo</span>
                 </div>
               </div>

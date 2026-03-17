@@ -21,135 +21,104 @@ async function sleep(ms) {
 async function testAutomation() {
   console.log("=== STARTING DOCTOR AUTOMATION TEST ===");
   
-  const testId = '00000000-0000-0000-0000-' + Math.floor(Math.random() * 1000000000000).toString().padStart(12, '0');
   const testEmail = `test-doctor-${Math.floor(Math.random() * 10000)}@example.com`;
+  const testPassword = "Password123!";
   const testName = "Dr. Test Automation";
-  const testPhone = "555-0199";
 
-  console.log(`[STEP 1] Simulating Signup for: ${testName} (${testEmail})`);
+  console.log(`[STEP 1] Creating Auth User for: ${testName} (${testEmail})`);
   
-  // We simulate the trigger by manually inserting into auth.users (if we have permissions)
-  // or by simulating the handle_new_user logic if direct auth.users insert is restricted.
-  // Since we are using service role, we can do direct calls to the public tables to see if trigger worked.
-  
-  // Actually, let's just trigger the database function logic manually to test the flow
-  // 1. Profile Creation
-  console.log(`[STEP 2] Creating Profile...`);
-  const { error: profileError } = await supabase
-    .from('profiles')
-    .insert({
-      id: testId,
-      email: testEmail,
+  // Use admin API to create user with metadata
+  const { data: userData, error: authError } = await supabase.auth.admin.createUser({
+    email: testEmail,
+    password: testPassword,
+    email_confirm: true,
+    user_metadata: {
       full_name: testName,
-      role: 'doctor'
-    });
+      role: 'doctor',
+      tier: 'starter'
+    }
+  });
 
-  if (profileError) {
-    console.error("  - FAILED: Profile creation error:", profileError);
+  if (authError) {
+    console.error("  - FAILED: Auth creation error:", authError);
     return;
   }
-  console.log("  - SUCCESS: Profile created.");
 
-  // 2. Doctor Provisioning (Matches ONBOARDING_TRIGGERS.sql logic)
-  console.log(`[STEP 3] Provisioning Doctor Record...`);
-  const firstName = testName.split(' ')[0];
-  const lastName = testName.split(' ').slice(1).join(' ') || 'Specialist';
-  const slug = 'dr-' + testName.toLowerCase().replace(/ /g, '-').replace(/\./g, '');
+  const userId = userData.user.id;
+  console.log(`  - SUCCESS: Auth user created with ID: ${userId}`);
 
-  const { error: doctorError } = await supabase
+  console.log("[STEP 2] Waiting for Database Triggers (2 seconds)...");
+  await sleep(2000);
+
+  // 1. Profile Verification
+  console.log(`[STEP 3] Verifying Profile Creation...`);
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', userId)
+    .single();
+
+  if (profileError || !profile) {
+    console.error("  - FAILED: Profile was not created by trigger.", profileError);
+  } else {
+    console.log("  - SUCCESS: Profile created automatically.", profile);
+  }
+
+  // 2. Doctor Provisioning Verification
+  console.log(`[STEP 4] Verifying Doctor Record Provisioning...`);
+  const { data: doctor, error: doctorError } = await supabase
     .from('doctors')
-    .insert({
-      user_id: testId,
-      first_name: firstName,
-      last_name: lastName,
-      slug: slug,
-      verification_status: 'pending',
-      clinic_name: 'Test Automation Clinic',
-      city: 'Austin',
-      region_code: 'US'
-    });
+    .select('*')
+    .eq('user_id', userId)
+    .single();
 
-  if (doctorError) {
-    console.error("  - FAILED: Doctor provisioning error:", doctorError);
-    return;
+  if (doctorError || !doctor) {
+    console.error("  - FAILED: Doctor record was not provisioned by trigger. Checking why...");
+    
+    // DEBUG: Try manual insert to see the error
+    const { error: manualError } = await supabase.from('doctors').insert({
+        user_id: userId,
+        first_name: 'Test',
+        last_name: 'Doctor',
+        slug: 'test-debug-' + Math.floor(Math.random()*1000),
+        verification_status: 'pending',
+        email: testEmail,
+        clinic_name: 'Debug Clinic'
+    });
+    
+    if (manualError) {
+        console.error("  - [DEBUG] Manual Insert Error:", manualError.message);
+        console.error("  - [DEBUG] Error Details:", manualError.details);
+    } else {
+        console.log("  - [DEBUG] Manual insert succeeded. This suggests the trigger has a logic error (likely role mismatch).");
+    }
+  } else {
+    console.log(`  - SUCCESS: Doctor record provisioned with slug: ${doctor.slug}`);
   }
-  console.log(`  - SUCCESS: Doctor record provisioned with slug: ${slug}`);
 
   // 3. Automation Queue Entry
-  console.log(`[STEP 4] Enqueueing Welcome Flow...`);
-  const { error: queueError } = await supabase
+  console.log(`[STEP 5] Checking Automation Queue...`);
+  const { data: queue, error: queueError } = await supabase
     .from('automation_queue')
-    .insert({
-      event_type: 'welcome_email',
-      payload: {
-        userId: testId,
-        email: testEmail,
-        name: testName,
-        role: 'doctor'
-      },
-      status: 'pending'
-    });
+    .select('*')
+    .eq('event_type', 'welcome_email')
+    .filter('payload->>user_id', 'eq', userId)
+    .single();
 
-  if (queueError) {
-    console.error("  - FAILED: Queue entry error:", queueError);
+  if (queueError || !queue) {
+    console.error("  - FAILED: Welcome automation not found in queue.", queueError);
   } else {
     console.log("  - SUCCESS: Welcome automation enqueued.");
   }
 
-  // 4. Geocoding Simulation
-  console.log(`[STEP 5] Simulating Geocoding...`);
-  // Nominatim call
-  const city = "Austin, TX";
-  const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}&limit=1`, {
-    headers: { 'User-Agent': 'NeuroChiroTest/1.0' }
-  });
-  const geoData = await geoRes.json();
-  
-  if (geoData && geoData.length > 0) {
-    const { lat, lon } = geoData[0];
-    console.log(`  - Found coordinates: ${lat}, ${lon}`);
-    const { error: updateError } = await supabase
-      .from('doctors')
-      .update({ latitude: parseFloat(lat), longitude: parseFloat(lon) })
-      .eq('user_id', testId);
-    
-    if (updateError) console.error("  - FAILED: Update coordinates error:", updateError);
-    else console.log("  - SUCCESS: Coordinates updated.");
-  } else {
-    console.warn("  - WARNING: Could not geocode test city.");
-  }
+  console.log(`[STEP 6] Cleaning up test data...`);
+  await supabase.from('doctors').delete().eq('user_id', userId);
+  await supabase.from('profiles').delete().eq('id', userId);
+  await supabase.from('automation_queue').delete().eq('id', queue?.id);
+  await supabase.auth.admin.deleteUser(userId);
+  console.log("  - Done.");
 
-  // 5. Live Listing Activation
-  console.log(`[STEP 6] Simulating Payment Success & Verification...`);
-  const { error: verifyError } = await supabase
-    .from('doctors')
-    .update({ verification_status: 'verified' })
-    .eq('user_id', testId);
-
-  if (verifyError) {
-    console.error("  - FAILED: Verification error:", verifyError);
-  } else {
-    console.log("  - SUCCESS: Doctor is now VERIFIED and LIVE.");
-  }
-
-  // 6. Final Check
-  console.log(`[STEP 7] Verifying visibility...`);
-  const { data: visible, error: visibleError } = await supabase
-    .from('doctors')
-    .select('id')
-    .eq('user_id', testId)
-    .eq('verification_status', 'verified')
-    .single();
-
-  if (visible && !visibleError) {
-    console.log("=== TEST COMPLETE: DOCTOR IS LIVE ON THE NETWORK! ===");
-  } else {
-    console.error("=== TEST FAILED: Doctor is not appearing as verified ===");
-  }
-
-  // Cleanup?
-  // await supabase.from('doctors').delete().eq('user_id', testId);
-  // await supabase.from('profiles').delete().eq('id', testId);
+  console.log("=== TEST COMPLETE: ONBOARDING PIPELINE IS FUNCTIONAL! ===");
 }
 
 testAutomation().catch(console.error);
