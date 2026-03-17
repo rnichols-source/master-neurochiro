@@ -78,9 +78,9 @@ export function TwoPathsTransition() {
             </ul>
           </div>
           <div className="pt-10 relative z-10">
-            <Link href="/portal/council">
+            <Link href="/council/application">
               <BrandButton variant="primary" className="w-full text-[10px] group">
-                Join The Council <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                Apply for The Council <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </BrandButton>
             </Link>
             <p className="text-center text-[9px] font-black uppercase tracking-[0.2em] text-brand-navy/30 mt-4">

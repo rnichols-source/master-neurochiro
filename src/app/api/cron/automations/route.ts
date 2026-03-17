@@ -63,7 +63,7 @@ export async function GET(request: Request) {
           .limit(1);
 
         if (!alreadyInvited || alreadyInvited.length === 0) {
-          await EmailService.sendCouncilTransition(member.email, member.full_name || 'Doctor', `${process.env.NEXT_PUBLIC_SITE_URL}/apply/council`);
+          await EmailService.sendCouncilTransition(member.email, member.full_name || 'Doctor', `${process.env.NEXT_PUBLIC_SITE_URL}/council/application`);
           results.push({ type: 'council_transition', email: member.email });
         }
       }
