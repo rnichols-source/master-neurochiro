@@ -24,6 +24,7 @@ export function MastermindHeader() {
     { name: "Mechanisms", href: "/#mechanisms" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "The Council", href: "/council" },
+    { name: "Private Coaching", href: "/mentorship" },
     { name: "Pricing", href: "/pricing" },
   ];
 

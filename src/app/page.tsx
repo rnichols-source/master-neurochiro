@@ -248,6 +248,29 @@ export default function MastermindLandingPage() {
         </div>
       </section>
 
+      {/* Private Coaching */}
+      <section className="py-32 px-6 lg:px-8 bg-brand-cream border-t border-brand-navy/5">
+        <div className="max-w-7xl mx-auto text-center space-y-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-navy/5 border border-brand-navy/10 rounded-full">
+            <span className="w-2 h-2 bg-brand-orange rounded-full" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-navy/60">The Architecture Room</span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">
+            Private Coaching.
+          </h2>
+          <p className="text-xl text-brand-gray font-medium leading-relaxed max-w-2xl mx-auto">
+            Elite system installation for chiropractors who want scalable growth without the chaos. We tear down your bottlenecks and rebuild your clinic into a predictable machine.
+          </p>
+          <div className="pt-6">
+            <Link href="/mentorship">
+              <BrandButton variant="outline" size="lg" className="border-brand-navy group">
+                Explore Private Coaching <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </BrandButton>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* The Council - Post Mastermind Phase */}
       <section className="py-32 px-6 lg:px-8 bg-brand-navy relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-orange/5 blur-[120px] rounded-full pointer-events-none" />
