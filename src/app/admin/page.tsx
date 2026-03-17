@@ -18,8 +18,23 @@ export default async function AdminDashboardPage() {
   const { data: { user } } = await supabase.auth.getUser();
 
   // Basic security check before even fetching stats
-  if (!user || user.app_metadata?.role !== 'admin') {
-    console.warn(`[ADMIN] Unauthorized access attempt to dashboard by ${user?.email || 'unknown'}`);
+  if (!user) redirect("/portal");
+
+  // Check metadata first
+  let isAdmin = user.app_metadata?.role === 'admin';
+
+  // Fallback to profiles table (matching sidebar logic)
+  if (!isAdmin) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('tier')
+      .eq('id', user.id)
+      .single();
+    isAdmin = profile?.tier === 'admin';
+  }
+
+  if (!isAdmin) {
+    console.warn(`[ADMIN] Unauthorized access attempt to dashboard by ${user.email}`);
     redirect("/portal");
   }
 

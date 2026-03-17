@@ -9,9 +9,20 @@ import crypto from 'crypto'
  */
 async function checkAdmin(supabase: any) {
   try {
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data?.user) return false;
-    return data.user.app_metadata?.role === 'admin';
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) return false;
+
+    // First check metadata for speed
+    if (user.app_metadata?.role === 'admin') return true;
+
+    // Fallback: Check the profiles table (more reliable if metadata isn't synced)
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('tier')
+      .eq('id', user.id)
+      .single();
+    
+    return profile?.tier === 'admin';
   } catch (err) {
     console.error("[SECURITY] Error checking admin status:", err);
     return false;
