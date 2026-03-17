@@ -6,31 +6,45 @@ import { EmailService } from "@/lib/emails";
 import { NotificationService } from "@/lib/notifications";
 
 export interface ApplicationFormData {
+  // Section 1: Identity
   full_name: string;
   email: string;
   phone: string;
   instagram?: string;
   current_role: string;
-  student_info: string;
-  years_practicing: string;
-  monthly_revenue: string;
+  years_in_practice: string;
+  clinic_status: string;
+
+  // Section 2: Numbers
   weekly_visits: string;
-  conversion_rate: string;
-  confidence_score: number;
-  stability_score: number;
-  biggest_struggle: string;
-  success_vision: string;
-  prevention_factor: string;
+  monthly_revenue: string;
+  avg_collection_per_visit?: string;
+  conversion_percentage?: string;
+  pva?: string;
+  team_size: string;
+  track_kpis: string;
+
+  // Section 3: Systems
+  rof_system: string;
+  care_plans: string;
+  patient_flow: string;
+  retention_system: string;
+  team_training: string;
+
+  // Section 4: Problems
+  challenges: string[];
+  not_working_description: string;
+
+  // Section 5: Outcome
+  success_goals: string[];
+  life_impact: string;
+
+  // Section 6: Commitment
+  willing_to_implement: string;
+  willing_to_change: string;
+  coachable: string;
   why_now: string;
-  tier_applying: string;
-  pro_fit?: string;
-  open_analysis: string;
-  accountability: string;
-  participation: string;
-  financial_ready: string;
-  seriousness_score: number;
-  higher_standard: string;
-  why_selected: string;
+  investment_preparedness: string;
 }
 
 export async function submitApplication(formData: ApplicationFormData) {
@@ -42,20 +56,28 @@ export async function submitApplication(formData: ApplicationFormData) {
     return { success: false, error: "Valid email required" };
   }
   
-  // Safe string conversion for logic fields to prevent crashes
-  const currentRole = String(formData.current_role || "");
-  const yearsPracticing = String(formData.years_practicing || "");
-  const monthlyRevenue = String(formData.monthly_revenue || "");
-
   const supabase = await createClient();
 
-  // 1. Calculate Score (Robust logic)
+  // 1. Calculate Readiness Score
   let score = 0;
-  score += (Number(formData.seriousness_score) || 0) * 5; 
   
-  if (currentRole.includes("Clinic Owner")) score += 20;
-  if (yearsPracticing.includes("5") || yearsPracticing.includes("10")) score += 15;
-  if (monthlyRevenue.includes("50k") || monthlyRevenue.includes("100k")) score += 15;
+  // Commitment Factor (Max 60)
+  if (formData.investment_preparedness === 'Yes') score += 30;
+  else if (formData.investment_preparedness === 'Serious but options') score += 15;
+  
+  if (formData.willing_to_change === 'Yes') score += 10;
+  if (formData.willing_to_implement === 'Yes') score += 10;
+  if (formData.coachable === 'Yes') score += 10;
+
+  // Data Intelligence Factor (Max 20)
+  if (formData.track_kpis === 'Yes') score += 10;
+  if (formData.conversion_percentage && formData.conversion_percentage !== "") score += 5;
+  if (formData.pva && formData.pva !== "") score += 5;
+
+  // Clinical Status Factor (Max 20)
+  if (formData.clinic_status === 'Scaling') score += 20;
+  else if (formData.clinic_status === 'Growing') score += 15;
+  else if (formData.clinic_status === 'Plateaued') score += 10;
 
   // 2. Map responses to DB fields
   const applicationData = {
@@ -79,12 +101,12 @@ export async function submitApplication(formData: ApplicationFormData) {
   if (error) {
     console.error("Submission Error:", error);
     if ((error as any).code === '23505') {
-      return { success: false, error: "This email is already registered." };
+      return { success: false, error: "This email has a pending application." };
     }
     return { success: false, error: error.message };
   }
 
-  // 4. Trigger Instant Phone Notification (Discord/Slack Webhook)
+  // 4. Trigger Instant Admin Notification
   try {
     await NotificationService.sendNewApplicationAlert({
       full_name: data.full_name,
@@ -97,7 +119,7 @@ export async function submitApplication(formData: ApplicationFormData) {
     console.error("Error sending admin notification:", notifyError);
   }
 
-  // 5. Trigger "Received" email
+  // 5. Trigger "Received" email to Applicant
   try {
     await EmailService.sendAppReceived(applicationData.email, applicationData.full_name);
   } catch (emailError) {
