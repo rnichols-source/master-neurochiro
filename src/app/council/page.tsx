@@ -186,7 +186,7 @@ const CouncilPage = () => {
               The Mastermind gave you the knowledge. The Council gives you the <span className="text-white font-bold italic underline decoration-brand-orange">results</span>. This is the elite ongoing coaching environment for high-performance chiropractors.
             </p>
             <div className="flex flex-wrap gap-6">
-              <Link href="#pricing">
+              <Link href="/council/application">
                 <BrandButton variant="accent" size="lg" className="group">
                   Join the Council <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </BrandButton>
@@ -500,7 +500,7 @@ const CouncilPage = () => {
               </div>
 
               <div className="space-y-10">
-                <Link href="/apply">
+                <Link href="/council/application">
                   <BrandButton variant="accent" size="lg" className="w-full text-xl py-8 rounded-[2rem] group">
                     Join the Council <Lock className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                   </BrandButton>
@@ -561,7 +561,7 @@ const CouncilPage = () => {
              Enrollment is open for the next cohort of Council members. Lock in your implementation rhythm and stop the drift.
            </p>
            <div className="pt-8">
-             <Link href="/apply">
+             <Link href="/council/application">
                <button className="bg-brand-navy text-white px-16 py-8 rounded-[2rem] font-black uppercase tracking-[0.2em] text-xl shadow-2xl hover:bg-brand-black transition-all hover:scale-105 active:scale-95 group">
                  Join The Council <ArrowRight className="inline-block ml-4 w-6 h-6 group-hover:translate-x-2 transition-transform" />
                </button>
