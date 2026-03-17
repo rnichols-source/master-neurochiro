@@ -19,6 +19,7 @@ import {
   Target
 } from "lucide-react";
 import { updateApplicationStatus } from "@/app/actions/update-application";
+import { sendPortalInvite } from "@/app/actions/admin-actions";
 import { cn } from "@/lib/utils";
 
 export function ApplicationsClient({ initialApplications }: { initialApplications: any[] }) {
@@ -28,12 +29,13 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
   const [searchTerm, setSearchName] = useState("");
   const [selectedCohort, setSelectedCohort] = useState("April 2026");
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isInviting, setIsInviting] = useState(false);
 
   const cohorts = ["April 2026", "July 2026", "October 2026"];
 
   const filteredApps = apps.filter(app => {
     const matchesFilter = filter === "all" || app.status === filter;
-    const matchesSearch = app.full_name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = (app.full_name || "").toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -53,6 +55,25 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
       alert("A system error occurred.");
     } finally {
       setIsUpdating(false);
+    }
+  };
+
+  const handleSendInvite = async (email: string, fullName: string) => {
+    if (!confirm(`Send portal activation link to ${fullName}?`)) return;
+    
+    setIsInviting(true);
+    try {
+      const result = await sendPortalInvite(email, fullName);
+      if (result.success) {
+        alert(result.message || "Invite sent successfully!");
+      } else {
+        alert("Error: " + result.error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("A system error occurred.");
+    } finally {
+      setIsInviting(false);
     }
   };
 
@@ -82,7 +103,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
         </div>
 
         <div className="flex bg-brand-navy/5 p-1 rounded-xl w-full lg:w-auto overflow-x-auto no-scrollbar">
-          {["all", "pending", "approved", "waitlist", "rejected"].map((f) => (
+          {["all", "pending", "approved", "paid", "waitlist", "rejected"].map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -120,7 +141,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                     "w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm",
                     selectedApp?.id === app.id ? "bg-white/10" : "bg-brand-navy/5 text-brand-navy"
                   )}>
-                    {app.full_name[0]}
+                    {(app.full_name || "D")[0]}
                   </div>
                   <div className="text-right">
                     <p className={cn("text-[8px] font-black uppercase tracking-widest", selectedApp?.id === app.id ? "text-white/40" : "text-brand-navy/40")}>Score</p>
@@ -139,8 +160,9 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                   <div className={cn(
                     "px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest",
                     app.status === 'approved' ? "bg-green-500/20 text-green-400" : 
+                    app.status === 'paid' ? "bg-brand-orange/20 text-brand-orange" :
                     app.status === 'rejected' ? "bg-red-500/20 text-red-400" : 
-                    "bg-brand-orange/20 text-brand-orange"
+                    "bg-brand-navy/20 text-brand-navy/60"
                   )}>
                     {app.status}
                   </div>
@@ -196,7 +218,19 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                       </div>
                     </div>
 
-                    <div className="flex justify-center md:justify-end gap-3 h-fit">
+                    <div className="flex flex-wrap justify-center md:justify-end gap-3 h-fit">
+                      {selectedApp.status === 'paid' && (
+                        <BrandButton 
+                          onClick={() => handleSendInvite(selectedApp.email, selectedApp.full_name)}
+                          disabled={isInviting}
+                          variant="orange"
+                          className="px-6 py-3 rounded-2xl flex items-center gap-2 group"
+                        >
+                          <Zap className={cn("w-4 h-4 transition-all group-hover:scale-110", isInviting && "animate-pulse")} />
+                          {isInviting ? "Sending..." : "Send Portal Invite"}
+                        </BrandButton>
+                      )}
+                      
                       <button 
                         disabled={isUpdating}
                         onClick={() => handleStatusUpdate(selectedApp.id, 'approved')}

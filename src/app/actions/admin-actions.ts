@@ -1,6 +1,9 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { EmailService } from '@/lib/emails'
+import crypto from 'crypto'
 
 /**
  * Security Shield: Verifies that the current user has administrative authority.
@@ -11,6 +14,46 @@ async function checkAdmin(supabase: any) {
   
   if (!user || user.app_metadata?.role !== 'admin') {
     throw new Error('403 Unauthorized: Administrative access required.');
+  }
+}
+
+export async function sendPortalInvite(email: string, fullName: string) {
+  const supabase = await createClient()
+  await checkAdmin(supabase)
+  
+  const adminClient = createAdminClient()
+  console.log(`[ADMIN] Manually sending custom portal invite to: ${email}`);
+
+  // 1. Generate unique token for the project's custom activation flow
+  const token = crypto.randomBytes(32).toString('hex')
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() // 7 days
+
+  // 2. Create/Update invitation in the DB
+  const { error: invError } = await adminClient
+    .from('invitations')
+    .upsert({
+      email: email,
+      full_name: fullName,
+      token: token,
+      expires_at: expiresAt,
+      status: 'pending'
+    }, { onConflict: 'email' })
+
+  if (invError) {
+    console.error(`[ADMIN] Invitation Error:`, invError);
+    return { success: false, error: `Database error: ${invError.message}` };
+  }
+
+  // 3. Construct the activation link
+  const activationLink = `${process.env.NEXT_PUBLIC_SITE_URL}/portal/activate/${token}`
+
+  // 4. Send the branded email
+  try {
+    await EmailService.sendOnboardingReady(email, fullName, activationLink);
+    return { success: true, message: `Custom portal activation link sent to ${email}` };
+  } catch (emailErr: any) {
+    console.error("[ADMIN] Email Error:", emailErr);
+    return { success: false, error: `Link generated but email failed: ${emailErr.message}` };
   }
 }
 

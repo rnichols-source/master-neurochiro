@@ -29,6 +29,7 @@ import { seedDashboardData, runEngagementPulse, sendAnnouncement } from "@/app/a
 import { activateApprovedMembers, syncWeek6Resources } from "@/app/actions/activation-actions";
 import { updateNextCall } from "@/app/actions/call-actions";
 import { triggerAdminPreview, triggerCohortOnboarding } from "@/app/actions/onboarding-actions";
+import { sendPortalInvite } from "@/app/actions/admin-actions";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -72,6 +73,7 @@ export function AdminDashboardClient({
   
   const [isTriggeringPreview, setIsTriggeringPreview] = useState(false);
   const [isTriggeringCohort, setIsTriggeringCohort] = useState(false);
+  const [isInviting, setIsInviting] = useState<string | null>(null);
 
   const handleSeed = async () => {
     setIsSeeding(true);
@@ -179,6 +181,22 @@ export function AdminDashboardClient({
       alert("Failed to trigger cohort onboarding.");
     } finally {
       setIsTriggeringCohort(false);
+    }
+  };
+
+  const handleManualInvite = async (email: string, fullName: string) => {
+    setIsInviting(email);
+    try {
+      const res = await sendPortalInvite(email, fullName);
+      if (res.success) {
+        alert(res.message);
+      } else {
+        alert(`Error: ${res.error}`);
+      }
+    } catch (err) {
+      alert("Failed to send invite.");
+    } finally {
+      setIsInviting(null);
     }
   };
 
@@ -351,7 +369,16 @@ export function AdminDashboardClient({
                      </div>
                      <div className="flex justify-between items-center">
                        <p className="text-[10px] text-brand-navy/60">{member.status === 'pending_profile' ? 'Profile Not Setup' : 'Zero Progress'}</p>
-                       <a href={`mailto:${member.email}`} className="text-[10px] font-bold text-brand-orange uppercase">Email</a>
+                       <div className="flex items-center gap-3">
+                         <button 
+                           onClick={() => handleManualInvite(member.email, member.full_name)}
+                           disabled={isInviting === member.email}
+                           className="text-[10px] font-black text-brand-orange uppercase tracking-widest hover:text-brand-navy transition-colors disabled:opacity-50"
+                         >
+                           {isInviting === member.email ? 'Sending...' : 'Instant Invite'}
+                         </button>
+                         <a href={`mailto:${member.email}`} className="text-[10px] font-bold text-brand-navy/40 uppercase">Email</a>
+                       </div>
                      </div>
                    </div>
                 ))}
