@@ -67,13 +67,16 @@ export function AdminDashboardClient({
   const [isPulseRunning, setIsPulseRunning] = useState(false);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
   const [showCallModal, setShowCallModal] = useState(false);
+  const [showInviteModal, setShowInviteModal] = useState(false);
   const [announcement, setAnnouncement] = useState({ title: '', content: '' });
   const [nextCallData, setNextCallData] = useState({ date: '', time: '', zoomUrl: '' });
+  const [inviteData, setInviteData] = useState({ email: '', fullName: '' });
   const [isSavingCall, setIsSavingCall] = useState(false);
   
   const [isTriggeringPreview, setIsTriggeringPreview] = useState(false);
   const [isTriggeringCohort, setIsTriggeringCohort] = useState(false);
   const [isInviting, setIsInviting] = useState<string | null>(null);
+  const [isManualInviting, setIsManualInviting] = useState(false);
 
   const handleSeed = async () => {
     setIsSeeding(true);
@@ -200,6 +203,25 @@ export function AdminDashboardClient({
     }
   };
 
+  const handleManualInviteSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsManualInviting(true);
+    try {
+      const res = await sendPortalInvite(inviteData.email, inviteData.fullName);
+      if (res.success) {
+        alert(res.message);
+        setShowInviteModal(false);
+        setInviteData({ email: '', fullName: '' });
+      } else {
+        alert(`Error: ${res.error}`);
+      }
+    } catch (err) {
+      alert("Failed to send invite.");
+    } finally {
+      setIsManualInviting(false);
+    }
+  };
+
   return (
     <div className="space-y-10 pb-32">
       {/* Header */}
@@ -297,6 +319,13 @@ export function AdminDashboardClient({
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+            <BrandButton 
+              variant="outline" 
+              onClick={() => setShowInviteModal(true)}
+              className="border-white/20 text-white hover:bg-white/10"
+            >
+              <UserPlus className="w-4 h-4 mr-2" /> Manual Invite
+            </BrandButton>
             <BrandButton 
               variant="outline" 
               onClick={handleTriggerPreview}
@@ -557,6 +586,52 @@ export function AdminDashboardClient({
 
               <BrandButton type="submit" variant="primary" className="w-full py-4" isLoading={isSavingCall}>
                 <Calendar className="w-4 h-4 mr-2" /> Sync Call Schedule
+              </BrandButton>
+            </form>
+          </EliteCard>
+        </div>
+      )}
+
+      {showInviteModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-brand-navy/40 backdrop-blur-sm">
+          <EliteCard className="w-full max-w-md p-8 animate-in fade-in zoom-in duration-200">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">Manual Portal Invite</h3>
+                <p className="text-[10px] font-bold text-brand-orange uppercase tracking-widest mt-1">For members from legacy systems</p>
+              </div>
+              <button onClick={() => setShowInviteModal(false)} className="p-2 hover:bg-brand-navy/5 rounded-lg transition-all">
+                <X className="w-5 h-5 text-brand-navy/40" />
+              </button>
+            </div>
+
+            <form onSubmit={handleManualInviteSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Full Name</label>
+                <input 
+                  type="text" 
+                  required
+                  placeholder="Dr. Jane Doe"
+                  value={inviteData.fullName}
+                  onChange={(e) => setInviteData({...inviteData, fullName: e.target.value})}
+                  className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl py-3 px-4 text-xs font-bold text-brand-navy focus:border-brand-orange/20 outline-none"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Email Address</label>
+                <input 
+                  type="email" 
+                  required
+                  placeholder="doctor@example.com"
+                  value={inviteData.email}
+                  onChange={(e) => setInviteData({...inviteData, email: e.target.value})}
+                  className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl py-3 px-4 text-xs font-bold text-brand-navy focus:border-brand-orange/20 outline-none"
+                />
+              </div>
+
+              <BrandButton type="submit" variant="primary" className="w-full py-4" isLoading={isManualInviting}>
+                <Send className="w-4 h-4 mr-2" /> Send Custom Invite
               </BrandButton>
             </form>
           </EliteCard>
