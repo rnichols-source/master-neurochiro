@@ -173,7 +173,7 @@ const CouncilPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl"
-          >
+          
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-8">
               <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">The Implementation Environment</span>
@@ -329,7 +329,7 @@ const CouncilPage = () => {
                    whileInView={{ opacity: 1, x: 0 }}
                    transition={{ delay: i * 0.1 }}
                    className="bg-white/5 border border-white/10 p-8 rounded-[2rem] hover:bg-white/10 transition-all group relative overflow-hidden"
-                 >
+                 
                     <div className="flex justify-between items-start mb-4 relative z-10">
                       <h5 className="text-xl font-black text-brand-orange">{adv.title}</h5>
                       <adv.icon className="w-5 h-5 text-white/20 group-hover:text-brand-orange transition-colors" />
@@ -357,7 +357,7 @@ const CouncilPage = () => {
                   key={i}
                   onClick={() => setActiveQuarter(i)}
                   className={`px-8 py-4 rounded-xl font-black uppercase tracking-widest text-[10px] transition-all duration-300 ${activeQuarter === i ? 'bg-brand-navy text-white shadow-xl' : 'bg-brand-cream text-brand-navy/40 hover:bg-brand-navy/5'}`}
-                 >
+                 
                    {q.quarter.split(' — ')[0]}
                  </button>
                ))}
@@ -373,7 +373,7 @@ const CouncilPage = () => {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.4 }}
                 className="grid grid-cols-1 lg:grid-cols-3 gap-8"
-              >
+              
                 {roadmap[activeQuarter].months.map((month, i) => (
                   <EliteCard key={i} className="bg-brand-cream/30 border-brand-navy/5 p-10 flex flex-col h-full group overflow-hidden">
                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
