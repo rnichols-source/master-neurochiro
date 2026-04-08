@@ -295,6 +295,44 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+      {/* Looking for more? */}
+      <section className="pt-16 md:pt-20 px-5 md:px-6">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-xl font-black text-brand-navy text-center mb-6">
+            Looking for More?
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Link
+              href="/mentorship"
+              className="flex items-center justify-between p-5 bg-white rounded-2xl border border-brand-navy/5 shadow-sm hover:border-brand-orange/30 transition-all group"
+            >
+              <div>
+                <p className="text-base font-black text-brand-navy">
+                  Private Coaching
+                </p>
+                <p className="text-sm text-brand-gray font-medium">
+                  1-on-1 with Dr. Nichols
+                </p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-brand-navy/20 group-hover:text-brand-orange transition-colors" />
+            </Link>
+            <Link
+              href="/council"
+              className="flex items-center justify-between p-5 bg-white rounded-2xl border border-brand-navy/5 shadow-sm hover:border-brand-orange/30 transition-all group"
+            >
+              <div>
+                <p className="text-base font-black text-brand-navy">
+                  The Council
+                </p>
+                <p className="text-sm text-brand-gray font-medium">
+                  Ongoing coaching for graduates
+                </p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-brand-navy/20 group-hover:text-brand-orange transition-colors" />
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

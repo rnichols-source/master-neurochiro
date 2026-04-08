@@ -182,22 +182,18 @@ export default function CurriculumPage() {
       </section>
 
       {/* Footer CTA */}
-      <section className="pt-32 pb-20 px-8 text-center">
-        <EliteCard className="max-w-4xl mx-auto p-16 bg-brand-navy text-white border-none relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-orange via-white to-brand-orange opacity-20" />
-          <div className="space-y-8 relative z-10">
-            <h2 className="text-5xl font-black tracking-tight leading-none">Ready to Install the Operating System?</h2>
-            <p className="text-white/40 text-lg max-w-xl mx-auto font-medium">
-              We only accept doctors who are ready for the work. If you have reviewed the 
-              8-week roadmap and are ready to shift your identity, apply below.
-            </p>
-            <Link href="/apply" className="block pt-4">
-              <BrandButton variant="accent" size="lg" className="group py-6 px-12">
-                Submit Your Application <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </BrandButton>
-            </Link>
-          </div>
-        </EliteCard>
+      <section className="pt-16 md:pt-24 pb-20 px-5 md:px-8">
+        <div className="max-w-4xl mx-auto bg-brand-navy rounded-2xl p-8 md:p-12 text-center text-white space-y-6">
+          <h2 className="text-2xl md:text-4xl font-black tracking-tight">Ready to Apply?</h2>
+          <p className="text-base text-white/50 font-medium max-w-xl mx-auto">
+            If the 8-week roadmap looks like what you need, take the next step.
+          </p>
+          <Link href="/apply">
+            <BrandButton variant="accent" size="lg" className="group py-5 px-10">
+              Apply Now <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </BrandButton>
+          </Link>
+        </div>
       </section>
     </div>
   );

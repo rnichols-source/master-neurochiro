@@ -30,11 +30,19 @@ export default function EventSuccessPage() {
               <p className="text-sm font-bold text-white">Adelaide, Australia</p>
             </div>
           </div>
-          <Link href="/">
-            <BrandButton variant="accent" className="w-full py-6 rounded-2xl">
-              Back to NeuroChiro
-            </BrandButton>
-          </Link>
+          <div className="space-y-4">
+            <Link href="/">
+              <BrandButton variant="accent" className="w-full py-5 rounded-2xl">
+                Back to NeuroChiro
+              </BrandButton>
+            </Link>
+            <p className="text-sm text-white/30 font-medium">
+              Want to go deeper?{" "}
+              <Link href="/apply" className="text-brand-orange hover:text-white transition-colors underline">
+                Join the 8-week Mastermind
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

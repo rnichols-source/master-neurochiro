@@ -174,9 +174,14 @@ const CouncilPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-8">
-              <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">The Implementation Environment</span>
+            <div className="flex flex-wrap items-center gap-3 mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full">
+                <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">The Implementation Environment</span>
+              </div>
+              <div className="inline-flex items-center px-4 py-2 bg-brand-orange/20 border border-brand-orange/30 rounded-full">
+                <span className="text-xs font-bold text-brand-orange">For Mastermind graduates &amp; practicing chiropractors</span>
+              </div>
             </div>
             <h1 className="text-6xl md:text-8xl font-heading font-black leading-[0.95] mb-8 tracking-tighter">
               Where Chiropractors <br />Stop Guessing... <br />

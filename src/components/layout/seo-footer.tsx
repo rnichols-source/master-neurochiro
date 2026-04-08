@@ -30,12 +30,6 @@ export function SEOFooter() {
               Pricing
             </Link>
             <Link
-              href="/resources/blog"
-              className="text-sm text-white/50 hover:text-white transition-colors font-medium py-1"
-            >
-              Blog
-            </Link>
-            <Link
               href="/login"
               className="text-sm text-white/50 hover:text-white transition-colors font-medium py-1"
             >
