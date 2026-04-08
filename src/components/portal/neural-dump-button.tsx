@@ -94,7 +94,7 @@ export function NeuralDumpButton() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="w-full max-w-sm bg-white rounded-[2rem] p-8 shadow-2xl relative overflow-hidden"
+              className="w-full max-w-sm bg-white rounded-2xl p-8 shadow-2xl relative overflow-hidden"
             >
               {isRecording ? (
                 <div className="text-center space-y-6">

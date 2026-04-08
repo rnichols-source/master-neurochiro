@@ -100,7 +100,7 @@ export function LivePricing({ event }: LivePricingProps) {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="glass-panel p-12 rounded-[3rem] border-white/5 flex flex-col"
+              className="glass-panel p-12 rounded-2xl border-white/5 flex flex-col"
             >
               <div className="flex items-center gap-3 mb-8">
                 <ShieldCheck className="w-6 h-6 text-brand-orange" />
@@ -136,7 +136,7 @@ export function LivePricing({ event }: LivePricingProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="glass-panel p-12 rounded-[3rem] border-brand-orange/30 bg-gradient-to-br from-brand-orange/10 to-transparent flex flex-col relative"
+              className="glass-panel p-12 rounded-2xl border-brand-orange/30 bg-gradient-to-br from-brand-orange/10 to-transparent flex flex-col relative"
             >
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-xs font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg shadow-brand-orange/30 whitespace-nowrap">
                 Highly Limited

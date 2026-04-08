@@ -148,7 +148,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className={cn(
-            "p-6 rounded-[2rem] border-2 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group",
+            "p-6 rounded-2xl border-2 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group",
             profitLeak.severity === 'critical' ? "bg-red-50 border-red-100" : "bg-brand-orange/5 border-brand-orange/10"
           )}
         >

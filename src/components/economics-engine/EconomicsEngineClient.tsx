@@ -167,7 +167,7 @@ export function EconomicsEngineClient() {
                     { label: "Plan 2 - Stabilization (36 Visits)", val: cp2, desc: "Fixing the pattern." },
                     { label: "Plan 3 - Long Term (48 Visits)", val: cp3, desc: "Total health maintenance." },
                   ].map((p, i) => (
-                    <div key={i} className="p-8 bg-brand-navy rounded-[2rem] flex justify-between items-center border border-white/10 shadow-2xl">
+                    <div key={i} className="p-8 bg-brand-navy rounded-2xl flex justify-between items-center border border-white/10 shadow-2xl">
                       <div><p className="text-white/40 text-xs font-black uppercase tracking-widest mb-1">{p.desc}</p><h3 className="text-white text-xl font-black">{p.label}</h3></div>
                       <div className="text-right"><p className="text-brand-orange text-xs font-black uppercase tracking-widest mb-1">Required Price</p><h3 className="text-white text-4xl font-black tracking-tighter">${Math.round(p.val).toLocaleString()}</h3></div>
                     </div>
@@ -202,7 +202,7 @@ export function EconomicsEngineClient() {
           </div>
 
           {showEdu && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8 bg-brand-navy text-white rounded-[2.5rem] space-y-4 relative overflow-hidden">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8 bg-brand-navy text-white rounded-2xl space-y-4 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 opacity-10"><BookOpen size={100} /></div>
               <div className="flex gap-3 items-center text-brand-orange"><Info size={18} /><p className="text-xs font-black uppercase tracking-widest">Why these numbers matter</p></div>
               <div className="space-y-4 text-sm text-white/70 leading-relaxed font-medium">
@@ -237,7 +237,7 @@ export function EconomicsEngineClient() {
               )}
             </div>
           </EliteCard>
-          <div className="bg-white border border-brand-navy/5 rounded-[2.5rem] p-8 space-y-6 shadow-sm">
+          <div className="bg-white border border-brand-navy/5 rounded-2xl p-8 space-y-6 shadow-sm">
             <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 text-center">Where the money goes</p>
             <div className="space-y-4">
               {[ { label: "Monthly Bills", val: overhead }, { label: "Your Take Home", val: data.desiredIncome }, { label: "Tax (30%)", val: tax }, { label: "Savings / Buffer", val: data.buffer } ].map((item, i) => (

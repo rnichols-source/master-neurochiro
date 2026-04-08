@@ -235,7 +235,7 @@ export default function MentorshipLandingPage() {
               { num: "03", title: "The Cadence", desc: "Bi-weekly strategy sessions. One call for system building, one call for accountability and troubleshooting." },
               { num: "04", title: "The Installation", desc: "You execute between calls. We review your recordings, metrics, and implementations to ensure it sticks." }
             ].map((step, i) => (
-              <div key={i} className="p-8 border border-white/10 rounded-[2rem] bg-white/5 hover:bg-white/10 transition-colors relative group">
+              <div key={i} className="p-8 border border-white/10 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors relative group">
                 <span className="text-6xl font-black text-white/5 absolute top-4 right-4 group-hover:text-brand-orange/20 transition-colors">{step.num}</span>
                 <h4 className="text-2xl font-black mb-4 relative z-10">{step.title}</h4>
                 <p className="text-white/60 font-medium leading-relaxed relative z-10">{step.desc}</p>
@@ -248,7 +248,7 @@ export default function MentorshipLandingPage() {
       {/* What You Walk Away With */}
       <section className="py-32 px-6 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <EliteCard className="p-12 bg-brand-navy text-white shadow-2xl rounded-[3rem] border-none">
+          <EliteCard className="p-12 bg-brand-navy text-white shadow-2xl rounded-2xl border-none">
             <Cpu className="w-12 h-12 text-brand-orange mb-8" />
             <h3 className="text-4xl font-black mb-8 tracking-tighter leading-tight">The Clinic <br />Operating System.</h3>
             <p className="text-lg text-white/60 font-medium leading-relaxed mb-8">
@@ -294,7 +294,7 @@ export default function MentorshipLandingPage() {
 
       {/* Authority Section */}
       <section className="py-24 px-6 bg-brand-cream">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 bg-white p-12 rounded-[3rem] shadow-sm border border-brand-navy/5">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 bg-white p-12 rounded-2xl shadow-sm border border-brand-navy/5">
           <div className="w-48 h-48 rounded-full overflow-hidden shrink-0 border-4 border-brand-cream">
             <img src="/founder.jpg" alt="Dr. Raymond Nichols" className="w-full h-full object-cover" />
           </div>
@@ -311,7 +311,7 @@ export default function MentorshipLandingPage() {
       {/* Contrast Section */}
       <section className="py-32 px-6 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-           <div className="bg-brand-cream/50 p-16 rounded-[3rem] border border-brand-navy/5">
+           <div className="bg-brand-cream/50 p-16 rounded-2xl border border-brand-navy/5">
               <h3 className="text-3xl font-black mb-10 flex items-center gap-4 text-brand-navy tracking-tighter">
                 <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center shrink-0">
                   <X className="w-6 h-6 text-red-500" />
@@ -332,7 +332,7 @@ export default function MentorshipLandingPage() {
                 ))}
               </ul>
            </div>
-           <div className="bg-brand-navy p-16 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+           <div className="bg-brand-navy p-16 rounded-2xl text-white shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/10 blur-[80px] rounded-full" />
               <h3 className="text-3xl font-black mb-10 flex items-center gap-4 tracking-tighter relative z-10">
                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
@@ -370,7 +370,7 @@ export default function MentorshipLandingPage() {
            </p>
            <div className="pt-8">
              <Link href="/apply/mentorship">
-               <button className="bg-brand-navy text-white px-16 py-8 rounded-[2rem] font-black uppercase tracking-wider text-xl shadow-[0_20px_50px_-10px_rgba(21,32,43,0.5)] hover:bg-brand-black transition-all hover:-translate-y-1 active:scale-95 group">
+               <button className="bg-brand-navy text-white px-16 py-8 rounded-2xl font-black uppercase tracking-wider text-xl shadow-[0_20px_50px_-10px_rgba(21,32,43,0.5)] hover:bg-brand-black transition-all hover:-translate-y-1 active:scale-95 group">
                  Apply for Private Coaching <ArrowRight className="inline-block ml-4 w-6 h-6 group-hover:translate-x-2 transition-transform" />
                </button>
              </Link>

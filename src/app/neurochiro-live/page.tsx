@@ -182,7 +182,7 @@ export default function NeuroChiroLivePage() {
                 { title: "New Graduates", icon: UserCheck, desc: "Accelerate your first 2 years. Skip the trial-and-error and install the systems that build high-value practices." },
                 { title: "Practising Doctors", icon: Users, desc: "Refine your clinical neurology and upgrade your practice OS. Move from 'technician' to 'Architect'." }
               ].map((item, i) => (
-                <div key={i} className="glass-panel p-10 rounded-[3rem] group hover:border-brand-orange/30 transition-all duration-500">
+                <div key={i} className="glass-panel p-10 rounded-2xl group hover:border-brand-orange/30 transition-all duration-500">
                   <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center mb-8 group-hover:bg-brand-orange/10 transition-colors">
                     <item.icon className="w-8 h-8 text-brand-orange" />
                   </div>
@@ -241,7 +241,7 @@ export default function NeuroChiroLivePage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Testimonial 1 - Dr. Mike */}
-              <div className="glass-panel p-12 rounded-[3.5rem] relative group border-white/5 hover:border-brand-orange/20 transition-all duration-500 flex flex-col">
+              <div className="glass-panel p-12 rounded-2xl relative group border-white/5 hover:border-brand-orange/20 transition-all duration-500 flex flex-col">
                 <Quote className="w-16 h-16 text-brand-orange absolute top-10 right-12 opacity-10 group-hover:opacity-20 transition-opacity" />
                 
                 <div className="flex-1 space-y-8">
@@ -272,7 +272,7 @@ export default function NeuroChiroLivePage() {
               </div>
 
               {/* Testimonial 2 - Dr. Melissa */}
-              <div className="glass-panel p-12 rounded-[3.5rem] relative group border-white/5 hover:border-brand-orange/20 transition-all duration-500 flex flex-col">
+              <div className="glass-panel p-12 rounded-2xl relative group border-white/5 hover:border-brand-orange/20 transition-all duration-500 flex flex-col">
                 <Quote className="w-16 h-16 text-brand-orange absolute top-10 right-12 opacity-10 group-hover:opacity-20 transition-opacity" />
                 
                 <div className="flex-1 space-y-8">
@@ -332,7 +332,7 @@ export default function NeuroChiroLivePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {standardTicket && (
-                <div className="glass-panel p-12 rounded-[3rem] border-white/5 flex flex-col">
+                <div className="glass-panel p-12 rounded-2xl border-white/5 flex flex-col">
                   <div className="flex items-center gap-3 mb-8">
                     <ShieldCheck className="w-6 h-6 text-brand-orange" />
                     <span className="text-xs font-black uppercase tracking-widest text-white/40">Standard Access</span>
@@ -361,7 +361,7 @@ export default function NeuroChiroLivePage() {
               )}
 
               {innerCircleTicket && (
-                <div className="glass-panel p-12 rounded-[3rem] border-brand-orange/30 bg-gradient-to-br from-brand-orange/10 to-transparent flex flex-col relative">
+                <div className="glass-panel p-12 rounded-2xl border-brand-orange/30 bg-gradient-to-br from-brand-orange/10 to-transparent flex flex-col relative">
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-xs font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg shadow-brand-orange/30 whitespace-nowrap">
                     Highly Limited
                   </div>
@@ -399,7 +399,7 @@ export default function NeuroChiroLivePage() {
         <section className="section-padding bg-brand-navy relative overflow-hidden px-8">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-              <div className="aspect-[4/5] bg-white/5 rounded-[4rem] flex items-center justify-center border border-white/5 relative group overflow-hidden">
+              <div className="aspect-[4/5] bg-white/5 rounded-2xl flex items-center justify-center border border-white/5 relative group overflow-hidden">
                 <Image 
                   src="/dr-raymond.jpg" 
                   alt="Dr. Raymond Nichols" 

@@ -130,7 +130,7 @@ export default function VideoPlayer({
   }, [userId, moduleId, title])
 
   const renderChecklist = () => (
-    <div className="bg-white/50 backdrop-blur-sm border border-brand-navy/5 rounded-[2rem] p-8 md:p-10 shadow-sm relative overflow-hidden group">
+    <div className="bg-white/50 backdrop-blur-sm border border-brand-navy/5 rounded-2xl p-8 md:p-10 shadow-sm relative overflow-hidden group">
       <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
         <Zap size={80} className="text-brand-navy" />
       </div>
@@ -165,7 +165,7 @@ export default function VideoPlayer({
   if (isPlaceholder) {
     return (
       <div className="space-y-8">
-        <div className="relative bg-brand-navy rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white aspect-video flex flex-col items-center justify-center p-8 text-center group">
+        <div className="relative bg-brand-navy rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-video flex flex-col items-center justify-center p-8 text-center group">
           <div className="absolute inset-0 opacity-10 pointer-events-none">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-orange/20 via-transparent to-transparent" />
           </div>
@@ -207,7 +207,7 @@ export default function VideoPlayer({
   if (isVimeo || isYouTube) {
     return (
       <div className="space-y-8">
-        <div className="relative group bg-brand-navy rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-video">
+        <div className="relative group bg-brand-navy rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-video">
           {!isPlaying ? (
             <div 
               className="absolute inset-0 flex items-center justify-center cursor-pointer z-10 bg-brand-navy/60 backdrop-blur-sm"
@@ -239,7 +239,7 @@ export default function VideoPlayer({
   // ---------------------------------------------------------
   return (
     <div className="space-y-8">
-      <div className="relative group bg-brand-navy rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white aspect-video">
+      <div className="relative group bg-brand-navy rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-video">
         <video
           ref={videoRef}
           src={cleanUrl}

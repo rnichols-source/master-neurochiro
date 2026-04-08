@@ -208,7 +208,7 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
             key={triage.label}
             onClick={() => setActiveCategory(triage.category)}
             className={cn(
-              "p-8 rounded-[2rem] text-left transition-all hover:scale-[1.02] hover:shadow-2xl relative overflow-hidden group border bg-white",
+              "p-8 rounded-2xl text-left transition-all hover:scale-[1.02] hover:shadow-2xl relative overflow-hidden group border bg-white",
               activeCategory === triage.category 
                 ? "border-brand-orange ring-2 ring-brand-orange/20" 
                 : "border-brand-navy/5"

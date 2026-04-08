@@ -87,7 +87,7 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-xl bg-white rounded-[3rem] shadow-2xl overflow-hidden"
+              className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden"
             >
               <button 
                 onClick={reset}
@@ -113,7 +113,7 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
                     <div 
                       onClick={() => !fileName && setFileName("rof_recording_march.mp4")}
                       className={cn(
-                        "border-2 border-dashed rounded-[2rem] p-12 text-center space-y-4 transition-all cursor-pointer group",
+                        "border-2 border-dashed rounded-2xl p-12 text-center space-y-4 transition-all cursor-pointer group",
                         fileName ? "border-green-500 bg-green-50/50" : "border-brand-navy/10 hover:border-brand-orange/40"
                       )}
                     >

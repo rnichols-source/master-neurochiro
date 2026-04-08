@@ -122,7 +122,7 @@ export function EngineClient({
         </div>
 
         {/* The Next $10k Move Card */}
-        <div className="w-full md:w-96 bg-brand-navy rounded-[2rem] p-8 text-white relative overflow-hidden group shadow-2xl">
+        <div className="w-full md:w-96 bg-brand-navy rounded-2xl p-8 text-white relative overflow-hidden group shadow-2xl">
           <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
             <Sparkles size={60} className="text-brand-orange" />
           </div>
@@ -204,7 +204,7 @@ export function EngineClient({
             {isPro ? (
               <RevenueForecaster />
             ) : (
-              <div className="bg-brand-navy rounded-[2.5rem] p-12 text-center space-y-8 text-white relative overflow-hidden">
+              <div className="bg-brand-navy rounded-2xl p-12 text-center space-y-8 text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-8 opacity-10">
                   <Target className="w-32 h-32 text-brand-orange" />
                 </div>

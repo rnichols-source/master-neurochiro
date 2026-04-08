@@ -109,7 +109,7 @@ export default function CouncilApplyClient() {
               If it's a fit, we'll reach out with next steps to join the inner circle.
             </p>
           </div>
-          <div className="p-10 bg-brand-navy rounded-[3rem] text-white text-left space-y-6 shadow-2xl relative overflow-hidden">
+          <div className="p-10 bg-brand-navy rounded-2xl text-white text-left space-y-6 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 p-8 opacity-10">
                <Star className="w-24 h-24 text-brand-orange" />
             </div>
@@ -167,7 +167,7 @@ export default function CouncilApplyClient() {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.4 }}
         >
-          <EliteCard className="p-8 md:p-12 bg-white border-brand-navy/5 shadow-2xl rounded-[3rem] relative overflow-hidden">
+          <EliteCard className="p-8 md:p-12 bg-white border-brand-navy/5 shadow-2xl rounded-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 blur-[80px] rounded-full -mr-32 -mt-32" />
             
             <form onSubmit={handleSubmit} className="space-y-10 relative z-10">
@@ -341,7 +341,7 @@ export default function CouncilApplyClient() {
                       </div>
                     </div>
 
-                    <div className="p-8 bg-brand-cream rounded-[2.5rem] text-brand-navy relative overflow-hidden border border-brand-navy/5">
+                    <div className="p-8 bg-brand-cream rounded-2xl text-brand-navy relative overflow-hidden border border-brand-navy/5">
                        <Lock className="absolute top-4 right-4 w-12 h-12 text-brand-navy/5" />
                        <div className="relative z-10 space-y-2 text-center">
                           <p className="text-xs font-black uppercase tracking-widest">The Standard</p>

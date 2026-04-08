@@ -98,7 +98,7 @@ export default function RescueScriptPage() {
             </button>
           </div>
 
-          <div className="bg-white/50 p-2 rounded-[2rem] border border-brand-navy/5 flex gap-2 overflow-x-auto no-scrollbar">
+          <div className="bg-white/50 p-2 rounded-2xl border border-brand-navy/5 flex gap-2 overflow-x-auto no-scrollbar">
             {(Object.keys(scripts) as PersonalityType[]).map((type) => (
               <button
                 key={type}

@@ -19,7 +19,7 @@ export function FounderAuthorityCard() {
       {/* Background Glow */}
       <div className="absolute inset-0 bg-brand-orange/10 blur-[80px] rounded-full scale-90 group-hover:scale-100 transition-transform duration-700" />
       
-      <EliteCard className="p-0 overflow-hidden border-brand-navy/10 shadow-2xl rounded-[2.5rem] bg-white relative z-10">
+      <EliteCard className="p-0 overflow-hidden border-brand-navy/10 shadow-2xl rounded-2xl bg-white relative z-10">
         <div className="flex flex-col">
           {/* Photo Section */}
           <div className="relative aspect-[4/5] w-full overflow-hidden bg-brand-navy">

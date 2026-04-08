@@ -722,7 +722,7 @@ export function PlaybooksClient() {
           className="space-y-8"
         >
           {/* Manual Header */}
-          <div className="bg-white border border-brand-navy/5 rounded-[2.5rem] p-8 md:p-16 shadow-sm relative overflow-hidden group">
+          <div className="bg-white border border-brand-navy/5 rounded-2xl p-8 md:p-16 shadow-sm relative overflow-hidden group">
             <div className="absolute -top-10 -right-10 p-12 opacity-5 group-hover:scale-110 transition-transform duration-1000">
               <activePlaybook.icon size={300} className="text-brand-navy" />
             </div>
@@ -737,7 +737,7 @@ export function PlaybooksClient() {
           </div>
 
           {/* Quick Summary Box */}
-          <EliteCard className="p-8 md:p-10 bg-brand-navy/5 border-none rounded-[2rem] relative overflow-hidden">
+          <EliteCard className="p-8 md:p-10 bg-brand-navy/5 border-none rounded-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 p-6 opacity-10">
               <Zap size={60} className="text-brand-orange" />
             </div>

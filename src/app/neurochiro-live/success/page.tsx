@@ -5,7 +5,7 @@ import { BrandButton } from "@/components/ui/elite-ui";
 export default function EventSuccessPage() {
   return (
     <div className="min-h-screen bg-brand-navy flex items-center justify-center px-8 py-20">
-      <div className="max-w-2xl w-full glass-panel p-12 md:p-20 rounded-[4rem] text-center space-y-10 relative overflow-hidden">
+      <div className="max-w-2xl w-full glass-panel p-12 md:p-20 rounded-2xl text-center space-y-10 relative overflow-hidden">
         <div className="absolute inset-0 bg-brand-orange/5 animate-pulse" />
         <div className="relative z-10">
           <div className="w-24 h-24 bg-brand-orange/10 rounded-full flex items-center justify-center mx-auto mb-10 border border-brand-orange/20">

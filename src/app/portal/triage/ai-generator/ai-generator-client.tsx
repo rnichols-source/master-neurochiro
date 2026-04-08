@@ -190,7 +190,7 @@ export function CertaintyAIGeneratorClient() {
                       </button>
                     </div>
 
-                    <div className="flex-1 bg-white/5 rounded-[2rem] p-10 font-serif italic text-2xl md:text-3xl leading-relaxed text-brand-cream relative">
+                    <div className="flex-1 bg-white/5 rounded-2xl p-10 font-serif italic text-2xl md:text-3xl leading-relaxed text-brand-cream relative">
                       <span className="absolute top-6 left-6 text-6xl text-brand-orange/20 font-black">"</span>
                       {generatedScript}
                     </div>
@@ -217,7 +217,7 @@ export function CertaintyAIGeneratorClient() {
                 </EliteCard>
               </motion.div>
             ) : (
-              <div className="h-full min-h-[500px] border-2 border-dashed border-brand-navy/5 rounded-[3rem] flex flex-col items-center justify-center text-center p-12 space-y-6">
+              <div className="h-full min-h-[500px] border-2 border-dashed border-brand-navy/5 rounded-2xl flex flex-col items-center justify-center text-center p-12 space-y-6">
                 {loading ? (
                   <div className="space-y-6 flex flex-col items-center">
                     <div className="relative">
@@ -228,7 +228,7 @@ export function CertaintyAIGeneratorClient() {
                   </div>
                 ) : (
                   <>
-                    <div className="w-20 h-20 rounded-[2.5rem] bg-brand-cream flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-2xl bg-brand-cream flex items-center justify-center">
                       <Sparkles className="w-10 h-10 text-brand-navy/20" />
                     </div>
                     <div className="space-y-2">

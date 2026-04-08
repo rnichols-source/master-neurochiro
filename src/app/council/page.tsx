@@ -333,7 +333,7 @@ const CouncilPage = () => {
                    initial={{ opacity: 0, x: 20 }}
                    whileInView={{ opacity: 1, x: 0 }}
                    transition={{ delay: i * 0.1 }}
-                   className="bg-white/5 border border-white/10 p-8 rounded-[2rem] hover:bg-white/10 transition-all group relative overflow-hidden"
+                   className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-all group relative overflow-hidden"
                  >
                     <div className="flex justify-between items-start mb-4 relative z-10">
                       <h5 className="text-xl font-black text-brand-orange">{adv.title}</h5>
@@ -415,7 +415,7 @@ const CouncilPage = () => {
       {/* 6. WHO THIS IS FOR / NOT FOR */}
       <section className="py-32 px-6 bg-brand-cream">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-           <div className="bg-white p-16 rounded-[3rem] elite-shadow border border-brand-navy/5">
+           <div className="bg-white p-16 rounded-2xl elite-shadow border border-brand-navy/5">
               <h3 className="text-3xl font-black mb-10 flex items-center gap-4 text-brand-navy tracking-tighter">
                 <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center shrink-0">
                   <CheckCircle2 className="w-6 h-6 text-green-500" />
@@ -436,7 +436,7 @@ const CouncilPage = () => {
                 ))}
               </ul>
            </div>
-           <div className="bg-brand-navy p-16 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+           <div className="bg-brand-navy p-16 rounded-2xl text-white shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 blur-[80px] rounded-full" />
               <h3 className="text-3xl font-black mb-10 flex items-center gap-4 tracking-tighter relative z-10">
                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
@@ -472,7 +472,7 @@ const CouncilPage = () => {
             <span className="text-brand-orange">Experience.</span>
           </h2>
           
-          <div className="bg-brand-navy p-16 md:p-24 rounded-[4rem] text-white shadow-[0_40px_100px_-20px_rgba(21,32,43,0.5)] relative overflow-hidden border border-white/5">
+          <div className="bg-brand-navy p-16 md:p-24 rounded-2xl text-white shadow-[0_40px_100px_-20px_rgba(21,32,43,0.5)] relative overflow-hidden border border-white/5">
             <div className="absolute top-0 right-0 w-80 h-80 bg-brand-orange/10 blur-[100px] rounded-full -mr-32 -mt-32" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 blur-[100px] rounded-full -ml-32 -mb-32" />
             
@@ -506,7 +506,7 @@ const CouncilPage = () => {
 
               <div className="space-y-10">
                 <Link href="/council/application">
-                  <BrandButton variant="accent" size="lg" className="w-full text-xl py-8 rounded-[2rem] group">
+                  <BrandButton variant="accent" size="lg" className="w-full text-xl py-8 rounded-2xl group">
                     Join the Council <Lock className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                   </BrandButton>
                 </Link>
@@ -567,7 +567,7 @@ const CouncilPage = () => {
            </p>
            <div className="pt-8">
              <Link href="/council/application">
-               <button className="bg-brand-navy text-white px-16 py-8 rounded-[2rem] font-black uppercase tracking-wider text-xl shadow-2xl hover:bg-brand-black transition-all hover:scale-105 active:scale-95 group">
+               <button className="bg-brand-navy text-white px-16 py-8 rounded-2xl font-black uppercase tracking-wider text-xl shadow-2xl hover:bg-brand-black transition-all hover:scale-105 active:scale-95 group">
                  Join The Council <ArrowRight className="inline-block ml-4 w-6 h-6 group-hover:translate-x-2 transition-transform" />
                </button>
              </Link>

@@ -130,7 +130,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                 key={app.id}
                 onClick={() => setSelectedApp(app)}
                 className={cn(
-                  "w-full text-left p-6 rounded-[2rem] border transition-all group relative",
+                  "w-full text-left p-6 rounded-2xl border transition-all group relative",
                   selectedApp?.id === app.id 
                     ? "bg-brand-navy border-brand-navy text-white shadow-xl shadow-brand-navy/20" 
                     : "bg-white border-brand-navy/5 hover:border-brand-orange/40"
@@ -171,7 +171,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
               </button>
             ))
           ) : (
-            <div className="p-12 text-center border-2 border-dashed border-brand-navy/5 rounded-[2rem]">
+            <div className="p-12 text-center border-2 border-dashed border-brand-navy/5 rounded-2xl">
               <p className="text-xs font-bold text-brand-navy/20 uppercase tracking-widest">No Applications Found</p>
             </div>
           )}
@@ -204,7 +204,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                   {/* Top Profile Bar */}
                   <div className="flex flex-col md:flex-row justify-between gap-8 pb-8 md:pb-10 border-b border-brand-navy/5">
                     <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6">
-                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-[1.5rem] md:rounded-[2rem] bg-brand-navy flex items-center justify-center text-white text-2xl md:text-3xl font-black shadow-xl shadow-brand-navy/20 shrink-0">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-2xl bg-brand-navy flex items-center justify-center text-white text-2xl md:text-3xl font-black shadow-xl shadow-brand-navy/20 shrink-0">
                         {selectedApp.full_name[0]}
                       </div>
                       <div className="space-y-2 min-w-0">
@@ -310,7 +310,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                 </EliteCard>
               </motion.div>
             ) : (
-              <div className="h-full flex items-center justify-center p-12 md:p-20 border-2 border-dashed border-brand-navy/5 rounded-[2rem] md:rounded-[3rem]">
+              <div className="h-full flex items-center justify-center p-12 md:p-20 border-2 border-dashed border-brand-navy/5 rounded-2xl md:rounded-2xl">
                 <div className="text-center space-y-4">
                   <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-brand-navy/5 flex items-center justify-center mx-auto">
                     <User className="w-6 h-6 md:w-8 md:h-8 text-brand-navy/20" />

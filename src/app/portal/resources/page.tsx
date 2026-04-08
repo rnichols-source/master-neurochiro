@@ -49,7 +49,7 @@ export default async function ResourcesPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {resources.length === 0 ? (
-            <div className="col-span-full py-20 text-center border-2 border-dashed border-brand-navy/5 rounded-[3rem]">
+            <div className="col-span-full py-20 text-center border-2 border-dashed border-brand-navy/5 rounded-2xl">
               <p className="text-sm font-black text-brand-navy/20 uppercase tracking-widest">No resources available yet.</p>
             </div>
           ) : (

@@ -67,7 +67,7 @@ export default function LiveCallBanner({ call }: { call: LiveCall | null }) {
       className="mb-8"
     >
       <div className={cn(
-        "relative overflow-hidden rounded-[2rem] border-4 border-white shadow-2xl transition-all duration-500",
+        "relative overflow-hidden rounded-2xl border-4 border-white shadow-2xl transition-all duration-500",
         isLive ? "bg-brand-orange text-white" : "bg-brand-navy text-white"
       )}>
         {/* Background Accent */}

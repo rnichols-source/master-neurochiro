@@ -40,7 +40,7 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
       <motion.div
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="w-full max-w-2xl bg-white rounded-[3rem] shadow-2xl overflow-hidden"
+        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden"
       >
         <div className="flex flex-col md:flex-row">
           {/* Left Sidebar: Progress */}

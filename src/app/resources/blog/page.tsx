@@ -66,7 +66,7 @@ export default function BlogListingPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white rounded-[3rem] border border-brand-navy/5">
+            <div className="text-center py-20 bg-white rounded-2xl border border-brand-navy/5">
               <p className="text-brand-gray font-medium">New training articles coming soon.</p>
             </div>
           )}

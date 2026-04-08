@@ -59,7 +59,7 @@ export function ResourceUploader({ moduleId, existingResources, onUpdate }: Reso
         onDragLeave={onDragLeave}
         onDrop={onDrop}
         className={cn(
-          "relative border-2 border-dashed rounded-[2rem] p-8 transition-all flex flex-col items-center justify-center text-center group",
+          "relative border-2 border-dashed rounded-2xl p-8 transition-all flex flex-col items-center justify-center text-center group",
           isDragging 
             ? "border-brand-orange bg-brand-orange/5" 
             : "border-brand-navy/10 bg-brand-cream/30 hover:border-brand-orange/40"

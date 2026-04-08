@@ -70,7 +70,7 @@ export function FocusEngine({ data, userName }: FocusEngineProps) {
       animate={{ opacity: 1, y: 0 }}
       className="relative mb-12"
     >
-      <div className="absolute -inset-1 bg-gradient-to-r from-brand-orange/20 to-brand-navy/0 blur-2xl rounded-[2rem] opacity-50" />
+      <div className="absolute -inset-1 bg-gradient-to-r from-brand-orange/20 to-brand-navy/0 blur-2xl rounded-2xl opacity-50" />
       
       <EliteCard className="border-brand-orange/30 bg-white/80 backdrop-blur-md relative overflow-hidden group">
         <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity">

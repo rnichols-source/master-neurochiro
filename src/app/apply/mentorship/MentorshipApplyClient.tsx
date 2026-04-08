@@ -144,7 +144,7 @@ export default function MentorshipApplyClient() {
               Expect a reach-out within 48 hours if we identify clinical alignment.
             </p>
           </div>
-          <div className="p-10 bg-brand-cream rounded-[3rem] border border-brand-navy/5 text-left space-y-6 shadow-xl">
+          <div className="p-10 bg-brand-cream rounded-2xl border border-brand-navy/5 text-left space-y-6 shadow-xl">
             <div className="flex items-center gap-3">
               <ShieldCheck className="w-5 h-5 text-brand-orange" />
               <p className="text-xs font-black text-brand-orange uppercase tracking-widest">Protocol Initiated</p>
@@ -209,7 +209,7 @@ export default function MentorshipApplyClient() {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.4 }}
         >
-          <EliteCard className="p-8 md:p-12 bg-white border-brand-navy/5 shadow-2xl rounded-[3rem]">
+          <EliteCard className="p-8 md:p-12 bg-white border-brand-navy/5 shadow-2xl rounded-2xl">
             <form onSubmit={handleSubmit} className="space-y-10">
               
               {/* SECTION 1: IDENTITY & BASELINE */}
@@ -631,7 +631,7 @@ export default function MentorshipApplyClient() {
                       </div>
                     </div>
 
-                    <div className="p-8 bg-brand-navy rounded-[2.5rem] text-white relative overflow-hidden">
+                    <div className="p-8 bg-brand-navy rounded-2xl text-white relative overflow-hidden">
                        <Lock className="absolute top-4 right-4 w-12 h-12 text-white/5" />
                        <div className="relative z-10 space-y-4">
                           <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Standard</p>

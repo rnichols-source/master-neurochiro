@@ -71,7 +71,7 @@ export async function DashboardLayout({
 
         {/* Dynamic Page Content */}
         <main className="flex-1 p-4 md:p-10">
-          <div className="max-w-7xl mx-auto">{children}</div>
+          <div className="max-w-5xl mx-auto">{children}</div>
         </main>
       </div>
 

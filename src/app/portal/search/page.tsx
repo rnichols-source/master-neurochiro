@@ -57,7 +57,7 @@ export default async function SearchResultsPage(props: {
                   </EliteCard>
                 </Link>
               )) : (
-                <div className="p-8 border-2 border-dashed border-brand-navy/5 rounded-[2rem] text-center">
+                <div className="p-8 border-2 border-dashed border-brand-navy/5 rounded-2xl text-center">
                   <p className="text-xs font-bold text-brand-navy/20 uppercase tracking-widest">No matching units</p>
                 </div>
               )}
@@ -87,7 +87,7 @@ export default async function SearchResultsPage(props: {
                   </EliteCard>
                 </a>
               )) : (
-                <div className="p-8 border-2 border-dashed border-brand-navy/5 rounded-[2rem] text-center">
+                <div className="p-8 border-2 border-dashed border-brand-navy/5 rounded-2xl text-center">
                   <p className="text-xs font-bold text-brand-navy/20 uppercase tracking-widest">No matching resources</p>
                 </div>
               )}

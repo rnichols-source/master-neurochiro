@@ -98,7 +98,7 @@ export default function AutomationDashboard() {
 
 function StatCard({ title, value, icon: Icon, color }: any) {
   return (
-    <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-[2rem] space-y-4">
+    <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl space-y-4">
       <div className={`p-3 bg-white/5 rounded-2xl w-fit ${color}`}>
         <Icon className="w-6 h-6" />
       </div>
