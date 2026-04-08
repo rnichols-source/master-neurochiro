@@ -21,7 +21,7 @@ import { signOut } from "@/app/actions/auth-actions";
 const navItems = [
   { name: "Dashboard", href: "/portal", icon: LayoutDashboard },
   { name: "Curriculum", href: "/portal/curriculum", icon: BookOpen },
-  { name: "Triage Center", href: "/portal/triage", icon: Activity },
+  { name: "Scripts", href: "/portal/triage", icon: Activity },
   { name: "The Engine", href: "/portal/engine", icon: BarChart3 },
 ];
 

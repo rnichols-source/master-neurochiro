@@ -162,11 +162,11 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
         <div className="space-y-2">
           <div className="flex items-center gap-3 text-brand-orange">
             <Activity className="w-5 h-5" />
-            <p className="font-black uppercase tracking-widest text-xs">The Triage Center</p>
+            <p className="font-bold uppercase tracking-wider text-xs">Scripts &amp; Tools</p>
           </div>
-          <h1 className="text-5xl font-black text-brand-navy tracking-tighter leading-none">Emergency Resources</h1>
+          <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">Scripts &amp; Tools</h1>
           <p className="text-brand-gray font-medium max-w-xl">
-            Don't search. Solve. Click the button that matches your current practice pain point.
+            Click the button that matches what you need right now.
           </p>
         </div>
 
