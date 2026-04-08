@@ -36,7 +36,7 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:p-6 bg-brand-navy/80 backdrop-blur-sm safe-top">
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:p-6 bg-brand-navy/80 backdrop-blur-sm safe-top safe-bottom">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}

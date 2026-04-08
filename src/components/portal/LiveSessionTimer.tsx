@@ -128,18 +128,16 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
         )}
 
         {isJoinable ? (
-          <a href={zoomUrl} target="_blank" rel="noopener noreferrer">
-            <BrandButton 
-              variant={isLive ? "primary" : "accent"} 
-              className={cn("py-4 px-8 group", isLive && "bg-white text-brand-orange hover:bg-brand-cream border-none")}
+          <a href={zoomUrl} target="_blank" rel="noopener noreferrer" className="w-full md:w-auto">
+            <BrandButton
+              variant={isLive ? "primary" : "accent"}
+              className={cn("py-4 px-8 w-full md:w-auto group", isLive && "bg-white text-brand-orange hover:bg-brand-cream border-none")}
             >
               Join Zoom Now <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </BrandButton>
           </a>
         ) : (
-          <div className="hidden md:block text-right">
-            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/20">Link active 10m before call</p>
-          </div>
+          <p className="text-xs font-bold text-brand-navy/20 text-center md:text-right">Join link appears 10 min before the call</p>
         )}
       </div>
     </div>

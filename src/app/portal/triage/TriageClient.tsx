@@ -107,7 +107,7 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] bg-brand-navy/95 backdrop-blur-xl flex flex-col"
+            className="fixed inset-0 z-[200] bg-brand-navy/95 backdrop-blur-xl flex flex-col safe-top safe-bottom"
           >
             <div className="flex justify-between items-center p-6 border-b border-white/10 bg-brand-navy">
               <div className="flex items-center gap-4">

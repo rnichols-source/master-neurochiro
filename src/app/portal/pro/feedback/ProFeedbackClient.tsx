@@ -93,7 +93,7 @@ export function ProFeedbackClient() {
                     </div>
 
                     {sub.feedback && (
-                      <div className="md:w-1/2 bg-brand-cream/50 rounded-2xl p-6 relative">
+                      <div className="w-full md:w-1/2 bg-brand-cream/50 rounded-2xl p-6 relative">
                         <MessageSquare className="w-4 h-4 text-brand-orange absolute -top-2 -left-2" />
                         <p className="text-xs font-medium text-brand-navy/80 italic leading-relaxed">
                           "{sub.feedback}"
