@@ -44,7 +44,7 @@ export function AccountMenu({ userEmail, userTier }: { userEmail: string, userTi
 
               <div className="p-2">
                 <Link 
-                  href="/portal/onboarding" 
+                  href="/portal/profile" 
                   className="flex items-center gap-3 px-4 py-3 text-brand-navy hover:bg-brand-navy/5 rounded-xl transition-colors group"
                   onClick={() => setIsOpen(false)}
                 >

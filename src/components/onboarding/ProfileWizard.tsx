@@ -1,17 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { EliteCard, BrandButton } from '@/components/ui/elite-ui'
 import { saveProfileData } from '@/app/actions/activation-actions'
 import { useRouter } from 'next/navigation'
-import { 
-  User, 
-  MapPin, 
-  Stethoscope, 
-  Tag, 
-  Video, 
-  ChevronRight, 
+import {
+  User,
+  Stethoscope,
+  Tag,
+  ChevronRight,
   ChevronLeft,
   Check
 } from 'lucide-react'
@@ -19,6 +17,8 @@ import {
 const SPECIALTY_TAGS = [
   'pediatrics', 'prenatal', 'neurology', 'family care', 'corrective care', 'athletes'
 ]
+
+const STORAGE_KEY = 'neurochiro-onboarding-progress'
 
 export default function ProfileWizard({ user, profile }: { user: any, profile: any }) {
   const [step, setStep] = useState(1)
@@ -34,8 +34,26 @@ export default function ProfileWizard({ user, profile }: { user: any, profile: a
     graduation_year: new Date().getFullYear(),
     technique_focus: '',
     specialty_tags: [] as string[],
-    intro_video_url: ''
   })
+
+  // Restore saved progress from localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        if (parsed.formData) setFormData(prev => ({ ...prev, ...parsed.formData }))
+        if (parsed.step) setStep(parsed.step)
+      }
+    } catch {}
+  }, [])
+
+  // Save progress on step change
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ formData, step }))
+    } catch {}
+  }, [formData, step])
 
   const nextStep = () => setStep(s => s + 1)
   const prevStep = () => setStep(s => s - 1)
@@ -53,6 +71,7 @@ export default function ProfileWizard({ user, profile }: { user: any, profile: a
     setLoading(true)
     const result = await saveProfileData(user.id, formData)
     if (result.success) {
+      try { localStorage.removeItem(STORAGE_KEY) } catch {}
       router.push('/portal')
     } else {
       alert('Error saving profile: ' + result.error)
@@ -60,140 +79,87 @@ export default function ProfileWizard({ user, profile }: { user: any, profile: a
     }
   }
 
+  const inputClass = "w-full bg-white border border-brand-navy/10 rounded-xl px-4 py-4 text-base font-medium text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange/40"
+
   const renderStep = () => {
     switch (step) {
       case 1:
         return (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="space-y-6"
-          >
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
             <EliteCard title="Personal Information" icon={User}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-navy/60 uppercase tracking-widest">Full Name</label>
-                  <input
-                    type="text"
-                    value={formData.full_name}
-                    onChange={e => setFormData({ ...formData, full_name: e.target.value })}
-                    className="w-full bg-brand-cream border-brand-navy/5 rounded-xl px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20"
-                  />
+                  <label className="text-sm font-bold text-brand-navy ml-1">Full Name</label>
+                  <input type="text" value={formData.full_name} onChange={e => setFormData({ ...formData, full_name: e.target.value })} className={inputClass} />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-navy/60 uppercase tracking-widest">Clinic Name</label>
-                  <input
-                    type="text"
-                    value={formData.clinic_name}
-                    onChange={e => setFormData({ ...formData, clinic_name: e.target.value })}
-                    className="w-full bg-brand-cream border-brand-navy/5 rounded-xl px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20"
-                  />
+                  <label className="text-sm font-bold text-brand-navy ml-1">Clinic Name</label>
+                  <input type="text" value={formData.clinic_name} onChange={e => setFormData({ ...formData, clinic_name: e.target.value })} className={inputClass} />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-navy/60 uppercase tracking-widest">City</label>
-                  <input
-                    type="text"
-                    value={formData.city}
-                    onChange={e => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full bg-brand-cream border-brand-navy/5 rounded-xl px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20"
-                  />
+                  <label className="text-sm font-bold text-brand-navy ml-1">City</label>
+                  <input type="text" value={formData.city} onChange={e => setFormData({ ...formData, city: e.target.value })} className={inputClass} />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-navy/60 uppercase tracking-widest">State</label>
-                  <input
-                    type="text"
-                    value={formData.state}
-                    onChange={e => setFormData({ ...formData, state: e.target.value })}
-                    className="w-full bg-brand-cream border-brand-navy/5 rounded-xl px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20"
-                  />
+                  <label className="text-sm font-bold text-brand-navy ml-1">State</label>
+                  <input type="text" value={formData.state} onChange={e => setFormData({ ...formData, state: e.target.value })} className={inputClass} />
                 </div>
                 <div className="space-y-2 md:col-span-2">
-                  <label className="text-xs font-bold text-brand-navy/60 uppercase tracking-widest">Years Practicing</label>
-                  <input
-                    type="number"
-                    value={formData.years_practicing}
-                    onChange={e => setFormData({ ...formData, years_practicing: parseInt(e.target.value) })}
-                    className="w-full bg-brand-cream border-brand-navy/5 rounded-xl px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20"
-                  />
+                  <label className="text-sm font-bold text-brand-navy ml-1">Years Practicing</label>
+                  <input type="number" inputMode="numeric" value={formData.years_practicing} onChange={e => setFormData({ ...formData, years_practicing: parseInt(e.target.value) || 0 })} className={inputClass} />
                 </div>
               </div>
             </EliteCard>
             <div className="flex justify-end">
-              <BrandButton variant="accent" onClick={nextStep}>
-                Next Step <ChevronRight className="ml-2 w-4 h-4" />
+              <BrandButton variant="accent" onClick={nextStep} className="py-4 px-8">
+                Next <ChevronRight className="ml-2 w-4 h-4" />
               </BrandButton>
             </div>
           </motion.div>
         )
       case 2:
         return (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="space-y-6"
-          >
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
             <EliteCard title="Professional Background" icon={Stethoscope}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-navy/60 uppercase tracking-widest">Chiropractic School</label>
-                  <input
-                    type="text"
-                    value={formData.school}
-                    onChange={e => setFormData({ ...formData, school: e.target.value })}
-                    className="w-full bg-brand-cream border-brand-navy/5 rounded-xl px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20"
-                  />
+                  <label className="text-sm font-bold text-brand-navy ml-1">Chiropractic School</label>
+                  <input type="text" value={formData.school} onChange={e => setFormData({ ...formData, school: e.target.value })} className={inputClass} />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-navy/60 uppercase tracking-widest">Graduation Year</label>
-                  <input
-                    type="number"
-                    value={formData.graduation_year}
-                    onChange={e => setFormData({ ...formData, graduation_year: parseInt(e.target.value) })}
-                    className="w-full bg-brand-cream border-brand-navy/5 rounded-xl px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20"
-                  />
+                  <label className="text-sm font-bold text-brand-navy ml-1">Graduation Year</label>
+                  <input type="number" inputMode="numeric" value={formData.graduation_year} onChange={e => setFormData({ ...formData, graduation_year: parseInt(e.target.value) || 0 })} className={inputClass} />
                 </div>
                 <div className="space-y-2 md:col-span-2">
-                  <label className="text-xs font-bold text-brand-navy/60 uppercase tracking-widest">Technique Focus</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Gonstead, Diversified, TRT..."
-                    value={formData.technique_focus}
-                    onChange={e => setFormData({ ...formData, technique_focus: e.target.value })}
-                    className="w-full bg-brand-cream border-brand-navy/5 rounded-xl px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20"
-                  />
+                  <label className="text-sm font-bold text-brand-navy ml-1">Technique Focus</label>
+                  <input type="text" placeholder="e.g. Gonstead, Diversified, TRT..." value={formData.technique_focus} onChange={e => setFormData({ ...formData, technique_focus: e.target.value })} className={inputClass} />
                 </div>
               </div>
             </EliteCard>
             <div className="flex justify-between">
-              <BrandButton variant="ghost" onClick={prevStep}>
+              <BrandButton variant="ghost" onClick={prevStep} className="py-4 px-6">
                 <ChevronLeft className="mr-2 w-4 h-4" /> Back
               </BrandButton>
-              <BrandButton variant="accent" onClick={nextStep}>
-                Next Step <ChevronRight className="ml-2 w-4 h-4" />
+              <BrandButton variant="accent" onClick={nextStep} className="py-4 px-8">
+                Next <ChevronRight className="ml-2 w-4 h-4" />
               </BrandButton>
             </div>
           </motion.div>
         )
       case 3:
         return (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="space-y-6"
-          >
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
             <EliteCard title="Specialty Tags" icon={Tag}>
+              <p className="text-sm text-brand-gray font-medium mb-4">Select all that apply to your practice.</p>
               <div className="flex flex-wrap gap-3">
                 {SPECIALTY_TAGS.map(tag => (
                   <button
                     key={tag}
                     onClick={() => toggleTag(tag)}
-                    className={`px-4 py-2 rounded-full border-2 text-xs font-bold uppercase tracking-widest transition-all ${
+                    className={`px-5 py-3 rounded-xl border-2 text-sm font-bold capitalize transition-all touch-target ${
                       formData.specialty_tags.includes(tag)
                         ? 'bg-brand-orange border-brand-orange text-white shadow-md'
-                        : 'border-brand-navy/10 text-brand-navy/40 hover:border-brand-orange/40'
+                        : 'border-brand-navy/10 text-brand-navy/60 hover:border-brand-orange/40'
                     }`}
                   >
                     {tag}
@@ -202,54 +168,11 @@ export default function ProfileWizard({ user, profile }: { user: any, profile: a
               </div>
             </EliteCard>
             <div className="flex justify-between">
-              <BrandButton variant="ghost" onClick={prevStep}>
+              <BrandButton variant="ghost" onClick={prevStep} className="py-4 px-6">
                 <ChevronLeft className="mr-2 w-4 h-4" /> Back
               </BrandButton>
-              <BrandButton variant="accent" onClick={nextStep}>
-                Next Step <ChevronRight className="ml-2 w-4 h-4" />
-              </BrandButton>
-            </div>
-          </motion.div>
-        )
-      case 4:
-        return (
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="space-y-6"
-          >
-            <EliteCard title="Profile Media" icon={Video}>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-navy/60 uppercase tracking-widest">Introduction Video URL (Optional)</label>
-                  <p className="text-[10px] text-brand-gray/60 italic mb-2">Record a short (60s) intro about why you joined the mastermind.</p>
-                  <input
-                    type="url"
-                    placeholder="Loom, YouTube, or Vimeo link"
-                    value={formData.intro_video_url}
-                    onChange={e => setFormData({ ...formData, intro_video_url: e.target.value })}
-                    className="w-full bg-brand-cream border-brand-navy/5 rounded-xl px-4 py-3 text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-orange/20"
-                  />
-                </div>
-                <div className="p-8 border-2 border-dashed border-brand-navy/5 rounded-2xl flex flex-col items-center justify-center text-center space-y-4">
-                  <div className="h-16 w-16 bg-brand-navy/5 rounded-full flex items-center justify-center text-brand-navy/40">
-                    <User size={32} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-brand-navy uppercase tracking-widest">Upload Profile Photo</p>
-                    <p className="text-[10px] text-brand-gray/60 mt-1">PNG or JPG, max 5MB</p>
-                  </div>
-                  <BrandButton variant="outline" size="sm">Select File</BrandButton>
-                </div>
-              </div>
-            </EliteCard>
-            <div className="flex justify-between">
-              <BrandButton variant="ghost" onClick={prevStep}>
-                <ChevronLeft className="mr-2 w-4 h-4" /> Back
-              </BrandButton>
-              <BrandButton variant="accent" onClick={handleComplete} isLoading={loading}>
-                Finish Activation <Check className="ml-2 w-4 h-4" />
+              <BrandButton variant="accent" onClick={handleComplete} isLoading={loading} className="py-4 px-8">
+                Complete Profile <Check className="ml-2 w-4 h-4" />
               </BrandButton>
             </div>
           </motion.div>
@@ -260,11 +183,11 @@ export default function ProfileWizard({ user, profile }: { user: any, profile: a
   return (
     <div className="space-y-8">
       {/* Progress Bar */}
-      <div className="flex items-center gap-4">
-        {[1, 2, 3, 4].map(i => (
+      <div className="flex items-center gap-3">
+        {[1, 2, 3].map(i => (
           <div key={i} className="flex-1 flex flex-col gap-2">
-            <div className={`h-1.5 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-orange' : 'bg-brand-navy/5'}`} />
-            <span className={`text-[10px] font-black uppercase tracking-widest text-center ${step === i ? 'text-brand-orange' : 'text-brand-navy/20'}`}>
+            <div className={`h-2 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-orange' : 'bg-brand-navy/5'}`} />
+            <span className={`text-xs font-bold text-center ${step === i ? 'text-brand-orange' : 'text-brand-navy/20'}`}>
               Step {i}
             </span>
           </div>
