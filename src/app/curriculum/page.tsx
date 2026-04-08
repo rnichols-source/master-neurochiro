@@ -142,7 +142,7 @@ export default function CurriculumPage() {
                       </div>
                       <div>
                         <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Week Mechanism</p>
-                        <p className="text-sm font-black text-brand-navy">Implementation Proof required</p>
+                        <p className="text-sm font-black text-brand-navy">Progress Update required</p>
                       </div>
                     </div>
                   </div>

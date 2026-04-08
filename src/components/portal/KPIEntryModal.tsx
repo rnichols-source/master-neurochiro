@@ -63,7 +63,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
               <div className="p-8 border-b border-brand-navy/5 flex items-center justify-between bg-brand-cream/30">
                 <div>
                   <p className="text-brand-orange font-black uppercase tracking-wider text-xs mb-1">
-                    Intelligence Input
+                    Submit KPIs
                   </p>
                   <h3 className="text-2xl font-black text-brand-navy tracking-tight">Submit Weekly KPIs</h3>
                 </div>

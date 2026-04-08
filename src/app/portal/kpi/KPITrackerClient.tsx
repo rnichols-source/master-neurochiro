@@ -81,7 +81,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
     conversion: { avg: 65, elite: 92 }
   };
 
-  // Profit Leak Detection Logic
+  // Revenue Gap Detection Logic
   const profitLeak = useMemo(() => {
     if (kpiData.length === 0) return null;
 
@@ -146,7 +146,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         </BrandButton>
       </div>
 
-      {/* Profit Leak Alert */}
+      {/* Revenue Gap Alert */}
       {profitLeak && (
         <motion.div 
           initial={{ opacity: 0, y: -20 }}

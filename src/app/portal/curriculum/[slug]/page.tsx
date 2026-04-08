@@ -135,7 +135,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
                 {[
                   "Watch all training units",
                   "Complete clinical worksheets",
-                  "Submit Implementation Proof",
+                  "Submit Progress Update",
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <div className="w-4 h-4 rounded border border-brand-navy/10 flex items-center justify-center text-xs font-black">{i + 1}</div>

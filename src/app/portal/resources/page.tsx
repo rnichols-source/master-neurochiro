@@ -30,11 +30,10 @@ export default async function ResourcesPage() {
       <div className="space-y-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div className="space-y-2">
-            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Vault</p>
-            <h1 className="text-5xl font-black text-brand-navy tracking-tighter">Proprietary Assets</h1>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Resources</p>
+            <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">Resources</h1>
             <p className="text-brand-gray font-medium max-w-xl">
-              Access clinical scripts, worksheets, and technical blueprints 
-              required for your installation.
+              Scripts, worksheets, and tools to support your program.
             </p>
           </div>
           

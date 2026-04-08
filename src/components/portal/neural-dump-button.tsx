@@ -35,7 +35,7 @@ export function NeuralDumpButton() {
       setShowModal(true);
     } catch (err) {
       console.error("Error accessing microphone", err);
-      alert("Please allow microphone access to use the Neural Dump.");
+      alert("Please allow microphone access to use the Voice Note.");
     }
   };
 
@@ -107,7 +107,7 @@ export function NeuralDumpButton() {
                     <Mic className="w-8 h-8 text-brand-orange animate-pulse" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-black text-brand-navy">Neural Dump Active</h3>
+                    <h3 className="text-xl font-black text-brand-navy">Voice Note Active</h3>
                     <p className="text-xs text-brand-navy/60 mt-2 font-medium">Speak your bottleneck. We'll transcribe and categorize it.</p>
                   </div>
                   <BrandButton variant="primary" className="w-full gap-2 py-4 bg-red-500 hover:bg-red-600 shadow-red-500/20" onClick={stopRecording}>
