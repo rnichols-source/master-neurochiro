@@ -142,10 +142,16 @@ export default async function ModuleDetailPage(props: {
                 <div className="p-3 bg-brand-orange/20 rounded-xl w-fit">
                   <MessageSquare className="w-5 h-5 text-brand-orange" />
                 </div>
-                <h4 className="text-xl font-black">Community Focus</h4>
-                <p className="text-xs font-medium text-white/60 leading-relaxed">
-                  Join the clinical discussion for this unit in the private Slack channel.
+                <h4 className="text-xl font-black">Connect With Your Cohort</h4>
+                <p className="text-sm font-medium text-white/60 leading-relaxed">
+                  Have a question about this module? Reach out to the group or Dr. Nichols directly.
                 </p>
+                <a
+                  href="mailto:support@neurochiromastermind.com"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-brand-orange hover:text-white transition-colors"
+                >
+                  Contact Support
+                </a>
               </div>
             </EliteCard>
           </div>

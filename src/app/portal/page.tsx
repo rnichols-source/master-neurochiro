@@ -3,6 +3,7 @@ import { OnboardingChecklist } from "@/components/portal/OnboardingChecklist";
 import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { KPISnapshotCard } from "@/components/portal/KPISnapshotCard";
 import { WinsFeed } from "@/components/portal/wins-feed";
+import { WelcomeBanner } from "@/components/portal/WelcomeBanner";
 import { createClient } from "@/lib/supabase/server";
 import { fetchNextCall } from "@/app/actions/call-actions";
 import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
@@ -54,6 +55,9 @@ export default async function PortalDashboard() {
       <OnboardingChecklist isFirstLogin={isFirstLogin} />
 
       <div className="space-y-6">
+        {/* Welcome banner for new members */}
+        {isFirstLogin && <WelcomeBanner />}
+
         {/* Page Title */}
         <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
           Dashboard

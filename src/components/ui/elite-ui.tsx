@@ -30,14 +30,11 @@ export function EliteCard({
       transition={{ duration: 0.5, delay }}
       onClick={onClick}
       className={cn(
-        "bg-white rounded-2xl p-6 border border-brand-navy/5 elite-shadow relative group hover:border-brand-orange/20 transition-all",
+        "bg-white rounded-2xl p-6 border border-brand-navy/5 shadow-sm relative group hover:border-brand-orange/20 transition-all",
         onClick && "cursor-pointer active:scale-[0.98]",
         className
       )}
     >
-      {/* Decorative accent */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-navy/0 via-brand-orange/20 to-brand-navy/0 opacity-0 group-hover:opacity-100 transition-opacity" />
-
       {(title || Icon) && (
         <div className="flex items-start justify-between mb-6">
           <div>
