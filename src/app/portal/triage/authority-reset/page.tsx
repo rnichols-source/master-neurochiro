@@ -47,10 +47,10 @@ export default function AuthorityResetPage() {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-navy text-white rounded-md mb-4">
                   <Lock size={12} fill="white" />
-                  <span className="text-xs font-black uppercase tracking-wider">ROF System: Weapon 01</span>
+                  <span className="text-xs font-bold uppercase tracking-wider">Script 01</span>
                 </div>
-                <h1 className="text-5xl font-black text-brand-navy tracking-tighter uppercase leading-none">The Authority Reset</h1>
-                <p className="text-brand-gray font-bold text-sm mt-2">PRE-ROF: How to make them listen before you show them anything.</p>
+                <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight leading-none">Setting the Frame</h1>
+                <p className="text-brand-gray font-medium text-sm mt-2">How to establish authority before presenting your care plan.</p>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-black text-brand-navy">LEVEL 03</div>

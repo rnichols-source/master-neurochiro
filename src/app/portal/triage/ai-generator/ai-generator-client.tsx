@@ -80,18 +80,15 @@ export function CertaintyAIGeneratorClient() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 text-brand-orange rounded-full text-xs font-black uppercase tracking-widest mb-4">
-            <Sparkles className="w-3 h-3" /> AI-Powered
-          </div>
-          <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Certainty AI Script Generator</h1>
-          <p className="text-brand-gray mt-2 font-medium">Input your patient findings to generate a custom Authority Script.</p>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Script Builder</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Enter your patient&apos;s details to generate a conversation script.</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* Inputs Section */}
         <div className="lg:col-span-5 space-y-6">
-          <EliteCard title="Patient Intelligence" subtitle="Clinical Inputs" icon={Brain}>
+          <EliteCard title="Patient Details" icon={Brain}>
             <div className="space-y-8 mt-8">
               {/* Primary Concern */}
               <div className="space-y-3">

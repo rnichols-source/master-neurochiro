@@ -47,10 +47,10 @@ export default function PricePivotPage() {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange text-white rounded-md mb-4">
                   <DollarSign size={12} fill="white" />
-                  <span className="text-xs font-black uppercase tracking-wider">ROF System: Weapon 03</span>
+                  <span className="text-xs font-bold uppercase tracking-wider">Script 03</span>
                 </div>
-                <h1 className="text-5xl font-black text-brand-navy tracking-tighter uppercase leading-none">The Price Pivot</h1>
-                <p className="text-brand-gray font-bold text-sm mt-2">NO-FLINCH PRICING: How to drop the $5k number with zero hesitation.</p>
+                <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight leading-none">Investment Conversation</h1>
+                <p className="text-brand-gray font-medium text-sm mt-2">How to present care plan pricing with clarity and confidence.</p>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-black text-brand-navy">LEVEL 03</div>

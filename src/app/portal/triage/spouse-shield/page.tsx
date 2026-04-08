@@ -47,10 +47,10 @@ export default function SpouseShieldPage() {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-navy text-white rounded-md mb-4">
                   <Heart size={12} fill="white" />
-                  <span className="text-xs font-black uppercase tracking-wider">ROF System: Weapon 02</span>
+                  <span className="text-xs font-bold uppercase tracking-wider">Script 02</span>
                 </div>
-                <h1 className="text-5xl font-black text-brand-navy tracking-tighter uppercase leading-none">The Spouse Shield</h1>
-                <p className="text-brand-gray font-bold text-sm mt-2">THE TRUTH: Killing the "Spouse" excuse before they ever say it.</p>
+                <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight leading-none">Family Decision Guide</h1>
+                <p className="text-brand-gray font-medium text-sm mt-2">How to handle &ldquo;I need to talk to my spouse&rdquo; with confidence.</p>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-black text-brand-navy">LEVEL 03</div>

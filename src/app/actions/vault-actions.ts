@@ -42,8 +42,8 @@ export async function fetchVaultResources(category?: string, query?: string) {
       },
       {
         id: 'premium-rof-1',
-        title: 'The Authority Reset: Pre-ROF Frame',
-        description: 'Framing protocol to establish clinical leadership in the first 2 minutes of your report.',
+        title: 'Setting the Frame: Pre-Presentation Script',
+        description: 'How to establish authority before presenting your care plan.',
         category: 'rof',
         resource_type: 'pdf',
         url: '/portal/triage/authority-reset',
@@ -52,8 +52,8 @@ export async function fetchVaultResources(category?: string, query?: string) {
       },
       {
         id: 'premium-rof-2',
-        title: 'The Spouse Shield: Objection Destroyer',
-        description: 'Pre-emptive script to neutralize the "I need to talk to my spouse" excuse before it happens.',
+        title: 'Family Decision Guide',
+        description: 'How to handle "I need to talk to my spouse" with confidence.',
         category: 'rof',
         resource_type: 'pdf',
         url: '/portal/triage/spouse-shield',
@@ -62,8 +62,8 @@ export async function fetchVaultResources(category?: string, query?: string) {
       },
       {
         id: 'premium-rof-3',
-        title: 'The Price Pivot: Financial Certainty',
-        description: 'How to present a $5,000+ care plan with zero flinch and immediate value anchoring.',
+        title: 'Investment Conversation Script',
+        description: 'How to present care plan pricing with clarity and confidence.',
         category: 'rof',
         resource_type: 'pdf',
         url: '/portal/triage/price-pivot',
