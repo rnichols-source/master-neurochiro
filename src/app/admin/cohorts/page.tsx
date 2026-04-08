@@ -75,14 +75,7 @@ export default async function CohortHealthPage() {
               className="w-full bg-white border border-brand-navy/10 rounded-2xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all"
             />
           </div>
-          <div className="flex gap-2">
-            <button className="px-4 py-2 bg-white border border-brand-navy/10 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
-              <Filter className="w-3 h-3" /> Filter
-            </button>
-            <button className="px-4 py-2 bg-brand-navy text-white rounded-xl text-[10px] font-black uppercase tracking-widest">
-              Export CSV
-            </button>
-          </div>
+          {/* Filter and export coming soon */}
         </div>
 
         {/* Member Roster */}
@@ -151,14 +144,7 @@ export default async function CohortHealthPage() {
                       <p className="text-[8px] font-black uppercase text-brand-navy/30">Submissions</p>
                     </td>
                     <td className="px-8 py-6 text-right">
-                      <div className="flex justify-end gap-2">
-                        <button className="p-2 bg-brand-navy/5 text-brand-navy hover:bg-brand-orange hover:text-white rounded-lg transition-all">
-                          <MessageSquare className="w-4 h-4" />
-                        </button>
-                        <button className="p-2 bg-brand-navy/5 text-brand-navy hover:bg-brand-navy hover:text-white rounded-lg transition-all">
-                          <ChevronRight className="w-4 h-4" />
-                        </button>
-                      </div>
+                      <span className="text-xs text-brand-navy/30">—</span>
                     </td>
                   </tr>
                 );

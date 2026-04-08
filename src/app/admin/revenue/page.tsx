@@ -130,14 +130,7 @@ export default async function AdminRevenuePage() {
 
             <EliteCard title="Efficiency" subtitle="Conversion Metrics" className="p-8">
               <div className="mt-6 space-y-4">
-                <div className="flex justify-between items-center">
-                  <p className="text-[10px] font-black uppercase text-brand-navy/40">App to Approved</p>
-                  <p className="text-sm font-black text-brand-navy">68%</p>
-                </div>
-                <div className="flex justify-between items-center">
-                  <p className="text-[10px] font-black uppercase text-brand-navy/40">Approved to Paid</p>
-                  <p className="text-sm font-black text-brand-navy">42%</p>
-                </div>
+                <p className="text-sm text-brand-gray font-medium">Conversion tracking coming soon.</p>
               </div>
             </EliteCard>
           </div>

@@ -258,68 +258,54 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                     </div>
                   </div>
 
-                  {/* The 25 Responses */}
-                  <div className="pt-8 md:pt-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                    {/* Practice Section */}
-                    <div className="space-y-6 md:space-y-8">
-                      <div className="flex items-center gap-3 text-brand-orange">
-                        <Activity className="w-4 h-4" />
-                        <h5 className="text-[10px] font-black uppercase tracking-[0.3em]">Practice Metrics</h5>
-                      </div>
-                      <div className="space-y-4 md:space-y-6">
-                        {[
-                          { label: "Role", val: selectedApp.responses?.current_role },
-                          { label: "School/Grad", val: selectedApp.responses?.student_info },
-                          { label: "Years Practicing", val: selectedApp.responses?.years_practicing },
-                          { label: "Monthly Rev", val: selectedApp.responses?.monthly_revenue },
-                          { label: "Weekly Visits", val: selectedApp.responses?.weekly_visits },
-                          { label: "Conv Rate", val: selectedApp.responses?.conversion_rate },
-                        ].map(item => (
-                          <div key={item.label}>
-                            <p className="text-[8px] font-black uppercase text-brand-navy/30 mb-1">{item.label}</p>
-                            <p className="text-sm font-bold text-brand-navy">{item.val || "N/A"}</p>
-                          </div>
-                        ))}
-                      </div>
+                  {/* Application Details */}
+                  <div className="pt-8 md:pt-10 space-y-6">
+                    <div className="flex items-center gap-3 text-brand-orange">
+                      <Activity className="w-4 h-4" />
+                      <h5 className="text-xs font-black uppercase tracking-wider">Application Details</h5>
+                    </div>
 
-                      <div className="pt-6 grid grid-cols-3 gap-3 md:gap-4">
-                        {[
-                          { label: "Certainty", val: selectedApp.responses?.confidence_score },
-                          { label: "Stability", val: selectedApp.responses?.stability_score },
-                          { label: "Seriousness", val: selectedApp.responses?.seriousness_score },
-                        ].map(item => (
-                          <div key={item.label} className="text-center p-3 md:p-4 bg-brand-navy/5 rounded-2xl">
-                            <p className="text-[8px] font-black uppercase text-brand-navy/40 mb-1">{item.label}</p>
-                            <p className="text-lg md:text-xl font-black text-brand-navy">{item.val}/10</p>
-                          </div>
-                        ))}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <p className="text-xs font-bold text-brand-navy/40 mb-1">Role</p>
+                        <p className="text-sm font-bold text-brand-navy">{selectedApp.responses?.current_role || "N/A"}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-brand-navy/40 mb-1">Phone</p>
+                        <p className="text-sm font-bold text-brand-navy">{selectedApp.phone || "N/A"}</p>
                       </div>
                     </div>
 
-                    {/* Psych/Transformation Section */}
-                    <div className="space-y-6 md:space-y-8">
-                      <div className="flex items-center gap-3 text-brand-orange">
-                        <Zap className="w-4 h-4" />
-                        <h5 className="text-[10px] font-black uppercase tracking-[0.3em]">The Transformation</h5>
+                    {selectedApp.responses?.biggest_struggle && (
+                      <div>
+                        <p className="text-xs font-bold text-brand-navy/40 mb-2">#1 Thing to Improve</p>
+                        <p className="text-sm font-medium text-brand-navy leading-relaxed bg-brand-cream/50 p-4 rounded-xl border border-brand-navy/5">
+                          {selectedApp.responses.biggest_struggle}
+                        </p>
                       </div>
-                      <div className="space-y-6 md:space-y-8">
-                        {[
-                          { label: "Tier Requested", val: selectedApp.responses?.tier_applying },
-                          { label: "Biggest Struggle", val: selectedApp.responses?.biggest_struggle },
-                          { label: "Vision 6-12 Months", val: selectedApp.responses?.success_vision },
-                          { label: "Prevention Factor", val: selectedApp.responses?.prevention_factor },
-                          { label: "Why Now?", val: selectedApp.responses?.why_now },
-                          { label: "Why Selection?", val: selectedApp.responses?.why_selected },
-                        ].map(item => (
-                          <div key={item.label}>
-                            <p className="text-[8px] font-black uppercase text-brand-navy/30 mb-2">{item.label}</p>
-                            <p className="text-xs font-medium text-brand-navy leading-relaxed bg-brand-cream/50 p-4 rounded-xl border border-brand-navy/5">
-                              {item.val || "No response provided."}
+                    )}
+
+                    {/* Legacy fields — show if they exist from older applications */}
+                    {(selectedApp.responses?.success_vision || selectedApp.responses?.why_now) && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {selectedApp.responses?.success_vision && (
+                          <div>
+                            <p className="text-xs font-bold text-brand-navy/40 mb-2">Vision</p>
+                            <p className="text-sm font-medium text-brand-navy leading-relaxed bg-brand-cream/50 p-4 rounded-xl border border-brand-navy/5">
+                              {selectedApp.responses.success_vision}
                             </p>
                           </div>
-                        ))}
+                        )}
+                        {selectedApp.responses?.why_now && (
+                          <div>
+                            <p className="text-xs font-bold text-brand-navy/40 mb-2">Why Now</p>
+                            <p className="text-sm font-medium text-brand-navy leading-relaxed bg-brand-cream/50 p-4 rounded-xl border border-brand-navy/5">
+                              {selectedApp.responses.why_now}
+                            </p>
+                          </div>
+                        )}
                       </div>
-                    </div>
+                    )}
                   </div>
                 </EliteCard>
               </motion.div>
