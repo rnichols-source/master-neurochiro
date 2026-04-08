@@ -330,12 +330,12 @@ export default function HomePage() {
             </div>
 
             <p className="text-sm text-white/30 font-medium text-center">
-              Want more hands-on support? We also offer a{" "}
+              Student pricing starts at $497.{" "}
               <Link
                 href="/pricing"
                 className="text-brand-orange hover:text-white transition-colors underline"
               >
-                Pro tier with private coaching
+                See all pricing options
               </Link>
               .
             </p>
