@@ -239,7 +239,7 @@ const CouncilPage = () => {
               <p className="text-brand-gray leading-relaxed mb-8 font-medium">
                 Information without implementation is just entertainment. The Council was built to bridge the gap between "knowing" and "doing." We don't give you more notes; we give you a predictable rhythm of growth.
               </p>
-              <div className="p-6 bg-white rounded-2xl border border-brand-navy/5 elite-shadow">
+              <div className="p-6 bg-white rounded-2xl border border-brand-navy/5 shadow-sm">
                 <div className="flex items-center gap-4 mb-4">
                    <div className="w-10 h-10 bg-brand-navy rounded-lg flex items-center justify-center text-white">
                      <Timer className="w-5 h-5" />
@@ -415,7 +415,7 @@ const CouncilPage = () => {
       {/* 6. WHO THIS IS FOR / NOT FOR */}
       <section className="py-32 px-6 bg-brand-cream">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-           <div className="bg-white p-16 rounded-2xl elite-shadow border border-brand-navy/5">
+           <div className="bg-white p-16 rounded-2xl shadow-sm border border-brand-navy/5">
               <h3 className="text-3xl font-black mb-10 flex items-center gap-4 text-brand-navy tracking-tighter">
                 <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center shrink-0">
                   <CheckCircle2 className="w-6 h-6 text-green-500" />
