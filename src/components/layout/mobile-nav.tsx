@@ -16,7 +16,7 @@ const mobileItems = [
   { name: "Home", href: "/portal", icon: LayoutDashboard },
   { name: "Learn", href: "/portal/curriculum", icon: BookOpen },
   { name: "Engine", href: "/portal/engine", icon: Activity },
-  { name: "Clinical", href: "/portal/clinical-engine", icon: Zap },
+  { name: "Scripts", href: "/portal/triage", icon: Zap },
 ];
 
 export function MobileNav({ userTier = "standard" }: { userTier?: string }) {
@@ -27,8 +27,8 @@ export function MobileNav({ userTier = "standard" }: { userTier?: string }) {
     finalItems.push({ name: "Admin", href: "/admin", icon: ShieldCheck });
   } else {
     finalItems.push({
-      name: "Pro",
-      href: "/portal/pro/feedback",
+      name: "Profile",
+      href: "/portal/profile",
       icon: Star,
     });
   }

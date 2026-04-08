@@ -14,6 +14,7 @@ import {
   MessageSquare,
   Zap,
   Star,
+  FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -22,6 +23,7 @@ const navItems = [
   { name: "Dashboard", href: "/portal", icon: LayoutDashboard },
   { name: "Curriculum", href: "/portal/curriculum", icon: BookOpen },
   { name: "Scripts", href: "/portal/triage", icon: Activity },
+  { name: "Resources", href: "/portal/resources", icon: FileText },
   { name: "The Engine", href: "/portal/engine", icon: BarChart3 },
 ];
 
