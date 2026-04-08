@@ -1,7 +1,6 @@
 import { Sidebar } from "./sidebar";
 import { MobileNav } from "./mobile-nav";
 import { NeuralDumpButton } from "@/components/portal/neural-dump-button";
-import { SupportConcierge } from "./SupportConcierge";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
@@ -84,7 +83,6 @@ export async function DashboardLayout({
 
       {/* Floating Actions */}
       <NeuralDumpButton />
-      <SupportConcierge />
     </div>
   );
 }

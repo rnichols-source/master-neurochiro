@@ -7,7 +7,6 @@ import { fetchKPIEntries } from "@/app/actions/kpi-actions";
 import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
 import { fetchNextCall } from "@/app/actions/call-actions";
 import LiveCallBanner from "@/components/portal/LiveCallBanner";
-import GuidedTutorial from "@/components/portal/GuidedTutorial";
 import { 
   Play, 
   CheckCircle2, 
@@ -109,7 +108,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
   return (
     <div className="space-y-6 md:space-y-8">
       {/* Tutorial Trigger */}
-      {profile?.is_first_login && <GuidedTutorial />}
+      {/* GuidedTutorial removed — OnboardingChecklist handles first login */}
 
       {/* Welcome Card for first time login */}
       {showWelcome && (

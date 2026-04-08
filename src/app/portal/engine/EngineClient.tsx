@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
-import { PracticeGrowthSimulator } from "@/components/portal/PracticeGrowthSimulator";
 import { KPITrackerClient } from "@/app/portal/kpi/KPITrackerClient";
 import { EconomicsEngineClient } from "@/components/economics-engine/EconomicsEngineClient";
 import { RevenueForecaster } from "@/components/portal/pro/RevenueForecaster";
@@ -235,7 +234,10 @@ export function EngineClient({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
           >
-            <PracticeGrowthSimulator />
+            <div className="text-center py-12 text-brand-gray">
+              <p className="text-lg font-bold">Growth Simulator</p>
+              <p className="text-sm mt-2">Coming soon.</p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
