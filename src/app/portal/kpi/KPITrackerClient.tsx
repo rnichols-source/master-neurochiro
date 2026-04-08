@@ -31,12 +31,21 @@ import { cn } from "@/lib/utils";
 
 export function KPITrackerClient({ initialData, userName = "Doctor" }: { initialData: any[], userName?: string }) {
   const [activeMetric, setActiveMetric] = useState<"patient_visits" | "collections">("patient_visits");
+  const [activeRange, setActiveRange] = useState("ALL");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [kpiData, setKpiData] = useState<any[]>(initialData.map((entry: any) => ({
     ...entry,
     week: new Date(entry.week_start_date).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' })
   })));
+
+  const filteredData = useMemo(() => {
+    if (activeRange === "ALL") return kpiData;
+    const now = new Date();
+    const days = activeRange === "7D" ? 7 : activeRange === "30D" ? 30 : 90;
+    const cutoff = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+    return kpiData.filter(d => new Date(d.week_start_date) >= cutoff);
+  }, [kpiData, activeRange]);
 
   const loadData = async () => {
     setLoading(true);
@@ -128,18 +137,13 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
             Practice Intelligence
           </h1>
         </div>
-        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-          <BrandButton variant="outline" className="gap-2 w-full sm:flex-1 md:w-auto py-3 text-xs">
-            <FileSpreadsheet className="w-4 h-4" /> Export CSV
-          </BrandButton>
-          <BrandButton 
-            variant="accent" 
-            className="gap-2 w-full sm:flex-1 md:w-auto py-3 text-xs"
-            onClick={() => setIsModalOpen(true)}
-          >
-            <Plus className="w-4 h-4" /> New Entry
-          </BrandButton>
-        </div>
+        <BrandButton
+          variant="accent"
+          className="gap-2 w-full md:w-auto py-3 text-xs"
+          onClick={() => setIsModalOpen(true)}
+        >
+          <Plus className="w-4 h-4" /> New Entry
+        </BrandButton>
       </div>
 
       {/* Profit Leak Alert */}
@@ -217,9 +221,10 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           
           <div className="flex bg-brand-navy/5 p-1 rounded-xl overflow-x-auto no-scrollbar">
             {["7D", "30D", "90D", "ALL"].map(range => (
-              <button 
+              <button
                 key={range}
-                className={`flex-1 px-4 py-1.5 text-xs font-black rounded-lg transition-all whitespace-nowrap ${range === "ALL" ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"}`}
+                onClick={() => setActiveRange(range)}
+                className={`flex-1 px-4 py-1.5 text-xs font-black rounded-lg transition-all whitespace-nowrap ${activeRange === range ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"}`}
               >
                 {range}
               </button>
@@ -230,9 +235,9 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         <div className="h-[250px] md:h-[400px] w-full p-4 md:p-8 bg-gradient-to-b from-white to-brand-cream/30 flex items-center justify-center">
           {loading ? (
             <Loader2 className="w-6 h-6 md:w-8 md:h-8 animate-spin text-brand-orange" />
-          ) : kpiData.length > 0 ? (
+          ) : filteredData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={kpiData}>
+              <AreaChart data={filteredData}>
                 <defs>
                   <linearGradient id="colorMetric" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#D66829" stopOpacity={0.1}/>
@@ -321,7 +326,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           </div>
         </EliteCard>
 
-        <EliteCard title="ROF Conversion" subtitle="Recent Entry" icon={Target} className="p-6 md:p-8">
+        <EliteCard title="Care Plan Acceptance" subtitle="Recent Entry" icon={Target} className="p-6 md:p-8">
           <div className="flex flex-col gap-4 mt-2">
             <div className="flex items-end gap-2">
               <span className="text-2xl md:text-3xl font-black text-brand-navy">{conversionRate}%</span>
@@ -373,7 +378,6 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           <div className="mt-2 text-sm font-medium text-brand-navy whitespace-pre-wrap leading-relaxed">
             {latestStats.bottlenecks || "No bottlenecks recorded for this period."}
           </div>
-          <BrandButton variant="accent" size="sm" className="mt-6 w-full py-3 text-xs">Request Feedback</BrandButton>
         </EliteCard>
       </div>
 

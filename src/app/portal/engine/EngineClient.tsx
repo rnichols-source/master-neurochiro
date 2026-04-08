@@ -43,7 +43,6 @@ export function EngineClient({
     { id: "kpi", label: "KPI Tracker", icon: BarChart3 },
     { id: "money", label: "Practice Money", icon: TrendingUp },
     { id: "forecaster", label: "Revenue Forecaster", icon: Target, pro: true },
-    { id: "simulator", label: "Growth Simulator", icon: Zap },
   ];
 
   // Logic for "The Next $10k Move"
@@ -227,19 +226,6 @@ export function EngineClient({
           </motion.div>
         )}
 
-        {activeTab === "simulator" && (
-          <motion.div
-            key="simulator"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-          >
-            <div className="text-center py-12 text-brand-gray">
-              <p className="text-lg font-bold">Growth Simulator</p>
-              <p className="text-sm mt-2">Coming soon.</p>
-            </div>
-          </motion.div>
-        )}
       </AnimatePresence>
 
       <KPIEntryModal 

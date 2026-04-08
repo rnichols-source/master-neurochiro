@@ -37,14 +37,6 @@ export default async function ResourcesPage() {
             </p>
           </div>
           
-          <div className="relative w-full md:w-80">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-navy/30" />
-            <input 
-              type="text" 
-              placeholder="Search assets..." 
-              className="w-full bg-white border border-brand-navy/5 rounded-2xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all shadow-sm shadow-brand-navy/5"
-            />
-          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
