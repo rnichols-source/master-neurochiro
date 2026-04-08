@@ -384,21 +384,23 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                 <div className="space-y-6">
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Create Password</label>
-                    <input 
-                      type="password" 
+                    <input
+                      type="password"
+                      autoComplete="new-password"
                       value={formData.password}
                       onChange={e => setFormData({...formData, password: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-6 text-white font-bold focus:border-brand-orange/40 outline-none transition-all"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-6 text-base text-white font-medium focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all"
                       placeholder="••••••••"
                     />
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Confirm Password</label>
-                    <input 
-                      type="password" 
+                    <input
+                      type="password"
+                      autoComplete="new-password"
                       value={formData.confirm_password}
                       onChange={e => setFormData({...formData, confirm_password: e.target.value})}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-6 text-white font-bold focus:border-brand-orange/40 outline-none transition-all"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-6 text-base text-white font-medium focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all"
                       placeholder="••••••••"
                     />
                   </div>
