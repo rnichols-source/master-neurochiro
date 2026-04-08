@@ -17,10 +17,12 @@ import {
   Download,
   Star,
   Trophy,
-  Activity
+  Activity,
+  BookOpen
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { EmptyState } from "@/components/ui/empty-state";
 
 const hormoziMetadata: Record<number, any> = {
   1: {
@@ -102,9 +104,11 @@ export default async function PortalCurriculumPage() {
 
         <div className="grid grid-cols-1 gap-8">
           {phases.length === 0 ? (
-            <div className="flex items-center justify-center py-20 text-brand-navy/20 font-black uppercase tracking-widest">
-              No roadmap levels found.
-            </div>
+            <EmptyState
+              icon={BookOpen}
+              title="Curriculum loading"
+              description="Your 8-week roadmap will appear here once your cohort begins."
+            />
           ) : phases.map((phase: any, i: number) => {
             const meta = hormoziMetadata[phase.week_number] || {};
             const isLocked = phase.status === 'locked';
