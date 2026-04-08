@@ -23,8 +23,8 @@ export function ProFeedbackClient() {
     <div className="space-y-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Pro Exclusive</p>
-          <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Priority Feedback Loop</h1>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Pro Feedback</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Submit recordings or scripts for direct review from Dr. Nichols.</p>
         </div>
       </div>
 
@@ -47,11 +47,14 @@ export function ProFeedbackClient() {
                 <input type="text" placeholder="e.g. My Week 2 ROF Video" className="w-full bg-brand-cream/50 border-brand-navy/5 rounded-xl p-4 text-xs font-bold outline-none" />
               </div>
 
-              <div className="border-2 border-dashed border-brand-navy/10 rounded-2xl p-8 text-center space-y-4 hover:border-brand-orange/40 transition-colors cursor-pointer group">
-                <div className="w-12 h-12 rounded-full bg-brand-navy/5 flex items-center justify-center mx-auto group-hover:bg-brand-orange/10">
-                  <Upload className="w-5 h-5 text-brand-navy/40 group-hover:text-brand-orange" />
-                </div>
-                <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Drop Video or Image</p>
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-brand-navy/40">Video Link (Loom, YouTube, or Vimeo)</label>
+                <input type="url" placeholder="https://www.loom.com/share/..." className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 px-4 text-base font-medium text-brand-navy focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/20 outline-none" />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold uppercase tracking-wider text-brand-navy/40">Notes (optional)</label>
+                <textarea rows={3} placeholder="Any context or specific questions..." className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 px-4 text-base font-medium text-brand-navy focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/20 outline-none resize-none" />
               </div>
 
               <BrandButton variant="primary" className="w-full py-4 group">
