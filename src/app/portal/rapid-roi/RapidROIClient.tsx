@@ -37,14 +37,10 @@ export function RapidROIClient({ userId }: { userId: string }) {
   return (
     <div className="max-w-5xl mx-auto space-y-12 pb-20">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-orange/10 text-brand-orange rounded-full">
-          <Zap size={16} className="fill-brand-orange" />
-          <span className="text-xs font-black uppercase tracking-wider">High Velocity Win</span>
-        </div>
-        <h1 className="text-5xl md:text-6xl font-black text-brand-navy tracking-tighter">Rapid ROI</h1>
-        <p className="text-brand-gray text-lg font-medium max-w-2xl mx-auto">
-          Our goal is simple: Help you save one case or close one new patient in the next 24 hours to pay for your entire month of membership.
+      <div className="text-center space-y-3">
+        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Quick Win</h1>
+        <p className="text-sm text-brand-gray font-medium max-w-lg mx-auto">
+          Save one case or close one new patient in the next 24 hours.
         </p>
       </div>
 

@@ -108,16 +108,10 @@ export function EngineClient({
   return (
     <div className="space-y-10 pb-20">
       {/* Engine Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
         <div className="flex-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
-            <Activity size={14} />
-            <p className="text-xs font-black uppercase tracking-widest">High Performance Engine</p>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">The Engine</h1>
-          <p className="text-brand-gray text-lg font-medium mt-4 max-w-xl">
-            Consolidated clinical and financial intelligence. Stop guessing, start operating.
-          </p>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">The Engine</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Your practice numbers, all in one place.</p>
         </div>
 
         {/* The Next $10k Move Card */}

@@ -130,12 +130,10 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-4">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-wider text-xs md:text-xs mb-2">
-            The Benchmark Mirror
-          </p>
-          <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight uppercase">
-            Practice Intelligence
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
+            KPI Tracker
           </h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Track your weekly practice numbers.</p>
         </div>
         <BrandButton
           variant="accent"
