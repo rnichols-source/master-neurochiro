@@ -1,223 +1,139 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
-import { createClient } from "@/lib/supabase/server";
-import { PhaseRoadmap } from "@/components/portal/PhaseRoadmap";
-import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { OnboardingChecklist } from "@/components/portal/OnboardingChecklist";
+import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
+import { KPISnapshotCard } from "@/components/portal/KPISnapshotCard";
+import { createClient } from "@/lib/supabase/server";
 import { fetchNextCall } from "@/app/actions/call-actions";
 import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
 import { fetchKPIEntries } from "@/app/actions/kpi-actions";
-import { 
-  ArrowRight, 
-  Video,
-  FileText,
-  Zap,
-  TrendingUp,
-  Activity,
-  Target
-} from "lucide-react";
+import { ArrowRight, BookOpen, BarChart3 } from "lucide-react";
 import Link from "next/link";
-
-type PhaseStatus = 'completed' | 'active' | 'locked';
 
 export default async function PortalDashboard() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Fetch profile for first login check and mastery score
   let isFirstLogin = false;
-  let masteryScore = 850; // Default placeholder for now
   if (user) {
     const { data: profile } = await supabase
-      .from('profiles')
-      .select('is_first_login, mastery_score')
-      .eq('id', user.id)
+      .from("profiles")
+      .select("is_first_login")
+      .eq("id", user.id)
       .single();
     isFirstLogin = !!profile?.is_first_login;
-    if (profile?.mastery_score) masteryScore = profile.mastery_score;
   }
 
-  // Fetch KPI data for "The Mirror" dashboard
-  const kpiResult = await fetchKPIEntries();
-  const kpiData = kpiResult.success && kpiResult.data ? kpiResult.data : [];
-  const latestKPI = kpiData[kpiData.length - 1] || { collections: 0, new_patients: 0 };
-  
-  // Potential Yearly Increase Calculation (Gap Analysis)
-  const currentAnnual = (latestKPI.collections || 45000) * 12;
-  const optimizedAnnual = currentAnnual * 1.35; // 35% OS increase
-  const annualGap = optimizedAnnual - currentAnnual;
-
-  const callResult = await fetchNextCall();
-  const nextCall = callResult.data || { call_time: new Date().toISOString(), zoom_url: 'https://zoom.us' };
-
+  // Fetch curriculum progress
   const curriculumResult = await fetchCurriculumWithProgress();
   const weeks = curriculumResult.success && curriculumResult.data ? curriculumResult.data : [];
-  
-  const activeWeek = weeks.find((w: any) => w.status === 'active') || weeks[0] || {
-    week_number: 1,
-    title: "Identity of a Nervous System Doctor",
-    description: "Who you are determines how you practice. Week 1 is about clinical reconstruction.",
-    slug: "week-1-identity",
-    progress: 0,
-    status: 'active'
-  };
+  const completedWeeks = weeks.filter((w: any) => w.status === "completed").length;
+  const activeWeek = weeks.find((w: any) => w.status === "active") || weeks[0];
 
-  const roadmapPhases = weeks.map((w: any) => ({
-    number: w.week_number,
-    title: w.title.split(' ')[0], 
-    status: w.status as PhaseStatus,
-    slug: w.slug
-  }));
+  // Fetch next call
+  const callResult = await fetchNextCall();
+  const nextCall = callResult.data;
 
-  if (roadmapPhases.length === 0) {
-    [1,2,3,4,5,6,7,8].forEach(n => {
-      roadmapPhases.push({ 
-        number: n, 
-        title: "Phase", 
-        status: (n === 1 ? 'active' : 'locked') as PhaseStatus,
-        slug: `week-${n}`
-      });
-    });
+  // Check if call is within 7 days
+  let showCall = false;
+  if (nextCall?.call_time) {
+    const callDate = new Date(nextCall.call_time);
+    const now = new Date();
+    const diff = callDate.getTime() - now.getTime();
+    showCall = diff > 0 && diff < 7 * 24 * 60 * 60 * 1000;
   }
+
+  // Fetch KPI data
+  const kpiResult = await fetchKPIEntries();
+  const kpiData = kpiResult.success && kpiResult.data ? kpiResult.data : [];
+  const latestKPI = kpiData.length > 0 ? kpiData[kpiData.length - 1] : null;
+  const previousKPI = kpiData.length > 1 ? kpiData[kpiData.length - 2] : null;
 
   return (
     <DashboardLayout>
       <OnboardingChecklist isFirstLogin={isFirstLogin} />
-      <div className="space-y-10">
-        
-        {/* Rapid ROI Action Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between p-6 bg-brand-navy rounded-[2rem] border border-white/10 shadow-2xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity text-brand-orange">
-            <Zap size={120} />
-          </div>
-          <div className="flex items-center gap-6 z-10">
-            <div className="w-14 h-14 rounded-2xl bg-brand-orange flex items-center justify-center text-white shadow-lg shadow-brand-orange/20">
-              <Zap size={28} />
-            </div>
+
+      <div className="space-y-6">
+        {/* Page Title */}
+        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
+          Dashboard
+        </h1>
+
+        {/* 3-Card Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {/* Card 1: Current Module */}
+          <div className="bg-white rounded-2xl border border-brand-navy/5 p-5 md:p-6 shadow-sm flex flex-col justify-between">
             <div>
-              <h3 className="text-xl font-black text-white tracking-tight">Need a win today?</h3>
-              <p className="text-white/40 text-xs font-bold uppercase tracking-widest mt-1">Get back your monthly dues in the next 24 hours.</p>
-            </div>
-          </div>
-          <Link href="/portal/rapid-roi" className="mt-6 md:mt-0 z-10 w-full md:w-auto">
-            <button className="bg-white text-brand-navy px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brand-orange hover:text-white transition-all shadow-xl">
-              Launch Rapid ROI <ArrowRight size={14} className="inline ml-2" />
-            </button>
-          </Link>
-        </div>
-
-        <LiveSessionTimer 
-          nextSessionTime={nextCall.call_time} 
-          zoomUrl={nextCall.zoom_url} 
-        />
-
-        {/* Welcome Header / The Mirror */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-white/50 p-8 rounded-[2.5rem] border border-brand-navy/5 shadow-sm">
-          <div>
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Command Center Dashboard</p>
-            <h1 className="text-4xl md:text-5xl font-black text-brand-navy tracking-tighter leading-none">Your Stats</h1>
-            <p className="text-brand-gray text-sm font-medium mt-2">Reflecting the money you're leaving on the table.</p>
-          </div>
-          
-          <div className="flex flex-wrap gap-4 items-center">
-            <div className="px-6 py-3 bg-brand-navy text-white rounded-2xl shadow-xl text-center relative overflow-hidden group min-w-[140px]">
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Target size={40} className="text-brand-orange" />
+              <div className="flex items-center gap-2 mb-4">
+                <BookOpen className="w-5 h-5 text-brand-orange" />
+                <span className="text-xs font-bold text-brand-gray uppercase tracking-wider">
+                  Current Module
+                </span>
               </div>
-              <p className="text-[8px] font-black uppercase text-white/40 mb-1 relative z-10">Mastery Score</p>
-              <p className="text-2xl font-black text-brand-orange relative z-10">{masteryScore} <span className="text-[10px] text-white/40 font-bold uppercase ml-1">pts</span></p>
-              {masteryScore > 700 && (
-                <div className="absolute -bottom-1 -right-1 p-2 bg-green-500 rounded-tl-xl text-[8px] font-black uppercase tracking-widest text-white shadow-lg">
-                  Active
-                </div>
+
+              {activeWeek ? (
+                <>
+                  <h2 className="text-lg font-black text-brand-navy leading-snug mb-1">
+                    Week {activeWeek.week_number}
+                  </h2>
+                  <p className="text-sm text-brand-gray font-medium mb-4 line-clamp-2">
+                    {activeWeek.title}
+                  </p>
+
+                  {/* Progress bar */}
+                  <div className="mb-1 flex justify-between text-xs font-bold text-brand-gray">
+                    <span>Overall Progress</span>
+                    <span className="text-brand-orange">{completedWeeks} of 8 weeks</span>
+                  </div>
+                  <div className="h-2 w-full bg-brand-navy/5 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-brand-orange rounded-full transition-all"
+                      style={{ width: `${(completedWeeks / 8) * 100}%` }}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h2 className="text-lg font-black text-brand-navy mb-1">
+                    Ready to Start
+                  </h2>
+                  <p className="text-sm text-brand-gray font-medium mb-4">
+                    Your 8-week journey begins with Week 1.
+                  </p>
+                </>
               )}
             </div>
-            
-            <div className="grid grid-cols-2 gap-8">
-              <div className="space-y-1">
-                <p className="text-[9px] font-black uppercase text-brand-navy/40 tracking-widest">Current Collections</p>
-                <p className="text-xl font-black text-brand-navy">${(latestKPI.collections || 0).toLocaleString()}</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-[9px] font-black uppercase text-brand-navy/40 tracking-widest">NP Velocity</p>
-                <p className="text-xl font-black text-brand-navy">{latestKPI.new_patients || 0}/Mo</p>
-              </div>
+
+            <Link
+              href={activeWeek ? `/portal/curriculum/${activeWeek.slug}` : "/portal/curriculum"}
+              className="mt-4 flex items-center justify-center gap-2 bg-brand-navy text-white rounded-xl py-3.5 px-5 text-sm font-bold hover:bg-brand-black transition-colors active:scale-[0.98] touch-target"
+            >
+              {activeWeek ? "Continue" : "Start Week 1"}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* Card 2: Next Live Call (conditional) */}
+          {showCall && nextCall && (
+            <div className="bg-white rounded-2xl border border-brand-navy/5 p-5 md:p-6 shadow-sm">
+              <LiveSessionTimer
+                nextSessionTime={nextCall.call_time}
+                zoomUrl={nextCall.zoom_url}
+              />
+            </div>
+          )}
+
+          {/* Card 3: KPI Snapshot */}
+          <div className="bg-white rounded-2xl border border-brand-navy/5 p-5 md:p-6 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <BarChart3 className="w-5 h-5 text-brand-orange" />
+              <span className="text-xs font-bold text-brand-gray uppercase tracking-wider">
+                Your Numbers
+              </span>
             </div>
 
-            <div className="p-4 bg-brand-orange/10 rounded-2xl border border-brand-orange/20">
-              <p className="text-[9px] font-black uppercase text-brand-orange tracking-widest mb-1">Potential Yearly Increase</p>
-              <p className="text-2xl font-black text-brand-orange tracking-tighter">+${(annualGap / 1000).toFixed(1)}k</p>
-            </div>
+            <KPISnapshotCard latest={latestKPI} previous={previousKPI} />
           </div>
         </div>
-
-        {/* 8-Week Visual Roadmap */}
-        <div className="space-y-6">
-          <div className="flex justify-between items-end">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 ml-2">The 8-Week Roadmap</h3>
-            <Link href="/portal/curriculum" className="text-[10px] font-black uppercase tracking-widest text-brand-orange hover:text-brand-navy transition-colors">View All Phases</Link>
-          </div>
-          <EliteCard className="p-4 bg-white/50 border-brand-navy/5">
-            <PhaseRoadmap phases={roadmapPhases} currentWeek={activeWeek.week_number} />
-          </EliteCard>
-        </div>
-
-        {/* Hero Active Module */}
-        <EliteCard className="p-0 overflow-hidden border-brand-navy/10 shadow-2xl">
-          <div className="flex flex-col lg:flex-row">
-            <div className="lg:w-1/3 bg-brand-navy p-6 md:p-12 text-white flex flex-col justify-between min-h-[250px] md:min-h-[300px]">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Current Phase</p>
-                <h2 className="text-4xl md:text-5xl font-black mb-4">Week {activeWeek.week_number}</h2>
-                <p className="text-sm font-medium text-white/60 leading-relaxed">{activeWeek.title}</p>
-              </div>
-              <div className="space-y-4 pt-8">
-                <div className="flex justify-between text-[8px] font-black uppercase tracking-widest">
-                  <span className="text-white/40">Progress</span>
-                  <span className="text-brand-orange">{activeWeek.progress || 0}%</span>
-                </div>
-                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-brand-orange transition-all duration-1000" style={{ width: `${activeWeek.progress || 0}%` }} />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex-1 p-6 md:p-12 bg-white flex flex-col justify-between">
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl md:text-2xl font-black text-brand-navy">Next Implementation Task</h3>
-                  <p className="text-sm font-bold text-brand-orange mt-1">Start Phase {activeWeek.week_number} modules</p>
-                </div>
-                <p className="text-brand-gray text-sm leading-relaxed max-w-xl">
-                  {activeWeek.description}
-                </p>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                  {[
-                    { label: "Identity Calibration Video", icon: Video, time: "14 min" },
-                    { label: "Implementation Worksheet", icon: FileText, time: "Download" },
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 p-4 bg-brand-cream/50 rounded-2xl border border-brand-navy/5">
-                      <div className="p-2 bg-white rounded-lg"><item.icon className="w-4 h-4 text-brand-navy" /></div>
-                      <div>
-                        <p className="text-[10px] font-black text-brand-navy uppercase">{item.label}</p>
-                        <p className="text-[8px] font-bold text-brand-navy/40 uppercase tracking-widest">{item.time}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-8 md:pt-10 flex justify-end">
-                <Link href={`/portal/curriculum/${activeWeek.slug}`} className="w-full md:w-auto">
-                  <BrandButton variant="primary" className="group w-full md:w-auto">
-                    Resume Phase {activeWeek.week_number} <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </BrandButton>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </EliteCard>
       </div>
     </DashboardLayout>
   );
