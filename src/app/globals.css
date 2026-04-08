@@ -5,12 +5,12 @@
   --font-montserrat: var(--font-montserrat);
 
   /* Elite Fintech Palette */
-  --color-brand-navy: #0F172A;      /* Deeper, more "Institutional" navy */
-  --color-brand-orange: #EA580C;    /* More vibrant, "Action" orange */
-  --color-brand-cream: #FDFCFB;     /* Softer, "Gallery" cream */
+  --color-brand-navy: #0F172A;
+  --color-brand-orange: #EA580C;
+  --color-brand-cream: #FDFCFB;
   --color-brand-black: #020617;
   --color-brand-gray: #64748B;
-  --color-brand-gold: #A85507;      /* Subtle success accent */
+  --color-brand-gold: #A85507;
 
   --color-primary: var(--color-brand-navy);
   --color-accent: var(--color-brand-orange);
@@ -21,8 +21,21 @@
   --shadow-inner-glow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+/* ── Mobile-first foundations ── */
 :root {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 body {
@@ -30,6 +43,8 @@ body {
   background-color: var(--color-brand-cream);
   color: var(--color-brand-navy);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100dvh;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -38,7 +53,24 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-/* Premium Typography Scale */
+/* Prevent iOS zoom on input focus (requires 16px minimum) */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* Safe area insets for notched phones */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* ── Custom utilities ── */
 @utility text-display {
   font-size: clamp(3rem, 8vw, 6rem);
   line-height: 0.85;
@@ -55,4 +87,9 @@ h1, h2, h3, h4, h5, h6 {
 @utility section-padding {
   padding-top: 8rem;
   padding-bottom: 8rem;
+}
+
+@utility touch-target {
+  min-height: 44px;
+  min-width: 44px;
 }

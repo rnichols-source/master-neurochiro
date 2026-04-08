@@ -64,31 +64,31 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-cream">
+    <div className="min-h-[100dvh] bg-brand-cream overflow-x-hidden">
       <StructuredData data={organizationSchema} />
       <StructuredData data={faqSchema} />
       <MastermindHeader />
 
       {/* ──────────────── HERO ──────────────── */}
-      <section className="pt-28 md:pt-40 pb-20 md:pb-28 px-6">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-brand-navy tracking-tight leading-[1.05]">
+      <section className="pt-24 md:pt-40 pb-16 md:pb-28 px-5 md:px-6">
+        <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
+          <h1 className="text-[2rem] leading-[1.1] md:text-6xl lg:text-7xl font-black text-brand-navy tracking-tight">
             Communicate With Certainty.{" "}
             <span className="text-brand-orange">Grow Your Practice.</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-brand-gray font-medium leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-brand-gray font-medium leading-relaxed max-w-2xl mx-auto">
             An 8-week coaching program that gives chiropractors and students the
             communication skills, clinical confidence, and practice systems to
             get better patient outcomes and predictable growth.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <Link href="/apply">
+          <div className="pt-2">
+            <Link href="/apply" className="block sm:inline-block">
               <BrandButton
                 variant="primary"
                 size="lg"
-                className="group px-10 py-5"
+                className="group w-full sm:w-auto px-10 py-5 text-base"
               >
                 Apply Now{" "}
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -97,30 +97,26 @@ export default function HomePage() {
           </div>
 
           {/* Social Proof Stats */}
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 pt-8 border-t border-brand-navy/5">
-            <div className="flex items-center gap-3">
-              <Users className="w-5 h-5 text-brand-orange" />
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 pt-6 md:pt-8 border-t border-brand-navy/5">
+            <div className="flex items-center gap-2.5">
+              <Users className="w-5 h-5 text-brand-orange shrink-0" />
               <div>
-                <p className="text-lg font-black text-brand-navy">150+</p>
-                <p className="text-xs text-brand-gray font-medium">
-                  Doctors Trained
-                </p>
+                <p className="text-lg font-black text-brand-navy leading-none">150+</p>
+                <p className="text-xs text-brand-gray font-medium">Doctors Trained</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <Globe className="w-5 h-5 text-brand-orange" />
+            <div className="flex items-center gap-2.5">
+              <Globe className="w-5 h-5 text-brand-orange shrink-0" />
               <div>
-                <p className="text-lg font-black text-brand-navy">5</p>
+                <p className="text-lg font-black text-brand-navy leading-none">5</p>
                 <p className="text-xs text-brand-gray font-medium">Countries</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <Calendar className="w-5 h-5 text-brand-orange" />
+            <div className="flex items-center gap-2.5">
+              <Calendar className="w-5 h-5 text-brand-orange shrink-0" />
               <div>
-                <p className="text-lg font-black text-brand-navy">8 Weeks</p>
-                <p className="text-xs text-brand-gray font-medium">
-                  Start to Finish
-                </p>
+                <p className="text-lg font-black text-brand-navy leading-none">8 Weeks</p>
+                <p className="text-xs text-brand-gray font-medium">Start to Finish</p>
               </div>
             </div>
           </div>
@@ -128,19 +124,19 @@ export default function HomePage() {
       </section>
 
       {/* ──────────────── HOW IT WORKS ──────────────── */}
-      <section id="how-it-works" className="py-20 md:py-28 px-6 bg-white">
+      <section id="how-it-works" className="py-16 md:py-28 px-5 md:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-navy tracking-tight">
+          <div className="text-center mb-10 md:mb-16 space-y-3 md:space-y-4">
+            <h2 className="text-2xl md:text-5xl font-black text-brand-navy tracking-tight">
               How It Works
             </h2>
-            <p className="text-lg text-brand-gray font-medium max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-brand-gray font-medium max-w-2xl mx-auto">
               A simple, structured program — not another course you&apos;ll never
               finish.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
             {[
               {
                 step: "01",
@@ -158,7 +154,7 @@ export default function HomePage() {
                 desc: "Walk away with a complete system for patient communication, case presentations, and practice growth you can use for the rest of your career.",
               },
             ].map((item) => (
-              <div key={item.step} className="space-y-4">
+              <div key={item.step} className="space-y-3 md:space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center">
                   <span className="text-lg font-black text-brand-orange">
                     {item.step}
@@ -177,19 +173,19 @@ export default function HomePage() {
       </section>
 
       {/* ──────────────── RESULTS ──────────────── */}
-      <section id="results" className="py-20 md:py-28 px-6 bg-brand-cream">
+      <section id="results" className="py-16 md:py-28 px-5 md:px-6 bg-brand-cream">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-black text-brand-navy tracking-tight">
+          <div className="text-center mb-10 md:mb-16 space-y-3 md:space-y-4">
+            <h2 className="text-2xl md:text-5xl font-black text-brand-navy tracking-tight">
               Real Results From Real Doctors
             </h2>
-            <p className="text-lg text-brand-gray font-medium max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-brand-gray font-medium max-w-2xl mx-auto">
               Here&apos;s what happens when you stop guessing and start
               communicating with certainty.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {[
               {
                 name: "Dr. Melissa",
@@ -210,15 +206,15 @@ export default function HomePage() {
             ].map((study) => (
               <div
                 key={study.name}
-                className="bg-white rounded-2xl p-8 md:p-10 border border-brand-navy/5 shadow-sm space-y-6"
+                className="bg-white rounded-2xl p-6 md:p-10 border border-brand-navy/5 shadow-sm space-y-5 md:space-y-6"
               >
-                <Quote className="w-8 h-8 text-brand-orange/20" />
+                <Quote className="w-7 h-7 md:w-8 md:h-8 text-brand-orange/20" />
 
                 <p className="text-base md:text-lg font-medium text-brand-navy leading-relaxed italic">
                   &ldquo;{study.quote}&rdquo;
                 </p>
 
-                <div className="flex items-center justify-between pt-4 border-t border-brand-navy/5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-brand-navy/5">
                   <div>
                     <p className="text-base font-black text-brand-navy">
                       {study.name}
@@ -227,7 +223,7 @@ export default function HomePage() {
                       {study.role}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 bg-brand-orange/10 rounded-full px-4 py-2">
+                  <div className="flex items-center gap-2 bg-brand-orange/10 rounded-full px-4 py-2 self-start sm:self-auto">
                     <study.icon className="w-4 h-4 text-brand-orange" />
                     <span className="text-sm font-bold text-brand-orange">
                       {study.result}
@@ -241,10 +237,10 @@ export default function HomePage() {
       </section>
 
       {/* ──────────────── FOUNDER ──────────────── */}
-      <section className="py-20 md:py-28 px-6 bg-white">
+      <section className="py-16 md:py-28 px-5 md:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-brand-navy max-w-sm mx-auto md:mx-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-brand-navy max-w-xs mx-auto md:max-w-sm md:mx-0">
               <Image
                 src="/dr-raymond-hero.jpg"
                 alt="Dr. Raymond Nichols"
@@ -252,8 +248,8 @@ export default function HomePage() {
                 className="object-cover object-top"
               />
             </div>
-            <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">
+            <div className="space-y-5 md:space-y-6">
+              <h2 className="text-2xl md:text-4xl font-black text-brand-navy tracking-tight">
                 Meet Dr. Raymond Nichols
               </h2>
               <p className="text-base text-brand-gray font-medium leading-relaxed">
@@ -274,20 +270,20 @@ export default function HomePage() {
       </section>
 
       {/* ──────────────── WHAT'S INCLUDED + PRICING ──────────────── */}
-      <section id="pricing" className="py-20 md:py-28 px-6 bg-brand-navy text-white">
+      <section id="pricing" className="py-16 md:py-28 px-5 md:px-6 bg-brand-navy text-white">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+          <div className="text-center mb-10 md:mb-16 space-y-3 md:space-y-4">
+            <h2 className="text-2xl md:text-5xl font-black text-white tracking-tight">
               Everything You Need for $997
             </h2>
-            <p className="text-lg text-white/60 font-medium max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-white/60 font-medium max-w-2xl mx-auto">
               One investment. A complete system you&apos;ll use for the rest of your
               career.
             </p>
           </div>
 
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-8 md:p-12 space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-12 space-y-6 md:space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
               {[
                 "8 weeks of live group coaching with Dr. Nichols",
                 "Step-by-step patient communication curriculum",
@@ -305,23 +301,23 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-8">
-              <div>
+            <div className="border-t border-white/10 pt-6 md:pt-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+              <div className="text-center md:text-left">
                 <p className="text-sm text-white/40 font-medium mb-1">
                   Enrollment
                 </p>
                 <div className="flex items-baseline gap-3">
-                  <span className="text-5xl font-black text-white">$997</span>
+                  <span className="text-4xl md:text-5xl font-black text-white">$997</span>
                   <span className="text-sm text-white/40 font-medium">
                     or 3 payments of $350
                   </span>
                 </div>
               </div>
-              <Link href="/apply">
+              <Link href="/apply" className="block w-full md:w-auto">
                 <BrandButton
                   variant="accent"
                   size="lg"
-                  className="group px-10 py-5"
+                  className="group w-full md:w-auto px-10 py-5 text-base"
                 >
                   Apply Now{" "}
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -342,7 +338,7 @@ export default function HomePage() {
           </div>
 
           {/* Trust Row */}
-          <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-white/40 font-medium">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mt-8 md:mt-12 text-sm text-white/40 font-medium">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4" />
               <span>Secure checkout via Stripe</span>
@@ -356,20 +352,20 @@ export default function HomePage() {
       </section>
 
       {/* ──────────────── FINAL CTA ──────────────── */}
-      <section className="py-20 md:py-28 px-6 bg-brand-cream">
-        <div className="max-w-3xl mx-auto text-center space-y-8">
-          <h2 className="text-3xl md:text-5xl font-black text-brand-navy tracking-tight">
+      <section className="py-16 md:py-28 px-5 md:px-6 bg-brand-cream">
+        <div className="max-w-3xl mx-auto text-center space-y-6 md:space-y-8">
+          <h2 className="text-2xl md:text-5xl font-black text-brand-navy tracking-tight">
             Ready to Lead With Certainty?
           </h2>
-          <p className="text-lg text-brand-gray font-medium leading-relaxed">
+          <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
             The next cohort starts April 21, 2026. Seats are limited. Apply
             today and we&apos;ll follow up within 48 hours.
           </p>
-          <Link href="/apply">
+          <Link href="/apply" className="block sm:inline-block">
             <BrandButton
               variant="primary"
               size="lg"
-              className="group px-10 py-5"
+              className="group w-full sm:w-auto px-10 py-5 text-base"
             >
               Apply Now{" "}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

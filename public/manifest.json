@@ -1,13 +1,14 @@
 {
-  "name": "Master NeuroChiro",
+  "name": "NeuroChiro Mastermind",
   "short_name": "NeuroChiro",
-  "description": "The elite growth ecosystem for Nervous-System-First Chiropractors.",
-  "start_url": "/",
+  "description": "The 8-week chiropractic coaching program for clinical certainty and practice growth.",
+  "start_url": "/portal",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#d66829",
+  "background_color": "#0F172A",
+  "theme_color": "#0F172A",
   "orientation": "portrait",
   "scope": "/",
+  "categories": ["education", "health"],
   "icons": [
     {
       "src": "/logo-dark.png",
