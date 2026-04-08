@@ -83,7 +83,7 @@ export async function DashboardLayout({
         </header>
 
         {/* Dynamic Page Content */}
-        <main className="flex-1 p-4 md:p-10">
+        <main className="flex-1 p-4 md:p-10 animate-page-in" role="main">
           <div className="max-w-5xl mx-auto">{children}</div>
         </main>
       </div>

@@ -157,19 +157,19 @@ export default function PricingPage() {
 
       {/* Pricing Grid */}
       <section className="px-5 md:px-6 mt-8 md:mt-12">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+        <div key={activeTab} className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 animate-[fadeIn_0.3s_ease-out]">
           {tiers.map((tier) => (
             <EliteCard
               key={tier.name}
               className={cn(
                 "relative p-6 md:p-12 flex flex-col h-full",
                 tier.highlight
-                  ? "border-brand-orange/40 bg-white"
+                  ? "border-brand-orange/40 bg-white mt-4 md:mt-0"
                   : "border-brand-navy/5 bg-white/50"
               )}
             >
               {tier.highlight && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider px-5 py-1.5 rounded-full shadow-lg shadow-brand-orange/20">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider px-5 py-1.5 rounded-full shadow-lg shadow-brand-orange/20 z-10">
                   Most Popular
                 </div>
               )}
