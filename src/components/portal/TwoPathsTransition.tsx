@@ -10,7 +10,7 @@ export function TwoPathsTransition() {
     <div className="space-y-10 py-10">
       <div className="text-center space-y-4">
         <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Road Ahead</p>
-        <h2 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">Installation Complete. <br />What's Next?</h2>
+        <h2 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">Program Complete. <br />What's Next?</h2>
         <p className="text-brand-gray text-lg font-medium max-w-2xl mx-auto">
           You have successfully installed the NeuroChiro Architecture. But knowing the system and holding the system are two different things.
         </p>

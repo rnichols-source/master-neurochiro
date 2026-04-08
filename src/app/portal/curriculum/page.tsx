@@ -76,7 +76,7 @@ const hormoziMetadata: Record<number, any> = {
   },
   8: {
     outcomeTitle: "The Mastermind Exit",
-    subTitle: "Phase 08: Final Installation & Practice Autonomy",
+    subTitle: "Phase 08: Completion & Practice Autonomy",
     expectedROI: "Total Practice Freedom",
     quickAsset: { name: "The Scale Blueprint", link: "/portal/triage?category=leadership" },
     statusBadge: "Mastermind Graduate"
@@ -93,7 +93,7 @@ export default async function PortalCurriculumPage() {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
             <Activity size={14} className="fill-brand-orange" />
-            <p className="text-xs font-black uppercase tracking-widest">Installation Status</p>
+            <p className="text-xs font-black uppercase tracking-widest">Status</p>
           </div>
           <h1 className="text-5xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">The Roadmap</h1>
           <p className="text-brand-gray text-lg font-medium mt-6 leading-relaxed">

@@ -1,24 +1,28 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import dynamic from "next/dynamic";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { KPITrackerClient } from "@/app/portal/kpi/KPITrackerClient";
-import { EconomicsEngineClient } from "@/components/economics-engine/EconomicsEngineClient";
-import { RevenueForecaster } from "@/components/portal/pro/RevenueForecaster";
 import { KPIEntryModal } from "@/components/portal/KPIEntryModal";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { 
-  Activity, 
-  TrendingUp, 
-  BarChart3, 
-  ShieldCheck,
-  Zap,
-  Plus,
+
+const EconomicsEngineClient = dynamic(
+  () => import("@/components/economics-engine/EconomicsEngineClient").then(m => m.EconomicsEngineClient),
+  { loading: () => <Skeleton className="h-96 rounded-2xl" /> }
+);
+const RevenueForecaster = dynamic(
+  () => import("@/components/portal/pro/RevenueForecaster").then(m => m.RevenueForecaster),
+  { loading: () => <Skeleton className="h-96 rounded-2xl" /> }
+);
+import {
+  TrendingUp,
+  BarChart3,
   Lock,
   Target,
   ArrowRight,
-  TrendingDown,
-  Sparkles
+  Sparkles,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";

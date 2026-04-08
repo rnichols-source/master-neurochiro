@@ -47,7 +47,7 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
           <div className="md:w-1/3 bg-brand-navy p-8 md:p-12 text-white flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-brand-orange flex items-center justify-center font-black text-2xl mb-6 shadow-xl shadow-brand-orange/20">N</div>
-              <h2 className="text-3xl font-black tracking-tight leading-tight">Installation Checklist</h2>
+              <h2 className="text-3xl font-black tracking-tight leading-tight">Getting Started</h2>
               <p className="text-white/40 text-sm mt-4 font-medium italic">"Certainty is built through intentional implementation."</p>
             </div>
 

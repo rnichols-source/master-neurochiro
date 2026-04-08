@@ -23,7 +23,7 @@ export function CouncilClient() {
       <div>
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
           <ShieldCheck size={14} />
-          <span className="text-xs font-bold uppercase tracking-wider">Active Inner Circle</span>
+          <span className="text-xs font-bold uppercase tracking-wider">Your Community</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">The Council</h1>
         <p className="text-brand-gray text-base font-medium mt-2 max-w-xl">
