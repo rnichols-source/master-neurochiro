@@ -74,7 +74,7 @@ export async function updateNextCall(date: string, zoomUrl: string, title?: stri
   }
 
   revalidatePath('/portal');
-  revalidatePath('/dashboard');
+  revalidatePath('/portal');
   revalidatePath('/admin');
   return { success: true };
 }

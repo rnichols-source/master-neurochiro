@@ -42,7 +42,7 @@ export async function submitKPIEntry(entry: KPIEntry) {
   await awardMasteryPoints('kpi_entry');
 
   revalidatePath("/kpi");
-  revalidatePath("/dashboard");
+  revalidatePath("/portal");
   revalidatePath("/portal/engine");
   return { success: true, data };
 }

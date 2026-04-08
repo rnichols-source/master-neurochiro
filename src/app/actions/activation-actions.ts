@@ -111,7 +111,7 @@ export async function updateProfileStatus(userId: string, status: 'pending_profi
 
   if (error) return { success: false, error: error.message }
   
-  revalidatePath('/dashboard')
+  revalidatePath('/portal')
   revalidatePath('/profile')
   return { success: true }
 }
@@ -133,7 +133,7 @@ export async function saveProfileData(userId: string, data: any) {
 
   if (error) return { success: false, error: error.message }
   
-  revalidatePath('/dashboard')
+  revalidatePath('/portal')
   revalidatePath('/profile')
   return { success: true }
 }
