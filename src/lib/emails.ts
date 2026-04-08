@@ -5,7 +5,7 @@ const resendApiKey = process.env.RESEND_API_KEY;
 const isMock = !resendApiKey || resendApiKey === 're_your_key';
 const resend = isMock ? null : new Resend(resendApiKey);
 
-const FROM_EMAIL = 'support@neurochirodirectory.com';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'support@neurochiromastermind.com';
 
 const BRAND_STYLE = `
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
@@ -96,6 +96,24 @@ export const EmailService = {
     return this.send(email, 'Admission Decision: Approved', html, 'app_approved');
   },
 
+  async sendAppRejected(email: string, name: string) {
+    const html = getEmailTemplate(
+      'Application Update',
+      'Admissions Decision',
+      `<p>Dr. ${name}, thank you for your interest in the NeuroChiro Mastermind.</p><p>After reviewing your application, we've decided this isn't the right fit at this time. This isn't a reflection of your potential — the timing or circumstances may not be ideal right now.</p><p>You're welcome to reapply in the future. If you have questions, reply to this email and we'll be happy to help.</p>`
+    );
+    return this.send(email, 'Application Update: NeuroChiro Mastermind', html, 'app_rejected');
+  },
+
+  async sendAppWaitlisted(email: string, name: string) {
+    const html = getEmailTemplate(
+      'You\'re On the Waitlist',
+      'Admissions Update',
+      `<p>Dr. ${name}, thank you for applying to the NeuroChiro Mastermind.</p><p>We've reviewed your application and would like to offer you a spot on our waitlist for the next available cohort. We'll reach out as soon as a seat opens up.</p><p>In the meantime, feel free to reply to this email with any questions.</p>`
+    );
+    return this.send(email, 'Waitlist Confirmation: NeuroChiro Mastermind', html, 'app_waitlisted');
+  },
+
   async sendWelcome(email: string, name: string) {
     const html = getEmailTemplate('Welcome to the OS', 'Installation Day 1', `<p>Dr. ${name}, your portal access is now active.</p>`);
     return this.send(email, 'Welcome to the OS: Installation Day 1', html, 'welcome_onboarding');
@@ -111,18 +129,6 @@ export const EmailService = {
       action
     );
     return this.send(email, 'Welcome to Mastermind Pro: Execution Phase', html, 'pro_welcome');
-  },
-
-  async sendProCallReminder(email: string, name: string) {
-    const bookingLink = "https://calendly.com/neurochiro-pro/1-on-1";
-    const action = `<a href="${bookingLink}" style="background-color: #2D3748; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px;">Book 1:1 Session</a>`;
-    const html = getEmailTemplate(
-      'Pro Benefit: 1:1 Call Pending',
-      'Execution Reminder',
-      `<p>Dr. ${name}, you haven't scheduled your private 1:1 call for this month. Don't let your momentum stall—book your session today.</p>`,
-      action
-    );
-    return this.send(email, 'Mastermind Pro: Monthly 1:1 Reminder', html, 'pro_booking_reminder');
   },
 
   async sendPaymentFailed(email: string, name: string, updateUrl: string) {
@@ -150,22 +156,10 @@ export const EmailService = {
     return this.send(email, `Mastermind Call ${timeText}`, html, 'call_reminder');
   },
 
-  async sendReplayAvailable(email: string, callTitle: string, replayLink: string) {
-    const action = `<a href="${replayLink}" style="background-color: #2D3748; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px;">Watch Replay</a>`;
-    const html = getEmailTemplate('Call Replay Available', 'Vault Update', `<p>The recording for <strong>${callTitle}</strong> is now in the Vault.</p>`, action);
-    return this.send(email, `Replay Uploaded: ${callTitle}`, html, 'replay_available');
-  },
-
   async sendReengagement(email: string, name: string, portalLink: string) {
     const action = `<a href="${portalLink}" style="background-color: #E67E22; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px;">Resume Implementation</a>`;
     const html = getEmailTemplate('Momentum Check', 'Action Required', `<p>Dr. ${name}, we noticed you haven't logged into the OS recently.</p>`, action);
     return this.send(email, 'Mastermind Momentum Check', html, 'reengagement');
-  },
-
-  async sendProInvite(email: string, name: string, infoLink: string) {
-    const action = `<a href="${infoLink}" style="background-color: #E67E22; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px;">View Pro Details</a>`;
-    const html = getEmailTemplate('Mastermind Pro Invitation', 'Advanced Access', `<p>Dr. ${name}, based on your progress, you are eligible to upgrade to the Mastermind Pro tier.</p>`, action);
-    return this.send(email, 'Invitation: Upgrade to Mastermind Pro', html, 'pro_invite');
   },
 
   async sendCouncilTransition(email: string, name: string, applyLink: string) {

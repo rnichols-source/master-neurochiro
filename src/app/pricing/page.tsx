@@ -13,8 +13,8 @@ const doctorTiers = [
     price: "997",
     paymentPlan: "3 Payments of $350",
     links: {
-      pif: "https://buy.stripe.com/5kQdRb8Z1eEscGOfas7wA0f",
-      plan: "https://buy.stripe.com/cNi8wRa3553SfT09Q87wA0g",
+      pif: process.env.NEXT_PUBLIC_STRIPE_STANDARD_PIF || "https://buy.stripe.com/5kQdRb8Z1eEscGOfas7wA0f",
+      plan: process.env.NEXT_PUBLIC_STRIPE_STANDARD_PLAN || "https://buy.stripe.com/cNi8wRa3553SfT09Q87wA0g",
     },
     description:
       "The full 8-week system for doctors who want clarity and a better way to practice.",
@@ -36,8 +36,8 @@ const doctorTiers = [
     price: "1,997",
     paymentPlan: "3 Payments of $800",
     links: {
-      pif: "https://buy.stripe.com/3cIeVfa351RG6iqaUc7wA0h",
-      plan: "https://buy.stripe.com/aFa28t8Z1aocdKSbYg7wA0i",
+      pif: process.env.NEXT_PUBLIC_STRIPE_PRO_PIF || "https://buy.stripe.com/3cIeVfa351RG6iqaUc7wA0h",
+      plan: process.env.NEXT_PUBLIC_STRIPE_PRO_PLAN || "https://buy.stripe.com/aFa28t8Z1aocdKSbYg7wA0i",
     },
     description:
       "Limited to 5 doctors. Direct feedback and faster results.",

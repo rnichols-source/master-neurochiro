@@ -3,8 +3,6 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { EmailService } from '@/lib/emails';
 import { NotificationService } from '@/lib/notifications';
 
-// This endpoint should be hit by a cron job (e.g., Vercel Cron or GitHub Actions)
-// It scans for scheduled automations: call reminders, re-engagement, etc.
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization');
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -15,75 +13,106 @@ export async function GET(request: Request) {
   const results = [];
 
   try {
-    // 1. RE-ENGAGEMENT: 7 Days No Login
+    // 1. RE-ENGAGEMENT: 7 Days No Login (all tiers)
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
     const { data: inactiveUsers } = await supabase
       .from('profiles')
       .select('id, email, full_name')
       .lt('last_sign_in_at', sevenDaysAgo)
-      .eq('tier', 'standard'); // Or whatever logic for active members
+      .neq('tier', 'admin');
 
     if (inactiveUsers) {
       for (const user of inactiveUsers) {
-        await EmailService.sendReengagement(user.email, user.full_name || 'Doctor', `${process.env.NEXT_PUBLIC_SITE_URL}/portal`);
-        await NotificationService.sendAdminAlert(`⚠️ Member Inactive for 7 Days: ${user.full_name} (${user.email})`, 'warning');
-        results.push({ type: 'reengagement', email: user.email });
-      }
-    }
-
-    // 2. PRO REMINDERS: 1:1 Booking
-    const { data: proMembers } = await supabase
-      .from('profiles')
-      .select('email, full_name')
-      .eq('tier', 'pro');
-
-    if (proMembers) {
-      for (const pro of proMembers) {
-        // Logic: Check if they have a booked call in a hypothetical 'appointments' table
-        // For now, we'll send a high-value reminder every 30 days if no activity.
-        // results.push({ type: 'pro_reminder', email: pro.email });
-      }
-    }
-
-    // 3. COUNCIL TRANSITION: Check for 8-week completion
-    const { data: completingMembers } = await supabase
-      .from('profiles')
-      .select('id, email, full_name, created_at')
-      .eq('tier', 'standard')
-      .lt('created_at', new Date(Date.now() - 56 * 24 * 60 * 60 * 1000).toISOString()); // 8 weeks old
-
-    if (completingMembers) {
-      for (const member of completingMembers) {
-        // Only send if not already invited (check logs)
-        const { data: alreadyInvited } = await supabase
+        // Check if already sent in last 7 days to avoid spam
+        const { data: alreadySent } = await supabase
           .from('automation_logs')
           .select('id')
-          .eq('user_email', member.email)
-          .eq('event_type', 'council_transition')
+          .eq('user_email', user.email)
+          .eq('event_type', 'reengagement')
+          .gte('created_at', sevenDaysAgo)
           .limit(1);
 
-        if (!alreadyInvited || alreadyInvited.length === 0) {
-          await EmailService.sendCouncilTransition(member.email, member.full_name || 'Doctor', `${process.env.NEXT_PUBLIC_SITE_URL}/council/application`);
-          results.push({ type: 'council_transition', email: member.email });
+        if (!alreadySent || alreadySent.length === 0) {
+          await EmailService.sendReengagement(user.email, user.full_name || 'Doctor', `${process.env.NEXT_PUBLIC_SITE_URL}/portal`);
+          results.push({ type: 'reengagement', email: user.email });
         }
       }
     }
 
-    // 4. LIVE CALL REMINDERS
-    const oneHourFromNow = new Date(Date.now() + 60 * 60 * 1000).toISOString();
+    // 2. COUNCIL TRANSITION: Check for curriculum completion (8 weeks)
+    // Use module completion data instead of profile created_at
+    const { data: completingMembers } = await supabase
+      .from('profiles')
+      .select('id, email, full_name')
+      .eq('tier', 'standard');
+
+    if (completingMembers) {
+      for (const member of completingMembers) {
+        // Check if they've completed enough modules (proxy for 8 weeks)
+        const { count } = await supabase
+          .from('module_progress')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', member.id)
+          .eq('is_completed', true);
+
+        // If they've completed 20+ modules (roughly 8 weeks of content)
+        if (count && count >= 20) {
+          const { data: alreadyInvited } = await supabase
+            .from('automation_logs')
+            .select('id')
+            .eq('user_email', member.email)
+            .eq('event_type', 'council_transition')
+            .limit(1);
+
+          if (!alreadyInvited || alreadyInvited.length === 0) {
+            await EmailService.sendCouncilTransition(member.email, member.full_name || 'Doctor', `${process.env.NEXT_PUBLIC_SITE_URL}/council/application`);
+            results.push({ type: 'council_transition', email: member.email });
+          }
+        }
+      }
+    }
+
+    // 3. LIVE CALL REMINDERS (with deduplication)
+    const now = new Date();
+    const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000).toISOString();
     const { data: upcomingCalls } = await supabase
       .from('events')
       .select('*')
-      .gte('start_date', new Date().toISOString())
+      .gte('start_date', now.toISOString())
       .lte('start_date', oneHourFromNow);
 
-    if (upcomingCalls) {
-      const { data: allMembers } = await supabase.from('profiles').select('email, full_name').neq('tier', 'admin');
+    if (upcomingCalls && upcomingCalls.length > 0) {
+      const { data: allMembers } = await supabase
+        .from('profiles')
+        .select('email, full_name')
+        .neq('tier', 'admin');
+
       if (allMembers) {
         for (const call of upcomingCalls) {
-          for (const member of allMembers) {
-            await EmailService.sendCallReminder(member.email, 'Starting in 1 Hour', call.zoom_link || `${process.env.NEXT_PUBLIC_SITE_URL}/portal/calls`);
-            results.push({ type: 'call_reminder', email: member.email, call: call.title });
+          // Check if reminders already sent for this call
+          const { data: alreadySent } = await supabase
+            .from('automation_logs')
+            .select('id')
+            .eq('event_type', 'call_reminder')
+            .eq('metadata->>call_id', call.id)
+            .limit(1);
+
+          if (!alreadySent || alreadySent.length === 0) {
+            for (const member of allMembers) {
+              await EmailService.sendCallReminder(
+                member.email,
+                'Starting in 1 Hour',
+                call.zoom_link || `${process.env.NEXT_PUBLIC_SITE_URL}/portal`
+              );
+            }
+            // Log once per call to mark as sent
+            await EmailService.logAutomation({
+              email: 'system',
+              event_type: 'call_reminder',
+              status: 'sent',
+              metadata: { call_id: call.id, member_count: allMembers.length }
+            });
+            results.push({ type: 'call_reminder', call: call.title, members: allMembers.length });
           }
         }
       }
@@ -92,7 +121,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ success: true, processed: results });
   } catch (error: any) {
     console.error("Cron Error:", error);
-    await NotificationService.sendAdminAlert(`❌ CRON JOB FAILED: ${error.message}`);
+    await NotificationService.sendAdminAlert(`Cron job failed: ${error.message}`, 'critical');
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

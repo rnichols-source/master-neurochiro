@@ -23,9 +23,13 @@ export async function updateApplicationStatus(id: string, status: string, notes:
 
   // 2. Handle Approval Logic (Payment Link)
   if (status === 'approved') {
-    // Robust tier detection based on the form data
-    const tierRaw = application.responses?.tier_applying || application.responses?.tier_requested || 'standard';
-    const isPro = tierRaw.toLowerCase().includes('pro');
+    // Tier detection: check multiple possible fields from different form versions
+    const tierRaw = application.responses?.tier_applying
+      || application.responses?.tier_requested
+      || application.responses?.application_type
+      || '';
+    const notesLower = (notes || '').toLowerCase();
+    const isPro = tierRaw.toLowerCase().includes('pro') || notesLower.includes('pro');
     
     console.log(`[ADMIN] Detected Tier: ${isPro ? 'PRO' : 'STANDARD'} from raw: "${tierRaw}"`);
 
@@ -64,6 +68,24 @@ export async function updateApplicationStatus(id: string, status: string, notes:
       } catch (emailErr) {
         console.error("[ADMIN] Email Error:", emailErr);
       }
+    }
+  }
+
+  // 2b. Handle Rejection Email
+  if (status === 'rejected') {
+    try {
+      await EmailService.sendAppRejected(application.email, application.full_name);
+    } catch (emailErr) {
+      console.error("[ADMIN] Rejection email error:", emailErr);
+    }
+  }
+
+  // 2c. Handle Waitlist Email
+  if (status === 'waitlist') {
+    try {
+      await EmailService.sendAppWaitlisted(application.email, application.full_name);
+    } catch (emailErr) {
+      console.error("[ADMIN] Waitlist email error:", emailErr);
     }
   }
 
