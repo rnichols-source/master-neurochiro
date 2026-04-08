@@ -661,160 +661,86 @@ export function PlaybooksClient() {
   const activePlaybook = playbookLibrary.find(p => p.id === activeId) || playbookLibrary[0];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 pb-32">
-      {/* Sidebar: Strategic Library */}
-      <div className="lg:w-80 shrink-0 space-y-6">
-        <div>
-          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Manual Library</p>
-          <h2 className="text-2xl font-black text-brand-navy tracking-tight">Clinical Operating System</h2>
-        </div>
-
-        <div className="space-y-2">
-          {playbookLibrary.map((p) => (
-            <div 
-              key={p.id}
-              onClick={() => {
-                setActiveId(p.id);
-                setExpandedSection(0);
-              }}
-              className={cn(
-                "p-4 rounded-2xl border cursor-pointer transition-all flex items-center gap-4 group",
-                activeId === p.id 
-                  ? "bg-brand-navy border-brand-navy text-white shadow-xl shadow-brand-navy/20" 
-                  : "bg-white border-brand-navy/5 text-brand-navy/60 hover:border-brand-orange/40 hover:bg-brand-navy/5"
-              )}
-            >
-              <div className={cn(
-                "w-10 h-10 rounded-xl flex items-center justify-center transition-colors shrink-0",
-                activeId === p.id ? "bg-brand-orange text-white" : "bg-brand-navy/5 text-brand-navy/40 group-hover:text-brand-orange"
-              )}>
-                <p.icon size={20} />
-              </div>
-              <div className="min-w-0">
-                <h4 className="font-black text-sm truncate leading-none mb-1">{p.title}</h4>
-                <p className={cn("text-xs font-bold uppercase tracking-wider", activeId === p.id ? "text-white/40" : "text-brand-navy/20")}>
-                  {p.sections.length} Protocols
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <EliteCard className="p-6 bg-brand-navy text-white border-none relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
-            <Sparkles size={80} className="text-brand-orange" />
-          </div>
-          <div className="relative z-10 space-y-3">
-            <p className="text-xs font-black uppercase tracking-widest text-white/40 leading-none">System Logic</p>
-            <p className="text-xs font-bold leading-relaxed italic">
-              "When structure is strong, persuasion is unnecessary. When structure is weak, pressure shows up."
-            </p>
-          </div>
-        </EliteCard>
+    <div className="space-y-6 pb-20">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Playbooks</h1>
+        <p className="text-sm text-brand-gray font-medium mt-1">Step-by-step guides for every patient interaction.</p>
       </div>
 
-      {/* Main Content Area: The Strategic Manual */}
-      <div className="flex-1 min-w-0">
-        <motion.div
-          key={activePlaybook.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-8"
-        >
-          {/* Manual Header */}
-          <div className="bg-white border border-brand-navy/5 rounded-2xl p-8 md:p-16 shadow-sm relative overflow-hidden group">
-            <div className="absolute -top-10 -right-10 p-12 opacity-5 group-hover:scale-110 transition-transform duration-1000">
-              <activePlaybook.icon size={300} className="text-brand-navy" />
-            </div>
-            <div className="relative z-10 space-y-6">
-              <div className="inline-flex items-center gap-3 px-4 py-2 bg-brand-orange/10 rounded-full text-brand-orange">
-                <activePlaybook.icon size={16} />
-                <p className="text-xs font-black uppercase tracking-widest">Proprietary Framework</p>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">{activePlaybook.title}</h1>
-              <p className="text-brand-gray text-xl font-medium max-w-2xl leading-relaxed">{activePlaybook.tagline}</p>
-            </div>
-          </div>
+      {/* Playbook Selector */}
+      <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+        {playbookLibrary.map((p) => (
+          <button
+            key={p.id}
+            onClick={() => { setActiveId(p.id); setExpandedSection(0); }}
+            className={cn(
+              "flex items-center gap-3 px-5 py-3 rounded-xl border transition-all whitespace-nowrap touch-target",
+              activeId === p.id
+                ? "bg-brand-navy border-brand-navy text-white shadow-sm"
+                : "bg-white border-brand-navy/5 text-brand-navy/60 hover:border-brand-orange/40"
+            )}
+          >
+            <p.icon size={16} className={activeId === p.id ? "text-brand-orange" : ""} />
+            <span className="text-sm font-bold">{p.title}</span>
+          </button>
+        ))}
+      </div>
 
-          {/* Quick Summary Box */}
-          <EliteCard className="p-8 md:p-10 bg-brand-navy/5 border-none rounded-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-6 opacity-10">
-              <Zap size={60} className="text-brand-orange" />
-            </div>
-            <div className="relative z-10 space-y-4">
-              <h4 className="text-xs font-black uppercase tracking-widest text-brand-orange">Key Takeaways</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {activePlaybook.summary.map((item, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="w-6 h-6 rounded-full bg-brand-orange/20 flex items-center justify-center shrink-0">
-                      <span className="text-xs font-bold text-brand-orange">{i + 1}</span>
-                    </div>
-                    <p className="text-xs font-bold text-brand-navy/80 leading-relaxed">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </EliteCard>
+      {/* Summary */}
+      <div className="bg-brand-navy/5 rounded-2xl p-5 md:p-6">
+        <p className="text-xs font-bold uppercase tracking-wider text-brand-orange mb-3">Key Takeaways</p>
+        <ul className="space-y-2">
+          {activePlaybook.summary.map((item, i) => (
+            <li key={i} className="flex gap-3 text-sm font-medium text-brand-navy">
+              <span className="w-5 h-5 rounded-full bg-brand-orange/20 flex items-center justify-center shrink-0 text-xs font-bold text-brand-orange">{i + 1}</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-          {/* Detailed Protocols */}
-          <div className="space-y-6">
-            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-4">Execution Protocols</p>
-            {activePlaybook.sections.map((section, idx) => (
-              <EliteCard key={idx} className="p-0 overflow-hidden border-brand-navy/5 group/card bg-white hover:border-brand-orange/20 transition-all duration-500">
-                <div 
-                  onClick={() => setExpandedSection(expandedSection === idx ? null : idx)}
-                  className="p-6 md:p-10 flex items-center justify-between cursor-pointer"
-                >
-                  <div className="flex items-center gap-8">
-                    <div className={cn(
-                      "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500",
-                      expandedSection === idx ? "bg-brand-orange text-white" : "bg-brand-navy/5 text-brand-navy/40 group-hover/card:bg-brand-navy/10"
-                    )}>
-                      <section.icon size={24} />
-                    </div>
-                    <div>
-                      <p className="text-xs font-black uppercase tracking-widest text-brand-orange mb-1">{section.label}</p>
-                      <h3 className="text-2xl font-black text-brand-navy tracking-tight">{section.title}</h3>
-                    </div>
-                  </div>
-                  <ChevronDown className={cn("w-6 h-6 text-brand-navy/20 transition-transform duration-500", expandedSection === idx && "rotate-180")} />
+      {/* Accordion Sections */}
+      <div className="space-y-3">
+        {activePlaybook.sections.map((section, idx) => (
+          <div key={idx} className="bg-white rounded-2xl border border-brand-navy/5 overflow-hidden">
+            <button
+              onClick={() => setExpandedSection(expandedSection === idx ? null : idx)}
+              className="w-full flex items-center justify-between p-4 md:p-5 text-left touch-target"
+            >
+              <div className="flex items-center gap-4">
+                <div className={cn(
+                  "w-9 h-9 rounded-xl flex items-center justify-center transition-colors shrink-0",
+                  expandedSection === idx ? "bg-brand-orange text-white" : "bg-brand-navy/5 text-brand-navy/40"
+                )}>
+                  <section.icon size={16} />
                 </div>
+                <div>
+                  <p className="text-xs font-bold text-brand-orange">{section.label}</p>
+                  <h3 className="text-base font-black text-brand-navy">{section.title}</h3>
+                </div>
+              </div>
+              <ChevronDown className={cn("w-5 h-5 text-brand-navy/20 transition-transform shrink-0", expandedSection === idx && "rotate-180")} />
+            </button>
 
-                <AnimatePresence>
-                  {expandedSection === idx && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="p-10 md:p-16 pt-0 space-y-12 bg-brand-cream/10 border-t border-brand-navy/5">
-                        <div className="prose prose-brand max-w-none">
-                          <div className="text-brand-gray text-lg font-medium leading-relaxed">
-                            {section.content}
-                          </div>
-                        </div>
-
-                        <div className="pt-8 border-t border-brand-navy/10 flex flex-wrap items-center justify-between gap-6">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-600">
-                              <CheckCircle2 size={16} />
-                            </div>
-                            <span className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Protocol Stabilized</span>
-                          </div>
-                          <div className="flex gap-4">
-                            <BrandButton variant="outline" size="sm" className="text-xs">Mark as Implemented</BrandButton>
-                            <BrandButton variant="ghost" size="sm" className="text-xs">Add Private Note</BrandButton>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </EliteCard>
-            ))}
+            <AnimatePresence>
+              {expandedSection === idx && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-4 md:px-5 pb-5 pt-0">
+                    <div className="text-sm text-brand-gray font-medium leading-relaxed pl-13">
+                      {section.content}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-        </motion.div>
+        ))}
       </div>
     </div>
   );
