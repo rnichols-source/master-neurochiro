@@ -33,13 +33,13 @@ export default async function CohortHealthPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div>
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Program Monitoring</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Program Monitoring</p>
             <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Cohort Health</h1>
           </div>
           <div className="flex gap-3">
             <div className="bg-white border border-brand-navy/10 rounded-xl px-4 py-2 flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-green-500" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-brand-navy">Active Cohort: April 2026</span>
+              <span className="text-xs font-black uppercase tracking-widest text-brand-navy">Active Cohort: April 2026</span>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default async function CohortHealthPage() {
         {/* Stats Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <EliteCard className="p-6">
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Average Health Score</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Average Health Score</p>
             <div className="flex items-baseline gap-2">
               <h3 className={cn(
                 "text-3xl font-black",
@@ -56,11 +56,11 @@ export default async function CohortHealthPage() {
             </div>
           </EliteCard>
           <EliteCard className="p-6">
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">At-Risk Members</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">At-Risk Members</p>
             <h3 className="text-3xl font-black text-red-500">{highRiskCount}</h3>
           </EliteCard>
           <EliteCard className="p-6">
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Engagement Rate</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Engagement Rate</p>
             <h3 className="text-3xl font-black text-brand-navy">92%</h3>
           </EliteCard>
         </div>
@@ -83,12 +83,12 @@ export default async function CohortHealthPage() {
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-brand-navy text-white">
-                <th className="text-left px-8 py-4 text-[10px] font-black uppercase tracking-widest">Member</th>
-                <th className="text-center px-6 py-4 text-[10px] font-black uppercase tracking-widest">Tier</th>
-                <th className="text-center px-6 py-4 text-[10px] font-black uppercase tracking-widest">Health</th>
-                <th className="text-center px-6 py-4 text-[10px] font-black uppercase tracking-widest">Progress</th>
-                <th className="text-center px-6 py-4 text-[10px] font-black uppercase tracking-widest">KPIs</th>
-                <th className="text-right px-8 py-4 text-[10px] font-black uppercase tracking-widest">Actions</th>
+                <th className="text-left px-8 py-4 text-xs font-black uppercase tracking-widest">Member</th>
+                <th className="text-center px-6 py-4 text-xs font-black uppercase tracking-widest">Tier</th>
+                <th className="text-center px-6 py-4 text-xs font-black uppercase tracking-widest">Health</th>
+                <th className="text-center px-6 py-4 text-xs font-black uppercase tracking-widest">Progress</th>
+                <th className="text-center px-6 py-4 text-xs font-black uppercase tracking-widest">KPIs</th>
+                <th className="text-right px-8 py-4 text-xs font-black uppercase tracking-widest">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-brand-navy/5">
@@ -105,13 +105,13 @@ export default async function CohortHealthPage() {
                         </div>
                         <div>
                           <p className="text-sm font-black text-brand-navy leading-none">{member.full_name}</p>
-                          <p className="text-[10px] font-bold text-brand-navy/30 mt-1">{member.email}</p>
+                          <p className="text-xs font-bold text-brand-navy/30 mt-1">{member.email}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-6 text-center">
                       <span className={cn(
-                        "px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest",
+                        "px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest",
                         member.tier === 'pro' ? "bg-brand-orange/10 text-brand-orange" : "bg-brand-navy/5 text-brand-navy/40"
                       )}>
                         {member.tier === 'pro' && <Shield className="inline w-2 h-2 mr-1" />}
@@ -137,11 +137,11 @@ export default async function CohortHealthPage() {
                     </td>
                     <td className="px-6 py-6 text-center">
                       <p className="text-sm font-black text-brand-navy">{member.member_health?.modules_completed || 0}</p>
-                      <p className="text-[8px] font-black uppercase text-brand-navy/30">Modules</p>
+                      <p className="text-xs font-black uppercase text-brand-navy/30">Modules</p>
                     </td>
                     <td className="px-6 py-6 text-center">
                       <p className="text-sm font-black text-brand-navy">{member.member_health?.kpis_submitted || 0}</p>
-                      <p className="text-[8px] font-black uppercase text-brand-navy/30">Submissions</p>
+                      <p className="text-xs font-black uppercase text-brand-navy/30">Submissions</p>
                     </td>
                     <td className="px-8 py-6 text-right">
                       <span className="text-xs text-brand-navy/30">—</span>

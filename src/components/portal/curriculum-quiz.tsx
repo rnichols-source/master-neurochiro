@@ -108,10 +108,10 @@ export function CurriculumQuiz({ phaseTitle, questions, onComplete }: Curriculum
       </div>
 
       <div className="flex justify-between items-center mb-8">
-        <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-brand-orange">
+        <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-brand-orange">
           <Brain className="w-3 h-3" /> Mastery Check
         </div>
-        <span className="text-[10px] font-black text-brand-navy/20 uppercase tracking-widest">
+        <span className="text-xs font-black text-brand-navy/20 uppercase tracking-widest">
           Question {currentStep + 1} of {questions.length}
         </span>
       </div>
@@ -153,7 +153,7 @@ export function CurriculumQuiz({ phaseTitle, questions, onComplete }: Curriculum
             animate={{ opacity: 1, height: 'auto' }}
             className="mt-10 p-6 bg-brand-navy/5 rounded-2xl border border-brand-navy/10"
           >
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-2">Context</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-2">Context</p>
             <p className="text-xs font-medium text-brand-navy leading-relaxed">
               {currentQuestion.feedback}
             </p>

@@ -40,7 +40,7 @@ export function RapidROIClient({ userId }: { userId: string }) {
       <div className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-orange/10 text-brand-orange rounded-full">
           <Zap size={16} className="fill-brand-orange" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em]">High Velocity Win</span>
+          <span className="text-xs font-black uppercase tracking-wider">High Velocity Win</span>
         </div>
         <h1 className="text-5xl md:text-6xl font-black text-brand-navy tracking-tighter">Rapid ROI</h1>
         <p className="text-brand-gray text-lg font-medium max-w-2xl mx-auto">
@@ -77,7 +77,7 @@ export function RapidROIClient({ userId }: { userId: string }) {
             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
               <Printer size={80} />
             </div>
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-6 flex items-center gap-2">
+            <h3 className="text-xs font-black uppercase tracking-widest text-white/40 mb-6 flex items-center gap-2">
               <FileText size={14} className="text-brand-orange" /> Required Resource
             </h3>
             <div className="space-y-6 relative z-10">
@@ -94,7 +94,7 @@ export function RapidROIClient({ userId }: { userId: string }) {
           </EliteCard>
 
           <EliteCard className="p-8 space-y-6">
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-2">THE ROI CHECKLIST</h3>
+            <h3 className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-2">THE ROI CHECKLIST</h3>
             <div className="space-y-4">
               {checklistItems.map((item, i) => (
                 <button 

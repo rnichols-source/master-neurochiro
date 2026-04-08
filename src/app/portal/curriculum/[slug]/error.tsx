@@ -29,7 +29,7 @@ export default function WeekError({
           This is often due to a temporary database sync issue.
         </p>
         {error.digest && (
-          <p className="text-[10px] font-mono text-brand-navy/20 uppercase tracking-widest mt-4">
+          <p className="text-xs font-mono text-brand-navy/20 uppercase tracking-widest mt-4">
             Error ID: {error.digest}
           </p>
         )}

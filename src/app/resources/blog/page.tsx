@@ -21,7 +21,7 @@ export default function BlogListingPage() {
       {/* Hero Section */}
       <section className="pt-48 pb-20 px-8">
         <div className="max-w-7xl mx-auto text-center space-y-8">
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Education & Insights</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Education & Insights</p>
           <h1 className="text-7xl md:text-8xl font-black text-brand-navy tracking-tighter leading-none">
             The NeuroChiro <br />
             <span className="text-brand-orange">Training Blog.</span>
@@ -42,7 +42,7 @@ export default function BlogListingPage() {
                   <EliteCard className="h-full group hover:border-brand-orange/40 transition-all flex flex-col p-8 bg-white border-brand-navy/5">
                     <div className="flex items-center gap-4 mb-6">
                       <div className="px-3 py-1 bg-brand-navy/5 rounded-lg">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">{post.category}</span>
+                        <span className="text-xs font-black uppercase tracking-widest text-brand-navy/60">{post.category}</span>
                       </div>
                     </div>
                     
@@ -54,10 +54,10 @@ export default function BlogListingPage() {
                     </p>
 
                     <div className="flex items-center justify-between pt-6 border-t border-brand-navy/5">
-                      <div className="flex items-center gap-2 text-[10px] font-bold text-brand-gray uppercase tracking-widest">
+                      <div className="flex items-center gap-2 text-xs font-bold text-brand-gray uppercase tracking-widest">
                         <Calendar className="w-3 h-3" /> {post.date}
                       </div>
-                      <div className="flex items-center gap-2 text-[10px] font-black text-brand-orange uppercase tracking-widest">
+                      <div className="flex items-center gap-2 text-xs font-black text-brand-orange uppercase tracking-widest">
                         Read More <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>

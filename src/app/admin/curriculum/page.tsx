@@ -29,7 +29,7 @@ export default async function AdminCurriculumPage() {
     <DashboardLayout>
       <div className="space-y-8">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Content Control</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Content Control</p>
           <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Curriculum Manager</h1>
         </div>
 

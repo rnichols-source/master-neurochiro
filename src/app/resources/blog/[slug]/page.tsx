@@ -35,13 +35,13 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       <article className="pt-48 pb-32 px-8">
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumbs */}
-          <Link href="/resources/blog" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-orange mb-12 hover:gap-3 transition-all">
+          <Link href="/resources/blog" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-brand-orange mb-12 hover:gap-3 transition-all">
             <ArrowLeft className="w-4 h-4" /> Back to Training Blog
           </Link>
 
           {/* Header */}
           <header className="space-y-8 mb-16">
-            <div className="px-4 py-2 bg-brand-navy text-white text-[10px] font-black uppercase tracking-widest inline-block rounded-xl">
+            <div className="px-4 py-2 bg-brand-navy text-white text-xs font-black uppercase tracking-widest inline-block rounded-xl">
               {post.category}
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-brand-navy tracking-tighter leading-tight">

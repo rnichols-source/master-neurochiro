@@ -137,7 +137,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
       {/* Welcome Header */}
       <div id="dashboard-header" className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <p className="text-brand-orange font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs mb-1 md:mb-2">
+          <p className="text-brand-orange font-bold uppercase tracking-wider text-xs md:text-xs mb-1 md:mb-2">
             Practice Intelligence
           </p>
           <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">
@@ -150,7 +150,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
         <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
             <div className="flex-1 md:flex-none bg-white px-4 py-3 md:py-2 rounded-xl border border-brand-navy/5 elite-shadow flex items-center justify-center md:justify-start gap-3">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-brand-navy/60">
+            <span className="text-xs md:text-xs font-bold uppercase tracking-wider text-brand-navy/60">
                 System Active
             </span>
             </div>
@@ -160,7 +160,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
       {/* Live Call Banner */}
       {!loading && nextCall && (
         <div id="live-call-banner" className="w-full">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-navy/40 mb-3 ml-2">Upcoming Live Calls</p>
+          <p className="text-xs font-black uppercase tracking-wider text-brand-navy/40 mb-3 ml-2">Upcoming Live Calls</p>
           <LiveCallBanner call={nextCall} />
         </div>
       )}
@@ -185,7 +185,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-white/60 mb-1">
+                  <p className="text-xs font-bold uppercase tracking-widest text-white/60 mb-1">
                     {stat.label}
                   </p>
                   <h3 className="text-2xl md:text-3xl font-black text-white">{stat.value}</h3>
@@ -196,14 +196,14 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
               </div>
               <div className="mt-4 flex items-center gap-2">
                 <span className={cn(
-                  "text-[10px] font-bold px-2 py-0.5 rounded-full",
+                  "text-xs font-bold px-2 py-0.5 rounded-full",
                   stat.metric === 'implementation' ? "bg-white/20 text-white" :
                   stat.trend.startsWith('+') ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
                 )}>
                   {stat.trend}
                 </span>
                 {stat.metric !== 'implementation' && (
-                  <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider">
+                  <span className="text-xs text-white/40 font-bold uppercase tracking-wider">
                     vs Last Week
                   </span>
                 )}
@@ -216,7 +216,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
         {/* Active Learning */}
         <div id="curriculum-card" className="lg:col-span-2 space-y-6">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-navy/40 ml-2">Current Curriculum Focus</p>
+          <p className="text-xs font-black uppercase tracking-wider text-brand-navy/40 ml-2">Current Curriculum Focus</p>
           <EliteCard 
             title="Current Week" 
             subtitle={currentWeek ? `Week ${currentWeek.week_number} – ${currentWeek.title}` : 'Loading...'}
@@ -246,7 +246,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
                   </div>
                   
                   <div className="space-y-2">
-                      <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-brand-navy/40">
+                      <div className="flex justify-between text-xs font-bold uppercase tracking-wider text-brand-navy/40">
                       <span>Phase Progress</span>
                       <span>{currentWeek.status === 'completed' ? '100%' : 'In Progress'}</span>
                       </div>
@@ -262,7 +262,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
 
                   <Link 
                       href={`/portal/curriculum/${currentWeek.slug}`}
-                      className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-brand-orange hover:gap-3 transition-all"
+                      className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-brand-orange hover:gap-3 transition-all"
                   >
                       {currentWeek.status === 'completed' ? 'Review Phase' : 'Continue Learning'} <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -289,14 +289,14 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
                         week.status === 'active' ? "bg-brand-orange/10 text-brand-orange" : 
                         "bg-brand-navy/5 text-brand-navy/20"
                       )}>
-                        {week.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> : <span className="text-[10px] font-bold">{week.week_number}</span>}
+                        {week.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> : <span className="text-xs font-bold">{week.week_number}</span>}
                       </div>
                       <span className="text-xs font-bold text-brand-navy truncate max-w-[150px]">
                         {week.title}
                       </span>
                     </div>
                     <span className={cn(
-                      "text-[9px] font-black uppercase tracking-widest",
+                      "text-xs font-black uppercase tracking-widest",
                       week.status === 'completed' ? "text-green-500" : 
                       week.status === 'active' ? "text-brand-orange" : 
                       "text-brand-navy/20"
@@ -312,7 +312,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
 
         {/* Quick Actions / Announcements */}
         <div className="space-y-6">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-navy/40 ml-2">Quick Actions</p>
+          <p className="text-xs font-black uppercase tracking-wider text-brand-navy/40 ml-2">Quick Actions</p>
           
           <EliteCard title="Next Implementation Task" subtitle={currentWeek ? `Week ${currentWeek.week_number} Tasks` : "Tasks"} icon={CheckCircle2}>
             <div className="space-y-3 mt-2">
@@ -347,7 +347,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
                           <Users className="text-brand-orange w-5 h-5" />
                         </div>
                         <div>
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-white/40">Quick Links</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-white/40">Quick Links</p>
                             <h4 className="text-sm font-black uppercase tracking-tight">Implementation Playbooks</h4>
                         </div>
                     </div>
@@ -364,7 +364,7 @@ export default function DashboardClient({ user, profile }: { user: any, profile:
                           <TrendingUp className="text-brand-orange w-5 h-5" />
                         </div>
                         <div>
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-brand-navy/40">Clinical Intelligence</p>
+                            <p className="text-xs font-bold uppercase tracking-widest text-brand-navy/40">Clinical Intelligence</p>
                             <h4 className="text-sm font-black uppercase tracking-tight text-brand-navy">Case Breakdown Lab</h4>
                         </div>
                     </div>

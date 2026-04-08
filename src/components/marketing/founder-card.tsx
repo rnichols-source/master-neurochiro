@@ -37,7 +37,7 @@ export function FounderAuthorityCard() {
             <div className="absolute bottom-6 left-6 right-6">
               <div className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl">
                 <h3 className="text-white font-black text-xl tracking-tight">Dr. Raymond Nichols</h3>
-                <p className="text-brand-orange text-[10px] font-black uppercase tracking-[0.2em] mt-1">Mastermind Facilitator</p>
+                <p className="text-brand-orange text-xs font-black uppercase tracking-wider mt-1">Mastermind Facilitator</p>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@ export function FounderAuthorityCard() {
                   <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-brand-navy/5 flex items-center justify-center text-brand-navy">
                     <item.icon className="w-4 h-4" />
                   </div>
-                  <span className="text-[10px] font-black text-brand-navy/70 uppercase tracking-wider leading-tight">
+                  <span className="text-xs font-black text-brand-navy/70 uppercase tracking-wider leading-tight">
                     {item.label}
                   </span>
                 </div>
@@ -81,14 +81,14 @@ export function FounderAuthorityCard() {
           <div className="flex -space-x-3">
             {[1,2,3,4].map(i => (
               <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-brand-cream overflow-hidden">
-                <div className="w-full h-full bg-brand-navy/10 flex items-center justify-center text-[10px] font-bold text-brand-navy">
+                <div className="w-full h-full bg-brand-navy/10 flex items-center justify-center text-xs font-bold text-brand-navy">
                   NC
                 </div>
               </div>
             ))}
           </div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy">Trusted by Doctors</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy">Trusted by Doctors</p>
             <div className="flex items-center gap-1 mt-0.5">
               <span className="text-xs font-black text-brand-orange">Worldwide</span>
             </div>

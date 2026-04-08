@@ -90,7 +90,7 @@ export function AdminVaultClient({ initialResources }: { initialResources: any[]
     <div className="space-y-8 pb-20">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Vault Control</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Vault Control</p>
           <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Intelligence Library</h1>
         </div>
         <BrandButton onClick={handleAddNew}><Plus className="w-4 h-4 mr-2" /> Add Resource</BrandButton>
@@ -170,7 +170,7 @@ export function AdminVaultClient({ initialResources }: { initialResources: any[]
         {resources.map((res) => (
           <EliteCard key={res.id} className="p-5 relative flex flex-col">
             <div className="flex justify-between items-start mb-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-brand-orange">{categories.find(c => c.id === res.category)?.name}</span>
+              <span className="text-xs font-black uppercase tracking-widest text-brand-orange">{categories.find(c => c.id === res.category)?.name}</span>
               <div className="flex items-center gap-2">
                 {res.tier === 'pro' ? <Lock className="w-3 h-3 text-red-500" /> : <Unlock className="w-3 h-3 text-green-500" />}
               </div>
@@ -179,7 +179,7 @@ export function AdminVaultClient({ initialResources }: { initialResources: any[]
             <p className="text-xs text-brand-navy/60 line-clamp-2 flex-1">{res.description}</p>
             
             <div className="flex justify-between items-center mt-6 pt-4 border-t border-brand-navy/5">
-              <div className="flex items-center gap-1 text-[10px] font-bold text-brand-navy/40 uppercase tracking-widest">
+              <div className="flex items-center gap-1 text-xs font-bold text-brand-navy/40 uppercase tracking-widest">
                 {res.resource_type === 'video' && <Video className="w-3 h-3" />}
                 {res.resource_type === 'pdf' && <FileText className="w-3 h-3" />}
                 {res.resource_type === 'script' && <MessageSquare className="w-3 h-3" />}

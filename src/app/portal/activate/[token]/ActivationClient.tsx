@@ -129,7 +129,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
             <Image src="/logo-white.png" alt="NeuroChiro" fill className="object-contain" />
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">Activate Your Access.</h1>
-          <p className="text-white/40 font-bold uppercase tracking-[0.3em] text-[10px]">Step {step} of 4 &bull; {steps[step-1]?.title}</p>
+          <p className="text-white/40 font-bold uppercase tracking-widest text-xs">Step {step} of 4 &bull; {steps[step-1]?.title}</p>
         </div>
 
         {/* Progress Indicator */}
@@ -171,7 +171,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       <Briefcase className={cn("w-8 h-8", formData.user_type === 'chiropractor' ? "text-brand-orange" : "text-white/40")} />
                       <div>
                         <h4 className="text-white font-bold">Practicing Chiropractor</h4>
-                        <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">I am in practice</p>
+                        <p className="text-white/40 text-xs uppercase tracking-widest mt-1">I am in practice</p>
                       </div>
                     </div>
                     <div 
@@ -184,7 +184,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       <GraduationCap className={cn("w-8 h-8", formData.user_type === 'student' ? "text-brand-orange" : "text-white/40")} />
                       <div>
                         <h4 className="text-white font-bold">Chiropractic Student</h4>
-                        <p className="text-white/40 text-[10px] uppercase tracking-widest mt-1">I am in school</p>
+                        <p className="text-white/40 text-xs uppercase tracking-widest mt-1">I am in school</p>
                       </div>
                     </div>
                   </div>
@@ -196,7 +196,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                 <div className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">First Name</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">First Name</label>
                       <input 
                         type="text" 
                         value={formData.first_name}
@@ -206,7 +206,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Last Name</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Last Name</label>
                       <input 
                         type="text" 
                         value={formData.last_name}
@@ -217,7 +217,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Confirmed Email</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Confirmed Email</label>
                     <input 
                       type="email" 
                       disabled
@@ -226,7 +226,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                     />
                   </div>
                   <div className="flex gap-4 mt-4">
-                    <button onClick={prevStep} className="flex-1 py-4 text-white/40 font-bold uppercase tracking-widest text-[10px] hover:text-white transition-colors">Go Back</button>
+                    <button onClick={prevStep} className="flex-1 py-4 text-white/40 font-bold uppercase tracking-widest text-xs hover:text-white transition-colors">Go Back</button>
                     <BrandButton onClick={nextStep} className="flex-[2] py-4">Continue <ArrowRight className="ml-2 w-4 h-4" /></BrandButton>
                   </div>
                 </div>
@@ -236,7 +236,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2 md:col-span-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Practice Name</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Practice Name</label>
                       <div className="relative">
                         <Building2 className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
                         <input 
@@ -249,7 +249,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">City</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">City</label>
                       <input 
                         type="text" 
                         value={formData.practice_city}
@@ -259,7 +259,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">State / Country</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">State / Country</label>
                       <input 
                         type="text" 
                         value={formData.practice_state}
@@ -269,7 +269,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Years in Practice</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Years in Practice</label>
                       <input 
                         type="number" 
                         value={formData.years_in_practice}
@@ -279,7 +279,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Practice Type</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Practice Type</label>
                       <input 
                         type="text" 
                         value={formData.practice_type}
@@ -289,7 +289,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Website (Optional)</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Website (Optional)</label>
                       <input 
                         type="url" 
                         value={formData.website}
@@ -300,7 +300,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <button onClick={prevStep} className="flex-1 py-4 text-white/40 font-bold uppercase tracking-widest text-[10px] hover:text-white transition-colors">Go Back</button>
+                    <button onClick={prevStep} className="flex-1 py-4 text-white/40 font-bold uppercase tracking-widest text-xs hover:text-white transition-colors">Go Back</button>
                     <BrandButton onClick={nextStep} className="flex-[2] py-4">Security Setup <ArrowRight className="ml-2 w-4 h-4" /></BrandButton>
                   </div>
                 </div>
@@ -310,7 +310,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2 md:col-span-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Chiropractic School</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Chiropractic School</label>
                       <div className="relative">
                         <GraduationCap className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" />
                         <input 
@@ -323,7 +323,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Graduation Year</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Graduation Year</label>
                       <input 
                         type="text" 
                         value={formData.graduation_year}
@@ -333,7 +333,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Current Trimester/Quarter</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Current Trimester/Quarter</label>
                       <input 
                         type="text" 
                         value={formData.current_year_in_school}
@@ -343,7 +343,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                       />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">City / Country</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">City / Country</label>
                       <input 
                         type="text" 
                         value={formData.practice_city}
@@ -354,7 +354,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                     </div>
                     
                     <div className="space-y-3 md:col-span-2 mt-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Areas of Interest (Optional)</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Areas of Interest (Optional)</label>
                       <div className="flex flex-wrap gap-2">
                         {['Pediatrics', 'Neurology', 'Sports', 'Family Care', 'Functional Health'].map(interest => (
                           <div 
@@ -374,7 +374,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                     </div>
                   </div>
                   <div className="flex gap-4 mt-6">
-                    <button onClick={prevStep} className="flex-1 py-4 text-white/40 font-bold uppercase tracking-widest text-[10px] hover:text-white transition-colors">Go Back</button>
+                    <button onClick={prevStep} className="flex-1 py-4 text-white/40 font-bold uppercase tracking-widest text-xs hover:text-white transition-colors">Go Back</button>
                     <BrandButton onClick={nextStep} className="flex-[2] py-4">Security Setup <ArrowRight className="ml-2 w-4 h-4" /></BrandButton>
                   </div>
                 </div>
@@ -383,7 +383,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
               {step === 4 && (
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Create Password</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Create Password</label>
                     <input 
                       type="password" 
                       value={formData.password}
@@ -393,7 +393,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-1">Confirm Password</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-white/40 ml-1">Confirm Password</label>
                     <input 
                       type="password" 
                       value={formData.confirm_password}
@@ -404,7 +404,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
                   </div>
                   {error && <p className="text-red-400 text-xs font-bold text-center">{error}</p>}
                   <div className="flex gap-4">
-                    <button onClick={prevStep} className="flex-1 py-4 text-white/40 font-bold uppercase tracking-widest text-[10px] hover:text-white transition-colors">Go Back</button>
+                    <button onClick={prevStep} className="flex-1 py-4 text-white/40 font-bold uppercase tracking-widest text-xs hover:text-white transition-colors">Go Back</button>
                     <BrandButton onClick={handleSubmit} isLoading={loading} className="flex-[2] py-4">Activate Profile <Zap className="ml-2 w-4 h-4" /></BrandButton>
                   </div>
                 </div>
@@ -413,7 +413,7 @@ export default function ActivationClient({ token, invitation, isPreview }: any) 
           </motion.div>
         </AnimatePresence>
 
-        <p className="text-center text-white/20 text-[10px] font-bold uppercase tracking-[0.2em]">
+        <p className="text-center text-white/20 text-xs font-bold uppercase tracking-wider">
           Secure Activation System &bull; NeuroChiro OS
         </p>
       </div>

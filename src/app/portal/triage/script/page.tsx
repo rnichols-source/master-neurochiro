@@ -87,12 +87,12 @@ export default function RescueScriptPage() {
         
         <div className="print:hidden space-y-6">
           <div className="flex justify-between items-center">
-            <Link href="/portal/rapid-roi" className="flex items-center gap-2 text-brand-navy/60 hover:text-brand-navy font-black text-[10px] uppercase tracking-widest transition-colors">
+            <Link href="/portal/rapid-roi" className="flex items-center gap-2 text-brand-navy/60 hover:text-brand-navy font-black text-xs uppercase tracking-widest transition-colors">
               <ArrowLeft size={14} /> Back to ROI Center
             </Link>
             <button 
               onClick={handlePrint}
-              className="flex items-center gap-2 bg-brand-navy text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-brand-orange transition-all shadow-xl"
+              className="flex items-center gap-2 bg-brand-navy text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brand-orange transition-all shadow-xl"
             >
               <Printer size={14} /> Print This Version
             </button>
@@ -104,7 +104,7 @@ export default function RescueScriptPage() {
                 key={type}
                 onClick={() => setActiveType(type)}
                 className={cn(
-                  "flex-1 min-w-[120px] py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all border flex items-center justify-center gap-3",
+                  "flex-1 min-w-[120px] py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all border flex items-center justify-center gap-3",
                   activeType === type 
                     ? "bg-brand-navy text-white border-brand-navy shadow-lg" 
                     : "bg-white text-brand-navy/40 border-transparent hover:border-brand-navy/10"
@@ -139,14 +139,14 @@ export default function RescueScriptPage() {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange text-white rounded-md mb-4">
                   <Zap size={12} fill="white" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">Rapid ROI Series</span>
+                  <span className="text-xs font-black uppercase tracking-wider">Rapid ROI Series</span>
                 </div>
                 <h1 className="text-5xl font-black text-brand-navy tracking-tighter uppercase leading-none">Emergency Rescue</h1>
                 <p className="text-brand-gray font-bold text-sm mt-2">TARGET: <span className="text-brand-navy">{activeType.toUpperCase()}</span></p>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-black text-brand-navy">PHASE 00</div>
-                <div className="text-[10px] font-bold text-brand-navy/40 uppercase tracking-widest">Confidential Script</div>
+                <div className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest">Confidential Script</div>
               </div>
             </div>
 
@@ -154,7 +154,7 @@ export default function RescueScriptPage() {
               <div className="absolute left-0 top-0 w-10 h-10 rounded-2xl bg-brand-navy text-white flex items-center justify-center font-black text-lg">1</div>
               <div className="space-y-4">
                 <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">The Soft Landing</h3>
-                <p className="text-[10px] font-bold text-brand-gray uppercase tracking-[0.2em]">Goal: Stop the money talk immediately.</p>
+                <p className="text-xs font-bold text-brand-gray uppercase tracking-wider">Goal: Stop the money talk immediately.</p>
                 <div className="p-8 bg-brand-cream border-l-8 border-brand-orange italic font-bold text-xl text-brand-navy leading-relaxed shadow-sm">
                   "{script.step1}"
                 </div>
@@ -165,7 +165,7 @@ export default function RescueScriptPage() {
               <div className="absolute left-0 top-0 w-10 h-10 rounded-2xl bg-brand-navy text-white flex items-center justify-center font-black text-lg">2</div>
               <div className="space-y-4">
                 <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">The Reality Check</h3>
-                <p className="text-[10px] font-bold text-brand-gray uppercase tracking-[0.2em]">Goal: Show them the cost of doing nothing.</p>
+                <p className="text-xs font-bold text-brand-gray uppercase tracking-wider">Goal: Show them the cost of doing nothing.</p>
                 <div className="p-8 bg-brand-cream border-l-8 border-brand-orange italic font-bold text-xl text-brand-navy leading-relaxed shadow-sm">
                   "{script.step2}"
                 </div>
@@ -176,7 +176,7 @@ export default function RescueScriptPage() {
               <div className="absolute left-0 top-0 w-10 h-10 rounded-2xl bg-brand-navy text-white flex items-center justify-center font-black text-lg">3</div>
               <div className="space-y-4">
                 <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">The Decision</h3>
-                <p className="text-[10px] font-bold text-brand-gray uppercase tracking-[0.2em]">Goal: Fix the problem or stay stuck.</p>
+                <p className="text-xs font-bold text-brand-gray uppercase tracking-wider">Goal: Fix the problem or stay stuck.</p>
                 <div className="p-8 bg-brand-navy text-white border-l-8 border-brand-orange italic font-bold text-xl leading-relaxed shadow-xl rounded-r-3xl">
                   "{script.step3}"
                 </div>
@@ -186,7 +186,7 @@ export default function RescueScriptPage() {
             <div className="border-t-2 border-brand-navy/10 pt-16">
               <div className="flex items-center gap-3 mb-8">
                 <Info size={16} className="text-brand-orange" />
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">Pro Tip</h4>
+                <h4 className="text-xs font-black uppercase tracking-widest text-brand-orange">Pro Tip</h4>
               </div>
               <div className="p-8 bg-brand-navy/5 rounded-3xl border border-brand-navy/5">
                 <p className="text-xs font-bold text-brand-navy uppercase leading-relaxed">
@@ -197,12 +197,12 @@ export default function RescueScriptPage() {
 
             <div className="mt-20 pt-10 border-t-4 border-brand-navy flex justify-between items-end">
               <div className="space-y-2">
-                <p className="text-[10px] font-black text-brand-navy uppercase tracking-widest">Dr. Raymond Nichols | NeuroChiro Mastermind</p>
-                <p className="text-[8px] font-bold text-brand-gray uppercase tracking-widest">© 2026 Internal Use Only. One saved case pays for your month.</p>
+                <p className="text-xs font-black text-brand-navy uppercase tracking-widest">Dr. Raymond Nichols | NeuroChiro Mastermind</p>
+                <p className="text-xs font-bold text-brand-gray uppercase tracking-widest">© 2026 Internal Use Only. One saved case pays for your month.</p>
               </div>
               <div className="flex items-center gap-4 opacity-40">
                 <ShieldCheck size={40} className="text-brand-navy" />
-                <div className="text-[8px] font-black text-brand-navy tracking-tighter uppercase leading-tight text-right">Emergency<br />Response Unit</div>
+                <div className="text-xs font-black text-brand-navy tracking-tighter uppercase leading-tight text-right">Emergency<br />Response Unit</div>
               </div>
             </div>
 

@@ -75,8 +75,8 @@ export function PhaseRoadmap({ phases, currentWeek }: PhaseRoadmapProps) {
               >
                 {/* Status Indicator Pill (Mobile focus) */}
                 <div className="h-4 flex items-center justify-center">
-                  {isCompleted && <span className="text-[8px] font-black uppercase tracking-widest text-green-500">Done</span>}
-                  {isActive && <span className="text-[8px] font-black uppercase tracking-widest text-brand-orange">Current</span>}
+                  {isCompleted && <span className="text-xs font-black uppercase tracking-widest text-green-500">Done</span>}
+                  {isActive && <span className="text-xs font-black uppercase tracking-widest text-brand-orange">Current</span>}
                 </div>
 
                 {/* Node */}
@@ -103,7 +103,7 @@ export function PhaseRoadmap({ phases, currentWeek }: PhaseRoadmapProps) {
                 {/* Label */}
                 <div className="text-center w-24 mt-1">
                   <p className={cn(
-                    "text-[9px] font-black uppercase tracking-widest mb-1 transition-colors",
+                    "text-xs font-black uppercase tracking-widest mb-1 transition-colors",
                     isActive ? "text-brand-navy" : 
                     isCompleted ? "text-brand-navy/60" :
                     "text-brand-navy/40"

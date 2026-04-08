@@ -91,7 +91,7 @@ export default async function PortalCurriculumPage() {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
             <Activity size={14} className="fill-brand-orange" />
-            <p className="text-[10px] font-black uppercase tracking-widest">Installation Status</p>
+            <p className="text-xs font-black uppercase tracking-widest">Installation Status</p>
           </div>
           <h1 className="text-5xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">The Roadmap</h1>
           <p className="text-brand-gray text-lg font-medium mt-6 leading-relaxed">
@@ -136,13 +136,13 @@ export default async function PortalCurriculumPage() {
                             "w-14 h-14 rounded-2xl flex flex-col items-center justify-center font-black transition-all",
                             isLocked ? "bg-brand-navy/5 text-brand-navy/20" : "bg-brand-navy text-white shadow-xl"
                           )}>
-                            <span className="text-[8px] uppercase tracking-tighter opacity-40">Level</span>
+                            <span className="text-xs uppercase tracking-tighter opacity-40">Level</span>
                             <span className="text-2xl leading-none">0{phase.week_number}</span>
                           </div>
                           <div>
                             <div className="flex flex-wrap gap-2 mb-2">
                               {!isLocked && (
-                                <div className="flex items-center gap-1 px-2 py-0.5 bg-green-500/10 text-green-600 rounded text-[8px] font-black uppercase tracking-widest">
+                                <div className="flex items-center gap-1 px-2 py-0.5 bg-green-500/10 text-green-600 rounded text-xs font-black uppercase tracking-widest">
                                   <DollarSign size={10} /> ROI: {meta.expectedROI}
                                 </div>
                               )}
@@ -164,8 +164,8 @@ export default async function PortalCurriculumPage() {
                               <Download size={14} />
                             </div>
                             <div>
-                              <p className="text-[8px] font-black text-brand-navy/40 uppercase tracking-widest leading-none mb-1">Quick Win Asset</p>
-                              <Link href={meta.quickAsset.link} className="text-[10px] font-bold text-brand-navy hover:text-brand-orange underline transition-colors">
+                              <p className="text-xs font-black text-brand-navy/40 uppercase tracking-widest leading-none mb-1">Quick Win Asset</p>
+                              <Link href={meta.quickAsset.link} className="text-xs font-bold text-brand-navy hover:text-brand-orange underline transition-colors">
                                 {meta.quickAsset.name}
                               </Link>
                             </div>
@@ -179,7 +179,7 @@ export default async function PortalCurriculumPage() {
                           <div className="flex items-center gap-3 px-6 py-3 bg-green-500/10 text-green-600 rounded-2xl border border-green-500/20 shadow-lg shadow-green-500/5">
                             <Trophy size={18} className="fill-green-500/20" />
                             <div>
-                              <p className="text-[8px] font-black uppercase tracking-widest leading-none mb-1">Status Unlocked</p>
+                              <p className="text-xs font-black uppercase tracking-widest leading-none mb-1">Status Unlocked</p>
                               <p className="text-xs font-black uppercase">{meta.statusBadge}</p>
                             </div>
                           </div>
@@ -187,7 +187,7 @@ export default async function PortalCurriculumPage() {
                           <div className="flex flex-col gap-3 w-full md:w-auto">
                             <Link href={`/portal/curriculum/${phase.slug}`} className="w-full">
                               <BrandButton variant="primary" className="w-full justify-between gap-8 group py-6">
-                                <span className="text-xs font-black uppercase tracking-[0.2em]">Open Training Room</span>
+                                <span className="text-xs font-black uppercase tracking-wider">Open Training Room</span>
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                               </BrandButton>
                             </Link>
@@ -197,7 +197,7 @@ export default async function PortalCurriculumPage() {
                             />
                           </div>
                         ) : (
-                          <div className="px-8 py-4 bg-brand-navy/5 rounded-2xl text-[10px] font-black text-brand-navy/20 uppercase tracking-[0.2em] border border-brand-navy/5 text-center w-full min-w-[200px]">
+                          <div className="px-8 py-4 bg-brand-navy/5 rounded-2xl text-xs font-black text-brand-navy/20 uppercase tracking-wider border border-brand-navy/5 text-center w-full min-w-[200px]">
                             Level 0{phase.week_number} Locked
                           </div>
                         )}

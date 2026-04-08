@@ -46,7 +46,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
   return (
     <DashboardLayout>
       <div className="space-y-10">
-        <Link href="/portal/curriculum" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-orange transition-colors">
+        <Link href="/portal/curriculum" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-orange transition-colors">
           <ChevronLeft className="w-3 h-3" /> Back to Curriculum
         </Link>
 
@@ -55,7 +55,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
 
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 pb-10 border-b border-brand-navy/5">
           <div className="space-y-4">
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Phase 0{week?.week_number}</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Phase 0{week?.week_number}</p>
             <h1 className="text-5xl font-black text-brand-navy tracking-tighter">{week?.title}</h1>
             <p className="text-brand-gray font-medium max-w-xl">
               {week?.description}
@@ -64,7 +64,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
           
           <div className="flex items-center gap-6">
             <div className="text-right">
-              <p className="text-[8px] font-black uppercase text-brand-navy/40">Phase Completion</p>
+              <p className="text-xs font-black uppercase text-brand-navy/40">Phase Completion</p>
               <p className="text-lg font-black text-brand-navy">{completionPercent}%</p>
             </div>
             <div className="relative w-16 h-16">
@@ -83,7 +83,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2 space-y-6">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 ml-2">Training Units</h3>
+            <h3 className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-2">Training Units</h3>
             <div className="space-y-4">
               {safeModules.map((mod: any) => {
                 const moduleUrl = `/portal/curriculum/${week?.slug}/${mod?.slug}`;
@@ -106,7 +106,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
                            mod?.status === 'active' ? <Play className="w-5 h-5 fill-brand-orange ml-0.5" /> : <Lock className="w-5 h-5" />}
                         </div>
                         <div>
-                          <p className="text-[8px] font-black uppercase text-brand-navy/40">Module {week?.week_number}.{mod?.order_index}</p>
+                          <p className="text-xs font-black uppercase text-brand-navy/40">Module {week?.week_number}.{mod?.order_index}</p>
                           <h4 className="text-lg font-black text-brand-navy group-hover:text-brand-orange transition-colors">{mod?.title}</h4>
                         </div>
                       </div>
@@ -114,7 +114,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
                         {mod?.status !== 'locked' ? (
                           <Link 
                             href={moduleUrl}
-                            className="px-6 py-2 bg-brand-navy text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all flex items-center gap-2 group/btn"
+                            className="px-6 py-2 bg-brand-navy text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all flex items-center gap-2 group/btn"
                           >
                             View Unit <ChevronRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
                           </Link>
@@ -138,7 +138,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
                   "Submit Implementation Proof",
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <div className="w-4 h-4 rounded border border-brand-navy/10 flex items-center justify-center text-[10px] font-black">{i + 1}</div>
+                    <div className="w-4 h-4 rounded border border-brand-navy/10 flex items-center justify-center text-xs font-black">{i + 1}</div>
                     <span className="text-xs font-bold text-brand-navy">{item}</span>
                   </div>
                 ))}
@@ -155,11 +155,11 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
                       className="w-full p-4 bg-brand-navy/5 hover:bg-brand-orange/5 rounded-xl border border-transparent hover:border-brand-orange/20 transition-all text-left flex justify-between items-center group"
                     >
                       <span className="text-xs font-bold text-brand-navy group-hover:text-brand-orange transition-colors">{asset.title}</span>
-                      <span className="text-[8px] font-black text-brand-navy/30 uppercase">{asset.type}</span>
+                      <span className="text-xs font-black text-brand-navy/30 uppercase">{asset.type}</span>
                     </a>
                   );
                 }) : (
-                  <p className="text-[10px] font-bold text-brand-navy/20 text-center py-4 uppercase">No downloads for this phase</p>
+                  <p className="text-xs font-bold text-brand-navy/20 text-center py-4 uppercase">No downloads for this phase</p>
                 )}
               </div>
             </EliteCard>

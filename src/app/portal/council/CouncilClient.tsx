@@ -40,7 +40,7 @@ export function CouncilClient() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
             <ShieldCheck size={14} />
-            <p className="text-[10px] font-black uppercase tracking-widest">Active Inner Circle</p>
+            <p className="text-xs font-black uppercase tracking-widest">Active Inner Circle</p>
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">The Council</h1>
           <p className="text-brand-gray text-lg font-medium mt-4 max-w-xl">
@@ -48,8 +48,8 @@ export function CouncilClient() {
           </p>
         </div>
         <div className="flex gap-4 w-full md:w-auto">
-          <BrandButton variant="outline" className="flex-1 md:flex-none text-[10px]" onClick={() => setActiveTab('caselab')}>Submit Case Rescue</BrandButton>
-          <BrandButton variant="primary" className="flex-1 md:flex-none text-[10px]" onClick={() => setActiveTab('triage')}>Join Triage Call</BrandButton>
+          <BrandButton variant="outline" className="flex-1 md:flex-none text-xs" onClick={() => setActiveTab('caselab')}>Submit Case Rescue</BrandButton>
+          <BrandButton variant="primary" className="flex-1 md:flex-none text-xs" onClick={() => setActiveTab('triage')}>Join Triage Call</BrandButton>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ export function CouncilClient() {
                   <div className="space-y-6">
                     <div className="inline-flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full text-brand-orange border border-white/10">
                       <Calendar size={14} />
-                      <p className="text-[10px] font-black uppercase tracking-widest">Next Command Call</p>
+                      <p className="text-xs font-black uppercase tracking-widest">Next Command Call</p>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">Bi-Weekly <br />Implementation Triage</h2>
                     <p className="text-white/60 text-lg font-medium max-w-lg">Every Tuesday @ 12:00 PM EST. Bring your current clinic bottlenecks to the floor for real-time strategy.</p>
@@ -106,7 +106,7 @@ export function CouncilClient() {
               {/* KPI Summary */}
               <EliteCard className="bg-white border-brand-navy/5 shadow-sm p-8 flex flex-col justify-between">
                 <div className="space-y-6">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Council Benchmarking</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Council Benchmarking</p>
                   <div className="space-y-8">
                     {[
                       { label: "PVA (Council Avg)", value: "48", trend: "Target: 60", icon: TrendingUp },
@@ -115,11 +115,11 @@ export function CouncilClient() {
                     ].map((stat, i) => (
                       <div key={i} className="flex justify-between items-end">
                         <div className="space-y-1">
-                          <p className="text-[9px] font-black uppercase text-brand-navy/40">{stat.label}</p>
+                          <p className="text-xs font-black uppercase text-brand-navy/40">{stat.label}</p>
                           <p className="text-3xl font-black text-brand-navy tracking-tighter">{stat.value}</p>
                         </div>
                         <div className="flex flex-col items-end">
-                          <span className="text-[10px] font-black text-brand-orange">{stat.trend}</span>
+                          <span className="text-xs font-black text-brand-orange">{stat.trend}</span>
                           <stat.icon size={16} className="text-brand-orange opacity-20" />
                         </div>
                       </div>
@@ -127,7 +127,7 @@ export function CouncilClient() {
                   </div>
                 </div>
                 <div className="pt-8 border-t border-brand-navy/5">
-                  <BrandButton variant="outline" className="w-full text-[10px]" onClick={() => setActiveTab('kpi')}>Compare My Numbers</BrandButton>
+                  <BrandButton variant="outline" className="w-full text-xs" onClick={() => setActiveTab('kpi')}>Compare My Numbers</BrandButton>
                 </div>
               </EliteCard>
             </div>
@@ -150,8 +150,8 @@ export function CouncilClient() {
                       <action.icon size={18} className="text-brand-navy group-hover:text-white transition-colors" />
                     </div>
                     <h3 className="text-sm font-black text-brand-navy uppercase mb-1">{action.title}</h3>
-                    <p className="text-[10px] font-medium text-brand-gray leading-relaxed mb-4">{action.desc}</p>
-                    <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-brand-orange group-hover:gap-3 transition-all">
+                    <p className="text-xs font-medium text-brand-gray leading-relaxed mb-4">{action.desc}</p>
+                    <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-brand-orange group-hover:gap-3 transition-all">
                       Access <ArrowRight size={12} />
                     </div>
                   </EliteCard>
@@ -182,14 +182,14 @@ export function CouncilClient() {
             <EliteCard className="bg-white border-brand-navy/5 p-8 max-w-2xl">
               <form className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Patient Stuck Point</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Patient Stuck Point</label>
                   <textarea 
                     className="w-full bg-brand-cream border-none rounded-2xl p-4 text-sm font-medium focus:ring-2 focus:ring-brand-orange h-32"
                     placeholder="Describe exactly where the communication broke down (e.g., 'They liked the scans but said the price was too high after Day 2')..."
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">What was your reaction?</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">What was your reaction?</label>
                   <input 
                     type="text"
                     className="w-full bg-brand-cream border-none rounded-2xl p-4 text-sm font-medium focus:ring-2 focus:ring-brand-orange"

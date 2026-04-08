@@ -80,7 +80,7 @@ export function CertaintyAIGeneratorClient() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 text-brand-orange rounded-full text-[8px] font-black uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 text-brand-orange rounded-full text-xs font-black uppercase tracking-widest mb-4">
             <Sparkles className="w-3 h-3" /> AI-Powered
           </div>
           <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Certainty AI Script Generator</h1>
@@ -95,7 +95,7 @@ export function CertaintyAIGeneratorClient() {
             <div className="space-y-8 mt-8">
               {/* Primary Concern */}
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Primary Concern / Symptom</label>
+                <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Primary Concern / Symptom</label>
                 <input 
                   type="text" 
                   placeholder="e.g. Chronic Fatigue, LBP, Brain Fog"
@@ -107,14 +107,14 @@ export function CertaintyAIGeneratorClient() {
 
               {/* Scan Findings */}
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Scan Findings</label>
+                <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Scan Findings</label>
                 <div className="flex flex-wrap gap-2">
                   {scanOptions.map(option => (
                     <button
                       key={option}
                       onClick={() => handleScanToggle(option)}
                       className={cn(
-                        "px-4 py-2 rounded-lg text-[10px] font-bold border transition-all",
+                        "px-4 py-2 rounded-lg text-xs font-bold border transition-all",
                         formData.scanFindings.includes(option)
                           ? "bg-brand-navy text-white border-brand-navy shadow-md"
                           : "bg-white text-brand-navy/40 border-brand-navy/5 hover:border-brand-orange/20"
@@ -128,7 +128,7 @@ export function CertaintyAIGeneratorClient() {
 
               {/* Personality Type */}
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Patient Personality Type</label>
+                <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Patient Personality Type</label>
                 <div className="grid grid-cols-2 gap-3">
                   {personalityTypes.map(type => (
                     <button
@@ -142,7 +142,7 @@ export function CertaintyAIGeneratorClient() {
                       )}
                     >
                       <p className={cn("text-xs font-black", formData.personality === type.name ? "text-brand-orange" : "text-brand-navy")}>{type.name}</p>
-                      <p className="text-[8px] font-medium text-brand-navy/40 uppercase tracking-widest">{type.desc}</p>
+                      <p className="text-xs font-medium text-brand-navy/40 uppercase tracking-widest">{type.desc}</p>
                     </button>
                   ))}
                 </div>
@@ -178,7 +178,7 @@ export function CertaintyAIGeneratorClient() {
                           <Target className="w-5 h-5" />
                         </div>
                         <div>
-                          <p className="text-[10px] font-black uppercase tracking-widest text-white/40">Generated Script</p>
+                          <p className="text-xs font-black uppercase tracking-widest text-white/40">Generated Script</p>
                           <h3 className="text-xl font-black">The NeuroChiro Close</h3>
                         </div>
                       </div>
@@ -197,7 +197,7 @@ export function CertaintyAIGeneratorClient() {
 
                     <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
-                        <p className="text-[8px] font-black uppercase text-brand-orange tracking-widest mb-3 flex items-center gap-2">
+                        <p className="text-xs font-black uppercase text-brand-orange tracking-widest mb-3 flex items-center gap-2">
                           <Zap className="w-3 h-3" /> Delivery Tip
                         </p>
                         <p className="text-xs font-medium text-white/60 leading-relaxed">
@@ -205,7 +205,7 @@ export function CertaintyAIGeneratorClient() {
                         </p>
                       </div>
                       <div className="p-6 bg-white/5 rounded-2xl border border-white/5">
-                        <p className="text-[8px] font-black uppercase text-brand-orange tracking-widest mb-3 flex items-center gap-2">
+                        <p className="text-xs font-black uppercase text-brand-orange tracking-widest mb-3 flex items-center gap-2">
                           <ShieldCheck className="w-3 h-3" /> Authority Lock
                         </p>
                         <p className="text-xs font-medium text-white/60 leading-relaxed">

@@ -105,7 +105,7 @@ export default function MentorshipLandingPage() {
         <div className="max-w-5xl mx-auto text-center space-y-8 relative z-10">
           <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/5 border border-white/10 rounded-full mb-4">
             <Settings className="w-4 h-4 text-brand-orange animate-spin-slow" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/80">System Installation Experience</span>
+            <span className="text-xs font-black uppercase tracking-widest text-white/80">System Installation Experience</span>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-heading font-black tracking-tighter leading-[0.95] max-w-4xl mx-auto">
@@ -131,7 +131,7 @@ export default function MentorshipLandingPage() {
       <section className="py-32 px-6 bg-white border-b border-brand-navy/5">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-8">
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Diagnostic</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Diagnostic</p>
             <h2 className="text-5xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">
               Most Practices Are <br />Built on <span className="text-brand-orange">Hustle.</span>
             </h2>
@@ -171,7 +171,7 @@ export default function MentorshipLandingPage() {
       <section className="py-32 px-6 bg-brand-cream relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24 space-y-4">
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Installation Tiers</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Installation Tiers</p>
             <h2 className="text-5xl md:text-7xl font-black text-brand-navy tracking-tighter leading-none">The Architecture Room.</h2>
             <p className="text-xl text-brand-gray font-medium max-w-2xl mx-auto">Select the level of intervention your practice requires.</p>
           </div>
@@ -180,20 +180,20 @@ export default function MentorshipLandingPage() {
             {options.map((opt, i) => (
               <EliteCard key={i} className={`p-10 flex flex-col h-full border ${i === 1 ? 'border-brand-orange/30 shadow-[0_20px_60px_-15px_rgba(214,104,41,0.2)] bg-white relative' : 'border-brand-navy/5 bg-white/60 hover:bg-white'}`}>
                 {i === 1 && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-orange text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-orange text-white text-xs font-black uppercase tracking-widest rounded-full shadow-lg">
                     Most Common Entry Point
                   </div>
                 )}
                 <div className="mb-8">
                   <h3 className="text-3xl font-black text-brand-navy tracking-tight mb-2">{opt.title}</h3>
-                  <p className="text-brand-orange font-black uppercase tracking-[0.2em] text-xs mb-6">{opt.subtitle}</p>
+                  <p className="text-brand-orange font-black uppercase tracking-wider text-xs mb-6">{opt.subtitle}</p>
                   <div className="pb-6 border-b border-brand-navy/10">
                     <p className="text-sm font-medium text-brand-gray italic">"{opt.focus}"</p>
                   </div>
                 </div>
                 
                 <div className="flex-grow space-y-6 mb-10">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">What You Get:</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40">What You Get:</p>
                   <ul className="space-y-4">
                     {opt.features.map((f, j) => (
                       <li key={j} className="flex gap-3 items-start">
@@ -205,7 +205,7 @@ export default function MentorshipLandingPage() {
                 </div>
 
                 <div className="mt-auto pt-8 border-t border-brand-navy/10">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-2">The Outcome:</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-2">The Outcome:</p>
                   <p className="text-sm font-medium text-brand-gray mb-8">{opt.outcome}</p>
                   
                   <div className="flex items-center justify-between">
@@ -223,7 +223,7 @@ export default function MentorshipLandingPage() {
         <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5 mix-blend-overlay" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-20 space-y-4">
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Methodology</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Methodology</p>
             <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-none">How This Works.</h2>
             <p className="text-xl text-white/60 font-medium max-w-2xl mx-auto">Vague coaching fails. We run on a strict, predictable cadence designed for installation.</p>
           </div>
@@ -271,7 +271,7 @@ export default function MentorshipLandingPage() {
           </EliteCard>
           
           <div className="space-y-8">
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Return on Investment</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Return on Investment</p>
             <h2 className="text-5xl font-black text-brand-navy tracking-tighter leading-tight">
               This is less than the cost of one bad system running for a year.
             </h2>
@@ -299,7 +299,7 @@ export default function MentorshipLandingPage() {
             <img src="/founder.jpg" alt="Dr. Raymond Nichols" className="w-full h-full object-cover" />
           </div>
           <div className="space-y-4 text-center md:text-left">
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Architect</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Architect</p>
             <h3 className="text-3xl font-black text-brand-navy tracking-tight">Dr. Raymond Nichols</h3>
             <p className="text-brand-gray font-medium leading-relaxed">
               I didn't learn these systems in a textbook. I built them while running a high-volume, nervous-system-focused practice. I know exactly what it feels like to be stuck in the technician role, overwhelmed by the business side. I built the Architecture Room to give you the exact blueprints I used to step out of the chaos and into the CEO role.
@@ -361,7 +361,7 @@ export default function MentorshipLandingPage() {
       <section className="py-40 px-6 bg-brand-orange text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-brand-black/5" />
         <div className="max-w-4xl mx-auto text-center space-y-12 relative z-10">
-           <div className="inline-block px-4 py-1 bg-white/10 border border-white/20 rounded-lg text-[10px] font-black uppercase tracking-widest mb-4">Take The Next Step</div>
+           <div className="inline-block px-4 py-1 bg-white/10 border border-white/20 rounded-lg text-xs font-black uppercase tracking-widest mb-4">Take The Next Step</div>
            <h2 className="text-5xl md:text-7xl font-heading font-black leading-none tracking-tighter">
              Ready to Build <br />Your Machine?
            </h2>
@@ -370,12 +370,12 @@ export default function MentorshipLandingPage() {
            </p>
            <div className="pt-8">
              <Link href="/apply/mentorship">
-               <button className="bg-brand-navy text-white px-16 py-8 rounded-[2rem] font-black uppercase tracking-[0.2em] text-xl shadow-[0_20px_50px_-10px_rgba(21,32,43,0.5)] hover:bg-brand-black transition-all hover:-translate-y-1 active:scale-95 group">
+               <button className="bg-brand-navy text-white px-16 py-8 rounded-[2rem] font-black uppercase tracking-wider text-xl shadow-[0_20px_50px_-10px_rgba(21,32,43,0.5)] hover:bg-brand-black transition-all hover:-translate-y-1 active:scale-95 group">
                  Apply for Private Coaching <ArrowRight className="inline-block ml-4 w-6 h-6 group-hover:translate-x-2 transition-transform" />
                </button>
              </Link>
            </div>
-           <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mt-8">
+           <p className="text-xs font-black uppercase tracking-widest text-white/50 mt-8">
              Strictly Limited Availability.
            </p>
         </div>

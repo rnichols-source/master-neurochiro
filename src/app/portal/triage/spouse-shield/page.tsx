@@ -24,12 +24,12 @@ export default function SpouseShieldPage() {
       <div className="max-w-5xl mx-auto space-y-8">
         
         <div className="flex justify-between items-center print:hidden">
-          <Link href="/portal/triage?category=rof" className="flex items-center gap-2 text-brand-navy/60 hover:text-brand-navy font-black text-[10px] uppercase tracking-widest transition-colors">
+          <Link href="/portal/triage?category=rof" className="flex items-center gap-2 text-brand-navy/60 hover:text-brand-navy font-black text-xs uppercase tracking-widest transition-colors">
             <ArrowLeft size={14} /> Back to ROF System
           </Link>
           <button 
             onClick={handlePrint}
-            className="flex items-center gap-2 bg-brand-navy text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-brand-orange transition-all shadow-xl"
+            className="flex items-center gap-2 bg-brand-navy text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brand-orange transition-all shadow-xl"
           >
             <Printer size={14} /> Download / Print Asset
           </button>
@@ -47,19 +47,19 @@ export default function SpouseShieldPage() {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-navy text-white rounded-md mb-4">
                   <Heart size={12} fill="white" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">ROF System: Weapon 02</span>
+                  <span className="text-xs font-black uppercase tracking-wider">ROF System: Weapon 02</span>
                 </div>
                 <h1 className="text-5xl font-black text-brand-navy tracking-tighter uppercase leading-none">The Spouse Shield</h1>
                 <p className="text-brand-gray font-bold text-sm mt-2">THE TRUTH: Killing the "Spouse" excuse before they ever say it.</p>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-black text-brand-navy">LEVEL 03</div>
-                <div className="text-[10px] font-bold text-brand-navy/40 uppercase tracking-widest">Mastermind Elite</div>
+                <div className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest">Mastermind Elite</div>
               </div>
             </div>
 
             <div className="space-y-6">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">01. The Matrix</h4>
+              <h4 className="text-xs font-black uppercase tracking-widest text-brand-orange">01. The Matrix</h4>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
                   { title: "The Excuse", desc: "Patient says 'I need to check with my husband/wife first.'", icon: AlertCircle },
@@ -76,7 +76,7 @@ export default function SpouseShieldPage() {
             </div>
 
             <div className="space-y-10">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">02. The Simple Script</h4>
+              <h4 className="text-xs font-black uppercase tracking-widest text-brand-orange">02. The Simple Script</h4>
               
               <div className="space-y-12">
                 <div className="relative pl-16">
@@ -105,7 +105,7 @@ export default function SpouseShieldPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t-2 border-brand-navy/10 pt-16">
               <div className="space-y-6">
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">03. The Laws</h4>
+                <h4 className="text-xs font-black uppercase tracking-widest text-brand-orange">03. The Laws</h4>
                 <ul className="space-y-4">
                   {[
                     "Never let them leave to 'think' or 'talk' about it. You've already lost.",
@@ -122,7 +122,7 @@ export default function SpouseShieldPage() {
               </div>
 
               <div className="space-y-6">
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">04. The ROI</h4>
+                <h4 className="text-xs font-black uppercase tracking-widest text-brand-orange">04. The ROI</h4>
                 <div className="p-6 bg-brand-orange/5 rounded-3xl border border-brand-orange/20">
                   <p className="text-sm font-bold text-brand-navy leading-snug">
                     "If a spouse stops a case, it's because you didn't convince the patient their health was worth fighting for."
@@ -133,8 +133,8 @@ export default function SpouseShieldPage() {
 
             <div className="mt-20 pt-10 border-t-4 border-brand-navy flex justify-between items-end">
               <div className="space-y-2">
-                <p className="text-[10px] font-black text-brand-navy uppercase tracking-widest">Property of Dr. Raymond Nichols</p>
-                <p className="text-[8px] font-bold text-brand-gray uppercase tracking-widest">© 2026 Internal Mastermind Use Only.</p>
+                <p className="text-xs font-black text-brand-navy uppercase tracking-widest">Property of Dr. Raymond Nichols</p>
+                <p className="text-xs font-bold text-brand-gray uppercase tracking-widest">© 2026 Internal Mastermind Use Only.</p>
               </div>
               <ShieldCheck size={40} className="text-brand-navy opacity-20" />
             </div>

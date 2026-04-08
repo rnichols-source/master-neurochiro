@@ -21,12 +21,12 @@ export default function EventSuccessPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
             <div className="p-6 bg-white/5 rounded-3xl border border-white/5 text-left space-y-2">
               <Calendar className="w-5 h-5 text-brand-orange mb-2" />
-              <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Dates</p>
+              <p className="text-xs font-black uppercase tracking-widest text-white/30">Dates</p>
               <p className="text-sm font-bold text-white">May 29 – 30, 2026</p>
             </div>
             <div className="p-6 bg-white/5 rounded-3xl border border-white/5 text-left space-y-2">
               <MapPin className="w-5 h-5 text-brand-orange mb-2" />
-              <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Location</p>
+              <p className="text-xs font-black uppercase tracking-widest text-white/30">Location</p>
               <p className="text-sm font-bold text-white">Adelaide, Australia</p>
             </div>
           </div>

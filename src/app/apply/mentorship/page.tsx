@@ -14,7 +14,7 @@ export default function MentorshipApplyPage() {
       
       <div className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center mb-12 space-y-4">
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Intake Process</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Intake Process</p>
           <h1 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">
             Clinic Diagnostic <br /><span className="text-brand-orange">& Mentorship Application.</span>
           </h1>

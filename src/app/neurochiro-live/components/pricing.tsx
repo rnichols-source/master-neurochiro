@@ -71,7 +71,7 @@ export function LivePricing({ event }: LivePricingProps) {
     <section id="pricing" className="section-padding bg-brand-navy relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-8 relative z-10">
         <div className="text-center mb-16 space-y-4">
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Investment</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Investment</p>
           <h2 className="text-7xl font-black text-white tracking-tighter leading-none uppercase">Secure Your Seat.</h2>
           <p className="text-xl text-white/40 font-medium">Limited seating available for absolute focus and interaction.</p>
         </div>
@@ -82,7 +82,7 @@ export function LivePricing({ event }: LivePricingProps) {
             <button
               key={t.category}
               onClick={() => setSelectedCategory(t.category)}
-              className={`px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${
+              className={`px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
                 selectedCategory === t.category 
                 ? "bg-brand-orange text-white shadow-lg shadow-brand-orange/20" 
                 : "bg-white/5 text-white/40 hover:bg-white/10"
@@ -104,7 +104,7 @@ export function LivePricing({ event }: LivePricingProps) {
             >
               <div className="flex items-center gap-3 mb-8">
                 <ShieldCheck className="w-6 h-6 text-brand-orange" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Standard Access</span>
+                <span className="text-xs font-black uppercase tracking-widest text-white/40">Standard Access</span>
               </div>
               <div className="mb-12">
                  <span className="text-8xl font-black text-white tracking-tighter">${standardTicket.price}</span>
@@ -138,12 +138,12 @@ export function LivePricing({ event }: LivePricingProps) {
               transition={{ delay: 0.1 }}
               className="glass-panel p-12 rounded-[3rem] border-brand-orange/30 bg-gradient-to-br from-brand-orange/10 to-transparent flex flex-col relative"
             >
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg shadow-brand-orange/30 whitespace-nowrap">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-xs font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg shadow-brand-orange/30 whitespace-nowrap">
                 Highly Limited
               </div>
               <div className="flex items-center gap-3 mb-8">
                 <Star className="w-6 h-6 text-brand-orange" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-brand-orange">Inner Circle</span>
+                <span className="text-xs font-black uppercase tracking-widest text-brand-orange">Inner Circle</span>
               </div>
               <div className="mb-12">
                  <span className="text-8xl font-black text-white tracking-tighter">${innerCircleTicket.price}</span>

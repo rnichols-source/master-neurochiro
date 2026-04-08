@@ -18,7 +18,7 @@ export default function ProFeedbackPage() {
         {/* Header */}
         <div className="flex items-end justify-between">
           <div className="max-w-2xl">
-            <p className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs mb-3">
+            <p className="text-brand-orange font-bold uppercase tracking-wider text-xs mb-3">
               Pro Member Exclusive
             </p>
             <h1 className="text-4xl font-black text-brand-navy tracking-tight mb-4">
@@ -42,16 +42,16 @@ export default function ProFeedbackPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <button type="button" className="p-4 rounded-xl border-2 border-brand-navy/10 flex flex-col items-center gap-2 hover:border-brand-orange/40 transition-all group">
                     <Video className="w-6 h-6 text-brand-navy/40 group-hover:text-brand-orange" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Video Upload</span>
+                    <span className="text-xs font-black uppercase tracking-widest">Video Upload</span>
                   </button>
                   <button type="button" className="p-4 rounded-xl border-2 border-brand-navy/10 flex flex-col items-center gap-2 hover:border-brand-orange/40 transition-all group">
                     <FileText className="w-6 h-6 text-brand-navy/40 group-hover:text-brand-orange" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Written Script</span>
+                    <span className="text-xs font-black uppercase tracking-widest">Written Script</span>
                   </button>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Topic / Context</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60">Topic / Context</label>
                   <input 
                     type="text" 
                     placeholder="e.g. Day 2 Report of Findings - $3k Care Plan" 
@@ -60,7 +60,7 @@ export default function ProFeedbackPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Specific Question</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60">Specific Question</label>
                   <textarea 
                     rows={4}
                     placeholder="What specific part do you want us to focus on?" 
@@ -91,9 +91,9 @@ export default function ProFeedbackPage() {
                       )}
                     </div>
                     <div className="flex justify-between items-center">
-                      <p className="text-[10px] text-brand-navy/40 font-bold uppercase">{item.date}</p>
+                      <p className="text-xs text-brand-navy/40 font-bold uppercase">{item.date}</p>
                       <p className={cn(
-                        "text-[10px] font-black uppercase tracking-widest",
+                        "text-xs font-black uppercase tracking-widest",
                         item.status === "reviewed" ? "text-green-500" : "text-brand-orange"
                       )}>
                         {item.status}

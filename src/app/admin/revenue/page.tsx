@@ -37,13 +37,13 @@ export default async function AdminRevenuePage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div>
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Financial Command</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Financial Command</p>
             <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Revenue Intelligence</h1>
           </div>
           <div className="flex gap-3">
             <div className="bg-white border border-brand-navy/10 rounded-xl px-4 py-2 flex items-center gap-3">
               <Calendar className="w-4 h-4 text-brand-navy/40" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-brand-navy">Q1 2026</span>
+              <span className="text-xs font-black uppercase tracking-widest text-brand-navy">Q1 2026</span>
             </div>
           </div>
         </div>
@@ -55,11 +55,11 @@ export default async function AdminRevenuePage() {
               <div className="p-3 bg-green-500/10 rounded-2xl">
                 <DollarSign className="w-5 h-5 text-green-600" />
               </div>
-              <div className="flex items-center gap-1 text-green-500 font-black text-[10px]">
+              <div className="flex items-center gap-1 text-green-500 font-black text-xs">
                 <ArrowUpRight className="w-3 h-3" /> +24%
               </div>
             </div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Total Gross Revenue</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Total Gross Revenue</p>
             <h3 className="text-4xl font-black text-brand-navy tracking-tight">${rev.totalRevenue.toLocaleString()}</h3>
           </EliteCard>
 
@@ -69,9 +69,9 @@ export default async function AdminRevenuePage() {
                 <Shield className="w-5 h-5 text-brand-orange" />
               </div>
             </div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Pro Tier Revenue</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Pro Tier Revenue</p>
             <h3 className="text-3xl font-black text-brand-navy tracking-tight">${rev.proRevenue.toLocaleString()}</h3>
-            <p className="text-[10px] font-bold text-brand-navy/30 mt-1">{rev.proCount} Members</p>
+            <p className="text-xs font-bold text-brand-navy/30 mt-1">{rev.proCount} Members</p>
           </EliteCard>
 
           <EliteCard className="p-8">
@@ -80,9 +80,9 @@ export default async function AdminRevenuePage() {
                 <CreditCard className="w-5 h-5 text-brand-navy" />
               </div>
             </div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Standard Revenue</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Standard Revenue</p>
             <h3 className="text-3xl font-black text-brand-navy tracking-tight">${rev.standardRevenue.toLocaleString()}</h3>
-            <p className="text-[10px] font-bold text-brand-navy/30 mt-1">{rev.standardCount} Members</p>
+            <p className="text-xs font-bold text-brand-navy/30 mt-1">{rev.standardCount} Members</p>
           </EliteCard>
         </div>
 
@@ -100,7 +100,7 @@ export default async function AdminRevenuePage() {
                         style={{ height: `${height}%` }}
                       />
                     </div>
-                    <p className="text-[10px] font-black uppercase text-brand-navy/40">{data.month}</p>
+                    <p className="text-xs font-black uppercase text-brand-navy/40">{data.month}</p>
                   </div>
                 );
               })}
@@ -112,18 +112,18 @@ export default async function AdminRevenuePage() {
             <EliteCard title="Pipeline" subtitle="Projected Revenue" className="p-8 border-brand-orange/20">
               <div className="mt-6 space-y-6">
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Pending Applications</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Pending Applications</p>
                   <div className="flex items-center gap-3">
                     <Users className="w-4 h-4 text-brand-orange" />
                     <span className="text-2xl font-black text-brand-navy">{pendingApps}</span>
                   </div>
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Estimated Value</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Estimated Value</p>
                   <h3 className="text-2xl font-black text-green-500">${potentialRevenue.toLocaleString()}</h3>
                 </div>
                 <Link href="/admin/applications" className="block">
-                  <BrandButton variant="outline" size="sm" className="w-full text-[10px]">Review Pipeline</BrandButton>
+                  <BrandButton variant="outline" size="sm" className="w-full text-xs">Review Pipeline</BrandButton>
                 </Link>
               </div>
             </EliteCard>

@@ -82,7 +82,7 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
         
         <div className="space-y-1">
           <p className={cn(
-            "text-[10px] font-black uppercase tracking-[0.2em]",
+            "text-xs font-black uppercase tracking-wider",
             isLive ? "text-white/60" : "text-brand-navy/40"
           )}>
             {isLive ? "Happening Now" : "Next Live Mastermind"}
@@ -95,10 +95,10 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
           </h4>
           {!isLive && (
             <div className="flex flex-col gap-0.5">
-              <p className={cn("text-[9px] font-bold uppercase tracking-wider", isLive ? "text-white/60" : "text-brand-navy/60")}>
+              <p className={cn("text-xs font-bold uppercase tracking-wider", isLive ? "text-white/60" : "text-brand-navy/60")}>
                 {etTime} (Eastern Time)
               </p>
-              <p className={cn("text-[8px] font-medium italic", isLive ? "text-white/40" : "text-brand-navy/30")}>
+              <p className={cn("text-xs font-medium italic", isLive ? "text-white/40" : "text-brand-navy/30")}>
                 Your local time: {localTime}
               </p>
             </div>
@@ -119,7 +119,7 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
                 <p className={cn("text-lg font-black leading-none", isLive ? "text-white" : "text-brand-navy")}>
                   {unit.val.toString().padStart(2, '0')}
                 </p>
-                <p className={cn("text-[8px] font-black uppercase tracking-widest", isLive ? "text-white/60" : "text-brand-navy/30")}>
+                <p className={cn("text-xs font-black uppercase tracking-widest", isLive ? "text-white/60" : "text-brand-navy/30")}>
                   {unit.label}
                 </p>
               </div>
@@ -138,7 +138,7 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
           </a>
         ) : (
           <div className="hidden md:block text-right">
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/20">Link active 10m before call</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/20">Link active 10m before call</p>
           </div>
         )}
       </div>

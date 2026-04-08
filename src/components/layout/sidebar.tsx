@@ -42,13 +42,13 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
           </div>
           <div>
             <h2 className="font-lato text-sm font-bold tracking-wider uppercase leading-none text-white">NeuroChiro</h2>
-            <p className="text-[10px] text-brand-orange font-bold tracking-widest uppercase">Mastermind</p>
+            <p className="text-xs text-brand-orange font-bold tracking-widest uppercase">Mastermind</p>
           </div>
         </Link>
       </div>
 
       <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
-        <p className="px-2 pb-2 text-[10px] font-bold text-white/40 uppercase tracking-widest">Main Menu</p>
+        <p className="px-2 pb-2 text-xs font-bold text-white/40 uppercase tracking-widest">Main Menu</p>
         {navItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
           return (
@@ -68,7 +68,7 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
 
         {/* The Council Section */}
         <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
-          <p className="px-2 pb-2 text-[10px] font-bold text-brand-orange uppercase tracking-widest flex items-center justify-between">
+          <p className="px-2 pb-2 text-xs font-bold text-brand-orange uppercase tracking-widest flex items-center justify-between">
             The Tribe
             <ShieldCheck className="w-2.5 h-2.5 opacity-40" />
           </p>
@@ -86,7 +86,7 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
 
         {/* Private Mentorship Section */}
         <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
-          <p className="px-2 pb-2 text-[10px] font-bold text-white/40 uppercase tracking-widest flex items-center justify-between">
+          <p className="px-2 pb-2 text-xs font-bold text-white/40 uppercase tracking-widest flex items-center justify-between">
             The Elite
             <Star className="w-2.5 h-2.5 text-brand-orange" />
           </p>
@@ -111,7 +111,7 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
 
         {userTier === 'admin' && (
           <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
-            <p className="px-2 pb-2 text-[10px] font-bold text-white/40 uppercase tracking-widest">Admin Command</p>
+            <p className="px-2 pb-2 text-xs font-bold text-white/40 uppercase tracking-widest">Admin Command</p>
             <Link
               href="/admin"
               className={cn(

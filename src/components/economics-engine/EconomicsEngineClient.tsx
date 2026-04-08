@@ -46,14 +46,14 @@ export function EconomicsEngineClient() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-brand-navy/5 pb-6">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
-            <Calculator size={14} /><p className="text-[10px] font-black uppercase tracking-widest">Price Builder</p>
+            <Calculator size={14} /><p className="text-xs font-black uppercase tracking-widest">Price Builder</p>
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-brand-navy tracking-tighter leading-none">Practice Money Machine</h1>
           <p className="text-brand-gray font-medium mt-2 max-w-xl text-lg">Stop guessing your prices. Get the numbers you need to stay stable.</p>
         </div>
         <div className="flex gap-4 w-full md:w-auto">
-          <BrandButton variant="outline" onClick={() => setShowEdu(!showEdu)} className={cn("text-[10px] gap-2 flex-1", showEdu && "bg-brand-navy text-white")}><BookOpen size={14} /> {showEdu ? "Hide Logic" : "Why these numbers matter"}</BrandButton>
-          <BrandButton variant="primary" className="text-[10px] gap-2 flex-1"><Download size={14} /> Export Report</BrandButton>
+          <BrandButton variant="outline" onClick={() => setShowEdu(!showEdu)} className={cn("text-xs gap-2 flex-1", showEdu && "bg-brand-navy text-white")}><BookOpen size={14} /> {showEdu ? "Hide Logic" : "Why these numbers matter"}</BrandButton>
+          <BrandButton variant="primary" className="text-xs gap-2 flex-1"><Download size={14} /> Export Report</BrandButton>
         </div>
       </div>
 
@@ -78,7 +78,7 @@ export function EconomicsEngineClient() {
                     { id: 'loans', label: 'Loan Payments' }, { id: 'misc', label: 'Other Costs' },
                   ].map((f) => (
                     <div key={f.id} className="space-y-1">
-                      <label className="text-[9px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">{f.label}</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">{f.label}</label>
                       <div className="relative">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-navy/20 font-bold">$</span>
                         <input type="number" value={data[f.id as keyof EconomicsData]} onChange={(e) => upd(f.id as keyof EconomicsData, e.target.value)} className="w-full bg-white border border-brand-navy/5 rounded-xl py-3 pl-8 pr-4 text-brand-navy font-bold focus:border-brand-orange/40 outline-none transition-all text-sm" />
@@ -102,11 +102,11 @@ export function EconomicsEngineClient() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1 text-center block">Emergency Fund / Savings</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1 text-center block">Emergency Fund / Savings</label>
                       <input type="number" value={data.buffer} onChange={(e) => upd('buffer', e.target.value)} className="w-full bg-white border border-brand-navy/5 rounded-2xl py-4 px-6 text-brand-navy text-xl font-black focus:border-brand-orange outline-none text-center" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1 text-center block">Tax (%)</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1 text-center block">Tax (%)</label>
                       <input type="number" value={data.taxRate * 100} onChange={(e) => upd('taxRate', (parseFloat(e.target.value) / 100).toString())} className="w-full bg-white border border-brand-navy/5 rounded-2xl py-4 px-6 text-brand-navy text-xl font-black focus:border-brand-orange outline-none text-center" />
                     </div>
                   </div>
@@ -121,15 +121,15 @@ export function EconomicsEngineClient() {
                   <div className="space-y-2">
                     <label className="text-sm font-black text-brand-navy uppercase block">Max Weekly Visits</label>
                     <input type="number" value={data.maxWeeklyVisits} onChange={(e) => upd('maxWeeklyVisits', e.target.value)} className="w-full bg-white border border-brand-navy/10 rounded-2xl py-5 px-8 text-3xl font-black text-brand-navy focus:border-brand-orange outline-none shadow-lg" />
-                    <p className="text-[10px] text-brand-gray font-bold uppercase tracking-widest mt-2 ml-2">Total Monthly Capacity: {monthlyCap} Visits</p>
+                    <p className="text-xs text-brand-gray font-bold uppercase tracking-widest mt-2 ml-2">Total Monthly Capacity: {monthlyCap} Visits</p>
                   </div>
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Actual Weekly Visits</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Actual Weekly Visits</label>
                       <input type="number" value={data.currentWeeklyVisits} onChange={(e) => upd('currentWeeklyVisits', e.target.value)} className="w-full bg-white border border-brand-navy/5 rounded-xl py-4 px-6 text-brand-navy text-xl font-black focus:border-brand-orange outline-none" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Current Visit Value</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Current Visit Value</label>
                       <input type="number" value={data.currentCPV} onChange={(e) => upd('currentCPV', e.target.value)} className="w-full bg-white border border-brand-navy/5 rounded-xl py-4 px-6 text-brand-navy text-xl font-black focus:border-brand-orange outline-none" />
                     </div>
                   </div>
@@ -148,8 +148,8 @@ export function EconomicsEngineClient() {
                   ].map((s, i) => (
                     <EliteCard key={i} className="p-6 border-brand-navy/5 bg-white relative overflow-hidden group">
                       <div className="flex justify-between items-center relative z-10">
-                        <div><p className="text-[9px] font-black text-brand-orange uppercase mb-1">{s.stage}</p><h4 className="text-sm font-bold text-brand-navy leading-relaxed max-w-xs">{s.strategy}</h4></div>
-                        <div className="text-right"><p className="text-[9px] font-black text-brand-navy/30 uppercase mb-1">Target Per Visit</p><p className="text-3xl font-black text-brand-navy tracking-tighter">${s.val}</p></div>
+                        <div><p className="text-xs font-black text-brand-orange uppercase mb-1">{s.stage}</p><h4 className="text-sm font-bold text-brand-navy leading-relaxed max-w-xs">{s.strategy}</h4></div>
+                        <div className="text-right"><p className="text-xs font-black text-brand-navy/30 uppercase mb-1">Target Per Visit</p><p className="text-3xl font-black text-brand-navy tracking-tighter">${s.val}</p></div>
                       </div>
                       <div className={cn("absolute bottom-0 left-0 h-1 bg-brand-orange transition-all duration-1000", i === 0 ? "w-1/3" : i === 1 ? "w-2/3" : "w-full")} />
                     </EliteCard>
@@ -168,8 +168,8 @@ export function EconomicsEngineClient() {
                     { label: "Plan 3 - Long Term (48 Visits)", val: cp3, desc: "Total health maintenance." },
                   ].map((p, i) => (
                     <div key={i} className="p-8 bg-brand-navy rounded-[2rem] flex justify-between items-center border border-white/10 shadow-2xl">
-                      <div><p className="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">{p.desc}</p><h3 className="text-white text-xl font-black">{p.label}</h3></div>
-                      <div className="text-right"><p className="text-brand-orange text-[10px] font-black uppercase tracking-widest mb-1">Required Price</p><h3 className="text-white text-4xl font-black tracking-tighter">${Math.round(p.val).toLocaleString()}</h3></div>
+                      <div><p className="text-white/40 text-xs font-black uppercase tracking-widest mb-1">{p.desc}</p><h3 className="text-white text-xl font-black">{p.label}</h3></div>
+                      <div className="text-right"><p className="text-brand-orange text-xs font-black uppercase tracking-widest mb-1">Required Price</p><h3 className="text-white text-4xl font-black tracking-tighter">${Math.round(p.val).toLocaleString()}</h3></div>
                     </div>
                   ))}
                 </div>
@@ -187,7 +187,7 @@ export function EconomicsEngineClient() {
                     { label: "Fully Aligned Clinic", val: reqRev, note: "Target revenue at target capacity" },
                   ].map((s, i) => (
                     <EliteCard key={i} className="p-6 bg-white border-brand-navy/5 flex justify-between items-center group">
-                      <div><p className="text-sm font-bold text-brand-navy">{s.label}</p><p className="text-[9px] text-brand-gray font-black uppercase tracking-widest mt-1">{s.note}</p></div>
+                      <div><p className="text-sm font-bold text-brand-navy">{s.label}</p><p className="text-xs text-brand-gray font-black uppercase tracking-widest mt-1">{s.note}</p></div>
                       <span className="text-2xl font-black text-brand-navy group-hover:text-brand-orange transition-colors">${Math.round(s.val).toLocaleString()}</span>
                     </EliteCard>
                   ))}
@@ -219,31 +219,31 @@ export function EconomicsEngineClient() {
             <div className="absolute top-0 right-0 p-8 opacity-5"><TrendingUp size={160} /></div>
             <div className="space-y-10 relative z-10">
               <div className="flex justify-between items-start">
-                <div><p className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-orange mb-2">Goal Per Visit</p><h2 className="text-7xl font-black tracking-tighter leading-none">${reqCPV}</h2></div>
-                <div className="text-right"><p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-2">Current Gap</p><p className={cn("text-2xl font-black", cpvGap > 0 ? "text-red-400" : "text-green-400")}>{cpvGap > 0 ? `+$${cpvGap}` : "On Track"}</p></div>
+                <div><p className="text-xs font-black uppercase tracking-widest text-brand-orange mb-2">Goal Per Visit</p><h2 className="text-7xl font-black tracking-tighter leading-none">${reqCPV}</h2></div>
+                <div className="text-right"><p className="text-xs font-black uppercase tracking-widest text-white/40 mb-2">Current Gap</p><p className={cn("text-2xl font-black", cpvGap > 0 ? "text-red-400" : "text-green-400")}>{cpvGap > 0 ? `+$${cpvGap}` : "On Track"}</p></div>
               </div>
               <div className="space-y-2">
-                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-white/40"><span>Schedule Fullness</span><span className={cn(util > 80 ? "text-brand-orange" : "text-green-400")}>{util}%</span></div>
+                <div className="flex justify-between text-xs font-black uppercase tracking-widest text-white/40"><span>Schedule Fullness</span><span className={cn(util > 80 ? "text-brand-orange" : "text-green-400")}>{util}%</span></div>
                 <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden"><motion.div className="h-full bg-brand-orange" initial={{ width: 0 }} animate={{ width: `${util}%` }} /></div>
               </div>
               <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/10">
-                <div><p className="text-[9px] font-black uppercase text-white/40 mb-1">Monthly Required</p><p className="text-2xl font-black text-white">${Math.round(reqRev).toLocaleString()}</p></div>
-                <div><p className="text-[9px] font-black uppercase text-white/40 mb-1">Actual Monthly</p><p className="text-2xl font-black text-white/60">${Math.round(currRev).toLocaleString()}</p></div>
-                <div><p className="text-[9px] font-black uppercase text-white/40 mb-1">Monthly Gap</p><p className={cn("text-2xl font-black", mGap > 0 ? "text-red-400" : "text-green-400")}>{mGap > 0 ? `-$${mGap.toLocaleString()}` : "Covered"}</p></div>
-                <div><p className="text-[9px] font-black uppercase text-white/40 mb-1">Yearly Potential</p><p className="text-2xl font-black text-brand-orange">${aGap.toLocaleString()}</p></div>
+                <div><p className="text-xs font-black uppercase text-white/40 mb-1">Monthly Required</p><p className="text-2xl font-black text-white">${Math.round(reqRev).toLocaleString()}</p></div>
+                <div><p className="text-xs font-black uppercase text-white/40 mb-1">Actual Monthly</p><p className="text-2xl font-black text-white/60">${Math.round(currRev).toLocaleString()}</p></div>
+                <div><p className="text-xs font-black uppercase text-white/40 mb-1">Monthly Gap</p><p className={cn("text-2xl font-black", mGap > 0 ? "text-red-400" : "text-green-400")}>{mGap > 0 ? `-$${mGap.toLocaleString()}` : "Covered"}</p></div>
+                <div><p className="text-xs font-black uppercase text-white/40 mb-1">Yearly Potential</p><p className="text-2xl font-black text-brand-orange">${aGap.toLocaleString()}</p></div>
               </div>
               {fullCapRev < reqRev && (
-                <div className="p-5 bg-red-500/20 border border-red-500/40 rounded-3xl flex gap-4 items-start"><AlertCircle className="text-red-500 w-6 h-6 shrink-0" /><div><p className="text-xs font-black uppercase tracking-widest text-red-400 mb-1">Math Problem</p><p className="text-[10px] text-white/60 font-medium leading-relaxed italic">Even if your schedule was 100% full at your current pricing, you would only produce ${Math.round(fullCapRev).toLocaleString()}/mo. Volume is NOT your problem. Your current prices are mathematically incapable of supporting your goals.</p></div></div>
+                <div className="p-5 bg-red-500/20 border border-red-500/40 rounded-3xl flex gap-4 items-start"><AlertCircle className="text-red-500 w-6 h-6 shrink-0" /><div><p className="text-xs font-black uppercase tracking-widest text-red-400 mb-1">Math Problem</p><p className="text-xs text-white/60 font-medium leading-relaxed italic">Even if your schedule was 100% full at your current pricing, you would only produce ${Math.round(fullCapRev).toLocaleString()}/mo. Volume is NOT your problem. Your current prices are mathematically incapable of supporting your goals.</p></div></div>
               )}
             </div>
           </EliteCard>
           <div className="bg-white border border-brand-navy/5 rounded-[2.5rem] p-8 space-y-6 shadow-sm">
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 text-center">Where the money goes</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 text-center">Where the money goes</p>
             <div className="space-y-4">
               {[ { label: "Monthly Bills", val: overhead }, { label: "Your Take Home", val: data.desiredIncome }, { label: "Tax (30%)", val: tax }, { label: "Savings / Buffer", val: data.buffer } ].map((item, i) => (
                 <div key={i} className="flex justify-between items-center text-sm font-bold"><span className="text-brand-gray">{item.label}</span><span className="text-brand-navy">${Math.round(item.val).toLocaleString()}</span></div>
               ))}
-              <div className="pt-4 border-t border-brand-navy/5 flex justify-between items-center"><span className="text-brand-navy uppercase text-[10px] font-black tracking-widest">Required Revenue</span><span className="text-2xl font-black text-brand-navy">${Math.round(reqRev).toLocaleString()}</span></div>
+              <div className="pt-4 border-t border-brand-navy/5 flex justify-between items-center"><span className="text-brand-navy uppercase text-xs font-black tracking-widest">Required Revenue</span><span className="text-2xl font-black text-brand-navy">${Math.round(reqRev).toLocaleString()}</span></div>
             </div>
           </div>
         </div>

@@ -146,7 +146,7 @@ export function ScoreEngineClient() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-navy/5 rounded-full text-brand-navy mb-4">
             <Activity size={14} />
-            <p className="text-[10px] font-black uppercase tracking-widest">Clinical Instrument</p>
+            <p className="text-xs font-black uppercase tracking-widest">Clinical Instrument</p>
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-brand-navy tracking-tighter leading-none">Dysfunction Engine</h1>
           <p className="text-brand-gray font-medium mt-2 max-w-xl">
@@ -178,14 +178,14 @@ export function ScoreEngineClient() {
 
           {/* Category Configuration */}
           <div className="space-y-3">
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 ml-2">Active Modalities</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-2">Active Modalities</p>
             <div className="flex flex-wrap gap-2">
               {CATEGORIES.map(cat => (
                 <button
                   key={cat.id}
                   onClick={() => toggleCategory(cat.id)}
                   className={cn(
-                    "px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 border",
+                    "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all flex items-center gap-2 border",
                     activeCategories[cat.id] 
                       ? "bg-brand-navy border-brand-navy text-white shadow-md" 
                       : "bg-white border-brand-navy/10 text-brand-navy/40 hover:border-brand-orange/40"
@@ -205,7 +205,7 @@ export function ScoreEngineClient() {
                  <div className="p-4 md:p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                    <div className="md:w-1/3 shrink-0">
                      <h3 className="text-sm font-black text-brand-navy uppercase">{cat.label}</h3>
-                     <p className="text-[10px] text-brand-gray font-medium mt-1">{cat.description}</p>
+                     <p className="text-xs text-brand-gray font-medium mt-1">{cat.description}</p>
                    </div>
                    
                    <div className="flex-1 w-full grid grid-cols-4 gap-2">
@@ -227,7 +227,7 @@ export function ScoreEngineClient() {
                            {opt.value}
                          </span>
                          <span className={cn(
-                           "text-[8px] font-bold uppercase tracking-widest px-1",
+                           "text-xs font-bold uppercase tracking-widest px-1",
                            scores[cat.id] === opt.value ? "text-brand-navy" : "text-brand-navy/40"
                          )}>
                            {opt.label}
@@ -251,7 +251,7 @@ export function ScoreEngineClient() {
               <ShieldCheck size={160} className="text-white" />
             </div>
 
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 mb-6">Clinical Readout</p>
+            <p className="text-xs font-black uppercase tracking-widest text-white/40 mb-6">Clinical Readout</p>
             
             <div className="flex items-end justify-between mb-8">
               <div>
@@ -259,7 +259,7 @@ export function ScoreEngineClient() {
                 <p className={cn("text-xs font-black uppercase tracking-widest", colorClass)}>{severity} Dysfunction</p>
               </div>
               <div className="text-right">
-                <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest">Raw Score</p>
+                <p className="text-xs text-white/40 font-bold uppercase tracking-widest">Raw Score</p>
                 <p className="text-xl font-black">{rawScore} <span className="text-sm text-white/30">/ {maxScore}</span></p>
               </div>
             </div>
@@ -276,11 +276,11 @@ export function ScoreEngineClient() {
             {/* Recommendation */}
             <div className="p-6 bg-white/5 rounded-2xl border border-white/10 flex justify-between items-center">
               <div>
-                <p className="text-[9px] font-black uppercase tracking-widest text-white/40 mb-1">Architecture</p>
+                <p className="text-xs font-black uppercase tracking-widest text-white/40 mb-1">Architecture</p>
                 <h3 className="text-2xl font-black text-brand-orange">{carePlan}</h3>
               </div>
               <div className="text-right">
-                <p className="text-[9px] font-black uppercase tracking-widest text-white/40 mb-1">Requirement</p>
+                <p className="text-xs font-black uppercase tracking-widest text-white/40 mb-1">Requirement</p>
                 <h3 className="text-2xl font-black text-white">~{visits} <span className="text-sm text-white/50">Visits</span></h3>
               </div>
             </div>

@@ -70,7 +70,7 @@ export default async function AdminDashboardPage() {
       <DashboardLayout>
         <div className="p-12 text-center bg-red-50 rounded-[2rem] border border-red-100">
           <h1 className="text-2xl font-black text-brand-navy">Dashboard Intelligence Failure</h1>
-          <p className="text-brand-orange uppercase tracking-widest text-[10px] mt-2 font-black">
+          <p className="text-brand-orange uppercase tracking-widest text-xs mt-2 font-black">
             A critical error occurred while fetching system metrics.
           </p>
           <div className="mt-8">

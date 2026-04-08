@@ -665,7 +665,7 @@ export function PlaybooksClient() {
       {/* Sidebar: Strategic Library */}
       <div className="lg:w-80 shrink-0 space-y-6">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Manual Library</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Manual Library</p>
           <h2 className="text-2xl font-black text-brand-navy tracking-tight">Clinical Operating System</h2>
         </div>
 
@@ -692,7 +692,7 @@ export function PlaybooksClient() {
               </div>
               <div className="min-w-0">
                 <h4 className="font-black text-sm truncate leading-none mb-1">{p.title}</h4>
-                <p className={cn("text-[9px] font-bold uppercase tracking-wider", activeId === p.id ? "text-white/40" : "text-brand-navy/20")}>
+                <p className={cn("text-xs font-bold uppercase tracking-wider", activeId === p.id ? "text-white/40" : "text-brand-navy/20")}>
                   {p.sections.length} Protocols
                 </p>
               </div>
@@ -705,7 +705,7 @@ export function PlaybooksClient() {
             <Sparkles size={80} className="text-brand-orange" />
           </div>
           <div className="relative z-10 space-y-3">
-            <p className="text-[10px] font-black uppercase tracking-widest text-white/40 leading-none">System Logic</p>
+            <p className="text-xs font-black uppercase tracking-widest text-white/40 leading-none">System Logic</p>
             <p className="text-xs font-bold leading-relaxed italic">
               "When structure is strong, persuasion is unnecessary. When structure is weak, pressure shows up."
             </p>
@@ -729,7 +729,7 @@ export function PlaybooksClient() {
             <div className="relative z-10 space-y-6">
               <div className="inline-flex items-center gap-3 px-4 py-2 bg-brand-orange/10 rounded-full text-brand-orange">
                 <activePlaybook.icon size={16} />
-                <p className="text-[10px] font-black uppercase tracking-[0.3em]">Proprietary Framework</p>
+                <p className="text-xs font-black uppercase tracking-widest">Proprietary Framework</p>
               </div>
               <h1 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">{activePlaybook.title}</h1>
               <p className="text-brand-gray text-xl font-medium max-w-2xl leading-relaxed">{activePlaybook.tagline}</p>
@@ -742,12 +742,12 @@ export function PlaybooksClient() {
               <Zap size={60} className="text-brand-orange" />
             </div>
             <div className="relative z-10 space-y-4">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">Key Takeaways</h4>
+              <h4 className="text-xs font-black uppercase tracking-widest text-brand-orange">Key Takeaways</h4>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {activePlaybook.summary.map((item, i) => (
                   <div key={i} className="flex gap-4">
                     <div className="w-6 h-6 rounded-full bg-brand-orange/20 flex items-center justify-center shrink-0">
-                      <span className="text-[10px] font-bold text-brand-orange">{i + 1}</span>
+                      <span className="text-xs font-bold text-brand-orange">{i + 1}</span>
                     </div>
                     <p className="text-xs font-bold text-brand-navy/80 leading-relaxed">{item}</p>
                   </div>
@@ -758,7 +758,7 @@ export function PlaybooksClient() {
 
           {/* Detailed Protocols */}
           <div className="space-y-6">
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-navy/40 ml-4">Execution Protocols</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-4">Execution Protocols</p>
             {activePlaybook.sections.map((section, idx) => (
               <EliteCard key={idx} className="p-0 overflow-hidden border-brand-navy/5 group/card bg-white hover:border-brand-orange/20 transition-all duration-500">
                 <div 
@@ -773,7 +773,7 @@ export function PlaybooksClient() {
                       <section.icon size={24} />
                     </div>
                     <div>
-                      <p className="text-[9px] font-black uppercase tracking-[0.3em] text-brand-orange mb-1">{section.label}</p>
+                      <p className="text-xs font-black uppercase tracking-widest text-brand-orange mb-1">{section.label}</p>
                       <h3 className="text-2xl font-black text-brand-navy tracking-tight">{section.title}</h3>
                     </div>
                   </div>
@@ -800,11 +800,11 @@ export function PlaybooksClient() {
                             <div className="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-600">
                               <CheckCircle2 size={16} />
                             </div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Protocol Stabilized</span>
+                            <span className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Protocol Stabilized</span>
                           </div>
                           <div className="flex gap-4">
-                            <BrandButton variant="outline" size="sm" className="text-[10px]">Mark as Implemented</BrandButton>
-                            <BrandButton variant="ghost" size="sm" className="text-[10px]">Add Private Note</BrandButton>
+                            <BrandButton variant="outline" size="sm" className="text-xs">Mark as Implemented</BrandButton>
+                            <BrandButton variant="ghost" size="sm" className="text-xs">Add Private Note</BrandButton>
                           </div>
                         </div>
                       </div>

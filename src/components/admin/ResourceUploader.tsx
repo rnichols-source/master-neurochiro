@@ -80,12 +80,12 @@ export function ResourceUploader({ moduleId, existingResources, onUpdate }: Reso
         </div>
 
         <h4 className="text-sm font-black text-brand-navy">Drag & Drop Worksheet</h4>
-        <p className="text-[10px] font-bold text-brand-navy/40 uppercase tracking-widest mt-1">PDF or DOCX (Max 10MB)</p>
+        <p className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest mt-1">PDF or DOCX (Max 10MB)</p>
       </div>
 
       {/* Resource List */}
       <div className="space-y-3">
-        <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-brand-navy/30 ml-2">Attached Assets</h5>
+        <h5 className="text-xs font-black uppercase tracking-widest text-brand-navy/30 ml-2">Attached Assets</h5>
         {existingResources.filter(r => r.module_id === moduleId).map((res) => (
           <div key={res.id} className="flex items-center justify-between p-4 bg-white border border-brand-navy/5 rounded-2xl group shadow-sm">
             <div className="flex items-center gap-4">
@@ -94,7 +94,7 @@ export function ResourceUploader({ moduleId, existingResources, onUpdate }: Reso
               </div>
               <div>
                 <p className="text-xs font-bold text-brand-navy truncate max-w-[150px]">{res.title}</p>
-                <p className="text-[8px] font-black text-brand-orange uppercase tracking-tighter">Verified Asset</p>
+                <p className="text-xs font-black text-brand-orange uppercase tracking-tighter">Verified Asset</p>
               </div>
             </div>
             <button 
@@ -106,7 +106,7 @@ export function ResourceUploader({ moduleId, existingResources, onUpdate }: Reso
           </div>
         ))}
         {existingResources.filter(r => r.module_id === moduleId).length === 0 && (
-          <p className="text-[10px] font-bold text-brand-navy/20 text-center py-4 uppercase italic">No assets attached yet</p>
+          <p className="text-xs font-bold text-brand-navy/20 text-center py-4 uppercase italic">No assets attached yet</p>
         )}
       </div>
     </div>

@@ -61,7 +61,7 @@ export function MastermindHeader() {
             <span className="block font-lato font-black uppercase tracking-widest text-brand-navy text-sm leading-none">
               NeuroChiro
             </span>
-            <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-brand-orange mt-0.5">
+            <span className="block text-xs font-bold uppercase tracking-wider text-brand-orange mt-0.5">
               Mastermind
             </span>
           </div>

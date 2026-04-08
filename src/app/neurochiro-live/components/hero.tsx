@@ -24,7 +24,7 @@ export function LiveHero() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 mb-8"
         >
           <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-orange">Live Immersion Event</span>
+          <span className="text-xs font-black uppercase tracking-widest text-brand-orange">Live Immersion Event</span>
         </motion.div>
 
         <motion.h1
@@ -56,14 +56,14 @@ export function LiveHero() {
           <div className="flex items-center gap-3">
             <MapPin className="w-5 h-5 text-brand-orange" />
             <div className="text-left">
-              <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Location</p>
+              <p className="text-xs font-black uppercase tracking-widest text-white/30">Location</p>
               <p className="text-sm font-bold text-white">Adelaide, Australia</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <Calendar className="w-5 h-5 text-brand-orange" />
             <div className="text-left">
-              <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Dates</p>
+              <p className="text-xs font-black uppercase tracking-widest text-white/30">Dates</p>
               <p className="text-sm font-bold text-white">May 29 – May 30, 2026</p>
             </div>
           </div>

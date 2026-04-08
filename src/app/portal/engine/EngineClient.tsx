@@ -113,7 +113,7 @@ export function EngineClient({
         <div className="flex-1">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
             <Activity size={14} />
-            <p className="text-[10px] font-black uppercase tracking-widest">High Performance Engine</p>
+            <p className="text-xs font-black uppercase tracking-widest">High Performance Engine</p>
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">The Engine</h1>
           <p className="text-brand-gray text-lg font-medium mt-4 max-w-xl">
@@ -126,7 +126,7 @@ export function EngineClient({
           <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
             <Sparkles size={60} className="text-brand-orange" />
           </div>
-          <p className="text-[8px] font-black uppercase tracking-[0.3em] text-brand-orange mb-4">The Next $10k Move</p>
+          <p className="text-xs font-black uppercase tracking-widest text-brand-orange mb-4">The Next $10k Move</p>
           <h3 className="text-xl font-black tracking-tight mb-2">{nextMove.title}</h3>
           <p className="text-white/40 text-xs font-medium leading-relaxed mb-6">
             {nextMove.desc}
@@ -135,13 +135,13 @@ export function EngineClient({
           {nextMove.isModal ? (
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 group/btn"
+              className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 group/btn"
             >
               {nextMove.action} <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
             </button>
           ) : (
             <Link href={nextMove.link}>
-              <button className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 group/btn">
+              <button className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 group/btn">
                 {nextMove.action} <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
               </button>
             </Link>

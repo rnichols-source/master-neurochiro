@@ -32,7 +32,7 @@ export default function SuccessPage() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Enrollment Confirmed</p>
+              <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Enrollment Confirmed</p>
               <h1 className="text-6xl font-black text-brand-navy tracking-tighter leading-none">
                 Identity <br />Reconstruction <span className="text-brand-orange">Active.</span>
               </h1>
@@ -50,15 +50,15 @@ export default function SuccessPage() {
               ].map((item, i) => (
                 <div key={i} className="p-4 bg-brand-navy/5 rounded-2xl border border-brand-navy/5">
                   <item.icon className="w-5 h-5 text-brand-orange mb-2" />
-                  <p className="text-[10px] font-black text-brand-navy uppercase mb-1">{item.title}</p>
-                  <p className="text-[8px] font-bold text-brand-navy/40 leading-tight">{item.desc}</p>
+                  <p className="text-xs font-black text-brand-navy uppercase mb-1">{item.title}</p>
+                  <p className="text-xs font-bold text-brand-navy/40 leading-tight">{item.desc}</p>
                 </div>
               ))}
             </div>
 
             <div className="pt-8 border-t border-brand-navy/5 flex flex-col items-center gap-6">
               <div className="text-center">
-                <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest mb-2">Check Your Email</p>
+                <p className="text-xs font-black text-brand-navy/40 uppercase tracking-widest mb-2">Check Your Email</p>
                 <p className="text-xs font-bold text-brand-navy">We just sent your personal portal invitation and onboarding documents.</p>
               </div>
               <Link href="/portal" className="w-full sm:w-auto">

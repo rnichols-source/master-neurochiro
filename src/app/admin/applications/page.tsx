@@ -24,7 +24,7 @@ export default async function AdminApplicationsPage() {
     <DashboardLayout>
       <div className="space-y-10">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Admission Control</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Admission Control</p>
           <h1 className="text-4xl font-black text-brand-navy tracking-tighter">Cohort II Applications</h1>
         </div>
 

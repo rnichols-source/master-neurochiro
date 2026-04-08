@@ -52,7 +52,7 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
             </div>
 
             <div className="space-y-4 pt-12">
-              <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+              <div className="flex justify-between text-xs font-black uppercase tracking-widest">
                 <span className="text-white/40">Activation Progress</span>
                 <span className="text-brand-orange">{Math.round(progress)}%</span>
               </div>
@@ -63,7 +63,7 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
                   className="h-full bg-brand-orange" 
                 />
               </div>
-              <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest text-center italic">Step {completedCount} of {tasks.length} Completed</p>
+              <p className="text-xs font-bold text-white/20 uppercase tracking-widest text-center italic">Step {completedCount} of {tasks.length} Completed</p>
             </div>
           </div>
 
@@ -91,7 +91,7 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
                   </div>
                   <div className="flex-1">
                     <h4 className="text-xs font-black text-brand-navy uppercase tracking-wide">{task.title}</h4>
-                    <p className="text-[10px] font-medium text-brand-gray">{task.description}</p>
+                    <p className="text-xs font-medium text-brand-gray">{task.description}</p>
                   </div>
                   {task.completed ? <CheckCircle2 className="w-5 h-5 text-green-500" /> : <Circle className="w-5 h-5 text-brand-navy/10 group-hover:text-brand-orange transition-colors" />}
                 </a>

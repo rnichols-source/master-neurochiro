@@ -24,7 +24,7 @@ export default async function OnboardingPage() {
     <div className="min-h-screen bg-brand-cream py-12 px-6">
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center space-y-2">
-          <p className="text-brand-orange font-bold uppercase tracking-[0.2em] text-xs">
+          <p className="text-brand-orange font-bold uppercase tracking-wider text-xs">
             Activation Phase
           </p>
           <h1 className="text-4xl font-black text-brand-navy tracking-tight">

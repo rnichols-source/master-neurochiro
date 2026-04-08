@@ -116,7 +116,7 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                 </div>
                 <div>
                   <h3 className="text-white font-black uppercase tracking-tight">{readingResource.title}</h3>
-                  <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Premium Intelligence Document</p>
+                  <p className="text-white/40 text-xs font-bold uppercase tracking-widest">Premium Intelligence Document</p>
                 </div>
               </div>
               <button 
@@ -132,8 +132,8 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                 {readingResource.content?.split('\n\n').map((page: string, i: number) => (
                   <EliteCard key={i} className="p-12 md:p-20 bg-white shadow-2xl min-h-[800px] flex flex-col">
                     <div className="flex justify-between items-start mb-20">
-                      <div className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-orange">NeuroChiro OS</div>
-                      <span className="text-[10px] font-bold text-brand-navy/20">Phase 0{i + 1}</span>
+                      <div className="text-xs font-black uppercase tracking-widest text-brand-orange">NeuroChiro OS</div>
+                      <span className="text-xs font-bold text-brand-navy/20">Phase 0{i + 1}</span>
                     </div>
                     
                     <div className="flex-1">
@@ -146,8 +146,8 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                     </div>
 
                     <div className="mt-20 pt-8 border-t border-brand-navy/5 flex justify-between items-center">
-                      <p className="text-[9px] font-bold text-brand-navy/40 uppercase tracking-widest">© 2026 NeuroChiro Mastermind</p>
-                      <p className="text-[9px] font-bold text-brand-navy/40 uppercase tracking-widest italic">Confidential Internal Resource</p>
+                      <p className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest">© 2026 NeuroChiro Mastermind</p>
+                      <p className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest italic">Confidential Internal Resource</p>
                     </div>
                   </EliteCard>
                 ))}
@@ -162,7 +162,7 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
         <div className="space-y-2">
           <div className="flex items-center gap-3 text-brand-orange">
             <Activity className="w-5 h-5" />
-            <p className="font-black uppercase tracking-[0.4em] text-[10px]">The Triage Center</p>
+            <p className="font-black uppercase tracking-widest text-xs">The Triage Center</p>
           </div>
           <h1 className="text-5xl font-black text-brand-navy tracking-tighter leading-none">Emergency Resources</h1>
           <p className="text-brand-gray font-medium max-w-xl">
@@ -223,7 +223,7 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
             <h3 className="text-xl font-black text-brand-navy leading-tight pr-10">
               "{triage.label}"
             </h3>
-            <div className="mt-6 flex items-center gap-2 text-brand-orange font-black uppercase tracking-widest text-[9px]">
+            <div className="mt-6 flex items-center gap-2 text-brand-orange font-black uppercase tracking-widest text-xs">
               Access Solutions <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
@@ -232,14 +232,14 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
 
       {/* Category Navigation */}
       <div className="pt-10 border-t border-brand-navy/5">
-        <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-6">Or browse by category</p>
+        <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-6">Or browse by category</p>
         <div className="flex overflow-x-auto no-scrollbar gap-3 pb-4 -mx-2 px-2 snap-x">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               className={cn(
-                "px-6 py-4 rounded-2xl flex items-center gap-3 transition-all font-black uppercase tracking-widest text-[9px] whitespace-nowrap snap-start border",
+                "px-6 py-4 rounded-2xl flex items-center gap-3 transition-all font-black uppercase tracking-widest text-xs whitespace-nowrap snap-start border",
                 activeCategory === cat.id 
                   ? "bg-brand-navy text-white border-brand-navy shadow-xl shadow-brand-navy/20" 
                   : "bg-white text-brand-navy/40 border-brand-navy/5 hover:border-brand-orange/20"
@@ -292,14 +292,14 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                           <Icon size={20} />
                         </div>
                         <div>
-                          <p className="text-[8px] font-black uppercase tracking-[0.2em] text-brand-navy/40">
+                          <p className="text-xs font-black uppercase tracking-wider text-brand-navy/40">
                             {categories.find(c => c.id === res.category)?.name}
                           </p>
                           <div className="flex items-center gap-2 mt-0.5">
                             {res.resource_type === 'pdf' && <FileText size={10} className="text-brand-navy/20" />}
                             {res.resource_type === 'video' && <Play size={10} className="text-brand-navy/20" />}
                             {res.resource_type === 'script' && <MessageSquare size={10} className="text-brand-navy/20" />}
-                            <span className="text-[8px] font-bold uppercase tracking-widest text-brand-navy/20">{res.resource_type}</span>
+                            <span className="text-xs font-bold uppercase tracking-widest text-brand-navy/20">{res.resource_type}</span>
                           </div>
                         </div>
                       </div>
@@ -332,15 +332,15 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                         <div className="flex flex-col gap-3">
                           <div className="flex items-center gap-2 text-brand-navy/40">
                             <Lock size={12} />
-                            <span className="text-[10px] font-black uppercase tracking-widest">Pro Only Access</span>
+                            <span className="text-xs font-black uppercase tracking-widest">Pro Only Access</span>
                           </div>
-                          <BrandButton variant="outline" size="sm" className="w-full text-[10px]">
+                          <BrandButton variant="outline" size="sm" className="w-full text-xs">
                             Upgrade to Unlock
                           </BrandButton>
                         </div>
                       ) : (
                         <div className="flex items-center justify-between gap-4 pt-4 border-t border-brand-navy/5">
-                          <div className="flex items-center gap-2 text-[9px] font-bold text-brand-navy/40">
+                          <div className="flex items-center gap-2 text-xs font-bold text-brand-navy/40">
                             <Download size={12} />
                             <span>{res.download_count || 0}</span>
                           </div>
@@ -358,7 +358,7 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                             <BrandButton 
                               variant={res.resource_type === 'video' ? 'accent' : 'primary'} 
                               size="sm" 
-                              className="py-2.5 px-5 text-[10px] rounded-xl"
+                              className="py-2.5 px-5 text-xs rounded-xl"
                               onClick={() => {
                                 incrementDownload(res.id);
                                 const isPremium = res.id.startsWith('premium-');
@@ -382,7 +382,7 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                       <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/10 backdrop-blur-[1px]">
                         <div className="bg-brand-navy text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-2xl border border-white/10">
                           <Lock size={12} className="text-brand-orange" />
-                          <span className="text-[9px] font-black uppercase tracking-widest">Locked Archive</span>
+                          <span className="text-xs font-black uppercase tracking-widest">Locked Archive</span>
                         </div>
                       </div>
                     )}

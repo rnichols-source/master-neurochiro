@@ -130,15 +130,15 @@ export function NeuralDumpButton() {
                   </div>
                   
                   <div className="p-4 bg-brand-cream/50 rounded-xl border border-brand-navy/5">
-                    <p className="text-[10px] font-black uppercase text-brand-orange tracking-widest mb-2">Transcription</p>
+                    <p className="text-xs font-black uppercase text-brand-orange tracking-widest mb-2">Transcription</p>
                     <p className="text-xs font-medium text-brand-navy italic leading-relaxed">"{result.transcription}"</p>
                   </div>
 
                   <div className="p-4 bg-brand-navy/5 rounded-xl border border-brand-navy/10">
-                    <p className="text-[10px] font-black uppercase text-brand-navy/40 tracking-widest mb-2">Prescribed Action</p>
+                    <p className="text-xs font-black uppercase text-brand-navy/40 tracking-widest mb-2">Prescribed Action</p>
                     <p className="text-sm font-bold text-brand-navy leading-relaxed">{result.recommendation}</p>
                     {result.moduleLink && (
-                      <BrandButton variant="accent" size="sm" className="w-full mt-4 gap-2 text-[10px] py-3">
+                      <BrandButton variant="accent" size="sm" className="w-full mt-4 gap-2 text-xs py-3">
                         <Play className="w-3 h-3 fill-white" /> Open Module
                       </BrandButton>
                     )}
@@ -146,7 +146,7 @@ export function NeuralDumpButton() {
 
                   <button 
                     onClick={() => { setShowModal(false); setResult(null); }}
-                    className="w-full py-3 text-[10px] font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-navy transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-3 text-xs font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-navy transition-colors flex items-center justify-center gap-2"
                   >
                     <X className="w-3 h-3" /> Close Panel
                   </button>

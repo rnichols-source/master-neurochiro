@@ -21,8 +21,8 @@ export function AccountMenu({ userEmail, userTier }: { userEmail: string, userTi
           <Image src="/logo-white.png" alt="User" fill className="object-contain p-1.5" />
         </div>
         <div className="hidden md:block text-left">
-          <p className="text-[10px] font-black text-brand-navy uppercase tracking-widest leading-none mb-1">My Account</p>
-          <p className="text-[8px] text-brand-orange font-bold uppercase tracking-widest leading-none">{userTier} Member</p>
+          <p className="text-xs font-black text-brand-navy uppercase tracking-widest leading-none mb-1">My Account</p>
+          <p className="text-xs text-brand-orange font-bold uppercase tracking-widest leading-none">{userTier} Member</p>
         </div>
         <ChevronDown size={14} className={cn("text-brand-navy/20 transition-transform duration-300", isOpen && "rotate-180")} />
       </button>
@@ -38,7 +38,7 @@ export function AccountMenu({ userEmail, userTier }: { userEmail: string, userTi
               className="absolute right-0 mt-4 w-64 bg-white rounded-3xl shadow-2xl border border-brand-navy/5 overflow-hidden z-[60]"
             >
               <div className="p-6 bg-brand-navy text-white">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-1">Logged in as</p>
+                <p className="text-xs font-black uppercase tracking-wider text-white/40 mb-1">Logged in as</p>
                 <p className="text-sm font-bold truncate">{userEmail}</p>
               </div>
 

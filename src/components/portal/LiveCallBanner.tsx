@@ -77,12 +77,12 @@ export default function LiveCallBanner({ call }: { call: LiveCall | null }) {
           <div className="flex-1 space-y-4 text-center md:text-left">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
               <div className={cn(
-                "px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em]",
+                "px-4 py-1 rounded-full text-xs font-black uppercase tracking-wider",
                 isLive ? "bg-white text-brand-orange animate-pulse" : "bg-brand-orange text-white"
               )}>
                 {isLive ? 'Live Now' : 'Upcoming Mastermind'}
               </div>
-              <div className="flex items-center gap-2 text-[10px] font-bold text-white/60 uppercase tracking-widest">
+              <div className="flex items-center gap-2 text-xs font-bold text-white/60 uppercase tracking-widest">
                 <Video size={14} />
                 <span>Zoom Session</span>
               </div>
@@ -104,7 +104,7 @@ export default function LiveCallBanner({ call }: { call: LiveCall | null }) {
               <p className="text-xs font-bold text-white uppercase tracking-wider">
                 {etTime} (Eastern Time)
               </p>
-              <p className="text-[10px] font-medium text-white/40 italic">
+              <p className="text-xs font-medium text-white/40 italic">
                 Your local time: {localTime}
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function LiveCallBanner({ call }: { call: LiveCall | null }) {
                 ].map((unit) => (
                   <div key={unit.label} className="text-center">
                     <div className="text-2xl font-black leading-none">{unit.value.toString().padStart(2, '0')}</div>
-                    <div className="text-[8px] font-bold uppercase tracking-widest text-white/40 mt-1">{unit.label}</div>
+                    <div className="text-xs font-bold uppercase tracking-widest text-white/40 mt-1">{unit.label}</div>
                   </div>
                 ))}
               </div>
@@ -145,7 +145,7 @@ export default function LiveCallBanner({ call }: { call: LiveCall | null }) {
               </a>
 
               {!isLive && (
-                <div className="flex justify-center md:justify-end gap-2 text-[10px] font-bold uppercase tracking-widest text-white/60">
+                <div className="flex justify-center md:justify-end gap-2 text-xs font-bold uppercase tracking-widest text-white/60">
                   <span className="mr-2">Add to:</span>
                   <a 
                     href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(call.title)}&dates=${new Date(call.call_time).toISOString().replace(/-|:|\.\d\d\d/g, "")}/${new Date(new Date(call.call_time).getTime() + 90 * 60000).toISOString().replace(/-|:|\.\d\d\d/g, "")}&details=${encodeURIComponent(call.description + '\n\nJoin URL: ' + call.zoom_url)}`}

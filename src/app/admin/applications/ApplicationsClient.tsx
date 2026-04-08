@@ -96,7 +96,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
           <select 
             value={selectedCohort}
             onChange={(e) => setSelectedCohort(e.target.value)}
-            className="w-full sm:w-auto bg-white border border-brand-navy/10 rounded-2xl py-3 px-4 text-[10px] font-black uppercase tracking-widest text-brand-navy focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all cursor-pointer"
+            className="w-full sm:w-auto bg-white border border-brand-navy/10 rounded-2xl py-3 px-4 text-xs font-black uppercase tracking-widest text-brand-navy focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all cursor-pointer"
           >
             {cohorts.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
@@ -108,7 +108,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
               key={f}
               onClick={() => setFilter(f)}
               className={cn(
-                "flex-1 lg:flex-none px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all whitespace-nowrap",
+                "flex-1 lg:flex-none px-4 py-2 text-xs font-black uppercase tracking-widest rounded-lg transition-all whitespace-nowrap",
                 filter === f ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"
               )}
             >
@@ -144,21 +144,21 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                     {(app.full_name || "D")[0]}
                   </div>
                   <div className="text-right">
-                    <p className={cn("text-[8px] font-black uppercase tracking-widest", selectedApp?.id === app.id ? "text-white/40" : "text-brand-navy/40")}>Score</p>
+                    <p className={cn("text-xs font-black uppercase tracking-widest", selectedApp?.id === app.id ? "text-white/40" : "text-brand-navy/40")}>Score</p>
                     <p className={cn("text-lg font-black", app.score > 40 ? "text-green-500" : "text-brand-orange")}>{app.score}</p>
                   </div>
                 </div>
                 
                 <div className="min-w-0">
                   <h4 className="font-black tracking-tight truncate">{app.full_name}</h4>
-                  <p className={cn("text-[10px] font-bold uppercase tracking-widest mt-1 truncate", selectedApp?.id === app.id ? "text-white/60" : "text-brand-navy/40")}>
+                  <p className={cn("text-xs font-bold uppercase tracking-widest mt-1 truncate", selectedApp?.id === app.id ? "text-white/60" : "text-brand-navy/40")}>
                     {app.responses?.current_role || "Doctor"}
                   </p>
                 </div>
 
                 <div className="mt-6 flex items-center justify-between">
                   <div className={cn(
-                    "px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest",
+                    "px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest",
                     app.status === 'approved' ? "bg-green-500/20 text-green-400" : 
                     app.status === 'paid' ? "bg-brand-orange/20 text-brand-orange" :
                     app.status === 'rejected' ? "bg-red-500/20 text-red-400" : 
@@ -194,7 +194,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                 <div className="lg:hidden mb-4">
                   <button 
                     onClick={() => setSelectedApp(null)}
-                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-navy transition-colors"
+                    className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-brand-navy/40 hover:text-brand-navy transition-colors"
                   >
                     <ChevronRight className="w-4 h-4 rotate-180" /> Back to list
                   </button>
@@ -209,7 +209,7 @@ export function ApplicationsClient({ initialApplications }: { initialApplication
                       </div>
                       <div className="space-y-2 min-w-0">
                         <h2 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tighter truncate">{selectedApp.full_name}</h2>
-                        <div className="flex flex-wrap justify-center sm:justify-start gap-3 md:gap-4 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-brand-navy/40">
+                        <div className="flex flex-wrap justify-center sm:justify-start gap-3 md:gap-4 text-xs md:text-xs font-black uppercase tracking-widest text-brand-navy/40">
                           <span className="flex items-center gap-1 truncate max-w-full"><Mail className="w-3 h-3 shrink-0" /> {selectedApp.email}</span>
                           <span className="flex items-center gap-1"><Phone className="w-3 h-3 shrink-0" /> {selectedApp.phone}</span>
                           {selectedApp.responses?.instagram && <span className="flex items-center gap-1 text-brand-orange"><Instagram className="w-3 h-3 shrink-0" /> {selectedApp.responses.instagram}</span>}

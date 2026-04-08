@@ -41,7 +41,7 @@ export default async function ModuleDetailPage(props: {
   return (
     <DashboardLayout>
       <div className="space-y-10">
-        <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-brand-navy/40">
+        <div className="flex items-center gap-4 text-xs font-black uppercase tracking-widest text-brand-navy/40">
           <Link href="/portal/curriculum" className="hover:text-brand-orange">Curriculum</Link>
           <span>/</span>
           <Link href={`/portal/curriculum/${week?.slug || ''}`} className="hover:text-brand-orange">{week?.title || 'Phase'}</Link>
@@ -52,7 +52,7 @@ export default async function ModuleDetailPage(props: {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2 space-y-8">
             <div className="space-y-2">
-              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Module 0{week?.week_number}.0{module?.order_index}</p>
+              <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Module 0{week?.week_number}.0{module?.order_index}</p>
               <h1 className="text-4xl font-black text-brand-navy tracking-tighter">{module?.title}</h1>
             </div>
 
@@ -76,7 +76,7 @@ export default async function ModuleDetailPage(props: {
                     <ChevronLeft className="w-4 h-4 text-brand-navy group-hover:text-brand-orange" />
                   </div>
                   <div className="text-left">
-                    <p className="text-[8px] font-black uppercase text-brand-navy/40">Previous</p>
+                    <p className="text-xs font-black uppercase text-brand-navy/40">Previous</p>
                     <p className="text-sm font-black text-brand-navy group-hover:text-brand-orange">{prevModule.title}</p>
                   </div>
                 </Link>
@@ -94,7 +94,7 @@ export default async function ModuleDetailPage(props: {
               {nextModule ? (
                 <Link href={`/portal/curriculum/${week?.slug}/${nextModule?.slug}`} className="flex items-center gap-4 group">
                   <div className="text-right">
-                    <p className="text-[8px] font-black uppercase text-brand-navy/40">Next Up</p>
+                    <p className="text-xs font-black uppercase text-brand-navy/40">Next Up</p>
                     <p className="text-sm font-black text-brand-navy group-hover:text-brand-orange">{nextModule?.title}</p>
                   </div>
                   <div className="w-10 h-10 rounded-full border border-brand-navy/10 flex items-center justify-center group-hover:border-brand-orange/40 transition-colors">
@@ -104,7 +104,7 @@ export default async function ModuleDetailPage(props: {
               ) : (
                 <Link href={`/portal/curriculum/${week?.slug}`} className="flex items-center gap-4 group">
                   <div className="text-right">
-                    <p className="text-[8px] font-black uppercase text-brand-navy/40">Finish Phase</p>
+                    <p className="text-xs font-black uppercase text-brand-navy/40">Finish Phase</p>
                     <p className="text-sm font-black text-brand-navy group-hover:text-brand-orange">Overview</p>
                   </div>
                   <div className="w-10 h-10 rounded-full border border-brand-navy/10 flex items-center justify-center group-hover:border-brand-orange/40 transition-colors">
@@ -127,7 +127,7 @@ export default async function ModuleDetailPage(props: {
                     className="w-full p-4 bg-brand-navy/5 hover:bg-brand-orange/5 rounded-xl border border-transparent hover:border-brand-orange/20 transition-all text-left flex justify-between items-center group"
                   >
                     <span className="text-xs font-bold text-brand-navy group-hover:text-brand-orange transition-colors">{asset.title}</span>
-                    <span className="text-[8px] font-black text-brand-navy/30 uppercase">{asset.type}</span>
+                    <span className="text-xs font-black text-brand-navy/30 uppercase">{asset.type}</span>
                   </a>
                 )) : (
                   <div className="w-full p-4 bg-brand-navy/5 rounded-xl border border-transparent text-left">

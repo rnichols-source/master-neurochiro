@@ -48,7 +48,7 @@ export function CaseLabClient({ userTier }: { userTier: 'standard' | 'pro' | 'ad
     <div className="space-y-10 pb-20">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Clinical Intelligence</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Clinical Intelligence</p>
           <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Case Breakdown Lab</h1>
           <p className="text-brand-gray font-medium mt-2 max-w-xl">
             Real-world clinical scenarios, neurological interpretations, and care plan reasoning.
@@ -61,7 +61,7 @@ export function CaseLabClient({ userTier }: { userTier: 'standard' | 'pro' | 'ad
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1 space-y-4">
-          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-2">Available Cases</p>
+          <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-2">Available Cases</p>
           {cases.map(c => {
             const isLocked = c.tier === 'pro' && !isPro;
             return (
@@ -77,7 +77,7 @@ export function CaseLabClient({ userTier }: { userTier: 'standard' | 'pro' | 'ad
               >
                 <div className="flex justify-between items-start mb-2">
                   <span className={cn(
-                    "text-[8px] font-black uppercase tracking-widest",
+                    "text-xs font-black uppercase tracking-widest",
                     selectedCase === c.id ? "text-brand-orange" : "text-brand-navy/40"
                   )}>Case 0{c.id}</span>
                   {isLocked && <Lock className="w-3 h-3 text-brand-orange" />}
@@ -106,7 +106,7 @@ export function CaseLabClient({ userTier }: { userTier: 'standard' | 'pro' | 'ad
                 return (
                   <>
                     <div className="border-b border-brand-navy/5 pb-6">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-brand-orange mb-2">{c.patient}</p>
+                      <p className="text-xs font-black uppercase tracking-widest text-brand-orange mb-2">{c.patient}</p>
                       <h2 className="text-3xl font-black text-brand-navy tracking-tight">{c.title}</h2>
                     </div>
 

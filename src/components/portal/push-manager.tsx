@@ -83,7 +83,7 @@ export function PushNotificationManager() {
           ) : (
             <BellOff className="w-4 h-4 text-white/20" />
           )}
-          <span className="text-[10px] font-black uppercase tracking-widest text-white/40">
+          <span className="text-xs font-black uppercase tracking-widest text-white/40">
             {subscription ? "Alerts Active" : "Alerts Off"}
           </span>
         </div>
@@ -93,7 +93,7 @@ export function PushNotificationManager() {
         ) : (
           <button
             onClick={subscription ? unsubscribe : subscribe}
-            className={`text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded border transition-all ${
+            className={`text-xs font-black uppercase tracking-widest px-2 py-1 rounded border transition-all ${
               subscription 
                 ? "border-white/10 text-white/40 hover:text-white hover:bg-white/5" 
                 : "border-brand-orange/50 text-brand-orange hover:bg-brand-orange hover:text-white"

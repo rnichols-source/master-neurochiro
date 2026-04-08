@@ -72,7 +72,7 @@ export default function LoginPage() {
             <div className="w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-brand-orange flex items-center justify-center font-black text-white text-xl md:text-2xl shadow-xl shadow-brand-orange/20">
               N
             </div>
-            <span className="font-lato font-black uppercase tracking-[0.2em] text-white text-lg md:text-xl">
+            <span className="font-lato font-black uppercase tracking-wider text-white text-lg md:text-xl">
               NeuroChiro
             </span>
           </Link>

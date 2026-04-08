@@ -146,7 +146,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-20">
       {/* Sidebar: Week Selection */}
       <div className="lg:col-span-1 space-y-4">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy/40 ml-2">Select Phase</h3>
+        <h3 className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-2">Select Phase</h3>
         <div className="space-y-2">
           {weeks.map((week) => (
             <button
@@ -160,7 +160,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
               )}
             >
               <div>
-                <p className={cn("text-[8px] font-black uppercase tracking-widest", selectedWeek?.id === week.id ? "text-white/40" : "text-brand-navy/20")}>Phase 0{week.week_number}</p>
+                <p className={cn("text-xs font-black uppercase tracking-widest", selectedWeek?.id === week.id ? "text-white/40" : "text-brand-navy/20")}>Phase 0{week.week_number}</p>
                 <h4 className="font-black text-sm">{week.title}</h4>
               </div>
               <ChevronRight className={cn("w-4 h-4 transition-transform", selectedWeek?.id === week.id ? "translate-x-1" : "opacity-0 group-hover:opacity-100")} />
@@ -175,7 +175,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
           <>
             <div className="flex justify-between items-end pb-4 border-b border-brand-navy/5">
               <div>
-                <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-1">Editing Phase 0{selectedWeek.week_number}</p>
+                <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-1">Editing Phase 0{selectedWeek.week_number}</p>
                 <h2 className="text-3xl font-black text-brand-navy tracking-tight">{selectedWeek.title}</h2>
               </div>
               <div className="flex gap-2">
@@ -183,7 +183,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                     <BrandButton 
                         variant="ghost" 
                         size="sm" 
-                        className="gap-2 text-[10px] text-brand-navy/40"
+                        className="gap-2 text-xs text-brand-navy/40"
                         onClick={handleSync}
                         isLoading={isSyncing}
                     >
@@ -193,7 +193,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                 <BrandButton 
                     variant="outline" 
                     size="sm" 
-                    className="gap-2 text-[10px]"
+                    className="gap-2 text-xs"
                     onClick={handleAddModule}
                     isLoading={isAdding}
                 >
@@ -223,7 +223,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                       <Video className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[8px] font-black uppercase text-brand-navy/20">Module 0{selectedWeek.week_number}.0{mod.order_index}</p>
+                      <p className="text-xs font-black uppercase text-brand-navy/20">Module 0{selectedWeek.week_number}.0{mod.order_index}</p>
                       <h5 className="font-bold text-brand-navy text-xs truncate">{mod.title}</h5>
                     </div>
                   </button>
@@ -235,7 +235,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                 {selectedModule ? (
                   <div className="space-y-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Title</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Title</label>
                       <input 
                         type="text" 
                         value={selectedModule.title}
@@ -245,7 +245,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1 flex items-center justify-between">
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1 flex items-center justify-between">
                         Video URL / ID
                       </label>
                       <div className="relative">
@@ -261,7 +261,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Description</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Description</label>
                       <textarea 
                         rows={3}
                         value={selectedModule.content || ''}
@@ -283,7 +283,7 @@ export function CurriculumManagerClient({ initialWeeks, initialResources = [] }:
                       <button 
                         onClick={handleDeleteModule}
                         disabled={isDeleting}
-                        className="w-full flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-red-500/40 hover:text-red-500 transition-colors py-2"
+                        className="w-full flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-red-500/40 hover:text-red-500 transition-colors py-2"
                       >
                         {isDeleting ? <Loader2 className="w-3 h-3 animate-spin" /> : <Trash2 className="w-3 h-3" />}
                         Delete This Module

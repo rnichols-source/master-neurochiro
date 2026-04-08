@@ -139,20 +139,20 @@ export default function VideoPlayer({
         <div className="w-8 h-8 rounded-xl bg-brand-navy flex items-center justify-center text-brand-orange">
           <Zap size={14} fill="currentColor" />
         </div>
-        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-navy">Operator Checklist</h3>
+        <h3 className="text-xs font-black uppercase tracking-widest text-brand-navy">Operator Checklist</h3>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="space-y-2">
-          <p className="text-[8px] font-black uppercase text-brand-orange tracking-widest">1. DO</p>
+          <p className="text-xs font-black uppercase text-brand-orange tracking-widest">1. DO</p>
           <p className="text-sm font-bold text-brand-navy leading-relaxed">{checklist.do}</p>
         </div>
         <div className="space-y-2">
-          <p className="text-[8px] font-black uppercase text-brand-orange tracking-widest">2. SAY</p>
+          <p className="text-xs font-black uppercase text-brand-orange tracking-widest">2. SAY</p>
           <p className="text-sm font-bold text-brand-navy leading-relaxed">{checklist.say}</p>
         </div>
         <div className="space-y-2">
-          <p className="text-[8px] font-black uppercase text-brand-orange tracking-widest">3. TRACK</p>
+          <p className="text-xs font-black uppercase text-brand-orange tracking-widest">3. TRACK</p>
           <p className="text-sm font-bold text-brand-navy leading-relaxed">{checklist.track}</p>
         </div>
       </div>
@@ -180,7 +180,7 @@ export default function VideoPlayer({
             </div>
             
             <div className="space-y-2">
-              <span className="text-[10px] font-black text-brand-orange uppercase tracking-[0.4em]">Premium Coming Soon</span>
+              <span className="text-xs font-black text-brand-orange uppercase tracking-widest">Premium Coming Soon</span>
               <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight leading-none uppercase">Update in Progress</h3>
             </div>
             
@@ -191,7 +191,7 @@ export default function VideoPlayer({
             <div className="pt-4">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10">
                 <div className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-ping" />
-                <span className="text-[8px] font-black text-white/60 uppercase tracking-widest">Clinical Update: 84% Complete</span>
+                <span className="text-xs font-black text-white/60 uppercase tracking-widest">Clinical Update: 84% Complete</span>
               </div>
             </div>
           </motion.div>
@@ -217,7 +217,7 @@ export default function VideoPlayer({
                 <Play size={40} className="text-brand-orange fill-brand-orange ml-1" />
               </div>
               <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center">
-                  <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">Training: {title}</span>
+                  <span className="text-xs font-black text-white/40 uppercase tracking-widest">Training: {title}</span>
               </div>
             </div>
           ) : (
@@ -265,7 +265,7 @@ export default function VideoPlayer({
               readOnly
               className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-brand-orange"
             />
-            <div className="flex justify-between text-[8px] font-black text-white/40 uppercase tracking-widest">
+            <div className="flex justify-between text-xs font-black text-white/40 uppercase tracking-widest">
               <span>{Math.floor((videoRef.current?.currentTime || 0) / 60)}:{(Math.floor((videoRef.current?.currentTime || 0) % 60)).toString().padStart(2, '0')}</span>
               <span>{Math.floor(duration / 60)}:{(Math.floor(duration % 60)).toString().padStart(2, '0')}</span>
             </div>
@@ -280,7 +280,7 @@ export default function VideoPlayer({
                   {hasCompleted && (
                   <div className="flex items-center gap-2 bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/20">
                       <CheckCircle2 size={12} />
-                      <span className="text-[8px] font-black uppercase tracking-widest">Module Complete</span>
+                      <span className="text-xs font-black uppercase tracking-widest">Module Complete</span>
                   </div>
                   )}
               </div>

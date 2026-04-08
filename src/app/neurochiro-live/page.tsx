@@ -118,7 +118,7 @@ export default function NeuroChiroLivePage() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 mb-8"
             >
               <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-orange">Live Immersion Event</span>
+              <span className="text-xs font-black uppercase tracking-widest text-brand-orange">Live Immersion Event</span>
             </motion.div>
 
             <motion.h1
@@ -145,14 +145,14 @@ export default function NeuroChiroLivePage() {
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-brand-orange" />
                 <div className="text-left">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Location</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-white/30">Location</p>
                   <p className="text-sm font-bold text-white">Adelaide, Australia</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Calendar className="w-5 h-5 text-brand-orange" />
                 <div className="text-left">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-white/30">Dates</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-white/30">Dates</p>
                   <p className="text-sm font-bold text-white">May 29 – May 30, 2026</p>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function NeuroChiroLivePage() {
         <section className="section-padding bg-white/5 relative">
           <div className="max-w-7xl mx-auto px-8">
             <div className="mb-20 space-y-4 text-center md:text-left">
-              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Audience</p>
+              <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Audience</p>
               <h2 className="text-5xl md:text-8xl font-black text-white leading-none uppercase tracking-tighter">Who This <br /><span className="text-white/20">Is Designed For.</span></h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -198,7 +198,7 @@ export default function NeuroChiroLivePage() {
         <section className="section-padding bg-white px-8">
           <div className="max-w-7xl mx-auto">
             <div className="mb-24 space-y-4">
-              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Schedule</p>
+              <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Schedule</p>
               <h2 className="text-6xl md:text-8xl font-black text-brand-navy tracking-tighter leading-[0.9] uppercase">2 Days of <br /><span className="text-brand-navy/30">Transformation.</span></h2>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
@@ -232,7 +232,7 @@ export default function NeuroChiroLivePage() {
           
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="mb-20 space-y-4 text-center">
-              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Real Results</p>
+              <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Real Results</p>
               <h2 className="text-5xl md:text-7xl font-black text-white leading-none uppercase tracking-tighter">Breakthroughs Doctors <br /><span className="text-white/20">Are Experiencing.</span></h2>
               <p className="text-xl text-white/40 font-medium max-w-2xl mx-auto pt-4 leading-relaxed">
                 What happens when clinical certainty meets philosophical alignment? Real transformation in how you practice.
@@ -246,7 +246,7 @@ export default function NeuroChiroLivePage() {
                 
                 <div className="flex-1 space-y-8">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-widest text-[10px]">The Breakthrough</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Breakthrough</p>
                     <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none">From Over-Explaining <br />To Clinical Power.</h3>
                   </div>
 
@@ -262,10 +262,10 @@ export default function NeuroChiroLivePage() {
                   <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                     <div>
                       <p className="text-white font-black uppercase tracking-widest text-sm">Dr. Mike</p>
-                      <p className="text-white/30 text-[10px] font-bold uppercase tracking-widest">Practicing Chiropractor</p>
+                      <p className="text-white/30 text-xs font-bold uppercase tracking-widest">Practicing Chiropractor</p>
                     </div>
                     <div className="px-6 py-3 rounded-full bg-brand-orange/10 border border-brand-orange/20 self-start">
-                      <span className="text-[10px] font-black text-brand-orange uppercase tracking-widest">Insight: Command The Silence</span>
+                      <span className="text-xs font-black text-brand-orange uppercase tracking-widest">Insight: Command The Silence</span>
                     </div>
                   </div>
                 </div>
@@ -277,7 +277,7 @@ export default function NeuroChiroLivePage() {
                 
                 <div className="flex-1 space-y-8">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-widest text-[10px]">The Alignment</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Alignment</p>
                     <h3 className="text-3xl font-black text-white uppercase tracking-tighter leading-none">Connecting Philosophy <br />With Communication.</h3>
                   </div>
 
@@ -293,10 +293,10 @@ export default function NeuroChiroLivePage() {
                   <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                     <div>
                       <p className="text-white font-black uppercase tracking-widest text-sm">Dr. Melissa</p>
-                      <p className="text-white/30 text-[10px] font-bold uppercase tracking-widest">Practicing Chiropractor</p>
+                      <p className="text-white/30 text-xs font-bold uppercase tracking-widest">Practicing Chiropractor</p>
                     </div>
                     <div className="px-6 py-3 rounded-full bg-brand-orange/10 border border-brand-orange/20 self-start">
-                      <span className="text-[10px] font-black text-brand-orange uppercase tracking-widest">Insight: Philosophical Congruence</span>
+                      <span className="text-xs font-black text-brand-orange uppercase tracking-widest">Insight: Philosophical Congruence</span>
                     </div>
                   </div>
                 </div>
@@ -309,7 +309,7 @@ export default function NeuroChiroLivePage() {
         <section id="pricing" className="section-padding bg-brand-navy relative overflow-hidden px-8">
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-16 space-y-4">
-              <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Investment</p>
+              <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Investment</p>
               <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-none uppercase">Secure Your Seat.</h2>
               <p className="text-xl text-white/40 font-medium uppercase tracking-widest">Limited seating available.</p>
             </div>
@@ -319,7 +319,7 @@ export default function NeuroChiroLivePage() {
                 <button
                   key={t.category}
                   onClick={() => setSelectedCategory(t.category)}
-                  className={`px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all ${
+                  className={`px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
                     selectedCategory === t.category 
                     ? "bg-brand-orange text-white shadow-lg shadow-brand-orange/20" 
                     : "bg-white/5 text-white/40 hover:bg-white/10"
@@ -335,7 +335,7 @@ export default function NeuroChiroLivePage() {
                 <div className="glass-panel p-12 rounded-[3rem] border-white/5 flex flex-col">
                   <div className="flex items-center gap-3 mb-8">
                     <ShieldCheck className="w-6 h-6 text-brand-orange" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Standard Access</span>
+                    <span className="text-xs font-black uppercase tracking-widest text-white/40">Standard Access</span>
                   </div>
                   <div className="mb-12">
                      <span className="text-8xl font-black text-white tracking-tighter">${standardTicket.price}</span>
@@ -362,12 +362,12 @@ export default function NeuroChiroLivePage() {
 
               {innerCircleTicket && (
                 <div className="glass-panel p-12 rounded-[3rem] border-brand-orange/30 bg-gradient-to-br from-brand-orange/10 to-transparent flex flex-col relative">
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-[10px] font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg shadow-brand-orange/30 whitespace-nowrap">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-orange text-white text-xs font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg shadow-brand-orange/30 whitespace-nowrap">
                     Highly Limited
                   </div>
                   <div className="flex items-center gap-3 mb-8">
                     <Star className="w-6 h-6 text-brand-orange" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-brand-orange">Inner Circle</span>
+                    <span className="text-xs font-black uppercase tracking-widest text-brand-orange">Inner Circle</span>
                   </div>
                   <div className="mb-12">
                      <span className="text-8xl font-black text-white tracking-tighter">${innerCircleTicket.price}</span>
@@ -411,7 +411,7 @@ export default function NeuroChiroLivePage() {
               </div>
               <div className="space-y-10">
                 <div className="space-y-4">
-                  <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Speaker</p>
+                  <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Speaker</p>
                   <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-none uppercase">Dr. Raymond <br />Nichols.</h2>
                 </div>
                 <div className="space-y-6 text-xl text-white/50 leading-relaxed font-medium">
@@ -433,9 +433,9 @@ export default function NeuroChiroLivePage() {
         <div className="max-w-7xl mx-auto space-y-8">
            <div className="flex items-center justify-center gap-3">
               <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center font-black text-brand-navy">N</div>
-              <span className="font-bold text-white tracking-widest uppercase text-[10px]">NeuroChiro Intelligence</span>
+              <span className="font-bold text-white tracking-widest uppercase text-xs">NeuroChiro Intelligence</span>
             </div>
-            <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest leading-loose">
+            <p className="text-xs font-bold text-white/20 uppercase tracking-widest leading-loose">
               © 2026 NeuroChiro. Adelaide, Australia.
             </p>
         </div>

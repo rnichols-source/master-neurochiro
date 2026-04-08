@@ -52,7 +52,7 @@ export default function AutomationDashboard() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="border-b border-white/5 text-[10px] font-black uppercase tracking-widest text-white/30">
+              <tr className="border-b border-white/5 text-xs font-black uppercase tracking-widest text-white/30">
                 <th className="py-4 px-4">Timestamp</th>
                 <th className="py-4 px-4">Recipient</th>
                 <th className="py-4 px-4">Event Type</th>
@@ -74,16 +74,16 @@ export default function AutomationDashboard() {
                   </td>
                   <td className="py-4 px-4">
                     {log.status === 'sent' ? (
-                      <span className="flex items-center gap-1.5 text-green-400 text-[10px] font-black uppercase tracking-wider">
+                      <span className="flex items-center gap-1.5 text-green-400 text-xs font-black uppercase tracking-wider">
                         <CheckCircle2 className="w-3.5 h-3.5" /> Sent
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1.5 text-red-400 text-[10px] font-black uppercase tracking-wider">
+                      <span className="flex items-center gap-1.5 text-red-400 text-xs font-black uppercase tracking-wider">
                         <AlertTriangle className="w-3.5 h-3.5" /> Failed
                       </span>
                     )}
                   </td>
-                  <td className="py-4 px-4 text-[10px] font-medium text-white/40 max-w-xs truncate">
+                  <td className="py-4 px-4 text-xs font-medium text-white/40 max-w-xs truncate">
                     {log.metadata?.subject || log.error_message || '-'}
                   </td>
                 </tr>
@@ -103,7 +103,7 @@ function StatCard({ title, value, icon: Icon, color }: any) {
         <Icon className="w-6 h-6" />
       </div>
       <div>
-        <p className="text-[10px] font-black uppercase tracking-widest text-white/40">{title}</p>
+        <p className="text-xs font-black uppercase tracking-widest text-white/40">{title}</p>
         <p className="text-3xl font-black text-white mt-1">{value}</p>
       </div>
     </div>

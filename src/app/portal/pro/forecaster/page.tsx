@@ -50,7 +50,7 @@ export default async function ForecasterPage() {
                 </BrandButton>
               </Link>
               <Link href="/portal">
-                <button className="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-colors">
+                <button className="text-xs font-black uppercase tracking-widest text-white/40 hover:text-white transition-colors">
                   Return to Standard Dashboard
                 </button>
               </Link>

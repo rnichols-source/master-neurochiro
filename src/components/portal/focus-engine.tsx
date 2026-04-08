@@ -84,11 +84,11 @@ export function FocusEngine({ data, userName }: FocusEngineProps) {
 
           <div className="flex-1 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-              <span className="px-2 py-0.5 bg-brand-orange/10 text-brand-orange text-[10px] font-black uppercase tracking-[0.2em] rounded-md">
+              <span className="px-2 py-0.5 bg-brand-orange/10 text-brand-orange text-xs font-black uppercase tracking-wider rounded-md">
                 Active Intelligence
               </span>
               {!isAllPositive && (
-                <span className="flex items-center gap-1 text-red-500 text-[10px] font-black uppercase tracking-widest">
+                <span className="flex items-center gap-1 text-red-500 text-xs font-black uppercase tracking-widest">
                   <TrendingDown className="w-3 h-3" /> Potential Leak Detected
                 </span>
               )}

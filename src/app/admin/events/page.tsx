@@ -39,7 +39,7 @@ export default async function AdminEventsPage() {
         <EliteCard title="Availability" icon={Ticket}>
            <div className="space-y-1 mt-4">
               {event?.ticket_types.map((t: any) => (
-                <div key={t.id} className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-brand-navy/60">
+                <div key={t.id} className="flex justify-between text-xs font-bold uppercase tracking-widest text-brand-navy/60">
                   <span>{t.category} ({t.tier})</span>
                   <span>{t.sold_count} Sold</span>
                 </div>
@@ -55,7 +55,7 @@ export default async function AdminEventsPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="border-b border-brand-navy/5 text-[10px] font-black uppercase tracking-widest text-brand-navy/40">
+              <tr className="border-b border-brand-navy/5 text-xs font-black uppercase tracking-widest text-brand-navy/40">
                 <th className="px-8 py-4">Name</th>
                 <th className="px-8 py-4">Email</th>
                 <th className="px-8 py-4">Category</th>
@@ -69,11 +69,11 @@ export default async function AdminEventsPage() {
                 <tr key={a.id} className="border-b border-brand-navy/5 hover:bg-brand-navy/5 transition-colors">
                   <td className="px-8 py-4 font-bold text-brand-navy">{a.full_name}</td>
                   <td className="px-8 py-4 text-xs font-medium text-brand-navy/60">{a.email}</td>
-                  <td className="px-8 py-4 text-[10px] font-black uppercase">{a.ticket_types.category}</td>
-                  <td className="px-8 py-4 text-[10px] font-black uppercase">{a.ticket_types.tier}</td>
+                  <td className="px-8 py-4 text-xs font-black uppercase">{a.ticket_types.category}</td>
+                  <td className="px-8 py-4 text-xs font-black uppercase">{a.ticket_types.tier}</td>
                   <td className="px-8 py-4 font-bold text-brand-navy">${a.ticket_types.price}</td>
                   <td className="px-8 py-4">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-green-600">Paid</span>
+                    <span className="text-xs font-black uppercase tracking-widest text-green-600">Paid</span>
                   </td>
                 </tr>
               ))}

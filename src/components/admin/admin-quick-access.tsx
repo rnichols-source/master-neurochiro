@@ -104,12 +104,12 @@ export function AdminQuickAccess() {
               <div className="p-6 bg-brand-navy text-white">
                 <div className="flex items-center justify-between mb-1">
                   <h3 className="text-sm font-black uppercase tracking-widest text-brand-orange">Admin Quick Nav</h3>
-                  <div className="flex items-center gap-1 px-2 py-0.5 bg-white/10 rounded text-[10px] font-bold text-white/60">
+                  <div className="flex items-center gap-1 px-2 py-0.5 bg-white/10 rounded text-xs font-bold text-white/60">
                     <Command className="w-2.5 h-2.5" />
                     <span>ALT + A</span>
                   </div>
                 </div>
-                <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">System Controller</p>
+                <p className="text-xs font-bold text-white/40 uppercase tracking-widest">System Controller</p>
               </div>
 
               <div className="p-3 space-y-1">
@@ -129,7 +129,7 @@ export function AdminQuickAccess() {
                       <p className="text-xs font-black text-brand-navy group-hover:text-brand-orange transition-colors">
                         {item.name}
                       </p>
-                      <p className="text-[10px] font-bold text-brand-navy/30 uppercase tracking-tighter">
+                      <p className="text-xs font-bold text-brand-navy/30 uppercase tracking-tighter">
                         Jump to Section
                       </p>
                     </div>
@@ -138,7 +138,7 @@ export function AdminQuickAccess() {
               </div>
 
               <div className="p-4 bg-brand-cream/50 border-t border-brand-navy/5">
-                <p className="text-[9px] font-bold text-brand-navy/30 text-center uppercase tracking-widest">
+                <p className="text-xs font-bold text-brand-navy/30 text-center uppercase tracking-widest">
                   Secure Admin Session Active
                 </p>
               </div>

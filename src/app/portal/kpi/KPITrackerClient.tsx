@@ -121,7 +121,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-4">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-[0.2em] text-[10px] md:text-xs mb-2">
+          <p className="text-brand-orange font-black uppercase tracking-wider text-xs md:text-xs mb-2">
             The Benchmark Mirror
           </p>
           <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight uppercase">
@@ -175,7 +175,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
 
           <Link href={profitLeak.link} className="w-full md:w-auto relative z-10">
             <button className={cn(
-              "px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all shadow-xl flex items-center justify-center gap-2 group/btn",
+              "px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl flex items-center justify-center gap-2 group/btn",
               profitLeak.severity === 'critical' ? "bg-red-600 text-white hover:bg-red-700" : "bg-brand-navy text-white hover:bg-brand-orange"
             )}>
               {profitLeak.action} <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
@@ -192,10 +192,10 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
               onClick={() => setActiveMetric("patient_visits")}
               className={`text-left transition-all ${activeMetric === "patient_visits" ? "opacity-100" : "opacity-40 hover:opacity-60"}`}
             >
-              <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Total Visits</p>
+              <p className="text-xs font-black uppercase tracking-widest text-brand-navy/60">Total Visits</p>
               <h4 className="text-xl md:text-2xl font-black text-brand-navy">
                 {latestStats.patient_visits} 
-                <span className={`text-[10px] md:text-xs font-bold ml-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+                <span className={`text-xs md:text-xs font-bold ml-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
                   {calculateGrowth('patient_visits') >= 0 ? '+' : ''}{calculateGrowth('patient_visits')}%
                 </span>
               </h4>
@@ -205,10 +205,10 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
               onClick={() => setActiveMetric("collections")}
               className={`text-left transition-all ${activeMetric === "collections" ? "opacity-100" : "opacity-40 hover:opacity-60"}`}
             >
-              <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Collections</p>
+              <p className="text-xs font-black uppercase tracking-widest text-brand-navy/60">Collections</p>
               <h4 className="text-xl md:text-2xl font-black text-brand-navy">
                 ${(latestStats.collections / 1000).toFixed(1)}k 
-                <span className={`text-[10px] md:text-xs font-bold ml-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+                <span className={`text-xs md:text-xs font-bold ml-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
                   {calculateGrowth('collections') >= 0 ? '+' : ''}{calculateGrowth('collections')}%
                 </span>
               </h4>
@@ -219,7 +219,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
             {["7D", "30D", "90D", "ALL"].map(range => (
               <button 
                 key={range}
-                className={`flex-1 px-4 py-1.5 text-[10px] font-black rounded-lg transition-all whitespace-nowrap ${range === "ALL" ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"}`}
+                className={`flex-1 px-4 py-1.5 text-xs font-black rounded-lg transition-all whitespace-nowrap ${range === "ALL" ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"}`}
               >
                 {range}
               </button>
@@ -283,18 +283,18 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           <div className="flex flex-col gap-4 mt-2">
             <div className="flex items-end gap-2">
               <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.new_patients}</span>
-              <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('new_patients') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+              <span className={`text-xs md:text-xs font-bold mb-1 ${calculateGrowth('new_patients') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
                 {calculateGrowth('new_patients') >= 0 ? '+' : ''}{calculateGrowth('new_patients')}%
               </span>
             </div>
             <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
               <div className="flex justify-between items-center">
-                <span className="text-[8px] font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
-                <span className="text-[10px] font-black text-brand-navy/60">{benchmarks.new_patients.avg}</span>
+                <span className="text-xs font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
+                <span className="text-xs font-black text-brand-navy/60">{benchmarks.new_patients.avg}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[8px] font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
-                <span className="text-[10px] font-black text-brand-orange">{benchmarks.new_patients.elite}</span>
+                <span className="text-xs font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
+                <span className="text-xs font-black text-brand-orange">{benchmarks.new_patients.elite}</span>
               </div>
             </div>
           </div>
@@ -304,18 +304,18 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           <div className="flex flex-col gap-4 mt-2">
             <div className="flex items-end gap-2">
               <span className="text-2xl md:text-3xl font-black text-brand-navy">${(latestStats.collections / 1000).toFixed(1)}k</span>
-              <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+              <span className={`text-xs md:text-xs font-bold mb-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
                 {calculateGrowth('collections') >= 0 ? '+' : ''}{calculateGrowth('collections')}%
               </span>
             </div>
             <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
               <div className="flex justify-between items-center">
-                <span className="text-[8px] font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
-                <span className="text-[10px] font-black text-brand-navy/60">${(benchmarks.collections.avg/1000)}k</span>
+                <span className="text-xs font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
+                <span className="text-xs font-black text-brand-navy/60">${(benchmarks.collections.avg/1000)}k</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[8px] font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
-                <span className="text-[10px] font-black text-brand-orange">${(benchmarks.collections.elite/1000)}k</span>
+                <span className="text-xs font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
+                <span className="text-xs font-black text-brand-orange">${(benchmarks.collections.elite/1000)}k</span>
               </div>
             </div>
           </div>
@@ -325,16 +325,16 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           <div className="flex flex-col gap-4 mt-2">
             <div className="flex items-end gap-2">
               <span className="text-2xl md:text-3xl font-black text-brand-navy">{conversionRate}%</span>
-              <span className="text-[10px] md:text-xs font-bold mb-1 text-brand-navy/40 uppercase tracking-widest">Target: 90%+</span>
+              <span className="text-xs md:text-xs font-bold mb-1 text-brand-navy/40 uppercase tracking-widest">Target: 90%+</span>
             </div>
             <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
               <div className="flex justify-between items-center">
-                <span className="text-[8px] font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
-                <span className="text-[10px] font-black text-brand-navy/60">{benchmarks.conversion.avg}%</span>
+                <span className="text-xs font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
+                <span className="text-xs font-black text-brand-navy/60">{benchmarks.conversion.avg}%</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[8px] font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
-                <span className="text-[10px] font-black text-brand-orange">{benchmarks.conversion.elite}%</span>
+                <span className="text-xs font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
+                <span className="text-xs font-black text-brand-orange">{benchmarks.conversion.elite}%</span>
               </div>
             </div>
           </div>
@@ -344,18 +344,18 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           <div className="flex flex-col gap-4 mt-2">
             <div className="flex items-end gap-2">
               <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.patient_visits}</span>
-              <span className={`text-[10px] md:text-xs font-bold mb-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
+              <span className={`text-xs md:text-xs font-bold mb-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
                 {calculateGrowth('patient_visits') >= 0 ? '+' : ''}{calculateGrowth('patient_visits')}%
               </span>
             </div>
             <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
               <div className="flex justify-between items-center">
-                <span className="text-[8px] font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
-                <span className="text-[10px] font-black text-brand-navy/60">{benchmarks.patient_visits.avg}</span>
+                <span className="text-xs font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
+                <span className="text-xs font-black text-brand-navy/60">{benchmarks.patient_visits.avg}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[8px] font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
-                <span className="text-[10px] font-black text-brand-orange">{benchmarks.patient_visits.elite}</span>
+                <span className="text-xs font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
+                <span className="text-xs font-black text-brand-orange">{benchmarks.patient_visits.elite}</span>
               </div>
             </div>
           </div>

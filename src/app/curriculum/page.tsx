@@ -97,7 +97,7 @@ export default function CurriculumPage() {
       {/* Header */}
       <section className="pt-48 pb-20 px-8">
         <div className="max-w-7xl mx-auto text-center space-y-8">
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The 8-Week Roadmap</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The 8-Week Roadmap</p>
           <h1 className="text-7xl md:text-8xl font-black text-brand-navy tracking-tighter leading-none">
             What You'll Learn <br />
             <span className="text-brand-orange">Inside the Program.</span>
@@ -117,7 +117,7 @@ export default function CurriculumPage() {
               <div className="flex flex-col lg:flex-row">
                 {/* Left: Week ID */}
                 <div className="lg:w-48 bg-brand-navy p-12 flex flex-col items-center justify-center text-white shrink-0 group-hover:bg-brand-black transition-colors">
-                  <span className="text-[10px] font-black uppercase tracking-widest opacity-40 mb-2">Phase</span>
+                  <span className="text-xs font-black uppercase tracking-widest opacity-40 mb-2">Phase</span>
                   <span className="text-6xl font-black">{week.number}</span>
                 </div>
 
@@ -132,7 +132,7 @@ export default function CurriculumPage() {
                     </div>
                     
                     <div className="p-6 bg-brand-cream rounded-2xl border border-brand-navy/5">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-2">Primary Change</p>
+                      <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-2">Primary Change</p>
                       <p className="text-sm font-bold text-brand-navy leading-relaxed">{week.change}</p>
                     </div>
 
@@ -141,7 +141,7 @@ export default function CurriculumPage() {
                         <week.icon className="w-5 h-5 text-brand-navy" />
                       </div>
                       <div>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Week Mechanism</p>
+                        <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Week Mechanism</p>
                         <p className="text-sm font-black text-brand-navy">Implementation Proof required</p>
                       </div>
                     </div>
@@ -149,12 +149,12 @@ export default function CurriculumPage() {
 
                   <div className="space-y-8">
                     <div className="space-y-4">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 flex items-center gap-2">
+                      <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 flex items-center gap-2">
                         <TrendingUp className="w-3 h-3" /> Skills You Unlock
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {week.skills.map(skill => (
-                          <span key={skill} className="px-4 py-2 bg-brand-navy/5 rounded-full text-[10px] font-black text-brand-navy uppercase tracking-widest">
+                          <span key={skill} className="px-4 py-2 bg-brand-navy/5 rounded-full text-xs font-black text-brand-navy uppercase tracking-widest">
                             {skill}
                           </span>
                         ))}
@@ -162,7 +162,7 @@ export default function CurriculumPage() {
                     </div>
 
                     <div className="space-y-4">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-brand-orange/60 flex items-center gap-2">
+                      <p className="text-xs font-black uppercase tracking-widest text-brand-orange/60 flex items-center gap-2">
                         <AlertIcon className="w-3 h-3" /> Mistakes This Fixes
                       </p>
                       <ul className="space-y-2">

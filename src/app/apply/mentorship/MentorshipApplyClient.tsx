@@ -147,7 +147,7 @@ export default function MentorshipApplyClient() {
           <div className="p-10 bg-brand-cream rounded-[3rem] border border-brand-navy/5 text-left space-y-6 shadow-xl">
             <div className="flex items-center gap-3">
               <ShieldCheck className="w-5 h-5 text-brand-orange" />
-              <p className="text-[10px] font-black text-brand-orange uppercase tracking-[0.3em]">Protocol Initiated</p>
+              <p className="text-xs font-black text-brand-orange uppercase tracking-widest">Protocol Initiated</p>
             </div>
             <ul className="space-y-5">
               {[
@@ -157,7 +157,7 @@ export default function MentorshipApplyClient() {
                 "Architecture Roadmap Delivery"
               ].map((step, i) => (
                 <li key={i} className="flex gap-4 text-sm font-bold text-brand-navy items-center">
-                  <span className="w-6 h-6 rounded-full bg-brand-navy text-white flex items-center justify-center text-[10px] shrink-0">{i + 1}</span>
+                  <span className="w-6 h-6 rounded-full bg-brand-navy text-white flex items-center justify-center text-xs shrink-0">{i + 1}</span>
                   {step}
                 </li>
               ))}
@@ -177,10 +177,10 @@ export default function MentorshipApplyClient() {
       <div className="mb-16 space-y-6">
         <div className="flex justify-between items-end">
           <div className="space-y-1">
-            <p className="text-[10px] font-black text-brand-orange uppercase tracking-[0.4em]">Clinic Intelligence Intake</p>
+            <p className="text-xs font-black text-brand-orange uppercase tracking-widest">Clinic Intelligence Intake</p>
             <h1 className="text-3xl font-black text-brand-navy uppercase tracking-tighter">Architecture Room Application</h1>
           </div>
-          <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Step {step} of 6</p>
+          <p className="text-xs font-black text-brand-navy/40 uppercase tracking-widest">Step {step} of 6</p>
         </div>
         <div className="flex justify-between items-center gap-2">
           {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -216,14 +216,14 @@ export default function MentorshipApplyClient() {
               {step === 1 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 01</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 01</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Identity & Baseline</h2>
                     <p className="text-brand-gray text-sm font-medium">Let's establish the clinical foundation.</p>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Full Name</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Full Name</label>
                       <input 
                         required
                         type="text" 
@@ -234,7 +234,7 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Email Address</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Email Address</label>
                       <input 
                         required
                         type="email" 
@@ -245,7 +245,7 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Phone Number</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Phone Number</label>
                       <input 
                         required
                         type="tel" 
@@ -256,7 +256,7 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 flex items-center gap-2">
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 flex items-center gap-2">
                         <Instagram className="w-3 h-3" /> Instagram Handle
                       </label>
                       <input 
@@ -268,7 +268,7 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Current Role</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Current Role</label>
                       <select 
                         required
                         className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-bold focus:ring-2 focus:ring-brand-orange transition-all appearance-none"
@@ -283,7 +283,7 @@ export default function MentorshipApplyClient() {
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Years in Practice</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Years in Practice</label>
                       <input 
                         required
                         type="text" 
@@ -294,14 +294,14 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="col-span-full space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Current Clinic Status</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Current Clinic Status</label>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {["Startup", "Growing", "Plateaued", "Scaling"].map((status) => (
                           <button
                             key={status}
                             type="button"
                             onClick={() => setFormData({...formData, clinic_status: status})}
-                            className={`p-4 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all ${
+                            className={`p-4 rounded-xl border-2 text-xs font-black uppercase tracking-widest transition-all ${
                               formData.clinic_status === status 
                                 ? "bg-brand-navy border-brand-navy text-white" 
                                 : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-orange/40"
@@ -320,14 +320,14 @@ export default function MentorshipApplyClient() {
               {step === 2 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 02</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 02</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Practice Intelligence</h2>
                     <p className="text-brand-gray text-sm font-medium">The data doesn't lie. Provide your current metrics.</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Avg Weekly Visits</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Avg Weekly Visits</label>
                       <input 
                         required
                         type="text" 
@@ -338,7 +338,7 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Avg Monthly Revenue</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Avg Monthly Revenue</label>
                       <input 
                         required
                         type="text" 
@@ -349,7 +349,7 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Avg Collection Per Visit (CPV)</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Avg Collection Per Visit (CPV)</label>
                       <input 
                         type="text" 
                         placeholder="e.g. $65"
@@ -359,7 +359,7 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Conversion % (Case Acceptance)</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Conversion % (Case Acceptance)</label>
                       <input 
                         type="text" 
                         placeholder="e.g. 70%"
@@ -369,7 +369,7 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">PVA (Patient Visit Average)</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">PVA (Patient Visit Average)</label>
                       <input 
                         type="text" 
                         placeholder="e.g. 24"
@@ -379,7 +379,7 @@ export default function MentorshipApplyClient() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Team Size</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Team Size</label>
                       <select 
                         required
                         className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-bold focus:ring-2 focus:ring-brand-orange transition-all appearance-none"
@@ -393,7 +393,7 @@ export default function MentorshipApplyClient() {
                       </select>
                     </div>
                     <div className="col-span-full space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 block">Do you currently track KPIs daily?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 block">Do you currently track KPIs daily?</label>
                       <div className="flex gap-4">
                         {["Yes", "No"].map((choice) => (
                           <button
@@ -419,7 +419,7 @@ export default function MentorshipApplyClient() {
               {step === 3 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 03</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 03</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Architecture Audit</h2>
                     <p className="text-brand-gray text-sm font-medium">Evaluate your current operational systems.</p>
                   </div>
@@ -433,14 +433,14 @@ export default function MentorshipApplyClient() {
                       { id: "team_training", label: "Do you have structured team training systems?" },
                     ].map((sys) => (
                       <div key={sys.id} className="space-y-4">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60 block">{sys.label}</label>
+                        <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 block">{sys.label}</label>
                         <div className="grid grid-cols-3 gap-3">
                           {["Yes", "No", "Somewhat"].map((option) => (
                             <button
                               key={option}
                               type="button"
                               onClick={() => setFormData({...formData, [sys.id]: option})}
-                              className={`p-4 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all ${
+                              className={`p-4 rounded-xl border-2 text-xs font-black uppercase tracking-widest transition-all ${
                                 (formData as any)[sys.id] === option 
                                   ? "bg-brand-navy border-brand-navy text-white" 
                                   : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-orange/40"
@@ -460,7 +460,7 @@ export default function MentorshipApplyClient() {
               {step === 4 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 04</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 04</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Structural Friction</h2>
                     <p className="text-brand-gray text-sm font-medium">Identify the primary leaks in your clinic.</p>
                   </div>
@@ -488,13 +488,13 @@ export default function MentorshipApplyClient() {
                           }`}
                         >
                           <item.icon className={`w-5 h-5 ${formData.challenges.includes(item.id) ? "text-brand-orange" : "text-brand-navy/20"}`} />
-                          <span className="text-[10px] font-black uppercase tracking-widest">{item.label}</span>
+                          <span className="text-xs font-black uppercase tracking-widest">{item.label}</span>
                         </button>
                       ))}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Describe what is currently not working in your clinic:</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Describe what is currently not working in your clinic:</label>
                       <textarea 
                         required
                         rows={4}
@@ -512,7 +512,7 @@ export default function MentorshipApplyClient() {
               {step === 5 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 05</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 05</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">The Vision</h2>
                     <p className="text-brand-gray text-sm font-medium">Define what successful architecture looks like for you.</p>
                   </div>
@@ -538,13 +538,13 @@ export default function MentorshipApplyClient() {
                           }`}
                         >
                           <item.icon className={`w-5 h-5 ${formData.success_goals.includes(item.id) ? "text-brand-orange" : "text-brand-navy/20"}`} />
-                          <span className="text-[10px] font-black uppercase tracking-widest">{item.label}</span>
+                          <span className="text-xs font-black uppercase tracking-widest">{item.label}</span>
                         </button>
                       ))}
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">What would fixing these problems allow you to do in your life?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">What would fixing these problems allow you to do in your life?</label>
                       <textarea 
                         required
                         rows={4}
@@ -562,7 +562,7 @@ export default function MentorshipApplyClient() {
               {step === 6 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 06</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 06</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Elite Qualification</h2>
                     <p className="text-brand-gray text-sm font-medium">Final filters before protocol activation.</p>
                   </div>
@@ -575,14 +575,14 @@ export default function MentorshipApplyClient() {
                         { id: "coachable", label: "Are you 100% coachable?" },
                       ].map((q) => (
                         <div key={q.id} className="space-y-3">
-                          <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">{q.label}</label>
+                          <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60">{q.label}</label>
                           <div className="flex gap-4">
                             {["Yes", "No"].map((choice) => (
                               <button
                                 key={choice}
                                 type="button"
                                 onClick={() => setFormData({...formData, [q.id]: choice})}
-                                className={`flex-1 p-4 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all ${
+                                className={`flex-1 p-4 rounded-xl border-2 text-xs font-black uppercase tracking-widest transition-all ${
                                   (formData as any)[q.id] === choice 
                                     ? "bg-brand-navy border-brand-navy text-white" 
                                     : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-orange/40"
@@ -597,7 +597,7 @@ export default function MentorshipApplyClient() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Why is NOW the right time to do this?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Why is NOW the right time to do this?</label>
                       <textarea 
                         required
                         rows={3}
@@ -608,7 +608,7 @@ export default function MentorshipApplyClient() {
                     </div>
 
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">Private coaching ranges from $7,500 – $25,000+. Are you prepared to invest in solving these problems?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60">Private coaching ranges from $7,500 – $25,000+. Are you prepared to invest in solving these problems?</label>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         {[
                           { id: "Yes", label: "Yes" },
@@ -619,7 +619,7 @@ export default function MentorshipApplyClient() {
                             key={choice.id}
                             type="button"
                             onClick={() => setFormData({...formData, investment_preparedness: choice.id})}
-                            className={`p-4 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all ${
+                            className={`p-4 rounded-xl border-2 text-xs font-black uppercase tracking-widest transition-all ${
                               formData.investment_preparedness === choice.id 
                                 ? "bg-brand-navy border-brand-navy text-white" 
                                 : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-orange/40"
@@ -634,7 +634,7 @@ export default function MentorshipApplyClient() {
                     <div className="p-8 bg-brand-navy rounded-[2.5rem] text-white relative overflow-hidden">
                        <Lock className="absolute top-4 right-4 w-12 h-12 text-white/5" />
                        <div className="relative z-10 space-y-4">
-                          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[8px]">The Standard</p>
+                          <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Standard</p>
                           <p className="text-xs font-medium leading-relaxed italic text-white/70">
                             "This is not for everyone. We work with doctors who are ready to install real systems and operate at a higher level. Your application is a legal representation of your clinical data and intent."
                           </p>
@@ -650,7 +650,7 @@ export default function MentorshipApplyClient() {
                   <button 
                     type="button" 
                     onClick={handleBack}
-                    className="flex items-center gap-2 text-[10px] font-black text-brand-navy/40 uppercase tracking-widest hover:text-brand-navy transition-colors"
+                    className="flex items-center gap-2 text-xs font-black text-brand-navy/40 uppercase tracking-widest hover:text-brand-navy transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4" /> Back
                   </button>

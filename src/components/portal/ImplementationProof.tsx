@@ -102,7 +102,7 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
                     <div className="space-y-2">
                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-2">
                         <Target size={12} />
-                        <p className="text-[10px] font-black uppercase tracking-widest">+100 Mastery Points</p>
+                        <p className="text-xs font-black uppercase tracking-widest">+100 Mastery Points</p>
                       </div>
                       <h3 className="text-3xl font-black text-brand-navy tracking-tighter">Submit Proof: Phase 0{phaseId}</h3>
                       <p className="text-brand-gray text-sm font-medium">
@@ -127,12 +127,12 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
                       {fileName ? (
                         <div>
                           <p className="text-sm font-black text-brand-navy">{fileName}</p>
-                          <p className="text-[10px] font-bold text-green-600 uppercase tracking-widest mt-1">Ready for Neural Analysis</p>
+                          <p className="text-xs font-bold text-green-600 uppercase tracking-widest mt-1">Ready for Neural Analysis</p>
                         </div>
                       ) : (
                         <div>
                           <p className="text-sm font-black text-brand-navy uppercase tracking-widest">Click to Upload ROF/Scripts</p>
-                          <p className="text-[10px] font-bold text-brand-navy/40 uppercase tracking-widest mt-1">Video, Audio, or PDF</p>
+                          <p className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest mt-1">Video, Audio, or PDF</p>
                         </div>
                       )}
                     </div>
@@ -181,16 +181,16 @@ export function ImplementationProof({ phaseId, phaseTitle }: ImplementationProof
                     </motion.div>
                     <div className="space-y-2">
                       <h3 className="text-3xl font-black text-brand-navy">Implementation Verified!</h3>
-                      <p className="text-green-600 font-bold uppercase tracking-[0.2em] text-xs">Mastery Score Updated</p>
+                      <p className="text-green-600 font-bold uppercase tracking-wider text-xs">Mastery Score Updated</p>
                     </div>
                     <div className="p-6 bg-brand-navy text-white rounded-2xl w-full">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-black uppercase text-white/40">New Score</span>
+                        <span className="text-xs font-black uppercase text-white/40">New Score</span>
                         <span className="text-xl font-black text-brand-orange">950 PTS</span>
                       </div>
                       <div className="flex items-center gap-2 mt-2">
                         <Zap size={10} className="text-brand-orange fill-brand-orange" />
-                        <p className="text-[8px] font-black uppercase tracking-widest text-white/60">Community Status: Active Member</p>
+                        <p className="text-xs font-black uppercase tracking-widest text-white/60">Community Status: Active Member</p>
                       </div>
                     </div>
                   </div>

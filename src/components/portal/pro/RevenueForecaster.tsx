@@ -69,7 +69,7 @@ export function RevenueForecaster() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <ShieldCheck className="w-4 h-4 text-brand-orange" />
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">Pro Exclusive Intelligence</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Pro Exclusive Intelligence</p>
           </div>
           <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Revenue Forecaster</h1>
         </div>
@@ -82,7 +82,7 @@ export function RevenueForecaster() {
           
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase text-brand-navy/40 ml-1">Monthly Revenue ($)</label>
+              <label className="text-xs font-black uppercase text-brand-navy/40 ml-1">Monthly Revenue ($)</label>
               <input 
                 type="number"
                 value={inputs.monthlyRevenue}
@@ -92,7 +92,7 @@ export function RevenueForecaster() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase text-brand-navy/40 ml-1">Visits Per Week</label>
+              <label className="text-xs font-black uppercase text-brand-navy/40 ml-1">Visits Per Week</label>
               <input 
                 type="number"
                 value={inputs.visitsPerWeek}
@@ -102,7 +102,7 @@ export function RevenueForecaster() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase text-brand-navy/40 ml-1">New Patients / Mo</label>
+              <label className="text-xs font-black uppercase text-brand-navy/40 ml-1">New Patients / Mo</label>
               <input 
                 type="number"
                 value={inputs.newPatientsPerMonth}
@@ -112,7 +112,7 @@ export function RevenueForecaster() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase text-brand-navy/40 ml-1">Avg. Case Value ($)</label>
+              <label className="text-xs font-black uppercase text-brand-navy/40 ml-1">Avg. Case Value ($)</label>
               <input 
                 type="number"
                 value={inputs.avgCaseValue}
@@ -124,9 +124,9 @@ export function RevenueForecaster() {
 
           <div className="pt-4">
             <div className="p-4 bg-brand-navy text-white rounded-2xl space-y-1">
-              <p className="text-[8px] font-black uppercase tracking-widest text-white/40">Growth Efficiency</p>
+              <p className="text-xs font-black uppercase tracking-widest text-white/40">Growth Efficiency</p>
               <p className="text-xl font-black text-brand-orange">{(stats.cpv / 1.5).toFixed(1)}%</p>
-              <p className="text-[9px] font-medium text-white/60">Calculated from clinical conversion</p>
+              <p className="text-xs font-medium text-white/60">Calculated from clinical conversion</p>
             </div>
           </div>
         </EliteCard>
@@ -137,16 +137,16 @@ export function RevenueForecaster() {
             <div className="flex justify-between items-center mb-8">
               <div>
                 <h3 className="text-lg font-black text-brand-navy">The Growth Path</h3>
-                <p className="text-[10px] font-bold text-brand-orange uppercase tracking-widest">Target: $100,000 / Month</p>
+                <p className="text-xs font-bold text-brand-orange uppercase tracking-widest">Target: $100,000 / Month</p>
               </div>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-brand-orange" />
-                  <span className="text-[8px] font-black uppercase text-brand-navy/40">Projection</span>
+                  <span className="text-xs font-black uppercase text-brand-navy/40">Projection</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-brand-navy/10" />
-                  <span className="text-[8px] font-black uppercase text-brand-navy/40">Goal</span>
+                  <span className="text-xs font-black uppercase text-brand-navy/40">Goal</span>
                 </div>
               </div>
             </div>
@@ -201,19 +201,19 @@ export function RevenueForecaster() {
           {/* Efficiency Breakdown */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <EliteCard className="p-6 bg-brand-cream/30">
-              <p className="text-[8px] font-black uppercase text-brand-navy/40 mb-1">PVA (Patient Visit Avg)</p>
+              <p className="text-xs font-black uppercase text-brand-navy/40 mb-1">PVA (Patient Visit Avg)</p>
               <h4 className="text-2xl font-black text-brand-navy">{stats.pva}</h4>
-              <p className="text-[10px] font-bold text-brand-orange mt-2">Elite Benchmark: 45+</p>
+              <p className="text-xs font-bold text-brand-orange mt-2">Elite Benchmark: 45+</p>
             </EliteCard>
             <EliteCard className="p-6 bg-brand-cream/30">
-              <p className="text-[8px] font-black uppercase text-brand-navy/40 mb-1">Collections / Visit</p>
+              <p className="text-xs font-black uppercase text-brand-navy/40 mb-1">Collections / Visit</p>
               <h4 className="text-2xl font-black text-brand-navy">${stats.cpv}</h4>
-              <p className="text-[10px] font-bold text-brand-orange mt-2">Target: $85+</p>
+              <p className="text-xs font-bold text-brand-orange mt-2">Target: $85+</p>
             </EliteCard>
             <EliteCard className="p-6 bg-brand-navy text-white">
-              <p className="text-[8px] font-black uppercase text-white/40 mb-1">The Growth Gap</p>
+              <p className="text-xs font-black uppercase text-white/40 mb-1">The Growth Gap</p>
               <h4 className="text-2xl font-black text-brand-orange">${stats.gap.toLocaleString()}</h4>
-              <p className="text-[10px] font-bold text-white/60 mt-2">Available Revenue</p>
+              <p className="text-xs font-bold text-white/60 mt-2">Available Revenue</p>
             </EliteCard>
           </div>
 

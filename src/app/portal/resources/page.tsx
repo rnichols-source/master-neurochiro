@@ -29,7 +29,7 @@ export default async function ResourcesPage() {
       <div className="space-y-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div className="space-y-2">
-            <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px]">The Vault</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Vault</p>
             <h1 className="text-5xl font-black text-brand-navy tracking-tighter">Proprietary Assets</h1>
             <p className="text-brand-gray font-medium max-w-xl">
               Access clinical scripts, worksheets, and technical blueprints 
@@ -63,7 +63,7 @@ export default async function ResourcesPage() {
                         <Icon className="w-6 h-6" />
                       </div>
                       {item.is_pro_only && (
-                        <div className="flex items-center gap-1 bg-brand-orange/10 text-brand-orange px-2 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest">
+                        <div className="flex items-center gap-1 bg-brand-orange/10 text-brand-orange px-2 py-1 rounded-lg text-xs font-black uppercase tracking-widest">
                           <Shield className="w-2 h-2" /> Pro Access
                         </div>
                       )}
@@ -73,7 +73,7 @@ export default async function ResourcesPage() {
                       <h3 className="text-xl font-black text-brand-navy tracking-tight group-hover:text-brand-orange transition-colors">
                         {item.title}
                       </h3>
-                      <p className="text-[10px] font-black uppercase text-brand-navy/30 mt-1 tracking-widest">
+                      <p className="text-xs font-black uppercase text-brand-navy/30 mt-1 tracking-widest">
                         {item.type} &bull; {new Date(item.created_at).toLocaleDateString()}
                       </p>
                     </div>
@@ -84,7 +84,7 @@ export default async function ResourcesPage() {
                       rel="noopener noreferrer"
                       className="block w-full"
                     >
-                      <BrandButton variant="outline" className="w-full text-[10px] py-4 group">
+                      <BrandButton variant="outline" className="w-full text-xs py-4 group">
                         {item.type === 'link' ? (
                           <>Open Resource <ArrowUpRight className="ml-2 w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" /></>
                         ) : (

@@ -227,23 +227,23 @@ export function AdminDashboardClient({
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-brand-navy/10 pb-8">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">CEO Console</p>
+          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">CEO Console</p>
           <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Command Center</h1>
         </div>
         <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
           <Link href="/portal/vault" className="flex-1 md:flex-none">
-            <BrandButton variant="outline" size="sm" className="w-full md:w-auto py-3 text-[10px] border-brand-navy text-brand-navy">
+            <BrandButton variant="outline" size="sm" className="w-full md:w-auto py-3 text-xs border-brand-navy text-brand-navy">
               <Lock className="w-3 h-3 mr-2" /> Enter Vault
             </BrandButton>
           </Link>
           <Link href="/admin/curriculum" className="flex-1 md:flex-none">
-            <BrandButton variant="outline" size="sm" className="w-full md:w-auto py-3 text-[10px]">Manage Content</BrandButton>
+            <BrandButton variant="outline" size="sm" className="w-full md:w-auto py-3 text-xs">Manage Content</BrandButton>
           </Link>
           <BrandButton 
             variant="accent" 
             size="sm" 
             onClick={() => setShowAnnouncementModal(true)}
-            className="flex-1 md:flex-none py-3 text-[10px]"
+            className="flex-1 md:flex-none py-3 text-xs"
           >
             Broadcast
           </BrandButton>
@@ -251,7 +251,7 @@ export function AdminDashboardClient({
             variant="primary" 
             size="sm" 
             onClick={() => setShowCallModal(true)}
-            className="flex-1 md:flex-none py-3 text-[10px]"
+            className="flex-1 md:flex-none py-3 text-xs"
           >
             Schedule Call
           </BrandButton>
@@ -263,12 +263,12 @@ export function AdminDashboardClient({
         <EliteCard className="p-6">
           <div className="flex justify-between items-start mb-4">
             <div className="p-2.5 bg-blue-500/10 rounded-2xl"><Users className="w-5 h-5 text-blue-500" /></div>
-            <span className="text-[10px] font-black text-green-500 bg-green-50 px-2 py-1 rounded-lg">Active</span>
+            <span className="text-xs font-black text-green-500 bg-green-50 px-2 py-1 rounded-lg">Active</span>
           </div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Total Members</p>
+          <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Total Members</p>
           <div className="flex items-baseline gap-2">
             <h3 className="text-3xl font-black text-brand-navy tracking-tight">{stats?.totalMembers || 0}</h3>
-            <p className="text-[10px] font-bold text-brand-navy/30">{stats?.proMembers || 0} Pro / {stats?.standardMembers || 0} Std</p>
+            <p className="text-xs font-bold text-brand-navy/30">{stats?.proMembers || 0} Pro / {stats?.standardMembers || 0} Std</p>
           </div>
         </EliteCard>
 
@@ -276,7 +276,7 @@ export function AdminDashboardClient({
           <div className="flex justify-between items-start mb-4">
             <div className="p-2.5 bg-green-500/10 rounded-2xl"><DollarSign className="w-5 h-5 text-green-500" /></div>
           </div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Gross Revenue Est.</p>
+          <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Gross Revenue Est.</p>
           <h3 className="text-3xl font-black text-brand-navy tracking-tight">${(revenueData?.totalRevenue || 0).toLocaleString()}</h3>
         </EliteCard>
 
@@ -284,7 +284,7 @@ export function AdminDashboardClient({
           <div className="flex justify-between items-start mb-4">
             <div className="p-2.5 bg-purple-500/10 rounded-2xl"><Activity className="w-5 h-5 text-purple-500" /></div>
           </div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Avg. Completion</p>
+          <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Avg. Completion</p>
           <h3 className="text-3xl font-black text-brand-navy tracking-tight">{stats?.avgCompletion || 0}%</h3>
         </EliteCard>
 
@@ -293,7 +293,7 @@ export function AdminDashboardClient({
             <div className="p-2.5 bg-brand-orange/10 rounded-2xl"><FileText className="w-5 h-5 text-brand-orange" /></div>
             {(stats?.pendingApps || 0) > 0 && <span className="animate-pulse w-2 h-2 rounded-full bg-brand-orange" />}
           </div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-1">Pending Apps</p>
+          <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-1">Pending Apps</p>
           <div className="flex items-center gap-4">
             <h3 className="text-3xl font-black text-brand-navy tracking-tight">{stats?.pendingApps || 0}</h3>
             <Link href="/admin/applications" className="text-brand-orange text-xs font-bold uppercase tracking-widest hover:underline">Review</Link>
@@ -350,25 +350,25 @@ export function AdminDashboardClient({
         <EliteCard className="lg:col-span-2 p-6" title="Member Intelligence" subtitle="Live Engagement Data">
           <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="space-y-1 border-r border-brand-navy/5">
-              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Profiles Built</p>
+              <p className="text-xs font-black text-brand-navy/40 uppercase tracking-widest">Profiles Built</p>
               <h4 className="text-3xl font-black text-brand-navy">{mastermindActivity?.profilesCompleted || 0}</h4>
             </div>
             <div className="space-y-1 border-r border-brand-navy/5">
-              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Active Today</p>
+              <p className="text-xs font-black text-brand-navy/40 uppercase tracking-widest">Active Today</p>
               <h4 className="text-3xl font-black text-brand-orange">{mastermindActivity?.activeToday || 0}</h4>
             </div>
             <div className="space-y-1 border-r border-brand-navy/5">
-              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Watched W6</p>
+              <p className="text-xs font-black text-brand-navy/40 uppercase tracking-widest">Watched W6</p>
               <h4 className="text-3xl font-black text-brand-navy">{mastermindActivity?.watchedWeek6 || 0}</h4>
             </div>
             <div className="space-y-1">
-              <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Inactive</p>
+              <p className="text-xs font-black text-brand-navy/40 uppercase tracking-widest">Inactive</p>
               <h4 className="text-3xl font-black text-brand-gray/40">{mastermindActivity?.inactive || 0}</h4>
             </div>
           </div>
           
           <div className="mt-8 space-y-4">
-            <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 mb-2">Live Stream</p>
+            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-2">Live Stream</p>
             {recentActivity.length > 0 ? recentActivity.map((act: any, i: number) => (
               <div key={i} className="flex gap-4 p-3 bg-brand-navy/5 rounded-xl">
                 <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0">
@@ -376,11 +376,11 @@ export function AdminDashboardClient({
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-bold text-brand-navy truncate">{act.profiles?.full_name || 'System'}</p>
-                  <p className="text-[10px] text-brand-navy/40 font-medium truncate">Completed: {act.modules?.title}</p>
+                  <p className="text-xs text-brand-navy/40 font-medium truncate">Completed: {act.modules?.title}</p>
                 </div>
               </div>
             )) : (
-              <p className="text-[10px] font-bold text-brand-navy/20 uppercase tracking-widest py-4">No recent activity</p>
+              <p className="text-xs font-bold text-brand-navy/20 uppercase tracking-widest py-4">No recent activity</p>
             )}
           </div>
         </EliteCard>
@@ -397,16 +397,16 @@ export function AdminDashboardClient({
                        <p className="text-xs font-bold text-brand-navy">{member.full_name}</p>
                      </div>
                      <div className="flex justify-between items-center">
-                       <p className="text-[10px] text-brand-navy/60">{member.status === 'pending_profile' ? 'Profile Not Setup' : 'Zero Progress'}</p>
+                       <p className="text-xs text-brand-navy/60">{member.status === 'pending_profile' ? 'Profile Not Setup' : 'Zero Progress'}</p>
                        <div className="flex items-center gap-3">
                          <button 
                            onClick={() => handleManualInvite(member.email, member.full_name)}
                            disabled={isInviting === member.email}
-                           className="text-[10px] font-black text-brand-orange uppercase tracking-widest hover:text-brand-navy transition-colors disabled:opacity-50"
+                           className="text-xs font-black text-brand-orange uppercase tracking-widest hover:text-brand-navy transition-colors disabled:opacity-50"
                          >
                            {isInviting === member.email ? 'Sending...' : 'Instant Invite'}
                          </button>
-                         <a href={`mailto:${member.email}`} className="text-[10px] font-bold text-brand-navy/40 uppercase">Email</a>
+                         <a href={`mailto:${member.email}`} className="text-xs font-bold text-brand-navy/40 uppercase">Email</a>
                        </div>
                      </div>
                    </div>
@@ -426,7 +426,7 @@ export function AdminDashboardClient({
             <BrandButton 
               variant="outline" 
               size="sm" 
-              className="w-full text-[10px] py-3 mt-4 bg-white hover:bg-red-500 hover:text-white hover:border-red-500"
+              className="w-full text-xs py-3 mt-4 bg-white hover:bg-red-500 hover:text-white hover:border-red-500"
               onClick={handlePulse}
               isLoading={isPulseRunning}
             >
@@ -444,12 +444,12 @@ export function AdminDashboardClient({
               <div key={i} className="flex items-center justify-between p-3 bg-brand-navy/5 rounded-xl">
                 <div className="flex items-center gap-3 overflow-hidden">
                   <div className="w-6 h-6 rounded bg-brand-orange/10 flex items-center justify-center shrink-0">
-                    <span className="text-[10px] font-black text-brand-orange">{i + 1}</span>
+                    <span className="text-xs font-black text-brand-orange">{i + 1}</span>
                   </div>
                   <p className="text-xs font-bold text-brand-navy truncate">{item.title}</p>
                 </div>
                 <div className="flex items-center gap-2 pl-4">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">{item.download_count} hits</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40">{item.download_count} hits</p>
                 </div>
               </div>
             )) : (
@@ -477,7 +477,7 @@ export function AdminDashboardClient({
                 </div>
                 <div className="flex items-center gap-2">
                   <div className={cn("w-2 h-2 rounded-full", sys.status === 'operational' ? "bg-green-500 animate-pulse" : "bg-red-500 animate-pulse")} />
-                  <span className={cn("text-[10px] font-black uppercase tracking-widest", sys.status === 'operational' ? "text-green-500" : "text-red-500")}>
+                  <span className={cn("text-xs font-black uppercase tracking-widest", sys.status === 'operational' ? "text-green-500" : "text-red-500")}>
                     {sys.status}
                   </span>
                 </div>
@@ -494,7 +494,7 @@ export function AdminDashboardClient({
             <div className="flex justify-between items-start mb-6 md:mb-8">
               <div>
                 <h3 className="text-xl md:text-2xl font-black text-brand-navy">Broadcast Message</h3>
-                <p className="text-[10px] font-bold text-brand-orange uppercase tracking-widest mt-1">Push to all active members</p>
+                <p className="text-xs font-bold text-brand-orange uppercase tracking-widest mt-1">Push to all active members</p>
               </div>
               <button onClick={() => setShowAnnouncementModal(false)} className="p-2 hover:bg-brand-navy/5 rounded-lg transition-all">
                 <X className="w-5 h-5 text-brand-navy/40" />
@@ -503,7 +503,7 @@ export function AdminDashboardClient({
 
             <form onSubmit={handleAnnouncement} className="space-y-4 md:space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Subject</label>
+                <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Subject</label>
                 <input 
                   type="text" 
                   required
@@ -514,7 +514,7 @@ export function AdminDashboardClient({
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Message Content</label>
+                <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Message Content</label>
                 <textarea 
                   required
                   rows={4}
@@ -538,7 +538,7 @@ export function AdminDashboardClient({
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">Schedule Live Mastermind</h3>
-                <p className="text-[10px] font-bold text-brand-orange uppercase tracking-widest mt-1">Updates Student Dashboard Timer</p>
+                <p className="text-xs font-bold text-brand-orange uppercase tracking-widest mt-1">Updates Student Dashboard Timer</p>
               </div>
               <button onClick={() => setShowCallModal(false)} className="p-2 hover:bg-brand-navy/5 rounded-lg transition-all">
                 <X className="w-5 h-5 text-brand-navy/40" />
@@ -548,7 +548,7 @@ export function AdminDashboardClient({
             <form onSubmit={handleUpdateCall} className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Date</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Date</label>
                   <input 
                     type="date" 
                     required
@@ -558,7 +558,7 @@ export function AdminDashboardClient({
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Time</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Time</label>
                   <input 
                     type="time" 
                     required
@@ -570,7 +570,7 @@ export function AdminDashboardClient({
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Zoom Link</label>
+                <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Zoom Link</label>
                 <div className="relative">
                   <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-brand-navy/30" />
                   <input 
@@ -598,7 +598,7 @@ export function AdminDashboardClient({
             <div className="flex justify-between items-start mb-6">
               <div>
                 <h3 className="text-xl font-black text-brand-navy uppercase tracking-tight">Manual Portal Invite</h3>
-                <p className="text-[10px] font-bold text-brand-orange uppercase tracking-widest mt-1">For members from legacy systems</p>
+                <p className="text-xs font-bold text-brand-orange uppercase tracking-widest mt-1">For members from legacy systems</p>
               </div>
               <button onClick={() => setShowInviteModal(false)} className="p-2 hover:bg-brand-navy/5 rounded-lg transition-all">
                 <X className="w-5 h-5 text-brand-navy/40" />
@@ -607,7 +607,7 @@ export function AdminDashboardClient({
 
             <form onSubmit={handleManualInviteSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Full Name</label>
+                <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Full Name</label>
                 <input 
                   type="text" 
                   required
@@ -619,7 +619,7 @@ export function AdminDashboardClient({
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 ml-1">Email Address</label>
+                <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Email Address</label>
                 <input 
                   type="email" 
                   required

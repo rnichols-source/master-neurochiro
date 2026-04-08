@@ -113,7 +113,7 @@ export default function CouncilApplyClient() {
             <div className="absolute top-0 right-0 p-8 opacity-10">
                <Star className="w-24 h-24 text-brand-orange" />
             </div>
-            <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px] relative z-10">Inner Circle Protocol</p>
+            <p className="text-brand-orange font-black uppercase tracking-widest text-xs relative z-10">Inner Circle Protocol</p>
             <ul className="space-y-5 relative z-10">
               {[
                 "Application Review & Verification",
@@ -122,7 +122,7 @@ export default function CouncilApplyClient() {
                 "Onboarding & Call Schedule Access"
               ].map((step, i) => (
                 <li key={i} className="flex gap-4 text-sm font-bold items-center">
-                  <span className="w-6 h-6 rounded-full bg-white/10 text-white flex items-center justify-center text-[10px] shrink-0">{i + 1}</span>
+                  <span className="w-6 h-6 rounded-full bg-white/10 text-white flex items-center justify-center text-xs shrink-0">{i + 1}</span>
                   {step}
                 </li>
               ))}
@@ -142,10 +142,10 @@ export default function CouncilApplyClient() {
       <div className="mb-16 space-y-6">
         <div className="flex justify-between items-end">
           <div className="space-y-1">
-            <p className="text-[10px] font-black text-brand-orange uppercase tracking-[0.4em]">The Inner Circle</p>
+            <p className="text-xs font-black text-brand-orange uppercase tracking-widest">The Inner Circle</p>
             <h1 className="text-3xl font-black text-brand-navy uppercase tracking-tighter">Council Membership Application</h1>
           </div>
-          <p className="text-[10px] font-black text-brand-navy/40 uppercase tracking-widest">Step {step} of 5</p>
+          <p className="text-xs font-black text-brand-navy/40 uppercase tracking-widest">Step {step} of 5</p>
         </div>
         <div className="flex justify-between items-center gap-2">
           {[1, 2, 3, 4, 5].map((i) => (
@@ -176,26 +176,26 @@ export default function CouncilApplyClient() {
               {step === 1 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 01</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 01</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none text-brand-navy">Identity</h2>
                     <p className="text-brand-gray text-sm font-medium">This is where execution begins.</p>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Full Name</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Full Name</label>
                       <input required type="text" placeholder="Dr. Jane Smith" className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-bold focus:ring-2 focus:ring-brand-navy transition-all" value={formData.full_name} onChange={e => setFormData({...formData, full_name: e.target.value})} />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Practice Email</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Practice Email</label>
                       <input required type="email" placeholder="doctor@clinic.com" className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-bold focus:ring-2 focus:ring-brand-navy transition-all" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Phone Number</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Phone Number</label>
                       <input required type="tel" placeholder="555-0123" className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-bold focus:ring-2 focus:ring-brand-navy transition-all" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Current Role</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Current Role</label>
                       <select required className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-bold focus:ring-2 focus:ring-brand-navy transition-all appearance-none" value={formData.current_role} onChange={e => setFormData({...formData, current_role: e.target.value})}>
                         <option value="">Select Role</option>
                         <option value="Clinic Owner">Clinic Owner</option>
@@ -204,7 +204,7 @@ export default function CouncilApplyClient() {
                       </select>
                     </div>
                     <div className="col-span-full space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 block">Are you currently in the NeuroChiro Mastermind?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 block">Are you currently in the NeuroChiro Mastermind?</label>
                       <div className="flex gap-4">
                         {["Yes", "No"].map((choice) => (
                           <button key={choice} type="button" onClick={() => setFormData({...formData, in_mastermind: choice})} className={`flex-1 p-5 rounded-2xl border-2 text-xs font-black uppercase tracking-widest transition-all ${formData.in_mastermind === choice ? "bg-brand-navy border-brand-navy text-white" : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-navy/40"}`}>{choice}</button>
@@ -219,14 +219,14 @@ export default function CouncilApplyClient() {
               {step === 2 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 02</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 02</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Current Position</h2>
                     <p className="text-brand-gray text-sm font-medium">Define your current implementation phase.</p>
                   </div>
 
                   <div className="space-y-8">
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 block">What phase are you currently in?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 block">What phase are you currently in?</label>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {["Learning Fundamentals", "Applying Inconsistently", "Implementing Consistently", "Scaling Systems"].map((phase) => (
                           <button key={phase} type="button" onClick={() => setFormData({...formData, current_phase: phase})} className={`p-5 rounded-2xl border-2 text-left text-xs font-black uppercase tracking-widest transition-all ${formData.current_phase === phase ? "bg-brand-navy border-brand-navy text-white" : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-navy/40"}`}>{phase}</button>
@@ -235,11 +235,11 @@ export default function CouncilApplyClient() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Weekly Patient Visits</label>
+                        <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Weekly Patient Visits</label>
                         <input type="text" placeholder="e.g. 100" className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-bold focus:ring-2 focus:ring-brand-navy transition-all" value={formData.weekly_visits} onChange={e => setFormData({...formData, weekly_visits: e.target.value})} />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Biggest Focus Right Now</label>
+                        <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Biggest Focus Right Now</label>
                         <select required className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-bold focus:ring-2 focus:ring-brand-navy transition-all appearance-none" value={formData.biggest_focus} onChange={e => setFormData({...formData, biggest_focus: e.target.value})}>
                           <option value="">Select Focus</option>
                           <option value="Conversions">Conversions</option>
@@ -258,14 +258,14 @@ export default function CouncilApplyClient() {
               {step === 3 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 03</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 03</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Execution Audit</h2>
                     <p className="text-brand-gray text-sm font-medium">Measure your commitment to the blueprint.</p>
                   </div>
 
                   <div className="space-y-8">
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40 block">How much have you implemented from what you've learned so far?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 block">How much have you implemented from what you've learned so far?</label>
                       <div className="grid grid-cols-2 gap-4">
                         {["Very Little", "Some", "A Lot", "Fully Consistent"].map((lvl) => (
                           <button key={lvl} type="button" onClick={() => setFormData({...formData, implementation_level: lvl})} className={`p-5 rounded-2xl border-2 text-xs font-black uppercase tracking-widest transition-all ${formData.implementation_level === lvl ? "bg-brand-navy border-brand-navy text-white" : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-navy/40"}`}>{lvl}</button>
@@ -273,7 +273,7 @@ export default function CouncilApplyClient() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">What is currently holding you back from full execution?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">What is currently holding you back from full execution?</label>
                       <textarea required rows={4} placeholder="Time? Fear? Team? Confusion?" className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-medium focus:ring-2 focus:ring-brand-navy transition-all" value={formData.holding_back_description} onChange={e => setFormData({...formData, holding_back_description: e.target.value})} />
                     </div>
                   </div>
@@ -284,7 +284,7 @@ export default function CouncilApplyClient() {
               {step === 4 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 04</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 04</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Council Alignment</h2>
                     <p className="text-brand-gray text-sm font-medium">Why the Inner Circle?</p>
                   </div>
@@ -294,11 +294,11 @@ export default function CouncilApplyClient() {
                       "The Council is where we take the blueprint and actually build it into your clinic and life. This is not another program; it is an environment of ongoing proximity."
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">Why do you want to join the Council?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Why do you want to join the Council?</label>
                       <textarea required rows={3} className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-medium focus:ring-2 focus:ring-brand-navy transition-all" value={formData.why_join_council} onChange={e => setFormData({...formData, why_join_council: e.target.value})} />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/40">What would change in your clinic if you had ongoing coaching and accountability?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">What would change in your clinic if you had ongoing coaching and accountability?</label>
                       <textarea required rows={3} className="w-full bg-brand-cream border-none rounded-2xl p-5 text-sm font-medium focus:ring-2 focus:ring-brand-navy transition-all" value={formData.ongoing_impact} onChange={e => setFormData({...formData, ongoing_impact: e.target.value})} />
                     </div>
                   </div>
@@ -309,7 +309,7 @@ export default function CouncilApplyClient() {
               {step === 5 && (
                 <div className="space-y-10">
                   <div className="space-y-2">
-                    <p className="text-brand-orange font-black uppercase tracking-[0.3em] text-[10px]">Section 05</p>
+                    <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 05</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Commitment</h2>
                     <p className="text-brand-gray text-sm font-medium">Final filters before acceptance.</p>
                   </div>
@@ -322,10 +322,10 @@ export default function CouncilApplyClient() {
                         { id: "open_to_feedback", label: "Are you open to feedback on your systems & communication?" },
                       ].map((q) => (
                         <div key={q.id} className="space-y-3">
-                          <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">{q.label}</label>
+                          <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60">{q.label}</label>
                           <div className="flex gap-4">
                             {["Yes", "No"].map((choice) => (
-                              <button key={choice} type="button" onClick={() => setFormData({...formData, [q.id]: choice})} className={`flex-1 p-4 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all ${(formData as any)[q.id] === choice ? "bg-brand-navy border-brand-navy text-white" : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-navy/40"}`}>{choice}</button>
+                              <button key={choice} type="button" onClick={() => setFormData({...formData, [q.id]: choice})} className={`flex-1 p-4 rounded-xl border-2 text-xs font-black uppercase tracking-widest transition-all ${(formData as any)[q.id] === choice ? "bg-brand-navy border-brand-navy text-white" : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-navy/40"}`}>{choice}</button>
                             ))}
                           </div>
                         </div>
@@ -333,7 +333,7 @@ export default function CouncilApplyClient() {
                     </div>
 
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60">The Council is $297/month. This is for people serious about building, not just learning. Are you ready?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60">The Council is $297/month. This is for people serious about building, not just learning. Are you ready?</label>
                       <div className="flex gap-4">
                         {["Yes — I'm Ready", "I Need More Info"].map((choice) => (
                           <button key={choice} type="button" onClick={() => setFormData({...formData, investment_readiness: choice})} className={`flex-1 p-5 rounded-2xl border-2 text-xs font-black uppercase tracking-widest transition-all ${formData.investment_readiness === choice ? "bg-brand-navy border-brand-navy text-white" : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-navy/40"}`}>{choice}</button>
@@ -344,7 +344,7 @@ export default function CouncilApplyClient() {
                     <div className="p-8 bg-brand-cream rounded-[2.5rem] text-brand-navy relative overflow-hidden border border-brand-navy/5">
                        <Lock className="absolute top-4 right-4 w-12 h-12 text-brand-navy/5" />
                        <div className="relative z-10 space-y-2 text-center">
-                          <p className="text-[10px] font-black uppercase tracking-[0.4em]">The Standard</p>
+                          <p className="text-xs font-black uppercase tracking-widest">The Standard</p>
                           <p className="text-sm font-bold italic">
                             "This is not for passive learning. This is for people ready to build."
                           </p>
@@ -357,7 +357,7 @@ export default function CouncilApplyClient() {
               {/* NAVIGATION */}
               <div className="flex justify-between items-center pt-10 border-t border-brand-navy/5">
                 {step > 1 ? (
-                  <button type="button" onClick={handleBack} className="flex items-center gap-2 text-[10px] font-black text-brand-navy/40 uppercase tracking-widest hover:text-brand-navy transition-colors">
+                  <button type="button" onClick={handleBack} className="flex items-center gap-2 text-xs font-black text-brand-navy/40 uppercase tracking-widest hover:text-brand-navy transition-colors">
                     <ArrowLeft className="w-4 h-4" /> Back
                   </button>
                 ) : <div />}

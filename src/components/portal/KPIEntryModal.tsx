@@ -62,7 +62,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
             <EliteCard className="p-0 overflow-hidden shadow-2xl border-none">
               <div className="p-8 border-b border-brand-navy/5 flex items-center justify-between bg-brand-cream/30">
                 <div>
-                  <p className="text-brand-orange font-black uppercase tracking-[0.2em] text-[10px] mb-1">
+                  <p className="text-brand-orange font-black uppercase tracking-wider text-xs mb-1">
                     Intelligence Input
                   </p>
                   <h3 className="text-2xl font-black text-brand-navy tracking-tight">Submit Weekly KPIs</h3>
@@ -79,7 +79,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Date Selection */}
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
                       Week Starting Date
                     </label>
                     <div className="relative">
@@ -96,7 +96,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
 
                   {/* Collections */}
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
                       Total Collections ($)
                     </label>
                     <div className="relative">
@@ -115,7 +115,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
 
                   {/* New Patients */}
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
                       New Patients
                     </label>
                     <div className="relative">
@@ -133,7 +133,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
 
                   {/* Visits */}
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
                       Total Patient Visits
                     </label>
                     <div className="relative">
@@ -153,7 +153,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
                 <div className="space-y-6">
                   {/* Wins */}
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
                       Weekly Wins (Identity Shifts, Results)
                     </label>
                     <textarea
@@ -167,7 +167,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
 
                   {/* Bottlenecks */}
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
                       Current Bottlenecks (Where are you stuck?)
                     </label>
                     <textarea

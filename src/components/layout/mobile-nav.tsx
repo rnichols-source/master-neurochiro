@@ -58,7 +58,7 @@ export function MobileNav({ userTier = "standard" }: { userTier?: string }) {
               </div>
               <span
                 className={cn(
-                  "text-[10px] font-bold transition-colors",
+                  "text-xs font-bold transition-colors",
                   isActive ? "text-white" : "text-white/30"
                 )}
               >
