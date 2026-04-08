@@ -40,32 +40,45 @@ export async function DashboardLayout({
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 pb-20 md:pb-0">
         {/* Top Header */}
-        <header className="h-14 md:h-20 border-b border-brand-navy/5 bg-white/80 backdrop-blur-md flex items-center justify-between px-4 md:px-8 sticky top-0 z-40 safe-top">
-          <div className="flex items-center gap-3">
-            <Link
-              href="/portal"
-              className="md:hidden flex items-center gap-2"
-            >
-              <div className="w-8 h-8 relative">
-                <Image
-                  src="/logo-white.png"
-                  alt="NeuroChiro"
-                  fill
-                  className="object-contain bg-brand-navy rounded-lg p-1"
-                />
+        <header className="border-b border-brand-navy/5 bg-white/80 backdrop-blur-md sticky top-0 z-40 safe-top">
+          {/* Top row: logo + account */}
+          <div className="flex items-center justify-between px-4 md:px-8 py-3 md:py-4">
+            <div className="flex items-center gap-3">
+              <Link
+                href="/portal"
+                className="md:hidden flex items-center gap-2"
+              >
+                <div className="w-8 h-8 relative">
+                  <Image
+                    src="/logo-white.png"
+                    alt="NeuroChiro"
+                    fill
+                    className="object-contain bg-brand-navy rounded-lg p-1"
+                  />
+                </div>
+              </Link>
+              {/* Desktop search */}
+              <div className="hidden md:block">
+                <Suspense
+                  fallback={
+                    <div className="relative w-96 h-10 bg-brand-navy/5 rounded-full animate-pulse" />
+                  }
+                >
+                  <SearchBar />
+                </Suspense>
               </div>
-            </Link>
+            </div>
+            <AccountMenu userEmail={userEmail} userTier={userTier} />
+          </div>
+          {/* Mobile search — full width below */}
+          <div className="md:hidden px-4 pb-3">
             <Suspense
               fallback={
-                <div className="relative w-36 md:w-96 h-10 bg-brand-navy/5 rounded-full animate-pulse" />
+                <div className="relative w-full h-10 bg-brand-navy/5 rounded-full animate-pulse" />
               }
             >
               <SearchBar />
             </Suspense>
-          </div>
-
-          <div className="flex items-center gap-2 md:gap-4">
-            <AccountMenu userEmail={userEmail} userTier={userTier} />
           </div>
         </header>
 
