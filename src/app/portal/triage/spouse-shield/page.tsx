@@ -35,13 +35,13 @@ export default function SpouseShieldPage() {
           </button>
         </div>
 
-        <EliteCard className="bg-white p-12 md:p-24 shadow-2xl border-brand-navy/5 relative overflow-hidden print:shadow-none print:border-none print:p-0">
+        <EliteCard className="bg-white p-5 md:p-12 shadow-2xl border-brand-navy/5 relative overflow-hidden print:shadow-none print:border-none print:p-0">
           
           <div className="absolute top-0 right-0 p-12 opacity-[0.02] pointer-events-none">
             <Users size={600} className="text-brand-navy" />
           </div>
 
-          <div className="relative space-y-16">
+          <div className="relative space-y-10">
             
             <div className="flex justify-between items-start border-b-8 border-brand-navy pb-10">
               <div>
@@ -52,7 +52,7 @@ export default function SpouseShieldPage() {
                 <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight leading-none">Family Decision Guide</h1>
                 <p className="text-brand-gray font-medium text-sm mt-2">How to handle &ldquo;I need to talk to my spouse&rdquo; with confidence.</p>
               </div>
-              <div className="text-right">
+              <div className="text-right hidden md:block">
                 <div className="text-3xl font-black text-brand-navy">LEVEL 03</div>
                 <div className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest">Mastermind Elite</div>
               </div>
