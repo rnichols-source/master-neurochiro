@@ -36,15 +36,15 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-brand-navy/80 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:p-6 bg-brand-navy/80 backdrop-blur-sm safe-top">
       <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full md:max-w-2xl bg-white rounded-t-2xl md:rounded-2xl shadow-2xl overflow-hidden max-h-[90dvh] overflow-y-auto"
       >
         <div className="flex flex-col md:flex-row">
-          {/* Left Sidebar: Progress */}
-          <div className="md:w-1/3 bg-brand-navy p-8 md:p-12 text-white flex flex-col justify-between">
+          {/* Left Sidebar: Progress (hidden on mobile) */}
+          <div className="hidden md:flex md:w-1/3 bg-brand-navy p-8 md:p-12 text-white flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-2xl bg-brand-orange flex items-center justify-center font-black text-2xl mb-6 shadow-xl shadow-brand-orange/20">N</div>
               <h2 className="text-3xl font-black tracking-tight leading-tight">Getting Started</h2>
@@ -74,8 +74,8 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
                 <h3 className="text-xl font-black text-brand-navy">Mission Objectives</h3>
                 <p className="text-sm text-brand-gray">Complete these tasks to unlock full portal capability.</p>
               </div>
-              <button onClick={handleClose} className="p-2 hover:bg-brand-cream rounded-full transition-colors">
-                <X className="w-5 h-5 text-brand-navy/20" />
+              <button onClick={handleClose} className="p-3 hover:bg-brand-cream rounded-xl transition-colors touch-target" aria-label="Close">
+                <X className="w-5 h-5 text-brand-navy/40" />
               </button>
             </div>
 

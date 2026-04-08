@@ -147,7 +147,7 @@ export function EngineClient({
       </div>
 
       {/* Internal Navigation */}
-      <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+      <div className="flex gap-2 overflow-x-auto pb-2 px-1 no-scrollbar">
         {tabs.map((tab) => (
           <button
             key={tab.id}

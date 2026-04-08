@@ -273,7 +273,7 @@ export default function VideoPlayer({
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
-              <button onClick={togglePlay} className="text-white hover:text-brand-orange transition-colors">
+              <button onClick={togglePlay} className="text-white hover:text-brand-orange transition-colors p-2 touch-target">
                 {isPlaying ? <Pause size={24} /> : <Play size={24} className="fill-current" />}
               </button>
               <div className="flex items-center gap-4">
