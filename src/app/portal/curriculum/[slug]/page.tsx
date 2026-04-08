@@ -56,7 +56,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 pb-10 border-b border-brand-navy/5">
           <div className="space-y-4">
             <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Phase 0{week?.week_number}</p>
-            <h1 className="text-5xl font-black text-brand-navy tracking-tighter">{week?.title}</h1>
+            <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{week?.title}</h1>
             <p className="text-brand-gray font-medium max-w-xl">
               {week?.description}
             </p>

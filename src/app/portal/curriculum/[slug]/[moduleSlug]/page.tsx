@@ -86,7 +86,7 @@ export default async function ModuleDetailPage(props: {
                 'use server'
                 await completeModule(module.id);
               }}>
-                <BrandButton type="submit" variant={module.status === 'completed' ? 'outline' : 'primary'} className="min-w-[200px]">
+                <BrandButton type="submit" variant={module.status === 'completed' ? 'outline' : 'primary'} className="w-full sm:w-auto">
                   {module.status === 'completed' ? "Completed" : "Mark as Complete"}
                 </BrandButton>
               </form>

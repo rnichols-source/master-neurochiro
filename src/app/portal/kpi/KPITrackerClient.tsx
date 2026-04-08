@@ -217,12 +217,12 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
             </button>
           </div>
           
-          <div className="flex bg-brand-navy/5 p-1 rounded-xl overflow-x-auto no-scrollbar">
+          <div className="flex gap-1 bg-brand-navy/5 p-1 rounded-xl overflow-x-auto no-scrollbar">
             {["7D", "30D", "90D", "ALL"].map(range => (
               <button
                 key={range}
                 onClick={() => setActiveRange(range)}
-                className={`flex-1 px-4 py-1.5 text-xs font-black rounded-lg transition-all whitespace-nowrap ${activeRange === range ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"}`}
+                className={`flex-1 px-4 py-2.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap touch-target ${activeRange === range ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/40 hover:text-brand-navy"}`}
               >
                 {range}
               </button>

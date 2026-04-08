@@ -95,10 +95,9 @@ export default async function PortalCurriculumPage() {
             <Activity size={14} className="fill-brand-orange" />
             <p className="text-xs font-black uppercase tracking-widest">Status</p>
           </div>
-          <h1 className="text-5xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">The Roadmap</h1>
-          <p className="text-brand-gray text-lg font-medium mt-6 leading-relaxed">
-            Don't just watch videos. **Claim Your Status.** Each level represents a 
-            fundamental upgrade to your clinical and financial architecture.
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Curriculum</h1>
+          <p className="text-sm text-brand-gray font-medium mt-2">
+            Your 8-week roadmap. Complete each phase to unlock the next.
           </p>
         </div>
 
