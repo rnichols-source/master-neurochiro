@@ -2,6 +2,7 @@ import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { OnboardingChecklist } from "@/components/portal/OnboardingChecklist";
 import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { KPISnapshotCard } from "@/components/portal/KPISnapshotCard";
+import { WinsFeed } from "@/components/portal/wins-feed";
 import { createClient } from "@/lib/supabase/server";
 import { fetchNextCall } from "@/app/actions/call-actions";
 import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
@@ -134,6 +135,9 @@ export default async function PortalDashboard() {
             <KPISnapshotCard latest={latestKPI} previous={previousKPI} />
           </div>
         </div>
+
+        {/* Community Wins */}
+        <WinsFeed />
       </div>
     </DashboardLayout>
   );

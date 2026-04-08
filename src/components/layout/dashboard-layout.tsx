@@ -4,7 +4,6 @@ import { NeuralDumpButton } from "@/components/portal/neural-dump-button";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
-import { NotificationCenter } from "./NotificationCenter";
 import { AccountMenu } from "./AccountMenu";
 import { SearchBar } from "./SearchBar";
 import { Suspense } from "react";
@@ -66,8 +65,6 @@ export async function DashboardLayout({
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
-            <NotificationCenter />
-            <div className="hidden md:block h-8 w-px bg-brand-navy/10 mx-2" />
             <AccountMenu userEmail={userEmail} userTier={userTier} />
           </div>
         </header>
