@@ -98,12 +98,11 @@ export default async function ResourcesPage() {
         {/* Pro Up-sell CTA (Static for standard members) */}
         <EliteCard className="bg-brand-navy text-white border-none p-12 overflow-hidden relative">
           <div className="relative z-10 max-w-2xl space-y-6">
-            <h2 className="text-4xl font-black tracking-tighter leading-tight">
-              Unlock the Full <span className="text-brand-orange">Clinical Blueprint.</span>
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight leading-tight">
+              Unlock All <span className="text-brand-orange">Resources</span>
             </h2>
-            <p className="text-lg text-white/60 font-medium leading-relaxed">
-              Pro-tier members get exclusive access to our entire library of 
-              internal operating procedures and proprietary scripts.
+            <p className="text-base text-white/60 font-medium leading-relaxed">
+              Pro members get access to the complete library of scripts, templates, and tools.
             </p>
             <BrandButton variant="accent" size="lg" className="px-10">
               Upgrade to Pro Level

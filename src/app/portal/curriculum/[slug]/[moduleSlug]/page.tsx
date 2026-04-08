@@ -53,7 +53,7 @@ export default async function ModuleDetailPage(props: {
           <div className="lg:col-span-2 space-y-8">
             <div className="space-y-2">
               <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Module 0{week?.week_number}.0{module?.order_index}</p>
-              <h1 className="text-4xl font-black text-brand-navy tracking-tighter">{module?.title}</h1>
+              <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{module?.title}</h1>
             </div>
 
             <VideoPlayer 

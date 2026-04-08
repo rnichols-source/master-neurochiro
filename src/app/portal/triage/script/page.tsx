@@ -141,7 +141,7 @@ export default function RescueScriptPage() {
                   <Zap size={12} fill="white" />
                   <span className="text-xs font-black uppercase tracking-wider">Rapid ROI Series</span>
                 </div>
-                <h1 className="text-5xl font-black text-brand-navy tracking-tighter uppercase leading-none">Emergency Rescue</h1>
+                <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight leading-none">Rescue Scripts</h1>
                 <p className="text-brand-gray font-bold text-sm mt-2">TARGET: <span className="text-brand-navy">{activeType.toUpperCase()}</span></p>
               </div>
               <div className="text-right">

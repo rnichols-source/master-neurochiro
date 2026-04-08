@@ -145,7 +145,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
               </div>
             </EliteCard>
 
-            <EliteCard title="Proprietary Assets" subtitle="Downloads">
+            <EliteCard title="Downloads" subtitle="Resources">
               <div className="space-y-3 mt-4">
                 {safeResources.length > 0 ? safeResources.map((asset: any, i: number) => {
                   if (!asset || !asset.url) return null;

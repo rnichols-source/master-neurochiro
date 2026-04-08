@@ -26,7 +26,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 
 const hormoziMetadata: Record<number, any> = {
   1: {
-    outcomeTitle: "Clinical Identity Reconstruction",
+    outcomeTitle: "Clinical Identity & Foundation",
     subTitle: "Phase 01: Becoming the $1M Nervous System Doctor",
     expectedROI: "Instant Authority Shift",
     quickAsset: { name: "Identity Calibration Worksheet", link: "/portal/triage?category=clinic_os" },
