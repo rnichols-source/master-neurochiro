@@ -4,6 +4,7 @@ import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { KPISnapshotCard } from "@/components/portal/KPISnapshotCard";
 import { WinsFeed } from "@/components/portal/wins-feed";
 import { WelcomeBanner } from "@/components/portal/WelcomeBanner";
+import { WeeklyFocusCard } from "@/components/portal/WeeklyFocusCard";
 import { createClient } from "@/lib/supabase/server";
 import { fetchNextCall } from "@/app/actions/call-actions";
 import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
@@ -62,6 +63,9 @@ export default async function PortalDashboard() {
         <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
           Dashboard
         </h1>
+
+        {/* This Week's Focus */}
+        <WeeklyFocusCard weekNumber={activeWeek?.week_number || 0} completedWeeks={completedWeeks} />
 
         {/* 3-Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
@@ -142,6 +146,26 @@ export default async function PortalDashboard() {
 
         {/* Community Wins */}
         <WinsFeed />
+
+        {/* Post-completion Council prompt */}
+        {completedWeeks >= 8 && (
+          <div className="bg-white rounded-2xl border border-brand-navy/5 p-5 md:p-6 shadow-sm text-center space-y-3">
+            <h3 className="text-lg font-black text-brand-navy">
+              Congratulations — you&apos;ve completed the 8-week program!
+            </h3>
+            <p className="text-sm text-brand-gray font-medium">
+              Ready for the next level? The Council is ongoing coaching for
+              graduates who want to keep growing.
+            </p>
+            <Link
+              href="/council"
+              className="inline-flex items-center justify-center gap-2 bg-brand-orange text-white rounded-xl py-3 px-6 text-sm font-bold hover:bg-[#B35520] transition-colors active:scale-[0.98]"
+            >
+              Learn About The Council
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );
