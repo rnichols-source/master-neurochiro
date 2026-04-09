@@ -72,17 +72,23 @@ export default function HomePage() {
       {/* ──────────────── HERO ──────────────── */}
       <section className="pt-24 md:pt-40 pb-16 md:pb-28 px-5 md:px-6 bg-gradient-to-b from-white to-brand-cream">
         <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
-          <h1 className="text-[2rem] leading-[1.1] md:text-6xl lg:text-7xl font-black text-brand-navy tracking-tight">
-            Communicate With Certainty.{" "}
-            <span className="text-brand-orange">Grow Your Practice.</span>
+          <h1 className="text-[2rem] leading-[1.1] md:text-5xl lg:text-6xl font-black text-brand-navy tracking-tight">
+            Stop Losing Patients to{" "}
+            <span className="text-brand-orange">&ldquo;I Need to Think About It.&rdquo;</span>
           </h1>
           <div className="h-1 w-16 bg-brand-orange rounded-full mx-auto" />
 
-          <p className="text-base md:text-xl text-brand-gray font-medium leading-relaxed max-w-2xl mx-auto">
-            An 8-week coaching program that gives chiropractors and students the
-            communication skills, clinical confidence, and practice systems to
-            get better patient outcomes and predictable growth.
-          </p>
+          <div className="space-y-3 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
+              <strong className="text-brand-navy">In practice?</strong> Master the
+              communication skills that turn nervous patients into confident care
+              plan acceptances — in 8 weeks.
+            </p>
+            <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
+              <strong className="text-brand-navy">Still in school?</strong> Build the
+              clinical certainty your professors can&apos;t teach — before you graduate.
+            </p>
+          </div>
 
           <div className="pt-2">
             <Link href="/apply" className="block sm:inline-block">
@@ -98,12 +104,12 @@ export default function HomePage() {
           </div>
 
           {/* Social Proof Stats */}
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 pt-6 md:pt-8 border-t border-brand-navy/5">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 pt-6 md:pt-8 border-t border-brand-navy/5">
             <div className="flex items-center gap-2.5">
               <Users className="w-5 h-5 text-brand-orange shrink-0" />
               <div>
                 <p className="text-lg font-black text-brand-navy leading-none">150+</p>
-                <p className="text-xs text-brand-gray font-medium">Doctors Trained</p>
+                <p className="text-xs text-brand-gray font-medium">Doctors &amp; Students</p>
               </div>
             </div>
             <div className="flex items-center gap-2.5">
@@ -121,6 +127,10 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+
+          <p className="text-sm text-brand-gray font-medium">
+            For practicing chiropractors and chiropractic students. Student pricing from $497.
+          </p>
         </div>
       </section>
 
