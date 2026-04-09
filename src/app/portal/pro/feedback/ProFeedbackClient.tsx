@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { cn } from "@/lib/utils";
-import { 
-  Upload, 
+import { submitFeedback } from "@/app/actions/feedback-actions";
+import {
+  Upload,
   Video,
   FileText,
   Send,
@@ -20,13 +21,19 @@ export function ProFeedbackClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    review_type: "Script / Video Breakdown",
+    title: "",
+    video_url: "",
+    notes: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 1000);
+    await submitFeedback(formData);
+    setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   return (
@@ -57,7 +64,7 @@ export function ProFeedbackClient() {
             <form onSubmit={handleSubmit} className="space-y-6 mt-6">
               <div className="space-y-2">
                 <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Review Type</label>
-                <select className="w-full bg-brand-cream/50 border-brand-navy/5 rounded-xl p-4 text-xs font-bold outline-none">
+                <select value={formData.review_type} onChange={(e) => setFormData(prev => ({ ...prev, review_type: e.target.value }))} className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 px-4 text-base font-medium outline-none">
                   <option>Script / Video Breakdown</option>
                   <option>KPI / Revenue Audit</option>
                   <option>Team Structure Review</option>
@@ -66,17 +73,17 @@ export function ProFeedbackClient() {
               
               <div className="space-y-2">
                 <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Title</label>
-                <input type="text" placeholder="e.g. My Week 2 ROF Video" className="w-full bg-brand-cream/50 border-brand-navy/5 rounded-xl p-4 text-xs font-bold outline-none" />
+                <input type="text" placeholder="e.g. My Week 2 Care Plan Video" value={formData.title} onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))} className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 px-4 text-base font-medium outline-none" />
               </div>
 
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-wider text-brand-navy/40">Video Link (Loom, YouTube, or Vimeo)</label>
-                <input type="url" placeholder="https://www.loom.com/share/..." className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 px-4 text-base font-medium text-brand-navy focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/20 outline-none" />
+                <input type="url" placeholder="https://www.loom.com/share/..." value={formData.video_url} onChange={(e) => setFormData(prev => ({ ...prev, video_url: e.target.value }))} className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 px-4 text-base font-medium text-brand-navy focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/20 outline-none" />
               </div>
 
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-wider text-brand-navy/40">Notes (optional)</label>
-                <textarea rows={3} placeholder="Any context or specific questions..." className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 px-4 text-base font-medium text-brand-navy focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/20 outline-none resize-none" />
+                <textarea rows={3} placeholder="Any context or specific questions..." value={formData.notes} onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))} className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 px-4 text-base font-medium text-brand-navy focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/20 outline-none resize-none" />
               </div>
 
               <BrandButton variant="primary" type="submit" className="w-full py-4 group" isLoading={isSubmitting}>
