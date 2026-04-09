@@ -71,8 +71,8 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
           <div className="flex-1 p-8 md:p-12 space-y-8">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="text-xl font-black text-brand-navy">Mission Objectives</h3>
-                <p className="text-sm text-brand-gray">Complete these tasks to unlock full portal capability.</p>
+                <h3 className="text-xl font-black text-brand-navy">Getting Started</h3>
+                <p className="text-sm text-brand-gray">Complete these steps to set up your account.</p>
               </div>
               <button onClick={handleClose} className="p-3 hover:bg-brand-cream rounded-xl transition-colors touch-target" aria-label="Close">
                 <X className="w-5 h-5 text-brand-navy/40" />

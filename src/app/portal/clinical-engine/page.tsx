@@ -13,7 +13,13 @@ export default async function ClinicalEnginePage() {
 
   return (
     <DashboardLayout>
-      <ScoreEngineClient />
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Clinical Scoring</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Score patient dysfunction levels to support your care plan recommendations.</p>
+        </div>
+        <ScoreEngineClient />
+      </div>
     </DashboardLayout>
   );
 }

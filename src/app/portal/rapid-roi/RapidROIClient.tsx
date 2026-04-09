@@ -38,9 +38,9 @@ export function RapidROIClient({ userId }: { userId: string }) {
     <div className="max-w-5xl mx-auto space-y-12 pb-20">
       {/* Header */}
       <div className="text-center space-y-3">
-        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Quick Win</h1>
+        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Quick Win: Case Rescue</h1>
         <p className="text-sm text-brand-gray font-medium max-w-lg mx-auto">
-          Save one case or close one new patient in the next 24 hours.
+          Use this script to save a case or close a new patient today.
         </p>
       </div>
 

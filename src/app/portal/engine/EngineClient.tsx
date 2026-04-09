@@ -114,7 +114,7 @@ export function EngineClient({
       {/* Engine Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
         <div className="flex-1">
-          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">The Engine</h1>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">KPIs</h1>
           <p className="text-sm text-brand-gray font-medium mt-1">Your practice numbers, all in one place.</p>
         </div>
 

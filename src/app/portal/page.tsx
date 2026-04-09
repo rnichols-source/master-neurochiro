@@ -60,9 +60,12 @@ export default async function PortalDashboard() {
         {isFirstLogin && <WelcomeBanner />}
 
         {/* Page Title */}
-        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
-          Dashboard
-        </h1>
+        <div>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
+            Dashboard
+          </h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Your progress at a glance.</p>
+        </div>
 
         {/* This Week's Focus */}
         <WeeklyFocusCard weekNumber={activeWeek?.week_number || 0} completedWeeks={completedWeeks} />

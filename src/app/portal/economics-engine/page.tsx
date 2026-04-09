@@ -13,7 +13,13 @@ export default async function EconomicsEnginePage() {
 
   return (
     <DashboardLayout>
-      <EconomicsEngineClient />
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Financial Planner</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Map your practice expenses, revenue targets, and break-even numbers.</p>
+        </div>
+        <EconomicsEngineClient />
+      </div>
     </DashboardLayout>
   );
 }

@@ -48,10 +48,9 @@ export function CaseLabClient({ userTier }: { userTier: 'standard' | 'pro' | 'ad
     <div className="space-y-10 pb-20">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Clinical Intelligence</p>
-          <h1 className="text-4xl font-black text-brand-navy tracking-tighter leading-none">Case Breakdown Lab</h1>
-          <p className="text-brand-gray font-medium mt-2 max-w-xl">
-            Real-world clinical scenarios, neurological interpretations, and care plan reasoning.
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Case Studies</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1 max-w-xl">
+            Learn from real patient scenarios — see the reasoning behind each care plan.
           </p>
         </div>
         {isPro && (
