@@ -23,14 +23,16 @@ export function KPISnapshotCard({ latest, previous }: KPISnapshotCardProps) {
     return (
       <div className="space-y-4">
         <p className="text-sm text-brand-gray font-medium">
-          Track your first week. It takes 30 seconds.
+          No practice data yet? That&apos;s OK. Focus on the curriculum and
+          playbooks for now. Once you start seeing patients, track your
+          numbers here.
         </p>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center justify-center gap-2 w-full bg-brand-orange text-white rounded-xl py-3.5 px-5 text-sm font-bold hover:bg-[#B35520] transition-colors active:scale-[0.98] touch-target"
+          className="flex items-center justify-center gap-2 w-full bg-brand-navy/5 text-brand-navy rounded-xl py-3 px-5 text-sm font-bold hover:bg-brand-navy/10 transition-colors active:scale-[0.98] touch-target"
         >
           <Plus className="w-4 h-4" />
-          Submit Your KPIs
+          Submit KPIs When Ready
         </button>
         <KPIEntryModal
           isOpen={isModalOpen}

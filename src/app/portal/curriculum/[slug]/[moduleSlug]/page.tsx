@@ -52,7 +52,12 @@ export default async function ModuleDetailPage(props: {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2 space-y-8">
             <div className="space-y-2">
-              <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Module 0{week?.week_number}.0{module?.order_index}</p>
+              <div className="flex items-center gap-3">
+                <p className="text-brand-orange font-bold uppercase tracking-wider text-xs">Module 0{week?.week_number}.0{module?.order_index}</p>
+                {module?.duration_minutes && (
+                  <span className="text-xs font-medium text-brand-gray bg-brand-navy/5 px-2 py-0.5 rounded-full">{module.duration_minutes} min</span>
+                )}
+              </div>
               <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{module?.title}</h1>
             </div>
 

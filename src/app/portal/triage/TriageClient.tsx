@@ -168,6 +168,9 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
           <p className="text-brand-gray font-medium max-w-xl">
             Click the button that matches what you need right now.
           </p>
+          <p className="text-sm text-brand-gray/60 font-medium">
+            New to practice or still a student? Start with the conversation basics — they work for role-plays and real patients alike.
+          </p>
         </div>
 
         <div className="w-full md:w-96 relative group">

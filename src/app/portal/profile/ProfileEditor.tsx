@@ -9,9 +9,14 @@ const SPECIALTY_TAGS = [
 ];
 
 export function ProfileEditor({ profile, userId }: { profile: any; userId: string }) {
+  // Detect if user is likely a student based on profile data
+  const isStudent = profile.tier === "student" || profile.role === "student" ||
+    profile.current_role?.toLowerCase()?.includes("student") || !profile.clinic_name;
+
   const [formData, setFormData] = useState({
     full_name: profile.full_name || "",
     clinic_name: profile.clinic_name || "",
+    school: profile.school || "",
     city: profile.city || "",
     state: profile.state || "",
     technique_focus: profile.technique_focus || "",
@@ -38,6 +43,7 @@ export function ProfileEditor({ profile, userId }: { profile: any; userId: strin
       .update({
         full_name: formData.full_name,
         clinic_name: formData.clinic_name,
+        school: formData.school,
         city: formData.city,
         state: formData.state,
         technique_focus: formData.technique_focus,
@@ -65,15 +71,30 @@ export function ProfileEditor({ profile, userId }: { profile: any; userId: strin
               className={inputClass}
             />
           </div>
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-brand-navy ml-1">Clinic Name</label>
-            <input
-              type="text"
-              value={formData.clinic_name}
-              onChange={(e) => setFormData({ ...formData, clinic_name: e.target.value })}
-              className={inputClass}
-            />
-          </div>
+
+          {isStudent ? (
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-brand-navy ml-1">School</label>
+              <input
+                type="text"
+                placeholder="e.g. Life University"
+                value={formData.school}
+                onChange={(e) => setFormData({ ...formData, school: e.target.value })}
+                className={inputClass}
+              />
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <label className="text-sm font-bold text-brand-navy ml-1">Clinic Name</label>
+              <input
+                type="text"
+                value={formData.clinic_name}
+                onChange={(e) => setFormData({ ...formData, clinic_name: e.target.value })}
+                className={inputClass}
+              />
+            </div>
+          )}
+
           <div className="space-y-2">
             <label className="text-sm font-bold text-brand-navy ml-1">City</label>
             <input
@@ -93,7 +114,9 @@ export function ProfileEditor({ profile, userId }: { profile: any; userId: strin
             />
           </div>
           <div className="space-y-2 md:col-span-2">
-            <label className="text-sm font-bold text-brand-navy ml-1">Technique Focus</label>
+            <label className="text-sm font-bold text-brand-navy ml-1">
+              {isStudent ? "Technique Interest" : "Technique Focus"}
+            </label>
             <input
               type="text"
               placeholder="e.g. Gonstead, Diversified, TRT..."

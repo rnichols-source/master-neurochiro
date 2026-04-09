@@ -24,7 +24,7 @@ const navItems = [
   { name: "Curriculum", href: "/portal/curriculum", icon: BookOpen },
   { name: "Scripts", href: "/portal/triage", icon: Activity },
   { name: "Resources", href: "/portal/resources", icon: FileText },
-  { name: "The Engine", href: "/portal/engine", icon: BarChart3 },
+  { name: "KPIs", href: "/portal/engine", icon: BarChart3 },
 ];
 
 const linkClass = "group flex items-center gap-3 px-3 py-3 text-sm font-medium rounded-xl transition-all relative";
