@@ -6,6 +6,7 @@ import { Check, ArrowRight, ShieldCheck, Zap, Star } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { FAQSection } from "@/components/ui/faq-section";
 
 const doctorTiers = [
   {
@@ -295,6 +296,16 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+      {/* FAQ */}
+      <section className="pt-16 md:pt-20 px-5 md:px-6">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-xl font-black text-brand-navy text-center mb-6">
+            Common Questions
+          </h3>
+          <FAQSection />
+        </div>
+      </section>
+
       {/* Looking for more? */}
       <section className="pt-16 md:pt-20 px-5 md:px-6">
         <div className="max-w-4xl mx-auto">

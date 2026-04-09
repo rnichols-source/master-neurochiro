@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import StructuredData from "@/components/layout/StructuredData";
+import { FAQSection } from "@/components/ui/faq-section";
 
 export default function HomePage() {
   const organizationSchema = {
@@ -364,6 +365,21 @@ export default function HomePage() {
               <span>Satisfaction guarantee after Week 1</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ──────────────── FAQ ──────────────── */}
+      <section className="py-16 md:py-28 px-5 md:px-6 bg-brand-cream">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10 md:mb-12 space-y-3">
+            <h2 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
+              Common Questions
+            </h2>
+            <p className="text-base text-brand-gray font-medium">
+              Everything you need to know before applying.
+            </p>
+          </div>
+          <FAQSection />
         </div>
       </section>
 
