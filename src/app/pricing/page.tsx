@@ -130,7 +130,7 @@ export default function PricingPage() {
       <div className="flex items-center justify-center gap-2 py-3 px-5">
         <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
         <span className="text-sm font-bold text-brand-gray">
-          Next cohort starts April 21, 2026 — Limited seats available
+          Next cohort starts April 21, 2026 · Max 25 seats · Limited availability
         </span>
       </div>
 
@@ -163,6 +163,13 @@ export default function PricingPage() {
           </div>
         </div>
       </div>
+
+      {/* Student Note */}
+      {activeTab === "student" && (
+        <p className="text-sm text-brand-gray font-medium text-center px-5 mt-4">
+          Same live coaching and curriculum as doctors — adapted for students still in school. No practice required.
+        </p>
+      )}
 
       {/* Pricing Grid */}
       <section className="px-5 md:px-6 mt-8 md:mt-12">
@@ -265,6 +272,16 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* Book a Call */}
+      <div className="text-center px-5 pt-8">
+        <p className="text-sm text-brand-gray font-medium">
+          Not sure which tier is right for you?{" "}
+          <a href="https://calendly.com/neurochiro-pro/1-on-1" target="_blank" rel="noopener noreferrer" className="text-brand-orange hover:text-brand-navy underline transition-colors">
+            Book a free 15-min call with Dr. Nichols
+          </a>
+        </p>
+      </div>
+
       {/* Trust Section */}
       <section className="pt-16 md:pt-20 px-5 md:px-6">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
@@ -284,11 +301,11 @@ export default function PricingPage() {
               <Star className="w-6 h-6 text-brand-navy" />
             </div>
             <h4 className="text-sm font-black text-brand-navy">
-              Satisfaction Guarantee
+              14-Day Guarantee
             </h4>
             <p className="text-sm font-medium text-brand-gray leading-relaxed">
-              If you don&apos;t feel a shift after Week 1, no-questions-asked
-              exit.
+              If you don&apos;t feel the program is right for you within the
+              first 14 days, full refund. No questions asked.
             </p>
           </div>
           <div className="text-center space-y-3">
