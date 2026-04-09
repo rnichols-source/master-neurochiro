@@ -167,7 +167,7 @@ export default function PricingPage() {
       {/* Student Note */}
       {activeTab === "student" && (
         <p className="text-sm text-brand-gray font-medium text-center px-5 mt-4">
-          Same live coaching and curriculum as doctors — adapted for students still in school. No practice required.
+          Same live coaching and curriculum as doctors — adapted for students still in school. No practice required. Payment plans available.
         </p>
       )}
 
@@ -271,6 +271,19 @@ export default function PricingPage() {
           ))}
         </div>
       </section>
+
+      {/* Social Proof */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-6 px-5 pt-10 max-w-3xl mx-auto">
+        <div className="flex-1 text-center sm:text-left">
+          <p className="text-sm text-brand-gray italic">&ldquo;My revenue doubled during the program.&rdquo;</p>
+          <p className="text-xs font-bold text-brand-navy mt-1">— Dr. Melissa, Practicing Chiropractor</p>
+        </div>
+        <div className="hidden sm:block w-px h-10 bg-brand-navy/10" />
+        <div className="flex-1 text-center sm:text-left">
+          <p className="text-sm text-brand-gray italic">&ldquo;I finally know how to recommend care without the awkwardness.&rdquo;</p>
+          <p className="text-xs font-bold text-brand-navy mt-1">— Dr. Mike, Practicing Chiropractor</p>
+        </div>
+      </div>
 
       {/* Book a Call */}
       <div className="text-center px-5 pt-8">

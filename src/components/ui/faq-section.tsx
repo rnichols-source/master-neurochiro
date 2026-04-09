@@ -11,15 +11,19 @@ const faqs = [
   },
   {
     q: "Who is this for?",
-    a: "Practicing chiropractors and chiropractic students. Whether you've been in practice for 20 years or you're still in school, the program meets you where you are.",
+    a: "Practicing chiropractors, chiropractic students, and doctors about to open their first practice. Whether you've been in practice for 20 years, you're still in school, or you're building from scratch — the program meets you where you are. Several members have used it to build their systems and patient communication before their doors even opened.",
+  },
+  {
+    q: "Who is this NOT for?",
+    a: "This isn't for doctors looking for a quick fix or a magic script. If you're not willing to practice the skills, show up to the live calls, and track your results — this won't work. We're selective because we want every member to succeed, not just enroll.",
   },
   {
     q: "What's the time commitment?",
-    a: "90 minutes per week for live coaching, plus 1-2 hours of curriculum and implementation work.",
+    a: "90 minutes per week for live coaching, plus 1-2 hours of curriculum and implementation work. Live calls are on Thursdays at 11 AM ET. Every session is recorded and available in your portal within 24 hours if you miss one.",
   },
   {
     q: "What if I'm a student?",
-    a: "We have a dedicated student track with pricing starting at $497. Many students join before graduation to build their clinical authority early.",
+    a: "We have a dedicated student track with pricing starting at $497 (or 3 monthly payments of $175). Many students join before graduation to build their clinical authority early. You don't need patients — the curriculum adapts to where you are.",
   },
   {
     q: "What exactly will I learn?",
@@ -31,7 +35,11 @@ const faqs = [
   },
   {
     q: "When does the next cohort start?",
-    a: "April 21, 2026. Cohorts run every quarter with limited seats.",
+    a: "April 21, 2026. Cohorts run every quarter with limited seats (max 25 per cohort).",
+  },
+  {
+    q: "What if I miss a live call?",
+    a: "Every live session is recorded and uploaded to your portal within 24 hours. You can watch at your own pace and still ask questions in the private community.",
   },
   {
     q: "Do I need any special equipment or software?",
