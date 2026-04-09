@@ -115,6 +115,13 @@ export default function ApplicationPage() {
               <span className="hidden sm:inline text-brand-navy/20">|</span>
               <span>&ldquo;I finally know how to recommend care without feeling awkward.&rdquo; — Dr. Mike</span>
             </div>
+
+            <p className="text-sm text-brand-gray font-medium pt-2">
+              Doctors: $997 (or $350/mo) · Students: $497 (or $175/mo) ·{" "}
+              <Link href="/pricing" className="text-brand-orange hover:text-brand-navy underline transition-colors">
+                Full pricing details
+              </Link>
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
@@ -231,6 +238,12 @@ export default function ApplicationPage() {
                   We review every application personally within 48 hours
                 </span>
               </div>
+              <p className="text-center text-sm text-brand-gray font-medium mt-3">
+                Have questions first?{" "}
+                <a href="https://calendly.com/neurochiro-pro/1-on-1" target="_blank" rel="noopener noreferrer" className="text-brand-orange hover:text-brand-navy underline transition-colors">
+                  Book a free call
+                </a>
+              </p>
             </div>
           </form>
         </div>
