@@ -64,8 +64,8 @@ const studentTiers = [
     price: "497",
     paymentPlan: "3 Payments of $175",
     links: {
-      pif: "/apply?tier=student-standard",
-      plan: "/apply?tier=student-standard-plan",
+      pif: process.env.NEXT_PUBLIC_STRIPE_STUDENT_STANDARD_PIF || "/apply?tier=student-standard",
+      plan: process.env.NEXT_PUBLIC_STRIPE_STUDENT_STANDARD_PLAN || "/apply?tier=student-standard-plan",
     },
     description:
       "Build your clinical authority before you even graduate.",
@@ -87,8 +87,8 @@ const studentTiers = [
     price: "997",
     paymentPlan: "3 Payments of $350",
     links: {
-      pif: "/apply?tier=student-pro",
-      plan: "/apply?tier=student-pro-plan",
+      pif: process.env.NEXT_PUBLIC_STRIPE_STUDENT_PRO_PIF || "/apply?tier=student-pro",
+      plan: process.env.NEXT_PUBLIC_STRIPE_STUDENT_PRO_PLAN || "/apply?tier=student-pro-plan",
     },
     description:
       "For serious students who want direct mentorship and a head start.",
@@ -125,6 +125,14 @@ export default function PricingPage() {
           Choose the level of support you need. No hidden fees, no upsells.
         </p>
       </section>
+
+      {/* Cohort Banner */}
+      <div className="flex items-center justify-center gap-2 py-3 px-5">
+        <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
+        <span className="text-sm font-bold text-brand-gray">
+          Next cohort starts April 21, 2026 — Limited seats available
+        </span>
+      </div>
 
       {/* Sticky Toggle */}
       <div className="sticky top-[60px] md:top-[72px] z-30 bg-brand-cream/90 backdrop-blur-md py-3 px-5 md:px-6 border-b border-brand-navy/5 md:border-none md:bg-transparent md:backdrop-blur-none md:static md:py-0">
