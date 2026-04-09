@@ -18,6 +18,16 @@ const submissions = [
 
 export function ProFeedbackClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }, 1000);
+  };
 
   return (
     <div className="space-y-10">
@@ -31,8 +41,20 @@ export function ProFeedbackClient() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {/* Submission Form */}
         <div className="lg:col-span-1">
-          <EliteCard title="New Submission" subtitle="Upload for Review" icon={Upload}>
-            <form className="space-y-6 mt-8">
+          {submitted ? (
+            <EliteCard className="p-8 text-center space-y-4">
+              <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center mx-auto">
+                <Send className="w-5 h-5 text-green-500" />
+              </div>
+              <h3 className="text-lg font-black text-brand-navy">Submission Received!</h3>
+              <p className="text-sm text-brand-gray font-medium">Dr. Nichols will review it within 48 hours.</p>
+              <button onClick={() => setSubmitted(false)} className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors">
+                Submit Another
+              </button>
+            </EliteCard>
+          ) : (
+          <EliteCard title="New Submission" icon={Upload}>
+            <form onSubmit={handleSubmit} className="space-y-6 mt-6">
               <div className="space-y-2">
                 <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Review Type</label>
                 <select className="w-full bg-brand-cream/50 border-brand-navy/5 rounded-xl p-4 text-xs font-bold outline-none">
@@ -57,11 +79,12 @@ export function ProFeedbackClient() {
                 <textarea rows={3} placeholder="Any context or specific questions..." className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 px-4 text-base font-medium text-brand-navy focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/20 outline-none resize-none" />
               </div>
 
-              <BrandButton variant="primary" className="w-full py-4 group">
-                Submit for Priority Review <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <BrandButton variant="primary" type="submit" className="w-full py-4 group" isLoading={isSubmitting}>
+                Submit for Review <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </BrandButton>
             </form>
           </EliteCard>
+          )}
         </div>
 
         {/* Submission History */}

@@ -105,7 +105,7 @@ export default function MentorshipLandingPage() {
         <div className="max-w-5xl mx-auto text-center space-y-8 relative z-10">
           <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/5 border border-white/10 rounded-full mb-4">
             <Settings className="w-4 h-4 text-brand-orange animate-spin-slow" />
-            <span className="text-xs font-black uppercase tracking-widest text-white/80">System Installation Experience</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-white/80">Private Coaching Experience</span>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-heading font-black tracking-tighter leading-[0.95] max-w-4xl mx-auto">
@@ -171,7 +171,7 @@ export default function MentorshipLandingPage() {
       <section className="py-32 px-6 bg-brand-cream relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24 space-y-4">
-            <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Installation Tiers</p>
+            <p className="text-brand-orange font-bold uppercase tracking-wider text-xs">Coaching Tiers</p>
             <h2 className="text-5xl md:text-7xl font-black text-brand-navy tracking-tighter leading-none">The Architecture Room.</h2>
             <p className="text-xl text-brand-gray font-medium max-w-2xl mx-auto">Select the level of intervention your practice requires.</p>
           </div>
@@ -233,7 +233,7 @@ export default function MentorshipLandingPage() {
               { num: "01", title: "The Audit", desc: "We tear down your current systems, KPIs, and scripts to find the exact bottlenecks leaking revenue." },
               { num: "02", title: "The Strategy", desc: "We map out a custom blueprint. No guesswork, just specific operational fixes for your clinic." },
               { num: "03", title: "The Cadence", desc: "Bi-weekly strategy sessions. One call for system building, one call for accountability and troubleshooting." },
-              { num: "04", title: "The Installation", desc: "You execute between calls. We review your recordings, metrics, and implementations to ensure it sticks." }
+              { num: "04", title: "The Execution", desc: "You execute between calls. We review your recordings, metrics, and results to make sure it sticks." }
             ].map((step, i) => (
               <div key={i} className="p-8 border border-white/10 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors relative group">
                 <span className="text-6xl font-black text-white/5 absolute top-4 right-4 group-hover:text-brand-orange/20 transition-colors">{step.num}</span>

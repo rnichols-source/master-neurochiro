@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Lato, Montserrat } from "next/font/google";
 import "./globals.css";
 import { PWARegistration } from "@/components/layout/pwa-registration";
-import { AdminQuickAccess } from "@/components/admin/admin-quick-access";
 
 const lato = Lato({
   variable: "--font-lato",

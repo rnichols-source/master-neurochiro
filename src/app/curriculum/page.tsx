@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { MastermindHeader } from "@/components/layout/mastermind-header";
+
+export const metadata: Metadata = {
+  title: "Curriculum",
+  description: "The 8-week roadmap for clinical certainty and practice growth.",
+};
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { 
   CheckCircle2, 

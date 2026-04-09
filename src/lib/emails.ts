@@ -115,8 +115,8 @@ export const EmailService = {
   },
 
   async sendWelcome(email: string, name: string) {
-    const html = getEmailTemplate('Welcome to the OS', 'Installation Day 1', `<p>Dr. ${name}, your portal access is now active.</p>`);
-    return this.send(email, 'Welcome to the OS: Installation Day 1', html, 'welcome_onboarding');
+    const html = getEmailTemplate('Welcome to the Mastermind', 'Your Portal Is Ready', `<p>Dr. ${name}, your portal access is now active. Log in to start your 8-week program.</p>`);
+    return this.send(email, 'Welcome to the Mastermind', html, 'welcome_onboarding');
   },
 
   async sendProWelcome(email: string, name: string) {
