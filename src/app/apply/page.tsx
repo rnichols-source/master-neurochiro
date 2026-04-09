@@ -94,13 +94,27 @@ export default function ApplicationPage() {
 
       <section className="pt-24 md:pt-40 pb-32 md:pb-20 px-5 md:px-6">
         <div className="max-w-xl mx-auto">
-          <div className="text-center space-y-3 md:space-y-4 mb-8 md:mb-12">
+          {/* Urgency + Social Proof */}
+          <div className="text-center space-y-4 mb-8 md:mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-orange/10 rounded-full">
+              <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
+              <span className="text-sm font-bold text-brand-orange">
+                Next cohort starts April 21, 2026 — seats are limited
+              </span>
+            </div>
+
             <h1 className="text-2xl md:text-4xl font-black text-brand-navy tracking-tight">
               Apply to the Mastermind
             </h1>
             <p className="text-base text-brand-gray font-medium">
               Tell us a little about yourself. Takes less than 2 minutes.
             </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 text-sm text-brand-gray italic">
+              <span>&ldquo;My revenue doubled during the program.&rdquo; — Dr. Melissa</span>
+              <span className="hidden sm:inline text-brand-navy/20">|</span>
+              <span>&ldquo;I finally know how to recommend care without feeling awkward.&rdquo; — Dr. Mike</span>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
