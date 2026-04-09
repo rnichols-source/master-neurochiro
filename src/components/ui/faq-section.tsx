@@ -6,6 +6,10 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
+    q: "How is this different from other coaching programs?",
+    a: "Most programs give you information and leave you to figure it out. We give you specific scripts, frameworks, and live coaching every week for 8 weeks. You practice the skills, track your numbers, and get direct feedback in a small group (max 25). It's not a course you watch — it's a system you build into your practice with support every step of the way.",
+  },
+  {
     q: "Who is this for?",
     a: "Practicing chiropractors and chiropractic students. Whether you've been in practice for 20 years or you're still in school, the program meets you where you are.",
   },
@@ -23,7 +27,7 @@ const faqs = [
   },
   {
     q: "Is there a refund policy?",
-    a: "Yes. If you don't feel a meaningful shift after Week 1, you can exit with no questions asked.",
+    a: "Yes. If you don't feel the program is right for you within the first 14 days, you get a full refund. No questions asked.",
   },
   {
     q: "When does the next cohort start?",

@@ -101,16 +101,13 @@ export default function CurriculumPage() {
       <MastermindHeader />
 
       {/* Header */}
-      <section className="pt-48 pb-20 px-8">
-        <div className="max-w-7xl mx-auto text-center space-y-8">
-          <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The 8-Week Roadmap</p>
-          <h1 className="text-7xl md:text-8xl font-black text-brand-navy tracking-tighter leading-none">
-            What You'll Learn <br />
-            <span className="text-brand-orange">Inside the Program.</span>
+      <section className="pt-28 md:pt-40 pb-16 px-5 md:px-8">
+        <div className="max-w-4xl mx-auto text-center space-y-4">
+          <h1 className="text-3xl md:text-5xl font-black text-brand-navy tracking-tight">
+            What You&apos;ll Learn
           </h1>
-          <p className="text-xl text-brand-gray font-medium max-w-2xl mx-auto">
-            This isn't a course you just watch. It's a step-by-step plan 
-            we install into your clinic over 8 weeks to get you real results.
+          <p className="text-base md:text-lg text-brand-gray font-medium max-w-2xl mx-auto">
+            8 weeks of live coaching, practical scripts, and real implementation. Here&apos;s the roadmap.
           </p>
         </div>
       </section>
@@ -184,6 +181,19 @@ export default function CurriculumPage() {
               </div>
             </EliteCard>
           ))}
+        </div>
+      </section>
+
+      {/* Preview Note */}
+      <section className="px-5 md:px-8 pb-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-sm text-brand-gray font-medium">
+            Want to see a sample lesson before applying?{" "}
+            <a href="mailto:support@neurochiromastermind.com" className="text-brand-orange hover:text-brand-navy underline transition-colors">
+              Email us
+            </a>{" "}
+            and we&apos;ll send you a preview.
+          </p>
         </div>
       </section>
 

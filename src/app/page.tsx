@@ -89,6 +89,10 @@ export default function HomePage() {
               <strong className="text-brand-navy">Still in school?</strong> Build the
               clinical certainty your professors can&apos;t teach — before you graduate.
             </p>
+            <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
+              <strong className="text-brand-navy">Already doing well?</strong> Go from
+              good to great with advanced frameworks and the Pro coaching track.
+            </p>
           </div>
 
           <div className="pt-2">
@@ -158,7 +162,7 @@ export default function HomePage() {
               {
                 step: "02",
                 title: "8 Weeks of Live Coaching",
-                desc: "Weekly live sessions with Dr. Nichols, step-by-step curriculum, scripts for every patient interaction, and a private community for support.",
+                desc: "Weekly live sessions with Dr. Nichols in a small group (max 25 per cohort), step-by-step curriculum, proven scripts, and a private community.",
               },
               {
                 step: "03",
@@ -177,6 +181,29 @@ export default function HomePage() {
                 </h3>
                 <p className="text-base text-brand-gray font-medium leading-relaxed">
                   {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────── DIFFERENTIATION ──────────────── */}
+      <section className="py-16 md:py-24 px-5 md:px-6 bg-white">
+        <div className="max-w-3xl mx-auto text-center space-y-8">
+          <h2 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
+            This Isn&apos;t Another Course You&apos;ll Never Finish.
+          </h2>
+          <div className="space-y-4 text-left max-w-xl mx-auto">
+            {[
+              "You won't just watch videos. Every week you practice real skills on real patients and track your results.",
+              "Small groups, max 25 per cohort. You'll get personal attention, not lost in a crowd.",
+              "Scripts and frameworks you can use the same day. Not theory — practical tools you'll reach for every week.",
+            ].map((point, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-brand-orange shrink-0 mt-0.5" />
+                <p className="text-base text-brand-gray font-medium leading-relaxed">
+                  {point}
                 </p>
               </div>
             ))}
@@ -362,7 +389,7 @@ export default function HomePage() {
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
-              <span>Satisfaction guarantee after Week 1</span>
+              <span>14-day satisfaction guarantee — no questions asked</span>
             </div>
           </div>
         </div>
