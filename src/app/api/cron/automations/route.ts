@@ -1,127 +1,354 @@
-import { NextResponse } from 'next/server';
-import { createAdminClient } from '@/lib/supabase/admin';
-import { EmailService } from '@/lib/emails';
-import { NotificationService } from '@/lib/notifications';
+import { NextResponse } from "next/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { EmailService } from "@/lib/emails";
+import { NotificationService } from "@/lib/notifications";
 
 export async function GET(request: Request) {
-  const authHeader = request.headers.get('authorization');
+  const authHeader = request.headers.get("authorization");
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return new NextResponse('Unauthorized', { status: 401 });
+    return new NextResponse("Unauthorized", { status: 401 });
   }
 
   const supabase = createAdminClient();
-  const results = [];
+  const results: any[] = [];
+  const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://neurochiromastermind.com";
 
   try {
-    // 1. RE-ENGAGEMENT: 7 Days No Login (all tiers)
-    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-    const { data: inactiveUsers } = await supabase
-      .from('profiles')
-      .select('id, email, full_name')
-      .lt('last_sign_in_at', sevenDaysAgo)
-      .neq('tier', 'admin');
+    // =========================================================
+    // 1. APPROVED BUT UNPAID — Follow-up at 24h, 48h, 7d
+    // =========================================================
+    const { data: approvedApps } = await supabase
+      .from("applications")
+      .select("id, email, full_name, responses, updated_at")
+      .eq("status", "approved");
 
-    if (inactiveUsers) {
-      for (const user of inactiveUsers) {
-        // Check if already sent in last 7 days to avoid spam
-        const { data: alreadySent } = await supabase
-          .from('automation_logs')
-          .select('id')
-          .eq('user_email', user.email)
-          .eq('event_type', 'reengagement')
-          .gte('created_at', sevenDaysAgo)
-          .limit(1);
+    if (approvedApps) {
+      for (const app of approvedApps) {
+        const approvedAt = app.responses?.approved_at || app.updated_at;
+        if (!approvedAt) continue;
 
-        if (!alreadySent || alreadySent.length === 0) {
-          await EmailService.sendReengagement(user.email, user.full_name || 'Doctor', `${process.env.NEXT_PUBLIC_SITE_URL}/portal`);
-          results.push({ type: 'reengagement', email: user.email });
-        }
-      }
-    }
+        const hoursSince = (Date.now() - new Date(approvedAt).getTime()) / (1000 * 60 * 60);
 
-    // 2. COUNCIL TRANSITION: Check for curriculum completion (8 weeks)
-    // Use module completion data instead of profile created_at
-    const { data: completingMembers } = await supabase
-      .from('profiles')
-      .select('id, email, full_name')
-      .eq('tier', 'standard');
+        // Determine which follow-up to send (24h, 48h, or 7d)
+        let followUpKey: string | null = null;
+        if (hoursSince >= 24 && hoursSince < 36) followUpKey = "approved_reminder_24h";
+        else if (hoursSince >= 48 && hoursSince < 60) followUpKey = "approved_reminder_48h";
+        else if (hoursSince >= 168 && hoursSince < 180) followUpKey = "approved_reminder_7d";
 
-    if (completingMembers) {
-      for (const member of completingMembers) {
-        // Check if they've completed enough modules (proxy for 8 weeks)
-        const { count } = await supabase
-          .from('module_progress')
-          .select('id', { count: 'exact', head: true })
-          .eq('user_id', member.id)
-          .eq('is_completed', true);
-
-        // If they've completed 20+ modules (roughly 8 weeks of content)
-        if (count && count >= 20) {
-          const { data: alreadyInvited } = await supabase
-            .from('automation_logs')
-            .select('id')
-            .eq('user_email', member.email)
-            .eq('event_type', 'council_transition')
+        if (followUpKey) {
+          const { data: alreadySent } = await supabase
+            .from("automation_logs")
+            .select("id")
+            .eq("user_email", app.email)
+            .eq("event_type", followUpKey)
             .limit(1);
 
-          if (!alreadyInvited || alreadyInvited.length === 0) {
-            await EmailService.sendCouncilTransition(member.email, member.full_name || 'Doctor', `${process.env.NEXT_PUBLIC_SITE_URL}/council/application`);
-            results.push({ type: 'council_transition', email: member.email });
+          if (!alreadySent || alreadySent.length === 0) {
+            // Rebuild the checkout URL
+            const tierRaw = app.responses?.tier_applying || app.responses?.tier_requested || "";
+            const isPro = tierRaw.toLowerCase().includes("pro");
+            const baseUrl = isPro
+              ? process.env.NEXT_PUBLIC_STRIPE_PRO_PIF
+              : process.env.NEXT_PUBLIC_STRIPE_STANDARD_PIF;
+
+            if (baseUrl) {
+              const url = new URL(baseUrl);
+              url.searchParams.set("client_reference_id", app.id);
+              url.searchParams.set("prefilled_email", app.email);
+
+              await EmailService.sendApprovedReminder(
+                app.email,
+                app.full_name || "Doctor",
+                url.toString(),
+                Math.floor(hoursSince / 24)
+              );
+              results.push({ type: followUpKey, email: app.email });
+            }
           }
         }
       }
     }
 
-    // 3. LIVE CALL REMINDERS (with deduplication)
+    // =========================================================
+    // 2. PENDING APPLICATION NURTURE — 24h and 48h follow-ups
+    // =========================================================
+    const { data: pendingApps } = await supabase
+      .from("applications")
+      .select("id, email, full_name, created_at")
+      .eq("status", "pending");
+
+    if (pendingApps) {
+      for (const app of pendingApps) {
+        const hoursSince = (Date.now() - new Date(app.created_at).getTime()) / (1000 * 60 * 60);
+
+        let followUpKey: string | null = null;
+        if (hoursSince >= 24 && hoursSince < 36) followUpKey = "pending_followup_24h";
+        else if (hoursSince >= 48 && hoursSince < 60) followUpKey = "pending_followup_48h";
+
+        if (followUpKey) {
+          const { data: alreadySent } = await supabase
+            .from("automation_logs")
+            .select("id")
+            .eq("user_email", app.email)
+            .eq("event_type", followUpKey)
+            .limit(1);
+
+          if (!alreadySent || alreadySent.length === 0) {
+            await EmailService.sendPendingAppFollowUp(
+              app.email,
+              app.full_name || "Doctor",
+              Math.floor(hoursSince)
+            );
+            results.push({ type: followUpKey, email: app.email });
+          }
+        }
+      }
+    }
+
+    // =========================================================
+    // 3. WEEKLY CURRICULUM DRIP — Monday morning emails
+    // =========================================================
     const now = new Date();
+    const isMonday = now.getUTCDay() === 1;
+    const isMorningWindow = now.getUTCHours() >= 12 && now.getUTCHours() < 13; // ~8 AM ET
+
+    if (isMonday && isMorningWindow) {
+      const { data: activeMembers } = await supabase
+        .from("profiles")
+        .select("id, email, full_name")
+        .neq("tier", "admin")
+        .not("email", "is", null);
+
+      if (activeMembers) {
+        for (const member of activeMembers) {
+          // Determine which week the member is on
+          const { count: completedModules } = await supabase
+            .from("module_progress")
+            .select("id", { count: "exact", head: true })
+            .eq("user_id", member.id)
+            .eq("is_completed", true);
+
+          // Rough mapping: ~3 modules per week
+          const currentWeek = Math.min(Math.floor((completedModules || 0) / 3) + 1, 8);
+
+          // Only send if they haven't finished and haven't received this week's drip
+          if (currentWeek <= 8) {
+            const dripKey = `weekly_drip_w${currentWeek}`;
+            const { data: alreadySent } = await supabase
+              .from("automation_logs")
+              .select("id")
+              .eq("user_email", member.email)
+              .eq("event_type", dripKey)
+              .limit(1);
+
+            if (!alreadySent || alreadySent.length === 0) {
+              const weekSlugs: Record<number, string> = {
+                1: "week-1-identity", 2: "week-2-scanning", 3: "week-3-communication",
+                4: "week-4-philosophy", 5: "week-5-care-plans", 6: "week-6-leadership",
+                7: "week-7-marketing", 8: "week-8-mastery",
+              };
+              const slug = weekSlugs[currentWeek] || "week-1-identity";
+              await EmailService.sendWeeklyDrip(
+                member.email,
+                member.full_name || "Doctor",
+                currentWeek,
+                `${SITE}/portal/curriculum/${slug}`
+              );
+              results.push({ type: dripKey, email: member.email });
+            }
+          }
+        }
+      }
+    }
+
+    // =========================================================
+    // 4. PRO 1:1 BOOKING REMINDER — 3 days and 14 days after activation
+    // =========================================================
+    const { data: proMembers } = await supabase
+      .from("profiles")
+      .select("id, email, full_name, created_at")
+      .eq("tier", "pro");
+
+    if (proMembers) {
+      for (const pro of proMembers) {
+        const daysSinceCreated = (Date.now() - new Date(pro.created_at).getTime()) / (1000 * 60 * 60 * 24);
+
+        let reminderKey: string | null = null;
+        if (daysSinceCreated >= 3 && daysSinceCreated < 4) reminderKey = "pro_booking_3d";
+        else if (daysSinceCreated >= 14 && daysSinceCreated < 15) reminderKey = "pro_booking_14d";
+
+        if (reminderKey) {
+          const { data: alreadySent } = await supabase
+            .from("automation_logs")
+            .select("id")
+            .eq("user_email", pro.email)
+            .eq("event_type", reminderKey)
+            .limit(1);
+
+          if (!alreadySent || alreadySent.length === 0) {
+            await EmailService.sendProBookingReminder(pro.email, pro.full_name || "Doctor");
+            results.push({ type: reminderKey, email: pro.email });
+          }
+        }
+      }
+    }
+
+    // =========================================================
+    // 5. RE-ENGAGEMENT — 7 days inactive (with bug fix)
+    // =========================================================
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const { data: inactiveUsers } = await supabase
+      .from("profiles")
+      .select("id, email, full_name, last_sign_in_at")
+      .neq("tier", "admin")
+      .not("email", "is", null);
+
+    if (inactiveUsers) {
+      for (const user of inactiveUsers) {
+        // Bug fix: skip if last_sign_in_at is null (never logged in — onboarding issue, not re-engagement)
+        if (!user.last_sign_in_at) continue;
+        if (new Date(user.last_sign_in_at) >= new Date(sevenDaysAgo)) continue;
+
+        const { data: alreadySent } = await supabase
+          .from("automation_logs")
+          .select("id")
+          .eq("user_email", user.email)
+          .eq("event_type", "reengagement")
+          .gte("created_at", sevenDaysAgo)
+          .limit(1);
+
+        if (!alreadySent || alreadySent.length === 0) {
+          await EmailService.sendReengagement(user.email, user.full_name || "Doctor", `${SITE}/portal`);
+          results.push({ type: "reengagement", email: user.email });
+        }
+      }
+    }
+
+    // =========================================================
+    // 6. COUNCIL TRANSITION — 20+ completed modules
+    // =========================================================
+    const { data: completingMembers } = await supabase
+      .from("profiles")
+      .select("id, email, full_name")
+      .eq("tier", "standard");
+
+    if (completingMembers) {
+      for (const member of completingMembers) {
+        const { count } = await supabase
+          .from("module_progress")
+          .select("id", { count: "exact", head: true })
+          .eq("user_id", member.id)
+          .eq("is_completed", true);
+
+        if (count && count >= 20) {
+          const { data: alreadyInvited } = await supabase
+            .from("automation_logs")
+            .select("id")
+            .eq("user_email", member.email)
+            .eq("event_type", "council_transition")
+            .limit(1);
+
+          if (!alreadyInvited || alreadyInvited.length === 0) {
+            await EmailService.sendCouncilTransition(
+              member.email,
+              member.full_name || "Doctor",
+              `${SITE}/council/application`
+            );
+            results.push({ type: "council_transition", email: member.email });
+          }
+        }
+      }
+    }
+
+    // =========================================================
+    // 7. LIVE CALL REMINDERS — 1 hour before, with dedup
+    // =========================================================
     const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000).toISOString();
     const { data: upcomingCalls } = await supabase
-      .from('events')
-      .select('*')
-      .gte('start_date', now.toISOString())
-      .lte('start_date', oneHourFromNow);
+      .from("events")
+      .select("*")
+      .gte("start_date", now.toISOString())
+      .lte("start_date", oneHourFromNow);
 
     if (upcomingCalls && upcomingCalls.length > 0) {
       const { data: allMembers } = await supabase
-        .from('profiles')
-        .select('email, full_name')
-        .neq('tier', 'admin');
+        .from("profiles")
+        .select("email, full_name")
+        .neq("tier", "admin");
 
       if (allMembers) {
         for (const call of upcomingCalls) {
-          // Check if reminders already sent for this call
+          const callDedupKey = `call_reminder_${call.id}`;
           const { data: alreadySent } = await supabase
-            .from('automation_logs')
-            .select('id')
-            .eq('event_type', 'call_reminder')
-            .eq('metadata->>call_id', call.id)
+            .from("automation_logs")
+            .select("id")
+            .eq("event_type", "call_reminder")
+            .eq("user_email", callDedupKey)
             .limit(1);
 
           if (!alreadySent || alreadySent.length === 0) {
             for (const member of allMembers) {
               await EmailService.sendCallReminder(
                 member.email,
-                'Starting in 1 Hour',
-                call.zoom_link || `${process.env.NEXT_PUBLIC_SITE_URL}/portal`
+                "Starting in 1 Hour",
+                call.zoom_link || `${SITE}/portal`
               );
             }
-            // Log once per call to mark as sent
             await EmailService.logAutomation({
-              email: 'system',
-              event_type: 'call_reminder',
-              status: 'sent',
-              metadata: { call_id: call.id, member_count: allMembers.length }
+              email: callDedupKey,
+              event_type: "call_reminder",
+              status: "sent",
+              metadata: { call_id: call.id, member_count: allMembers.length },
             });
-            results.push({ type: 'call_reminder', call: call.title, members: allMembers.length });
+            results.push({ type: "call_reminder", call: call.title, members: allMembers.length });
           }
         }
       }
     }
 
-    return NextResponse.json({ success: true, processed: results });
+    // =========================================================
+    // 8. PAYMENT FAILURE FOLLOW-UP — Day 3 and Day 7
+    // =========================================================
+    const { data: failedPaymentLogs } = await supabase
+      .from("automation_logs")
+      .select("user_email, created_at")
+      .eq("event_type", "payment_failed")
+      .gte("created_at", new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString());
+
+    if (failedPaymentLogs) {
+      for (const log of failedPaymentLogs) {
+        const daysSince = (Date.now() - new Date(log.created_at).getTime()) / (1000 * 60 * 60 * 24);
+
+        let followUpKey: string | null = null;
+        if (daysSince >= 3 && daysSince < 4) followUpKey = "payment_followup_3d";
+        else if (daysSince >= 7 && daysSince < 8) followUpKey = "payment_followup_7d";
+
+        if (followUpKey) {
+          const { data: alreadySent } = await supabase
+            .from("automation_logs")
+            .select("id")
+            .eq("user_email", log.user_email)
+            .eq("event_type", followUpKey)
+            .limit(1);
+
+          if (!alreadySent || alreadySent.length === 0) {
+            const portalUrl = `${SITE}/portal`;
+            await EmailService.sendPaymentFollowUp(
+              log.user_email,
+              "Doctor",
+              portalUrl,
+              Math.floor(daysSince)
+            );
+            results.push({ type: followUpKey, email: log.user_email });
+          }
+        }
+      }
+    }
+
+    return NextResponse.json({ success: true, processed: results, count: results.length });
   } catch (error: any) {
     console.error("Cron Error:", error);
-    await NotificationService.sendAdminAlert(`Cron job failed: ${error.message}`, 'critical');
+    await NotificationService.sendAdminAlert(`Cron job failed: ${error.message}`, "critical");
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }

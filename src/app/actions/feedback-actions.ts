@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
+import { NotificationService } from "@/lib/notifications";
 
 export async function submitFeedback(data: {
   review_type: string;
@@ -27,9 +28,18 @@ export async function submitFeedback(data: {
   ]);
 
   if (error) {
-    // Table may not exist yet — log but return success so user isn't blocked
     console.error("Feedback submission error:", error);
     return { success: true, data: null };
+  }
+
+  // Alert admin about new feedback submission
+  try {
+    await NotificationService.sendAdminAlert(
+      `New Pro Feedback: "${data.title}" (${data.review_type}) from ${user.email}`,
+      "info"
+    );
+  } catch (e) {
+    console.error("Admin alert error:", e);
   }
 
   revalidatePath("/portal/pro/feedback");

@@ -182,5 +182,77 @@ export const EmailService = {
   async sendEventConfirmation(email: string, name: string, eventTitle: string) {
     const html = getEmailTemplate('Seat Reserved', 'Event Confirmation', `<p>Dr. ${name}, you are registered for <strong>${eventTitle}</strong>.</p>`);
     return this.send(email, `Seat Reserved: ${eventTitle}`, html, 'event_confirmation');
-  }
+  },
+
+  // --- NURTURE & FOLLOW-UP SEQUENCES ---
+
+  async sendApprovedReminder(email: string, name: string, checkoutUrl: string, daysSinceApproval: number) {
+    const urgency = daysSinceApproval >= 5
+      ? `<p><strong>Your approval expires soon.</strong> If you don't enroll in the next 48 hours, your seat will be released to the waitlist.</p>`
+      : `<p>Your seat is still reserved — but cohort spots are filling up.</p>`;
+    const action = `<a href="${checkoutUrl}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Complete Enrollment</a>`;
+    const html = getEmailTemplate(
+      `Your Seat Is Waiting, Dr. ${name}`,
+      'Enrollment Reminder',
+      `<p>You were approved for the NeuroChiro Mastermind, but we haven't received your enrollment yet.</p>${urgency}`,
+      action
+    );
+    return this.send(email, `Reminder: Complete Your Mastermind Enrollment`, html, 'approved_reminder');
+  },
+
+  async sendPendingAppFollowUp(email: string, name: string, hoursWaiting: number) {
+    const message = hoursWaiting >= 48
+      ? `<p>Dr. ${name}, your application is in final review. We'll have a decision for you shortly.</p>`
+      : `<p>Dr. ${name}, we're reviewing your application now. Dr. Nichols personally reviews every submission, so please allow up to 48 hours.</p><p>In the meantime, you can check out our <a href="${process.env.NEXT_PUBLIC_SITE_URL}/curriculum" style="color: #E67E22;">curriculum overview</a> to see what's inside the program.</p>`;
+    const html = getEmailTemplate('Application Status Update', 'Admissions', message);
+    return this.send(email, 'Your Application Is Being Reviewed', html, 'pending_followup');
+  },
+
+  async sendWeeklyDrip(email: string, name: string, weekNumber: number, moduleLink: string) {
+    const weekMessages: Record<number, string> = {
+      1: "Your first module is live! Start with the Identity Worksheet — it takes about 15 minutes and sets the foundation for everything else.",
+      2: "Week 2 is about patient communication. Practice the Day 1 script from the Playbook this week, and don't forget to submit your KPIs.",
+      3: "This week's focus is the communication framework. Try using it on your next 3 patient conversations and see what changes.",
+      4: "Week 4: care plan presentations. Record yourself presenting a care plan this week — even just to your phone. You'll be surprised what you notice.",
+      5: "You're halfway through! Submit your KPIs and compare to Week 1. The numbers tell the story.",
+      6: "Week 6 is about leadership and team dynamics. If you have staff, audit how your team handles patient interactions this week.",
+      7: "Almost there. This week, prepare for the live immersion call. Bring your biggest question or challenge.",
+      8: "Final week! Complete your last module and review your 8-week progress. You've come a long way.",
+    };
+    const message = weekMessages[weekNumber] || "A new week of content is available in your portal.";
+    const action = `<a href="${moduleLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Open This Week's Module</a>`;
+    const html = getEmailTemplate(
+      `Week ${weekNumber} Is Live`,
+      `Program Update`,
+      `<p>Dr. ${name}, ${message}</p>`,
+      action
+    );
+    return this.send(email, `Week ${weekNumber} — Your Next Steps`, html, `weekly_drip_w${weekNumber}`);
+  },
+
+  async sendProBookingReminder(email: string, name: string) {
+    const bookingLink = "https://calendly.com/neurochiro-pro/1-on-1";
+    const action = `<a href="${bookingLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Book Your 1:1 Call</a>`;
+    const html = getEmailTemplate(
+      'Your Private Call Is Waiting',
+      'Pro Benefit Reminder',
+      `<p>Dr. ${name}, you have a private 1:1 session included with your Pro membership, but you haven't booked it yet.</p><p>These calls are where the biggest breakthroughs happen. Book yours today — it takes 30 seconds.</p>`,
+      action
+    );
+    return this.send(email, 'Reminder: Book Your Private 1:1 Call', html, 'pro_booking_reminder');
+  },
+
+  async sendPaymentFollowUp(email: string, name: string, updateUrl: string, daysSinceFailure: number) {
+    const urgency = daysSinceFailure >= 7
+      ? `<p><strong>Your portal access may be interrupted soon.</strong> Please update your payment method to continue the program.</p>`
+      : `<p>We tried to process your payment but it didn't go through. This happens sometimes — just update your payment method and you're all set.</p>`;
+    const action = `<a href="${updateUrl}" style="background-color: #E67E22; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px;">Update Payment Method</a>`;
+    const html = getEmailTemplate(
+      'Payment Update Needed',
+      'Billing Reminder',
+      `<p>Dr. ${name},</p>${urgency}`,
+      action
+    );
+    return this.send(email, 'Reminder: Update Your Payment Method', html, 'payment_followup');
+  },
 };
