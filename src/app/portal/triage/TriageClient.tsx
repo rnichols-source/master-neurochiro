@@ -158,18 +158,11 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
       </AnimatePresence>
 
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-        <div className="space-y-2">
-          <div className="flex items-center gap-3 text-brand-orange">
-            <Activity className="w-5 h-5" />
-            <p className="font-bold uppercase tracking-wider text-xs">Scripts &amp; Tools</p>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">Scripts &amp; Tools</h1>
-          <p className="text-brand-gray font-medium max-w-xl">
-            Click the button that matches what you need right now.
-          </p>
-          <p className="text-sm text-brand-gray/60 font-medium">
-            New to practice or still a student? Start with the conversation basics — they work for role-plays and real patients alike.
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Scripts</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1 max-w-xl">
+            Find the right words for any situation. Pick what you need or search below.
           </p>
         </div>
 
@@ -188,23 +181,23 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
       {/* Triage Pain Points */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          { 
-            label: "I have a ROF tomorrow and I'm nervous.", 
+          {
+            label: "I have a care plan presentation and I'm nervous",
             category: 'rof',
             color: 'bg-brand-orange',
-            icon: Target 
+            icon: Target
           },
-          { 
-            label: "A long-term patient just quit.", 
+          {
+            label: "A patient dropped off or isn't coming back",
             category: 'marketing',
             color: 'bg-brand-navy',
-            icon: Users 
+            icon: Users
           },
-          { 
-            label: "My team is underperforming.", 
+          {
+            label: "My team needs better training",
             category: 'staff',
             color: 'bg-red-600',
-            icon: GraduationCap 
+            icon: GraduationCap
           }
         ].map((triage) => (
           <button
@@ -226,8 +219,8 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
             <h3 className="text-xl font-black text-brand-navy leading-tight pr-10">
               "{triage.label}"
             </h3>
-            <div className="mt-6 flex items-center gap-2 text-brand-orange font-black uppercase tracking-widest text-xs">
-              Access Solutions <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+            <div className="mt-4 flex items-center gap-2 text-brand-orange font-bold text-sm">
+              Find scripts <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
         ))}
@@ -235,14 +228,14 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
 
       {/* Category Navigation */}
       <div className="pt-10 border-t border-brand-navy/5">
-        <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 mb-6">Or browse by category</p>
+        <p className="text-sm font-bold text-brand-gray mb-4">Browse by category</p>
         <div className="flex overflow-x-auto no-scrollbar gap-3 pb-4 -mx-2 px-2 snap-x">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               className={cn(
-                "px-6 py-4 rounded-2xl flex items-center gap-3 transition-all font-black uppercase tracking-widest text-xs whitespace-nowrap snap-start border",
+                "px-4 py-3 rounded-xl flex items-center gap-2 transition-all font-bold text-sm whitespace-nowrap snap-start border touch-target",
                 activeCategory === cat.id 
                   ? "bg-brand-navy text-white border-brand-navy shadow-xl shadow-brand-navy/20" 
                   : "bg-white text-brand-navy/40 border-brand-navy/5 hover:border-brand-orange/20"
