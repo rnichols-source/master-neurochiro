@@ -60,16 +60,12 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
             className="fixed inset-0 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:max-w-2xl z-[101] md:px-4 overflow-y-auto safe-top safe-bottom"
           >
             <EliteCard className="p-0 overflow-hidden shadow-2xl border-none">
-              <div className="p-8 border-b border-brand-navy/5 flex items-center justify-between bg-brand-cream/30">
-                <div>
-                  <p className="text-brand-orange font-black uppercase tracking-wider text-xs mb-1">
-                    Submit KPIs
-                  </p>
-                  <h3 className="text-2xl font-black text-brand-navy tracking-tight">Submit Weekly KPIs</h3>
-                </div>
-                <button 
+              <div className="p-5 md:p-6 border-b border-brand-navy/5 flex items-center justify-between">
+                <h3 className="text-lg font-black text-brand-navy tracking-tight">Log This Week&apos;s Numbers</h3>
+                <button
                   onClick={onClose}
-                  className="p-2 hover:bg-brand-navy/5 rounded-xl transition-colors"
+                  className="p-2 hover:bg-brand-navy/5 rounded-xl transition-colors touch-target"
+                  aria-label="Close"
                 >
                   <X className="w-5 h-5 text-brand-navy/40" />
                 </button>
@@ -79,7 +75,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Date Selection */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-sm font-bold text-brand-navy ml-1">
                       Week Starting Date
                     </label>
                     <div className="relative">
@@ -89,14 +85,14 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
                         required
                         value={formData.week_start_date}
                         onChange={(e) => setFormData(prev => ({ ...prev, week_start_date: e.target.value }))}
-                        className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 pl-12 pr-6 text-sm font-bold text-brand-navy focus:bg-white focus:border-brand-orange/20 transition-all outline-none"
+                        className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 pl-12 pr-6 text-base font-medium text-brand-navy focus:bg-white focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/10 transition-all outline-none"
                       />
                     </div>
                   </div>
 
                   {/* Collections */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-sm font-bold text-brand-navy ml-1">
                       Total Collections ($)
                     </label>
                     <div className="relative">
@@ -108,14 +104,14 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
                         value={formData.collections || ""}
                         onChange={(e) => setFormData(prev => ({ ...prev, collections: Number(e.target.value) }))}
                         placeholder="e.g. 12500"
-                        className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 pl-12 pr-6 text-sm font-bold text-brand-navy focus:bg-white focus:border-brand-orange/20 transition-all outline-none"
+                        className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 pl-12 pr-6 text-base font-medium text-brand-navy focus:bg-white focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/10 transition-all outline-none"
                       />
                     </div>
                   </div>
 
                   {/* New Patients */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-sm font-bold text-brand-navy ml-1">
                       New Patients
                     </label>
                     <div className="relative">
@@ -126,14 +122,14 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
                         min="0"
                         value={formData.new_patients || ""}
                         onChange={(e) => setFormData(prev => ({ ...prev, new_patients: Number(e.target.value) }))}
-                        className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 pl-12 pr-6 text-sm font-bold text-brand-navy focus:bg-white focus:border-brand-orange/20 transition-all outline-none"
+                        className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 pl-12 pr-6 text-base font-medium text-brand-navy focus:bg-white focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/10 transition-all outline-none"
                       />
                     </div>
                   </div>
 
                   {/* Visits */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
+                    <label className="text-sm font-bold text-brand-navy ml-1">
                       Total Patient Visits
                     </label>
                     <div className="relative">
@@ -144,7 +140,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
                         min="0"
                         value={formData.patient_visits || ""}
                         onChange={(e) => setFormData(prev => ({ ...prev, patient_visits: Number(e.target.value) }))}
-                        className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 pl-12 pr-6 text-sm font-bold text-brand-navy focus:bg-white focus:border-brand-orange/20 transition-all outline-none"
+                        className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 pl-12 pr-6 text-base font-medium text-brand-navy focus:bg-white focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/10 transition-all outline-none"
                       />
                     </div>
                   </div>
@@ -153,29 +149,29 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
                 <div className="space-y-6">
                   {/* Wins */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
-                      Weekly Wins (Identity Shifts, Results)
+                    <label className="text-sm font-bold text-brand-navy ml-1">
+                      What went well this week?
                     </label>
                     <textarea
                       rows={2}
                       value={formData.wins}
                       onChange={(e) => setFormData(prev => ({ ...prev, wins: e.target.value }))}
                       placeholder="What went right this week?"
-                      className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 px-6 text-sm font-bold text-brand-navy focus:bg-white focus:border-brand-orange/20 transition-all outline-none resize-none"
+                      className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 px-6 text-base font-medium text-brand-navy focus:bg-white focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/10 transition-all outline-none resize-none"
                     />
                   </div>
 
                   {/* Bottlenecks */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60 ml-1">
-                      Current Bottlenecks (Where are you stuck?)
+                    <label className="text-sm font-bold text-brand-navy ml-1">
+                      Where are you stuck?
                     </label>
                     <textarea
                       rows={2}
                       value={formData.bottlenecks}
                       onChange={(e) => setFormData(prev => ({ ...prev, bottlenecks: e.target.value }))}
-                      placeholder="What is preventing growth?"
-                      className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 px-6 text-sm font-bold text-brand-navy focus:bg-white focus:border-brand-orange/20 transition-all outline-none resize-none"
+                      placeholder="What's not working? What do you need help with?"
+                      className="w-full bg-brand-navy/5 border border-brand-navy/5 rounded-xl py-4 px-6 text-base font-medium text-brand-navy focus:bg-white focus:border-brand-orange/40 focus:ring-2 focus:ring-brand-orange/10 transition-all outline-none resize-none"
                     />
                   </div>
                 </div>
@@ -198,9 +194,7 @@ export function KPIEntryModal({ isOpen, onClose, onSuccess }: KPIEntryModalProps
                     {isSubmitting ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
-                      <span className="flex items-center gap-2">
-                        Submit Intelligence <Zap className="w-4 h-4 fill-white" />
-                      </span>
+                      <span>Submit</span>
                     )}
                   </BrandButton>
                 </div>
