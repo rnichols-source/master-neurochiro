@@ -5,38 +5,30 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   BookOpen,
-  Activity,
-  Zap,
+  BarChart3,
+  FileText,
   ShieldCheck,
-  Star,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const mobileItems = [
   { name: "Home", href: "/portal", icon: LayoutDashboard },
   { name: "Learn", href: "/portal/curriculum", icon: BookOpen },
-  { name: "KPIs", href: "/portal/engine", icon: Activity },
-  { name: "Scripts", href: "/portal/triage", icon: Zap },
+  { name: "Scripts", href: "/portal/triage", icon: FileText },
+  { name: "Track", href: "/portal/engine", icon: BarChart3 },
 ];
 
 export function MobileNav({ userTier = "standard" }: { userTier?: string }) {
   const pathname = usePathname();
 
-  const finalItems = [...mobileItems];
-  if (userTier === "admin") {
-    finalItems.push({ name: "Admin", href: "/admin", icon: ShieldCheck });
-  } else {
-    finalItems.push({
-      name: "Profile",
-      href: "/portal/profile",
-      icon: Star,
-    });
-  }
+  const items = userTier === "admin"
+    ? [...mobileItems, { name: "Admin", href: "/admin", icon: ShieldCheck }]
+    : mobileItems;
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-brand-navy/95 backdrop-blur-lg border-t border-white/10 z-50 safe-bottom">
       <div className="flex justify-around items-center px-2 pt-2 pb-1">
-        {finalItems.map((item) => {
+        {items.map((item) => {
           const isActive =
             pathname === item.href ||
             (item.href !== "/portal" && pathname.startsWith(item.href));

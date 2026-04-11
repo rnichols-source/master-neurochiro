@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import { 
   FileText, Target, Zap, Users, ShieldCheck, CheckCircle2,
   ChevronDown, Search, Activity, MessageSquare, AlertTriangle,
@@ -664,8 +665,14 @@ export function PlaybooksClient() {
     <div className="space-y-6 pb-20">
       {/* Header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Playbooks</h1>
+        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Learn</h1>
         <p className="text-sm text-brand-gray font-medium mt-1">Step-by-step guides for every patient interaction.</p>
+        <div className="flex gap-3 mt-4">
+          <Link href="/portal/curriculum" className="px-4 py-2 bg-brand-navy/5 text-brand-navy/60 rounded-xl text-sm font-bold hover:bg-brand-navy/10 transition-colors">
+            Curriculum
+          </Link>
+          <span className="px-4 py-2 bg-brand-navy text-white rounded-xl text-sm font-bold">Playbooks</span>
+        </div>
       </div>
 
       {/* Playbook Selector */}

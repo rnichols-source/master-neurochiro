@@ -95,10 +95,16 @@ export default async function PortalCurriculumPage() {
             <Activity size={14} className="fill-brand-orange" />
             <p className="text-xs font-black uppercase tracking-widest">Status</p>
           </div>
-          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Curriculum</h1>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Learn</h1>
           <p className="text-sm text-brand-gray font-medium mt-2">
             Your 8-week roadmap. Complete each phase to unlock the next.
           </p>
+          <div className="flex gap-3 mt-4">
+            <span className="px-4 py-2 bg-brand-navy text-white rounded-xl text-sm font-bold">Curriculum</span>
+            <Link href="/portal/playbooks" className="px-4 py-2 bg-brand-navy/5 text-brand-navy/60 rounded-xl text-sm font-bold hover:bg-brand-navy/10 transition-colors">
+              Playbooks
+            </Link>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-8">
