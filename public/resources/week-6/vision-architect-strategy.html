@@ -3,124 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro: The Vision Architect</title>
+    <title>NeuroChiro: Your 10-Year Vision</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--navy); }
-        
-        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
-        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; }
-        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .strategy-card { background: var(--navy); color: var(--white); padding: 2.5rem; border-radius: 16px; margin: 2rem 0; position: relative; }
-        .strategy-card h3 { color: var(--orange); font-size: 16px; margin-bottom: 1rem; }
-        .strategy-card p { color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.7; margin-bottom: 0; }
-
-        .milestone-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; }
-        .ms-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; color: var(--navy); }
-        .ms-desc { font-size: 11px; color: var(--gray); margin-top: 0.25rem; }
-
-        .callout-box { border-left: 4px solid var(--navy); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
-        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
-    </style>
+    <style>:root{--navy:#1A232E;--orange:#FF6600;--cream:#F9F7F2;--gray:#4B5563;--white:#FFF}*{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact}body{background:#E5E7EB;font-family:'Inter',sans-serif;color:var(--navy);line-height:1.6}.page{width:8.5in;min-height:11in;padding:.75in;margin:2rem auto;background:var(--white);box-shadow:0 10px 25px rgba(0,0,0,.1);position:relative}@media print{body{background:none}.page{margin:0;box-shadow:none;width:100%}}@media(max-width:768px){.page{width:100%;padding:1.5rem;margin:0;min-height:auto;box-shadow:none}.grid-2{grid-template-columns:1fr!important;gap:1.5rem!important}}.header-stripe{position:absolute;top:0;left:0;right:0;height:8px;background:var(--orange)}.logo-area{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.logo-text{font-family:'Lato',sans-serif;text-transform:uppercase;font-weight:900;letter-spacing:.2em;font-size:14px}.logo-subtext{color:var(--orange);font-size:10px;font-weight:700;display:block;margin-top:-2px}.type-tag{border:1px solid var(--navy);color:var(--navy);padding:4px 12px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;border-radius:4px}h1{font-size:32px;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:.5rem}.subtitle{font-size:14px;font-weight:600;color:var(--gray);margin-bottom:2.5rem}.section-header{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:var(--orange);margin-bottom:1.5rem;display:flex;align-items:center}.section-header::after{content:"";flex:1;height:1px;background:var(--cream);margin-left:1rem}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}h3{font-size:16px;font-weight:900;margin-bottom:.75rem}p{font-size:13px;color:var(--gray);margin-bottom:.75rem}.tip-card{background:var(--cream);padding:1.25rem;border-radius:12px;margin-bottom:.75rem}.tip-title{font-weight:900;font-size:14px;display:block;margin-bottom:.5rem}.tip-desc{font-size:12px;color:var(--gray);line-height:1.5}.key-insight{background:var(--navy);color:var(--white);padding:1.5rem;border-radius:12px;margin:1.5rem 0}.key-insight p{color:rgba(255,255,255,.85);margin-bottom:0}.key-insight strong{color:var(--orange)}.footer{position:absolute;bottom:.5in;left:.75in;right:.75in;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;color:var(--gray);border-top:1px solid var(--cream);padding-top:1rem;text-transform:uppercase;letter-spacing:.1em}</style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
         <div class="logo-area">
-            <div>
-                <span class="logo-text">NeuroChiro</span>
-                <span class="logo-subtext">MASTERMIND</span>
-            </div>
-            <div class="type-tag">Strategy Doctrine</div>
+            <div><span class="logo-text">NeuroChiro</span><span class="logo-subtext">MASTERMIND</span></div>
+            <div class="type-tag">Business Guide</div>
         </div>
 
         <header>
-            <h1>The Vision Architect:<br>Designing the 10-Year Practice</h1>
-            <div class="subtitle">The Framework for Long-Term Strategy, Positioning, and Legacy Building</div>
+            <h1>Your 10-Year Vision</h1>
+            <div class="subtitle">5 questions to answer now that determine where your practice ends up in a decade.</div>
         </header>
 
-        <div class="section-header">01 / The Law of Long-Term Thinking</div>
-        <div class="grid-2">
-            <div>
-                <p>Most practice owners think in weeks and months. A CEO thinks in years and decades. Strategy is not about what you do today; it is about the <strong>position you want to hold</strong> ten years from now.</p>
-                <p>Pulling from strategic masters like Michael Porter and elite practice architects, we know that competitive advantage is the result of a clear vision and a relentless focus on a single objective. What is the one thing your practice will be known for in 2036?</p>
-            </div>
-            <div>
-                <div class="milestone-box">
-                    <span class="ms-title">Positioning</span>
-                    <span class="ms-desc">Define your "Blue Ocean." How is your practice fundamentally different from every other option in your market?</span>
-                </div>
-                <div class="milestone-box">
-                    <span class="ms-title">Compound Growth</span>
-                    <span class="ms-desc">Strategy is the art of making decisions today that make tomorrow’s growth inevitable and effortless.</span>
-                </div>
-            </div>
+        <div class="section-header">Why This Matters</div>
+        <p>Most chiropractors plan week to week. The ones who build something lasting plan year to year. These 5 questions take 20 minutes to answer — and they'll shape every decision you make from here forward.</p>
+
+        <div class="section-header">Answer These 5 Questions (Write Your Answers Down)</div>
+
+        <div class="tip-card">
+            <span class="tip-title">1. What does your ideal week look like in 10 years?</span>
+            <span class="tip-desc">How many days do you work? How many patients do you see? Are you adjusting every patient yourself, or do you have associates? Are you teaching, speaking, mentoring? Be specific about the hours and the lifestyle.</span>
         </div>
 
-        <div class="section-header">02 / The Strategic Blueprint</div>
-        <div class="grid-2">
-            <div>
-                <h3>Architectural Purity</h3>
-                <p>A 10-year vision requires a commitment to purity. You cannot be "everything to everyone." Focus on the highest level of neurological results and let the market follow.</p>
-            </div>
-            <div>
-                <h3>Building the Moat</h3>
-                <p>Your moat is your Clinical OS, your team culture, and your brand authority. These are the things that cannot be easily replicated by a competitor.</p>
-            </div>
+        <div class="tip-card">
+            <span class="tip-title">2. What is your target annual income?</span>
+            <span class="tip-desc">Not "more." A number. $200K? $500K? $1M? Write it down. Then work backward: at your current per-visit rate, how many visits per year does that require? Is that realistic with one location, or do you need to grow?</span>
         </div>
 
-        <div class="strategy-card">
-            <h3>The Legacy Standard</h3>
-            <p>A practice built on a 10-year vision is a practice that can survive the doctor. Legacy is the result of building something that is bigger than your own personality. It requires the courage to build systems that work without you and a culture that enforces the standards autonomously. When you architect the vision, you are not just building a business—you are building a contribution to the world that will persist for generations.</p>
+        <div class="tip-card">
+            <span class="tip-title">3. Do you want to own one practice or multiple?</span>
+            <span class="tip-desc">There's no wrong answer. One amazing practice with a great team can generate $500K+/year. Multiple locations can scale further but require a completely different skillset (management, not clinical). Know which path you want before you start walking.</span>
         </div>
 
-        <div class="callout-box">
-            <p class="callout-text">"Strategy is the ability to see the future and have the discipline to architect it today. Don't build for the present; build for the legacy."</p>
+        <div class="tip-card">
+            <span class="tip-title">4. What will you be known for?</span>
+            <span class="tip-desc">In 10 years, when someone in your community says your name, what do they say next? "The best chiropractor in town"? "The doctor who specializes in pediatric care"? "The practice that changed my life"? Your reputation is your most valuable asset — decide what it will be.</span>
+        </div>
+
+        <div class="tip-card">
+            <span class="tip-title">5. What needs to be true in 2 years to be on track?</span>
+            <span class="tip-desc">This is the most important question. If your 10-year vision requires $500K revenue and you're at $200K now, what does year 2 look like? Maybe it's $300K with one staff member and 80% retention. Make this milestone specific and measurable.</span>
+        </div>
+
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> Your 10-year vision isn't a goal — it's a filter. Once you know where you're going, every decision becomes easier: "Does this hire get me closer or further?" "Does this marketing spend make sense for the practice I'm building?" "Am I solving a today problem or building for tomorrow?" The vision answers these automatically.</p>
         </div>
 
         <div class="footer">
-            <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Vision Architect Series</span>
+            <span>&copy; 2026 NeuroChiro Mastermind</span>
+            <span>Your 10-Year Vision</span>
             <span>For Members Only</span>
         </div>
     </div>

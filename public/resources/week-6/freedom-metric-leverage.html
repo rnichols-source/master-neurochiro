@@ -3,124 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro: Building Income Freedom</title>
+    <title>NeuroChiro: Making Money When You're Not There</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
-        
-        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
-        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
-        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .freedom-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
-        .freedom-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
-        .freedom-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; line-height: 1.6; }
-
-        .leverage-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--navy); margin-bottom: 1rem; }
-        .lev-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
-        .lev-desc { font-size: 11px; color: var(--gray); }
-
-        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
-        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
-    </style>
+    <style>:root{--navy:#1A232E;--orange:#FF6600;--cream:#F9F7F2;--gray:#4B5563;--white:#FFF}*{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact}body{background:#E5E7EB;font-family:'Inter',sans-serif;color:var(--navy);line-height:1.6}.page{width:8.5in;min-height:11in;padding:.75in;margin:2rem auto;background:var(--white);box-shadow:0 10px 25px rgba(0,0,0,.1);position:relative}@media print{body{background:none}.page{margin:0;box-shadow:none;width:100%}}@media(max-width:768px){.page{width:100%;padding:1.5rem;margin:0;min-height:auto;box-shadow:none}.grid-2{grid-template-columns:1fr!important;gap:1.5rem!important}}.header-stripe{position:absolute;top:0;left:0;right:0;height:8px;background:var(--orange)}.logo-area{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.logo-text{font-family:'Lato',sans-serif;text-transform:uppercase;font-weight:900;letter-spacing:.2em;font-size:14px}.logo-subtext{color:var(--orange);font-size:10px;font-weight:700;display:block;margin-top:-2px}.type-tag{border:1px solid var(--navy);color:var(--navy);padding:4px 12px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;border-radius:4px}h1{font-size:30px;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:.5rem}.subtitle{font-size:14px;font-weight:600;color:var(--gray);margin-bottom:2.5rem}.section-header{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:var(--orange);margin-bottom:1.5rem;display:flex;align-items:center}.section-header::after{content:"";flex:1;height:1px;background:var(--cream);margin-left:1rem}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}h3{font-size:16px;font-weight:900;margin-bottom:.75rem}p{font-size:13px;color:var(--gray);margin-bottom:.75rem}.tip-card{background:var(--cream);padding:1.25rem;border-radius:12px;margin-bottom:.75rem}.tip-title{font-weight:900;font-size:14px;display:block;margin-bottom:.5rem}.tip-desc{font-size:12px;color:var(--gray);line-height:1.5}.key-insight{background:var(--navy);color:var(--white);padding:1.5rem;border-radius:12px;margin:1.5rem 0}.key-insight p{color:rgba(255,255,255,.85);margin-bottom:0}.key-insight strong{color:var(--orange)}.footer{position:absolute;bottom:.5in;left:.75in;right:.75in;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;color:var(--gray);border-top:1px solid var(--cream);padding-top:1rem;text-transform:uppercase;letter-spacing:.1em}</style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
         <div class="logo-area">
-            <div>
-                <span class="logo-text">NeuroChiro</span>
-                <span class="logo-subtext">MASTERMIND</span>
-            </div>
-            <div class="type-tag">Scalability Doctrine</div>
+            <div><span class="logo-text">NeuroChiro</span><span class="logo-subtext">MASTERMIND</span></div>
+            <div class="type-tag">Business Guide</div>
         </div>
 
         <header>
-            <h1>Building Income Freedom:<br>Building Income That Doesn't Require Your Presence</h1>
-            <div class="subtitle">The Blueprint for Scaling Impact through Leverage, Delegation, and Systems</div>
+            <h1>Making Money When<br>You're Not There</h1>
+            <div class="subtitle">How to build a practice that generates income without requiring you in the room every hour.</div>
         </header>
 
-        <div class="section-header">01 / The Leverage Gap</div>
+        <div class="section-header">The Freedom Question</div>
+        <p>Ask yourself: <strong>How much does your practice make when you take a day off?</strong> If the answer is zero, your practice isn't a business — it's a job. Here's how to change that.</p>
+
+        <div class="section-header">3 Stages of Practice Freedom</div>
         <div class="grid-2">
             <div>
-                <p>Most chiropractors are trapped in a "Linear Income" model. If they don't adjust, they don't get paid. This is not a business; it is a job where you are the most overworked employee. To achieve freedom, you must move from **Linear Income** to **Leveraged Economics.**</p>
-                <p>Pulling from scalability masters like Naval Ravikant and elite practice architects, we know that leverage comes from three sources: Code/Content, Capital, and Labor. In your practice, leverage comes from your systems, your team, and your clinical results.</p>
+                <div class="tip-card">
+                    <span class="tip-title">Stage 1: You Are the Practice</span>
+                    <span class="tip-desc">You see every patient. You answer every call. You make every decision. Revenue = your hours × your rate. If you're here, this is normal — but it's not sustainable.</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">Stage 2: You Lead the Practice</span>
+                    <span class="tip-desc">You have a trained team handling scheduling, payments, follow-up, and room prep. You focus only on adjusting and presenting. You could take a Friday off and things would run.</span>
+                </div>
             </div>
             <div>
-                <div class="leverage-box">
-                    <span class="lev-title">System Leverage</span>
-                    <span class="lev-desc">The ability for the practice to generate revenue and results without the CEO's direct involvement.</span>
+                <div class="tip-card">
+                    <span class="tip-title">Stage 3: The Practice Runs Without You</span>
+                    <span class="tip-desc">You have an associate or partner seeing patients. Systems run the operations. You could take a week off and collections stay steady. This is the goal — but it requires Stages 1 and 2 first.</span>
                 </div>
-                <div class="leverage-box">
-                    <span class="lev-title">Team Leverage</span>
-                    <span class="lev-desc">Building a team of owners who can execute the Clinical OS at a high level autonomously.</span>
-                </div>
+                <h3>Where Are You Now?</h3>
+                <p>Be honest. Most solo chiropractors are in Stage 1. The goal of this program is to get you solidly into Stage 2 within 8 weeks. Stage 3 is a longer-term play that requires hiring an associate — which the Council program covers.</p>
             </div>
         </div>
 
-        <div class="section-header">02 / The Path to Freedom</div>
+        <div class="section-header">Your First Step Toward Freedom</div>
         <div class="grid-2">
             <div>
-                <h3>The Value of Your Hour</h3>
-                <p>A CEO must know the value of their hour. If you are doing tasks that can be done for $25/hr, you are discounting your potential. Delegate the low-value and focus on the high-leverage.</p>
+                <h3>Track Your "CEO Hours"</h3>
+                <p>This week, track how many hours you spend on tasks someone else could do: answering phones, scheduling, ordering supplies, cleaning, billing. Write it down. That number is your freedom gap.</p>
             </div>
             <div>
-                <h3>Scaling Results</h3>
-                <p>Scaling isn't just about more patients; it's about better results with less effort. Use the Clinical OS to deliver elite neurological reorganization at scale.</p>
+                <h3>Delegate One Thing</h3>
+                <p>Pick the easiest task from your list. Write a 5-step checklist. Train someone on it this week. One task delegated per week = 12 tasks off your plate in 3 months. That's an entire workday freed up.</p>
             </div>
         </div>
 
-        <div class="freedom-card">
-            <h3>The Freedom Standard</h3>
-            <p>Freedom is the ultimate goal of the CEO. It is the ability to choose how you spend your time, who you work with, and what impact you want to make on the world. This requires a relentless focus on leverage. By decoupling your time from your income, you ensure that your practice can continue to grow and thrive even when you are not there. This is the difference between a successful practice and a successful life. Build for freedom, and the success will follow.</p>
-        </div>
-
-        <div class="callout-box">
-            <p class="callout-text">"The goal of a business is to free the creator to do their best work. Don't let your practice become your prison. Architect your freedom today."</p>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> Freedom isn't about working less — it's about working on the right things. The right things are: seeing patients, presenting care plans, and leading your team. Everything else should be systematized and handed off. Start with one task this week.</p>
         </div>
 
         <div class="footer">
-            <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Freedom Metric Series</span>
+            <span>&copy; 2026 NeuroChiro Mastermind</span>
+            <span>Building Income Freedom</span>
             <span>For Members Only</span>
         </div>
     </div>
