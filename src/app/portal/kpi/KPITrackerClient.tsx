@@ -312,19 +312,45 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         ))}
       </div>
 
-      {/* Wins & Challenges */}
+      {/* Wins Timeline & Current Challenge */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Wins — show last 4 weeks */}
         <div className="bg-white rounded-2xl border border-brand-navy/5 p-5 shadow-sm">
-          <p className="text-sm font-bold text-brand-navy mb-2">Wins This Week</p>
-          <p className="text-sm text-brand-gray font-medium whitespace-pre-wrap leading-relaxed">
-            {latestStats.wins || "No wins recorded yet."}
-          </p>
+          <p className="text-sm font-bold text-brand-navy mb-3">Recent Wins</p>
+          {kpiData.filter((d: any) => d.wins).length > 0 ? (
+            <div className="space-y-3">
+              {kpiData
+                .filter((d: any) => d.wins)
+                .slice(-4)
+                .reverse()
+                .map((entry: any, i: number) => (
+                  <div key={i} className={cn("text-sm leading-relaxed", i === 0 ? "text-brand-navy font-medium" : "text-brand-gray/60")}>
+                    <span className="text-xs font-bold text-brand-orange mr-2">{entry.week}</span>
+                    {entry.wins}
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <p className="text-sm text-brand-gray font-medium">No wins recorded yet. Add one when you submit your next KPIs.</p>
+          )}
         </div>
+
+        {/* Current Challenge + Suggested Resource */}
         <div className="bg-white rounded-2xl border border-brand-navy/5 p-5 shadow-sm">
-          <p className="text-sm font-bold text-brand-navy mb-2">Where You&apos;re Stuck</p>
-          <p className="text-sm text-brand-gray font-medium whitespace-pre-wrap leading-relaxed">
-            {latestStats.bottlenecks || "Nothing reported yet."}
-          </p>
+          <p className="text-sm font-bold text-brand-navy mb-3">Where You&apos;re Stuck</p>
+          {latestStats.bottlenecks ? (
+            <div className="space-y-3">
+              <p className="text-sm text-brand-navy font-medium leading-relaxed">{latestStats.bottlenecks}</p>
+              <div className="pt-3 border-t border-brand-navy/5">
+                <p className="text-xs font-bold text-brand-gray mb-2">This might help:</p>
+                <Link href="/portal/triage" className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors">
+                  Browse Scripts & Tools →
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <p className="text-sm text-brand-gray font-medium">Nothing reported yet. If you get stuck, log it here — we&apos;ll point you to the right resource.</p>
+          )}
         </div>
       </div>
 
