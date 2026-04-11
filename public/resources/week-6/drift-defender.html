@@ -3,140 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource 11: Handling No-Shows and Missed Visits</title>
+    <title>NeuroChiro: Handling No-Shows and Missed Visits</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
+        :root { --navy: #1A232E; --orange: #FF6600; --cream: #F9F7F2; --gray: #4B5563; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.6; }
+        .page { width: 8.5in; min-height: 11in; padding: 0.75in; margin: 2rem auto; background: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
         @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--navy); }
-        
+        @media (max-width: 768px) { .page { width: 100%; padding: 1.5rem; margin: 0; min-height: auto; box-shadow: none; } .grid-2 { grid-template-columns: 1fr !important; gap: 1.5rem !important; } }
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--orange); }
         .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
         .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+        h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 600; color: var(--gray); margin-bottom: 2.5rem; }
+        .section-header { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
         .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1.2fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1.5rem; }
-
-        .doctrine-card { background: var(--navy); color: var(--white); padding: 2.5rem; border-radius: 16px; margin: 2rem 0; position: relative; }
-        .doctrine-card h3 { color: var(--orange); font-size: 16px; margin-bottom: 1rem; }
-        .doctrine-card p { color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.7; margin-bottom: 0; }
-
-        .script-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; }
-        .script-label { font-size: 9px; font-weight: 900; text-transform: uppercase; color: var(--orange); letter-spacing: 0.1em; display: block; margin-bottom: 0.5rem; }
-        .script-text { font-size: 13px; font-weight: 700; color: var(--navy); font-style: italic; }
-
-        .callout-box { border-left: 4px solid var(--navy); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
-        .checklist { list-style: none; margin-top: 1rem; }
-        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
-        .check-box { width: 16px; height: 16px; border: 2px solid var(--navy); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
-
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+        h3 { font-size: 16px; font-weight: 900; margin-bottom: 0.75rem; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 0.75rem; }
+        .script-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+        .script-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.5rem; display: block; }
+        .script-text { font-size: 14px; font-weight: 600; font-style: italic; color: var(--navy); line-height: 1.6; }
+        .tip-card { background: var(--cream); padding: 1.25rem; border-radius: 12px; margin-bottom: 0.75rem; }
+        .tip-title { font-weight: 900; font-size: 14px; display: block; margin-bottom: 0.5rem; }
+        .tip-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+        .key-insight { background: var(--navy); color: var(--white); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+        .key-insight p { color: rgba(255,255,255,0.85); margin-bottom: 0; }
+        .key-insight strong { color: var(--orange); }
         .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
         <div class="logo-area">
-            <div>
-                <span class="logo-text">NeuroChiro</span>
-                <span class="logo-subtext">MASTERMIND</span>
-            </div>
-            <div class="type-tag">The Doctrine</div>
+            <div><span class="logo-text">NeuroChiro</span><span class="logo-subtext">MASTERMIND</span></div>
+            <div class="type-tag">Script Guide</div>
         </div>
 
         <header>
-            <h1>Handling No-Shows and Missed Visits:<br>Neutralizing No-Shows</h1>
-            <div class="subtitle">Structural Containment during Broken Routines</div>
+            <h1>Handling No-Shows<br>and Missed Visits</h1>
+            <div class="subtitle">What to say when a patient misses a visit — and how to get them back without being awkward.</div>
         </header>
 
-        <section class="grid-2">
-            <div>
-                <h2>01 / Routine Disruption</h2>
-                <p>Most chiropractors interpret a missed visit as disrespect or a lack of value. Structurally, it is usually just a <strong>broken routine</strong>. Life interferes with new habits easily.</p>
-                <p>Expect normal human variability. People miss workouts, skip meals, and cancel plans. Your clinic must be designed to absorb this without the doctor collapsing.</p>
-            </div>
-            <div class="script-box">
-                <span class="script-label">Operator Script: The Routine Reset</span>
-                <p class="script-text">"I noticed we had a break in the routine last week. As we’ve discussed, the timing of these adjustments is what allows the nervous system to hold the new pattern. Let’s get those visits made up this week so we don’t lose the momentum we’ve built."</p>
-            </div>
-        </section>
-
-        <div class="section-header">02 / Frequency is Timing</div>
+        <div class="section-header">Why Patients Miss Visits</div>
         <div class="grid-2">
             <div>
-                <h3>The Cost of Drift</h3>
-                <p>Frequency isn't preference; it's strategy. When visits are spaced consistently, the new pattern is reinforced. When they drift, the repetition weakens and symptoms fluctuate.</p>
+                <p>A missed visit is rarely about you. It's usually one of three things:</p>
+                <p><strong>1. Life happened.</strong> Kid got sick, work meeting, forgot.</p>
+                <p><strong>2. They're feeling better</strong> and subconsciously deprioritized the visit.</p>
+                <p><strong>3. They're having doubts</strong> about whether to continue.</p>
+                <p>The key is to respond quickly and without judgment. The longer you wait, the harder it is for them to come back.</p>
             </div>
             <div>
-                <h3>Structural Containment</h3>
-                <p>Containment means you keep the system steady even when behavior fluctuates. You don't panic, lecture, or get passive-aggressive. You just keep the structure predictable.</p>
+                <div class="tip-card">
+                    <span class="tip-title">The Rule</span>
+                    <span class="tip-desc">Contact them within 24 hours of the missed visit. Not 3 days later. Not next week. The same day or next morning.</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">Who Should Call</span>
+                    <span class="tip-desc">Your front desk or CA — not you. It should feel like a check-in, not a guilt trip from the doctor.</span>
+                </div>
             </div>
         </div>
 
-        <div class="doctrine-card">
-            <h3>Zero Emotional Reaction</h3>
-            <p>The operator does not take cancellations personally. They do not soften their structure because a patient pushes back. They maintain a calm, clear tone and consistent expectations. Patients actually relax inside predictable systems.</p>
+        <div class="section-header">Scripts for Each Situation</div>
+
+        <h3>First Missed Visit (Phone or Text)</h3>
+        <div class="script-box">
+            <span class="script-label">Text Script</span>
+            <span class="script-text">"Hi [Name]! We missed you today. Hope everything is OK. Want me to reschedule you for tomorrow or later this week? Just reply with a time that works. 😊"</span>
         </div>
 
-        <div class="callout-box">
-            <p class="callout-text">"A missed visit is a break in routine, not a rejection of value. Handle it structurally, not emotionally, and you will maintain your clinical authority."</p>
+        <h3>Second Missed Visit (Needs a Call)</h3>
+        <div class="script-box">
+            <span class="script-label">Phone Script</span>
+            <span class="script-text">"Hey [Name], this is [CA name] from [Clinic]. I noticed you've missed your last couple of visits and just wanted to make sure everything is OK. Dr. [Your Name] wanted me to check in — is there anything we can help with? We have a few spots open this week if you'd like to get back on track."</span>
         </div>
 
-        <div class="section-header">03 / Mastery Checklist</div>
+        <h3>Third Missed Visit (Doctor's Call)</h3>
+        <div class="script-box">
+            <span class="script-label">Doctor Phone Script</span>
+            <span class="script-text">"[Name], it's Dr. [Your Name]. I just wanted to call personally because I noticed you haven't been in for a few visits. I'm not calling to pressure you — I just want to make sure you're doing OK and that I haven't missed anything on my end. If something's changed or you have questions about the plan, I'd rather talk about it than have you disappear. Can we chat for a minute?"</span>
+        </div>
+
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> The first no-show is a scheduling issue. The second is a warning sign. The third means you're losing them. Act fast, act warm, and never make them feel guilty. The goal is to make coming back easy — not to punish them for leaving.</p>
+        </div>
+
+        <div class="section-header">Quick Reference</div>
         <div class="grid-2">
             <div>
-                <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> No lecture or passive-aggression</li>
-                    <li class="checklist-item"><div class="check-box"></div> Consistent rescheduling protocol</li>
-                    <li class="checklist-item"><div class="check-box"></div> Reinforce frequency as timing</li>
-                </ul>
+                <div class="tip-card">
+                    <span class="tip-title">Same Day</span>
+                    <span class="tip-desc">Text from CA: "We missed you!"</span>
+                </div>
             </div>
             <div>
-                <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Observe drift, don't react to it</li>
-                    <li class="checklist-item"><div class="check-box"></div> Maintain non-reactive posture</li>
-                    <li class="checklist-item"><div class="check-box"></div> Clear, calm communication</li>
-                </ul>
+                <div class="tip-card">
+                    <span class="tip-title">2nd Miss</span>
+                    <span class="tip-desc">Phone call from CA: "Is everything OK?"</span>
+                </div>
             </div>
         </div>
 
         <div class="footer">
-            <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Resource 11: Handling No-Shows and Missed Visits</span>
+            <span>&copy; 2026 NeuroChiro Mastermind</span>
+            <span>Handling No-Shows</span>
             <span>For Members Only</span>
         </div>
     </div>

@@ -3,124 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource: The Masterplan Architecture</title>
+    <title>NeuroChiro: How to Build a Care Plan</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
+        :root { --navy: #1A232E; --orange: #FF6600; --cream: #F9F7F2; --gray: #4B5563; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.6; }
+        .page { width: 8.5in; min-height: 11in; padding: 0.75in; margin: 2rem auto; background: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
         @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
-        
+        @media (max-width: 768px) { .page { width: 100%; padding: 1.5rem; margin: 0; min-height: auto; box-shadow: none; } .grid-2 { grid-template-columns: 1fr !important; gap: 1.5rem !important; } }
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--orange); }
         .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
         .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+        h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 600; color: var(--gray); margin-bottom: 2.5rem; }
+        .section-header { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
         .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .doctrine-card { background: var(--navy); color: var(--white); padding: 2.5rem; border-radius: 16px; margin: 2rem 0; position: relative; }
-        .doctrine-card h3 { color: var(--orange); font-size: 16px; margin-bottom: 1rem; }
-        .doctrine-card p { color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.7; margin-bottom: 0; }
-
-        .logic-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--navy); margin-bottom: 1rem; }
-        .logic-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
-        .logic-desc { font-size: 11px; color: var(--gray); }
-
-        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+        h3 { font-size: 16px; font-weight: 900; margin-bottom: 0.75rem; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 0.75rem; }
+        .step-card { background: var(--cream); padding: 1.25rem; border-radius: 12px; margin-bottom: 0.75rem; }
+        .step-num { color: var(--orange); font-weight: 900; font-size: 11px; margin-bottom: 0.25rem; display: block; }
+        .step-title { font-weight: 900; font-size: 14px; display: block; margin-bottom: 0.5rem; }
+        .step-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+        .script-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+        .script-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.5rem; display: block; }
+        .script-text { font-size: 14px; font-weight: 600; font-style: italic; color: var(--navy); line-height: 1.6; }
+        .key-insight { background: var(--navy); color: var(--white); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+        .key-insight p { color: rgba(255,255,255,0.85); margin-bottom: 0; }
+        .key-insight strong { color: var(--orange); }
         .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
+
         <div class="logo-area">
             <div>
                 <span class="logo-text">NeuroChiro</span>
                 <span class="logo-subtext">MASTERMIND</span>
             </div>
-            <div class="type-tag">The Masterplan</div>
+            <div class="type-tag">Practical Guide</div>
         </div>
 
         <header>
-            <h1>How to Build a Care Plan</h1>
-            <div class="subtitle">A practical guide to choosing visit frequency and plan length</div>
+            <h1>How to Build<br>a Care Plan</h1>
+            <div class="subtitle">A simple framework for choosing visit frequency and plan length based on patient findings.</div>
         </header>
 
-        <div class="section-header">01 / Why Repetition Matters</div>
+        <div class="section-header">The 3 Phases — Use This for Every Patient</div>
         <div class="grid-2">
             <div>
-                <p>Getting better is not a one-time event — it's a <strong>gradual process.</strong> As BJ Palmer and Gonstead understood, the "set" of the segment is only as permanent as the stability of the nervous system that controls it.</p>
-                <p>Care plan frequency is not a financial decision—it is a biological requirement. You are not "treating" a spine; you are retraining a neural pattern through repeated, consistent input.</p>
-            </div>
-            <div>
-                <div class="logic-box">
-                    <span class="logic-title">Why Consistency Matters</span>
-                    <span class="logic-desc">Neurological change requires consistent spacing to prevent the system from reverting to dominant stress-biased patterns.</span>
+                <div class="step-card">
+                    <span class="step-num">Phase 1: Stabilize (Weeks 1-4)</span>
+                    <span class="step-title">3x per week</span>
+                    <span class="step-desc">The body needs frequent input to break old patterns. This is where you address the acute issues and establish a new baseline. Think of it as laying the foundation.</span>
                 </div>
-                <div class="logic-box">
-                    <span class="logic-title">Building Momentum</span>
-                    <span class="logic-desc">The cumulative effect of repeated adjustments creates the "tipping point" where the new pattern becomes the baseline.</span>
+                <div class="step-card">
+                    <span class="step-num">Phase 2: Strengthen (Weeks 5-8)</span>
+                    <span class="step-title">2x per week</span>
+                    <span class="step-desc">The initial problem is stabilizing. Now you're training the body to hold the correction on its own. Like building muscle — it takes consistent reps over weeks.</span>
+                </div>
+                <div class="step-card">
+                    <span class="step-num">Phase 3: Maintain (Weeks 9-12)</span>
+                    <span class="step-title">1x per week</span>
+                    <span class="step-desc">The correction is holding. Now you're making sure life stress (work, sitting, poor sleep) doesn't pull them back. Re-evaluate at the end of this phase.</span>
+                </div>
+            </div>
+            <div>
+                <h3>How to Choose the Right Plan Length</h3>
+                <p>Use your dysfunction score (from the Clinical Scoring tool) as your guide:</p>
+                <div class="step-card">
+                    <span class="step-title">Mild (Score: 0-25%)</span>
+                    <span class="step-desc">24 visits over 8-10 weeks. Start at 3x/week, taper to 1x/week.</span>
+                </div>
+                <div class="step-card">
+                    <span class="step-title">Moderate (Score: 25-50%)</span>
+                    <span class="step-desc">36 visits over 12 weeks. Full 3-phase plan as described.</span>
+                </div>
+                <div class="step-card">
+                    <span class="step-title">Significant (Score: 50-75%)</span>
+                    <span class="step-desc">48 visits over 14-16 weeks. Extended Phase 1 (6 weeks at 3x).</span>
+                </div>
+                <div class="step-card">
+                    <span class="step-title">Severe (Score: 75%+)</span>
+                    <span class="step-desc">60+ visits. Extended all phases. Consider more frequent re-evaluations.</span>
                 </div>
             </div>
         </div>
 
-        <div class="section-header">02 / The Three Phases of Care</div>
-        <div class="grid-2">
-            <div>
-                <h3>01 / Phase 1: Stabilize</h3>
-                <p>High frequency (3x/week) to break the existing neurological momentum. This is where we stabilize the "leaks" in the system and establish a new tone.</p>
-            </div>
-            <div>
-                <h3>02 / Phase 2: Strengthen</h3>
-                <p>Moderate frequency (2x/week) to strengthen the new pattern. This is the "Gym" phase of chiropractic, where neurological endurance is built.</p>
-            </div>
+        <div class="section-header">How to Present It</div>
+
+        <div class="script-box">
+            <span class="script-label">Say This</span>
+            <span class="script-text">"Based on your results, here's what I recommend: 3 visits per week for the first 4 weeks to stabilize, then 2 per week for a month to strengthen, then 1 per week for a month to make sure it holds. At the end, we'll re-scan and compare to today. If you're ahead of schedule, we adjust. If you need more time, we'll know exactly why."</span>
         </div>
 
-        <div class="doctrine-card">
-            <h3>The Key Insight</h3>
-            <p>"If you recommend less than what is clinically required, you are not being 'affordable'—you are being ineffective." Clinical authority requires the courage to recommend the full architecture needed for a permanent shift. Pulling from the greats like CJ Mertz and Chestnut, we know that the patient's nervous system doesn't care about their schedule; it only cares about the timing of the input.</p>
-        </div>
+        <p><strong>Why this works:</strong> It gives them a clear timeline, a reason for each phase, and a built-in re-evaluation. They know what to expect and when they'll see progress.</p>
 
-        <div class="callout-box">
-            <p class="callout-text">"Structure determines function, but frequency determines the permanence of the structure. A care plan is a blueprint for a new life, not just a schedule of visits."</p>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> Don't let the patient's budget determine the plan. Let the findings determine the plan, then help them find a way to afford it. If you recommend fewer visits than they need because you're worried about the price, you're not being affordable — you're being ineffective.</p>
         </div>
 
         <div class="footer">
-            <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Care Plan Guide</span>
+            <span>&copy; 2026 NeuroChiro Mastermind</span>
+            <span>How to Build a Care Plan</span>
             <span>For Members Only</span>
         </div>
     </div>
