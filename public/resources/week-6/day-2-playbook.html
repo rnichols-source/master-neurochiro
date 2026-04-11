@@ -3,154 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource 3: Day 2 Playbook: Decision Architecture</title>
+    <title>NeuroChiro: Day 2 — Care Plan Presentation Guide</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
+        :root { --navy: #1A232E; --orange: #FF6600; --cream: #F9F7F2; --gray: #4B5563; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.6; }
+        .page { width: 8.5in; min-height: 11in; padding: 0.75in; margin: 2rem auto; background: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
         @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
+        @media (max-width: 768px) { .page { width: 100%; padding: 1.5rem; margin: 0; min-height: auto; box-shadow: none; } .grid-2 { grid-template-columns: 1fr !important; gap: 1.5rem !important; } }
         .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--orange); }
-        
         .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
         .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
         .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; opacity: 0.6; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 600; color: var(--gray); margin-bottom: 2.5rem; }
+        .section-header { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
         .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .pillar-box { border: 1px solid var(--cream); padding: 1.25rem; border-radius: 12px; margin-bottom: 1rem; }
-        .pillar-title { font-weight: 900; font-size: 13px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; color: var(--navy); }
-        .pillar-desc { font-size: 11px; color: var(--gray); }
-
-        .navy-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
-        .navy-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
-        .navy-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; }
-
-        .callout-box { border-left: 4px solid var(--navy); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+        h3 { font-size: 16px; font-weight: 900; margin-bottom: 0.75rem; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 0.75rem; }
+        .step-card { background: var(--cream); padding: 1.25rem; border-radius: 12px; margin-bottom: 0.75rem; }
+        .step-num { color: var(--orange); font-weight: 900; font-size: 11px; margin-bottom: 0.25rem; display: block; }
+        .step-title { font-weight: 900; font-size: 14px; display: block; margin-bottom: 0.5rem; }
+        .step-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+        .script-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+        .script-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.5rem; display: block; }
+        .script-text { font-size: 14px; font-weight: 600; font-style: italic; color: var(--navy); line-height: 1.6; }
         .checklist { list-style: none; margin-top: 1rem; }
-        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
-        .check-box { width: 16px; height: 16px; border: 2px solid var(--navy); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
-
+        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 600; }
+        .check-box { width: 16px; height: 16px; border: 2px solid var(--orange); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
+        .key-insight { background: var(--navy); color: var(--white); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+        .key-insight p { color: rgba(255,255,255,0.85); margin-bottom: 0; }
+        .key-insight strong { color: var(--orange); }
         .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
+
         <div class="logo-area">
             <div>
                 <span class="logo-text">NeuroChiro</span>
                 <span class="logo-subtext">MASTERMIND</span>
             </div>
-            <div class="type-tag">Implementation Guide</div>
+            <div class="type-tag">Practical Guide</div>
         </div>
 
         <header>
-            <h1>Day 2 Playbook:<br>The Decision Engine</h1>
-            <div class="subtitle">Clarifying Clinical Truth and Securing Behavioral Commitment</div>
+            <h1>Day 2: Presenting the<br>Care Plan</h1>
+            <div class="subtitle">Exactly how to share your findings and recommend care so the patient says yes with confidence.</div>
         </header>
 
-        <div class="section-header">01 / The 4 Pillars of Clarity</div>
+        <div class="section-header">The 4 Parts of a Great Day 2</div>
         <div class="grid-2">
             <div>
-                <div class="pillar-box">
-                    <span class="pillar-title">01 / The Problem</span>
-                    <span class="pillar-desc">Define what is actually wrong in a simple, non-anatomical way. Reduce confusion to lower uncertainty.</span>
+                <div class="step-card">
+                    <span class="step-num">Part 1</span>
+                    <span class="step-title">Show What You Found</span>
+                    <span class="step-desc">Explain the problem in simple terms. Use their own words from Day 1. "Remember how you said you can't pick up your daughter without pain? Here's what's causing that."</span>
                 </div>
-                <div class="pillar-box">
-                    <span class="pillar-title">02 / The Consequence</span>
-                    <span class="pillar-desc">Clarify what happens if the current neurological pattern remains uncorrected.</span>
+                <div class="step-card">
+                    <span class="step-num">Part 2</span>
+                    <span class="step-title">Explain What Happens If They Wait</span>
+                    <span class="step-desc">Help them understand the cost of doing nothing — not to scare them, but so they can make an informed choice. "If we leave this as-is, here's what typically happens over the next 6-12 months."</span>
                 </div>
             </div>
             <div>
-                <div class="pillar-box">
-                    <span class="pillar-title">03 / The Recommendation</span>
-                    <span class="pillar-desc">Present a biologically justified sequence based on adaptation, repetition, and structural logic.</span>
+                <div class="step-card">
+                    <span class="step-num">Part 3</span>
+                    <span class="step-title">Make Your Recommendation</span>
+                    <span class="step-desc">State it clearly: how often, for how long, and why. One recommendation — not three options. "Based on your results, I recommend 3 visits per week for the first 4 weeks, then we re-evaluate."</span>
                 </div>
-                <div class="pillar-box">
-                    <span class="pillar-title">04 / The Next Step</span>
-                    <span class="pillar-desc">Establish a clean, confident behavioral start. Remove all ambiguity from the transition.</span>
+                <div class="step-card">
+                    <span class="step-num">Part 4</span>
+                    <span class="step-title">Tell Them the Investment</span>
+                    <span class="step-desc">Say the number clearly. Don't apologize. Don't flinch. "The total investment for this plan is $3,600. We offer payment plans if that's easier — I'll have the team walk you through the options."</span>
                 </div>
             </div>
         </div>
 
-        <div class="section-header">02 / Decision Environment Hazards</div>
-        <div class="grid-2">
-            <div>
-                <h3>Cognitive Fatigue</h3>
-                <p>The brain cannot deeply process complexity, evaluate risk, and commit to a long-term plan at the same time. Overloading findings creates mental weight.</p>
-                <p><strong>Clarity over volume:</strong> Shorter, structured explanations increase commitment because they lower the cognitive load.</p>
-            </div>
-            <div>
-                <h3>Reactivity & Containment</h3>
-                <p>When a patient hesitates, your nervous system often reacts by talking more or softening the plan. This is a collapse of authority.</p>
-                <p><strong>Silence is Leverage:</strong> Tolerate silence. It allows the patient's nervous system to regulate and communicates certainty.</p>
-            </div>
+        <div class="section-header">The Script — What to Actually Say</div>
+
+        <div class="script-box">
+            <span class="script-label">Opening (connect to their life)</span>
+            <span class="script-text">"Before I show you the results, I want to come back to what you told me yesterday. You said [their exact words from Day 1 — e.g., 'I can't play with my kids without hurting']. That's what we're solving today."</span>
         </div>
 
-        <div class="navy-card">
-            <h3>Recommendation vs. Suggestion</h3>
-            <p>A recommendation is a regulatory timeline designed for neurological reorganization. When you offer multiple frequencies because of your own insecurity, you shift from architecture to negotiation.</p>
+        <div class="script-box">
+            <span class="script-label">Presenting findings (keep it simple)</span>
+            <span class="script-text">"Here's what your scans show. [Point to one clear finding]. This tells me your nervous system is stuck in a stress pattern. That's why you're feeling [their symptom]. The good news is — this is something we can work with."</span>
         </div>
 
-        <div class="callout-box">
-            <p class="callout-text">"Commitment is not excitement. Commitment is behavioral certainty. The brain commits when uncertainty drops, not when it is impressed."</p>
+        <div class="script-box">
+            <span class="script-label">The recommendation (one plan, stated clearly)</span>
+            <span class="script-text">"Here's what I recommend: [X] visits per week for [Y] weeks. After that, we'll re-evaluate and adjust based on how you're responding. The total investment is $[amount]."</span>
         </div>
 
-        <div class="section-header">03 / Mastery Checklist</div>
+        <div class="script-box">
+            <span class="script-label">After you say the price (the most important part)</span>
+            <span class="script-text">Stop talking. Wait. Let them process. The silence is not awkward — it's respectful. They're making a decision. If you fill the silence with justifications, you signal that even YOU think it's too much.</span>
+        </div>
+
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> Patients don't say yes because they're excited. They say yes because they're certain — certain that you understand their problem, certain that you have a plan, and certain that you believe in it. Your confidence IS the close.</p>
+        </div>
+
+        <div class="section-header">Day 2 Checklist — Print This</div>
         <div class="grid-2">
             <div>
                 <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Minimal unnecessary language</li>
-                    <li class="checklist-item"><div class="check-box"></div> Biologically grounded frequency</li>
-                    <li class="checklist-item"><div class="check-box"></div> Clean price delivery</li>
+                    <li class="checklist-item"><div class="check-box"></div> Connected findings to their own words from Day 1</li>
+                    <li class="checklist-item"><div class="check-box"></div> Explained findings in simple, non-clinical language</li>
+                    <li class="checklist-item"><div class="check-box"></div> Made ONE clear recommendation (not multiple options)</li>
                 </ul>
             </div>
             <div>
                 <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Silence tolerance after ROF</li>
-                    <li class="checklist-item"><div class="check-box"></div> No emotional movement</li>
-                    <li class="checklist-item"><div class="check-box"></div> Zero performance energy</li>
+                    <li class="checklist-item"><div class="check-box"></div> Stated the price clearly without apologizing</li>
+                    <li class="checklist-item"><div class="check-box"></div> Stayed silent after giving the price</li>
+                    <li class="checklist-item"><div class="check-box"></div> Did NOT over-explain or add extra justification</li>
                 </ul>
             </div>
         </div>
 
         <div class="footer">
             <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Day 2 Playbook: Decision Architecture</span>
+            <span>Day 2: Care Plan Presentation Guide</span>
             <span>For Members Only</span>
         </div>
     </div>

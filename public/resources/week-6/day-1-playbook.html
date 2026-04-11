@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource 2: Day 1 Playbook: Uncertainty</title>
+    <title>NeuroChiro: Day 1 — First Visit Guide</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,7 +16,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
 
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.6; }
 
         .page {
             width: 8.5in;
@@ -29,36 +29,42 @@
         }
 
         @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
+        @media (max-width: 768px) { .page { width: 100%; padding: 1.5rem; margin: 0; min-height: auto; box-shadow: none; } .grid-2 { grid-template-columns: 1fr !important; gap: 1.5rem !important; } }
 
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--navy); }
-        
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--orange); }
+
         .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
         .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
         .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
 
-        h1 { font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
+        h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 600; color: var(--gray); margin-bottom: 2.5rem; }
 
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .section-header { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
         .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
 
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
 
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
+        h3 { font-size: 16px; font-weight: 900; margin-bottom: 0.75rem; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 0.75rem; }
 
-        .job-card { background: var(--cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; }
-        .job-num { color: var(--orange); font-weight: 900; font-size: 12px; margin-bottom: 0.5rem; display: block; }
-        .job-title { font-weight: 900; font-size: 14px; text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
-        .job-desc { font-size: 12px; color: var(--gray); }
+        .step-card { background: var(--cream); padding: 1.25rem; border-radius: 12px; margin-bottom: 0.75rem; }
+        .step-num { color: var(--orange); font-weight: 900; font-size: 11px; margin-bottom: 0.25rem; display: block; }
+        .step-title { font-weight: 900; font-size: 14px; display: block; margin-bottom: 0.5rem; }
+        .step-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
 
-        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
+        .script-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+        .script-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.5rem; display: block; }
+        .script-text { font-size: 14px; font-weight: 600; font-style: italic; color: var(--navy); line-height: 1.6; }
 
         .checklist { list-style: none; margin-top: 1rem; }
-        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
+        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 600; }
         .check-box { width: 16px; height: 16px; border: 2px solid var(--orange); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
+
+        .key-insight { background: var(--navy); color: var(--white); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+        .key-insight p { color: rgba(255,255,255,0.85); margin-bottom: 0; }
+        .key-insight strong { color: var(--orange); }
 
         .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
     </style>
@@ -66,87 +72,94 @@
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
+
         <div class="logo-area">
             <div>
                 <span class="logo-text">NeuroChiro</span>
                 <span class="logo-subtext">MASTERMIND</span>
             </div>
-            <div class="type-tag">Implementation Guide</div>
+            <div class="type-tag">Practical Guide</div>
         </div>
 
         <header>
-            <h1>Day 1 Playbook:<br>The Uncertainty Filter</h1>
-            <div class="subtitle">Calibrating the Nervous System for Clinical Commitment</div>
+            <h1>Day 1: Your First Visit<br>With a New Patient</h1>
+            <div class="subtitle">Exactly what to say and do in the first visit so the patient comes back for Day 2.</div>
         </header>
 
-        <div class="section-header">01 / The 4 Jobs of Day 1</div>
+        <div class="section-header">Your 4 Goals for Day 1</div>
         <div class="grid-2">
             <div>
-                <div class="job-card">
-                    <span class="job-num">JOB 01</span>
-                    <span class="job-title">Reduce Uncertainty</span>
-                    <span class="job-desc">The brain requires safety before it can evaluate risk or commit. Orientation is the tool of safety.</span>
+                <div class="step-card">
+                    <span class="step-num">Goal 1</span>
+                    <span class="step-title">Make Them Feel Safe</span>
+                    <span class="step-desc">Tell them exactly what's going to happen today, step by step. Patients relax when they know what's coming.</span>
                 </div>
-                <div class="job-card">
-                    <span class="job-num">JOB 02</span>
-                    <span class="job-title">Establish Authority</span>
-                    <span class="job-desc">Authority is stability under evaluation. It is signaled through restraint and steady pacing.</span>
+                <div class="step-card">
+                    <span class="step-num">Goal 2</span>
+                    <span class="step-title">Show Confidence</span>
+                    <span class="step-desc">Speak slowly. Don't rush. Your calm pace tells the patient you know what you're doing — more than any words can.</span>
                 </div>
             </div>
             <div>
-                <div class="job-card">
-                    <span class="job-num">JOB 03</span>
-                    <span class="job-title">Gather Clean Data</span>
-                    <span class="job-desc">Collection is not interpretation. Gather findings without the urge to solve out loud.</span>
+                <div class="step-card">
+                    <span class="step-num">Goal 3</span>
+                    <span class="step-title">Collect Data — Don't Explain Yet</span>
+                    <span class="step-desc">Run your exams and scans without interpreting them out loud. Save the explanation for Day 2 — it'll have more impact.</span>
                 </div>
-                <div class="job-card">
-                    <span class="job-num">JOB 04</span>
-                    <span class="job-title">Create Anticipation</span>
-                    <span class="job-desc">End the visit with three states: validity, anticipation of clarity, and a structured next step.</span>
+                <div class="step-card">
+                    <span class="step-num">Goal 4</span>
+                    <span class="step-title">End With a Clear Next Step</span>
+                    <span class="step-desc">The patient should leave knowing exactly when they're coming back and what will happen next.</span>
                 </div>
             </div>
         </div>
 
-        <div class="section-header">02 / Clinical Mechanics</div>
-        <div class="grid-2">
-            <div>
-                <h3>The 10-Minute Orientation</h3>
-                <p>The first ten minutes of Day 1 matter more than the rest of the visit. Orientation means the patient knows where they are, what is happening, what will happen next, and why.</p>
-                <p><strong>Predictability lowers stress.</strong> When the nervous system knows the sequence, it relaxes enough to stay engaged.</p>
-            </div>
-            <div>
-                <h3>Cognitive Load Management</h3>
-                <p>The brain cannot deeply learn, evaluate risk, feel safe, and commit all at once. Overloading Day 1 with philosophy creates mental weight.</p>
-                <p><strong>Clarity over Volume:</strong> If they leave exhausted, you've done too much. If they leave curious, you've done enough.</p>
-            </div>
+        <div class="section-header">What to Say — Step by Step</div>
+
+        <h3>Step 1: The First 2 Minutes (Orientation)</h3>
+        <div class="script-box">
+            <span class="script-label">Say This</span>
+            <span class="script-text">"Here's what we're going to do today. First, I'm going to listen to what's going on with you. Then we'll run a few specific tests. After that, I'll take the results home tonight and put together a clear picture of what's happening. Tomorrow, I'll walk you through everything and we'll talk about what we can do. Sound good?"</span>
+        </div>
+        <p>This takes 30 seconds and immediately lowers the patient's anxiety. They now know the entire sequence of the visit.</p>
+
+        <h3>Step 2: Listen More Than You Talk</h3>
+        <p>Ask them: <strong>"What's this preventing you from doing that matters most to you?"</strong> Then listen. Really listen. Don't jump in with a diagnosis. Their answer will become the anchor for your Day 2 presentation.</p>
+
+        <h3>Step 3: Run Your Tests Quietly</h3>
+        <p>Do your exam, take your scans, run your tests. Resist the urge to interpret results out loud. If you say "hmm, that's interesting" or start explaining findings, you dilute the impact of tomorrow's presentation.</p>
+
+        <h3>Step 4: Close the Visit</h3>
+        <div class="script-box">
+            <span class="script-label">Say This</span>
+            <span class="script-text">"I have everything I need. I'm going to analyze your results tonight and have a complete picture ready for you tomorrow at [time]. Don't change anything between now and then. I'll see you at [time]."</span>
         </div>
 
-        <div class="callout-box">
-            <p class="callout-text">"Sloppy data collection creates unstable recommendations. Premature explanation weakens Day 2 because it dilutes the impact of clarity later."</p>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> Day 1 is not about teaching the patient anything. It's about making them feel safe, heard, and curious about what you'll share tomorrow. If they leave curious, you've done your job. If they leave overwhelmed, you've done too much.</p>
         </div>
 
-        <div class="section-header">03 / Mastery Checklist</div>
+        <div class="section-header">Day 1 Checklist — Print This</div>
         <div class="grid-2">
             <div>
                 <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Conduct 10-min Orientation</li>
-                    <li class="checklist-item"><div class="check-box"></div> Maintain Pacing (Slow Down)</li>
-                    <li class="checklist-item"><div class="check-box"></div> Tolerate Silence During Testing</li>
+                    <li class="checklist-item"><div class="check-box"></div> Told them the visit sequence in the first 2 minutes</li>
+                    <li class="checklist-item"><div class="check-box"></div> Asked "What's this preventing you from doing?"</li>
+                    <li class="checklist-item"><div class="check-box"></div> Listened more than I talked</li>
                 </ul>
             </div>
             <div>
                 <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> End with Clean Next Step</li>
-                    <li class="checklist-item"><div class="check-box"></div> Zero Philosophy Lectures</li>
-                    <li class="checklist-item"><div class="check-box"></div> RestrainedTone Under Evaluation</li>
+                    <li class="checklist-item"><div class="check-box"></div> Did NOT interpret results out loud during the exam</li>
+                    <li class="checklist-item"><div class="check-box"></div> Ended with a clear next step and time</li>
+                    <li class="checklist-item"><div class="check-box"></div> Kept my pace slow and steady</li>
                 </ul>
             </div>
         </div>
 
         <div class="footer">
             <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Day 1 Playbook: Uncertainty</span>
+            <span>Day 1: First Visit Guide</span>
             <span>For Members Only</span>
         </div>
     </div>
