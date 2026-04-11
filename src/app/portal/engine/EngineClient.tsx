@@ -22,7 +22,6 @@ import {
   Lock,
   Target,
   ArrowRight,
-  Sparkles,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -49,58 +48,17 @@ export function EngineClient({
     { id: "forecaster", label: "Revenue Forecaster", icon: Target, pro: true },
   ];
 
-  // Logic for "The Next $10k Move"
-  const nextMove = useMemo(() => {
+  // Smart recommendation based on latest data
+  const recommendation = useMemo(() => {
     if (!localData || localData.length === 0) {
-      return {
-        title: "Initialize Your Engine",
-        desc: "You haven't recorded any data yet. Your first move is to baseline your stats.",
-        action: "Enter Your First KPI",
-        link: "#",
-        isModal: true
-      };
+      return { text: "Start by entering your first week of numbers.", action: "Enter Your First KPIs", link: "#", isModal: true };
     }
-
     const latest = localData[localData.length - 1];
     const conversion = latest.new_patients > 0 ? (latest.care_plans_accepted / latest.new_patients) : 1;
-
-    // 1. Bottleneck: Conversion
-    if (conversion < 0.65) {
-      return {
-        title: "The Conversion Move",
-        desc: "Your acceptance rate is the primary leak. Fixing this is worth $10k+ this month.",
-        action: "Master the patient conversation technique",
-        link: "/portal/curriculum/week-3-communication"
-      };
-    }
-
-    // 2. Bottleneck: NP Volume
-    if (latest.new_patients < 15) {
-      return {
-        title: "The Velocity Move",
-        desc: "Your clinical engine is ready but your volume is low. You need more 'At Bats'.",
-        action: "Launch Reactivation Campaign",
-        link: "/portal/curriculum/week-7-marketing"
-      };
-    }
-
-    // 3. Bottleneck: Low PV (Retention)
-    if (latest.patient_visits < 100) {
-      return {
-        title: "The Retention Move",
-        desc: "Your visits are low relative to your NP volume. You're losing them in the 'Middle'." ,
-        action: "Strengthen Your Philosophy",
-        link: "/portal/curriculum/week-4-philosophy"
-      };
-    }
-
-    // 4. Default: Scale
-    return {
-      title: "The Scaling Move",
-      desc: "Your fundamentals are strong. Now it's time to build the team that runs it for you.",
-      action: "Open Leadership Mastery",
-      link: "/portal/curriculum/week-6-leadership"
-    };
+    if (conversion < 0.65) return { text: "Your case acceptance is below average. The communication module can help.", action: "Watch Communication Module", link: "/portal/curriculum/week-3-communication" };
+    if (latest.new_patients < 15) return { text: "Your new patient volume is low. Focus on marketing and reactivation.", action: "Open Marketing Module", link: "/portal/curriculum/week-7-marketing" };
+    if (latest.patient_visits < 100) return { text: "Patient visits are low. Strengthen your retention and re-exam process.", action: "Review Retention", link: "/portal/curriculum/week-4-philosophy" };
+    return { text: "Your numbers look strong. Time to focus on leadership and scaling.", action: "Open Leadership Module", link: "/portal/curriculum/week-6-leadership" };
   }, [localData]);
 
   const handleModalSuccess = () => {
@@ -110,60 +68,43 @@ export function EngineClient({
   };
 
   return (
-    <div className="space-y-10 pb-20">
-      {/* Engine Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-        <div className="flex-1">
-          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">KPIs</h1>
-          <p className="text-sm text-brand-gray font-medium mt-1">Your practice numbers, all in one place.</p>
-        </div>
-
-        {/* The Next $10k Move Card */}
-        <div className="w-full md:w-96 bg-brand-navy rounded-2xl p-8 text-white relative overflow-hidden group shadow-2xl">
-          <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-            <Sparkles size={60} className="text-brand-orange" />
-          </div>
-          <p className="text-xs font-black uppercase tracking-widest text-brand-orange mb-4">The Next $10k Move</p>
-          <h3 className="text-xl font-black tracking-tight mb-2">{nextMove.title}</h3>
-          <p className="text-white/40 text-xs font-medium leading-relaxed mb-6">
-            {nextMove.desc}
-          </p>
-          
-          {nextMove.isModal ? (
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 group/btn"
-            >
-              {nextMove.action} <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-            </button>
-          ) : (
-            <Link href={nextMove.link}>
-              <button className="w-full py-4 bg-brand-orange hover:bg-white hover:text-brand-navy transition-all rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 group/btn">
-                {nextMove.action} <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-              </button>
-            </Link>
-          )}
-        </div>
+    <div className="space-y-6 pb-20">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Track</h1>
+        <p className="text-sm text-brand-gray font-medium mt-1">Your practice numbers, all in one place.</p>
       </div>
 
-      {/* Internal Navigation */}
-      <div className="flex gap-2 overflow-x-auto pb-2 px-1 no-scrollbar">
+      {/* Smart Recommendation */}
+      <div className="bg-brand-navy/5 border-l-4 border-l-brand-orange rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <p className="text-sm text-brand-navy font-medium">{recommendation.text}</p>
+        {recommendation.isModal ? (
+          <button onClick={() => setIsModalOpen(true)} className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors shrink-0">
+            {recommendation.action} →
+          </button>
+        ) : (
+          <Link href={recommendation.link} className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors shrink-0">
+            {recommendation.action} →
+          </Link>
+        )}
+      </div>
+
+      {/* Tabs */}
+      <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={cn(
-              "flex items-center gap-3 px-6 py-4 rounded-2xl border transition-all whitespace-nowrap group",
-              activeTab === tab.id 
-                ? "bg-brand-navy border-brand-navy text-white shadow-xl" 
+              "flex items-center gap-2 px-5 py-3 rounded-xl border transition-all whitespace-nowrap text-sm font-bold touch-target",
+              activeTab === tab.id
+                ? "bg-brand-navy border-brand-navy text-white shadow-sm"
                 : "bg-white border-brand-navy/5 text-brand-navy/60 hover:border-brand-orange/40"
             )}
           >
-            <tab.icon size={18} className={cn(activeTab === tab.id ? "text-brand-orange" : "text-brand-navy/40 group-hover:text-brand-orange")} />
-            <span className="text-xs font-black uppercase tracking-widest flex items-center gap-2">
-              {tab.label}
-              {tab.pro && !isPro && <Lock size={10} className="text-brand-orange" />}
-            </span>
+            <tab.icon size={16} className={cn(activeTab === tab.id ? "text-brand-orange" : "text-brand-navy/30")} />
+            {tab.label}
+            {tab.pro && !isPro && <Lock size={10} className="text-brand-orange" />}
           </button>
         ))}
       </div>

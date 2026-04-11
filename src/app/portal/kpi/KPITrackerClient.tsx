@@ -93,9 +93,9 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
       leaks.push({
         type: 'conversion',
         severity: 'critical',
-        title: 'Conversion Leak Detected',
-        message: `Your conversion rate (${conversionRate}%) is below the mastermind average. You are leaving an estimated $${lostRevenue.toLocaleString()} on the table this month.`,
-        action: 'Watch "The Conversion Engine" Module',
+        title: 'Case Acceptance Below Average',
+        message: `Your acceptance rate (${conversionRate}%) is below the group average of ${benchmarks.conversion.avg}%. That's roughly $${lostRevenue.toLocaleString()} in missed revenue this month.`,
+        action: 'Watch Communication Module',
         link: '/portal/curriculum/week-3-communication'
       });
     }
@@ -105,9 +105,9 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
       leaks.push({
         type: 'marketing',
         severity: 'warning',
-        title: 'Growth Velocity Warning',
-        message: 'Your New Patient volume is below the group average. Your clinical skills are strong — now it\'s time to focus on marketing and patient attraction.',
-        action: 'Open "Growth Leader" Training',
+        title: 'New Patients Below Average',
+        message: 'Your new patient volume is below the group average. Focus on marketing and patient reactivation this week.',
+        action: 'Open Marketing Module',
         link: '/portal/curriculum/week-7-marketing'
       });
     }
