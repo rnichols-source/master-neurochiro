@@ -33,18 +33,12 @@ import { fetchVaultResources, toggleBookmark, incrementDownload } from "@/app/ac
 import { useSearchParams } from "next/navigation";
 
 const categories = [
-  { id: 'all', name: 'All Resources', icon: LayoutDashboard },
-  { id: 'council', name: 'Council Resources', icon: ShieldCheck },
-  { id: 'communication', name: 'Clinical Communication', icon: MessageSquare },
-  { id: 'rof', name: 'Care Plan Scripts', icon: Target },
-  { id: 'care_plan', name: 'Care Plan Templates', icon: Zap },
-  { id: 'objections', name: 'Handling Objections', icon: ShieldCheck },
-  { id: 'marketing', name: 'Marketing & Reactivation', icon: Users },
-  { id: 'staff', name: 'Staff Training', icon: GraduationCap },
-  { id: 'clinic_os', name: 'Practice Systems', icon: Settings },
-  { id: 'patient_edu', name: 'Patient Education', icon: FileText },
-  { id: 'leadership', name: 'CEO & Leadership', icon: Star },
-  { id: 'masterclass', name: 'Past Sessions', icon: Video },
+  { id: 'all', name: 'All', icon: LayoutDashboard },
+  { id: 'communication', name: 'Communication', icon: MessageSquare, matchAlso: ['rof'] },
+  { id: 'care_plan', name: 'Care Plans', icon: Target, matchAlso: ['objections'] },
+  { id: 'marketing', name: 'Marketing', icon: Users },
+  { id: 'staff', name: 'Team', icon: GraduationCap, matchAlso: ['clinic_os', 'leadership'] },
+  { id: 'patient_edu', name: 'Education', icon: FileText, matchAlso: ['masterclass', 'council'] },
 ];
 
 export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'admin' | 'council' }) {
@@ -59,12 +53,26 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
   const isPro = userTier === 'pro' || userTier === 'admin' || userTier === 'council';
   const isCouncil = userTier === 'council' || userTier === 'admin';
 
+  // Get all matching category IDs (including matchAlso groups)
+  const getMatchingCategories = (catId: string): string[] => {
+    if (catId === 'all') return [];
+    const cat = categories.find(c => c.id === catId);
+    return [catId, ...((cat as any)?.matchAlso || [])];
+  };
+
   useEffect(() => {
     async function loadResources() {
       setLoading(true);
-      const res = await fetchVaultResources(activeCategory === 'all' ? undefined : activeCategory, searchQuery);
+      // Always fetch all, filter client-side for grouped categories
+      const res = await fetchVaultResources(undefined, searchQuery);
       if (res.success) {
-        setResources(res.data || []);
+        const allData = res.data || [];
+        if (activeCategory === 'all') {
+          setResources(allData);
+        } else {
+          const matchIds = getMatchingCategories(activeCategory);
+          setResources(allData.filter((r: any) => matchIds.includes(r.category)));
+        }
       }
       setLoading(false);
     }
