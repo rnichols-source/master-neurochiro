@@ -34,17 +34,17 @@ import { useSearchParams } from "next/navigation";
 
 const categories = [
   { id: 'all', name: 'All Resources', icon: LayoutDashboard },
-  { id: 'council', name: 'Council Intelligence', icon: ShieldCheck },
+  { id: 'council', name: 'Council Resources', icon: ShieldCheck },
   { id: 'communication', name: 'Clinical Communication', icon: MessageSquare },
-  { id: 'rof', name: 'ROF System', icon: Target },
-  { id: 'care_plan', name: 'Care Plan Architecture', icon: Zap },
-  { id: 'objections', name: 'Objection Vault', icon: ShieldCheck },
+  { id: 'rof', name: 'Care Plan Scripts', icon: Target },
+  { id: 'care_plan', name: 'Care Plan Templates', icon: Zap },
+  { id: 'objections', name: 'Handling Objections', icon: ShieldCheck },
   { id: 'marketing', name: 'Marketing & Reactivation', icon: Users },
   { id: 'staff', name: 'Staff Training', icon: GraduationCap },
-  { id: 'clinic_os', name: 'Clinic OS', icon: Settings },
+  { id: 'clinic_os', name: 'Practice Systems', icon: Settings },
   { id: 'patient_edu', name: 'Patient Education', icon: FileText },
   { id: 'leadership', name: 'CEO & Leadership', icon: Star },
-  { id: 'masterclass', name: 'Masterclass Archive', icon: Video },
+  { id: 'masterclass', name: 'Past Sessions', icon: Video },
 ];
 
 export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'admin' | 'council' }) {
@@ -116,7 +116,7 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                 </div>
                 <div>
                   <h3 className="text-white font-black uppercase tracking-tight">{readingResource.title}</h3>
-                  <p className="text-white/40 text-xs font-bold uppercase tracking-widest">Premium Intelligence Document</p>
+                  <p className="text-white/40 text-xs font-bold uppercase tracking-widest">Resource Document</p>
                 </div>
               </div>
               <button 

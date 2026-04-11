@@ -69,7 +69,7 @@ export function EngineClient({
       return {
         title: "The Conversion Move",
         desc: "Your acceptance rate is the primary leak. Fixing this is worth $10k+ this month.",
-        action: "Master the Neurological Pivot",
+        action: "Master the patient conversation technique",
         link: "/portal/curriculum/week-3-communication"
       };
     }

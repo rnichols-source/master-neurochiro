@@ -67,7 +67,7 @@ export function CurriculumQuiz({ phaseTitle, questions, onComplete }: Curriculum
         
         <div>
           <h3 className="text-3xl font-black text-brand-navy">
-            {passed ? "Mastery Validated" : "Incomplete Integration"}
+            {passed ? "Quiz Passed" : "Not Yet — Try Again"}
           </h3>
           <p className="text-brand-gray font-medium mt-2">
             You scored {score} out of {questions.length} on the {phaseTitle} Certainty Check.
@@ -77,7 +77,7 @@ export function CurriculumQuiz({ phaseTitle, questions, onComplete }: Curriculum
         {passed ? (
           <div className="space-y-6">
             <p className="text-sm font-medium text-green-600 bg-green-50 py-3 px-6 rounded-xl inline-block">
-              Phase 01 Reconstruction is officially verified.
+              Great work — you passed the quiz.
             </p>
             <BrandButton variant="primary" className="w-full py-4" onClick={onComplete}>
               Unlock Next Phase <ArrowRight className="ml-2 w-4 h-4" />

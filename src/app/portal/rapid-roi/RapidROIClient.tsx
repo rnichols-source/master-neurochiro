@@ -30,7 +30,7 @@ export function RapidROIClient({ userId }: { userId: string }) {
   const checklistItems = [
     "Watch the 5-minute briefing",
     "Print the Rescue Script",
-    "Use the 'Pattern Interrupt' on 1 patient today",
+    "Use the 'conversation redirect' on 1 patient today",
     "Report your win in The Council"
   ];
 
@@ -54,7 +54,7 @@ export function RapidROIClient({ userId }: { userId: string }) {
             title="The Emergency Case Rescue Briefing"
             checklist={{
               do: "Print the Rescue Script and keep it visible during your next ROF.",
-              say: "When a patient hesitates, use the 'Neurological Pivot' pattern.",
+              say: "When a patient hesitates, use the 'patient conversation technique' pattern.",
               track: "Record your conversion rate in the KPI tracker."
             }}
           />
@@ -62,7 +62,7 @@ export function RapidROIClient({ userId }: { userId: string }) {
           <div className="space-y-4">
             <h3 className="text-xl font-black text-brand-navy">The "Rescue" Protocol</h3>
             <p className="text-brand-gray leading-relaxed">
-              In this briefing, Dr. Nichols breaks down the exact neurological language pattern to use when a patient is about to walk away from a $5,000 care plan. Watch this, then go use it today.
+              Dr. Nichols walks you through exactly what to say when a patient is about to walk away from a care plan. Watch this, then use it on your next patient today.
             </p>
           </div>
         </div>

@@ -29,25 +29,25 @@ const hormoziMetadata: Record<number, any> = {
     outcomeTitle: "Clinical Identity & Foundation",
     subTitle: "Phase 01: Becoming the $1M Nervous System Doctor",
     expectedROI: "Instant Authority Shift",
-    quickAsset: { name: "Identity Calibration Worksheet", link: "/portal/triage?category=clinic_os" },
-    statusBadge: "Authorized Identity"
+    quickAsset: { name: "Getting Started Worksheet", link: "/portal/triage?category=clinic_os" },
+    statusBadge: "Foundation Complete"
   },
   2: {
-    outcomeTitle: "Clinical Certainty Engine",
+    outcomeTitle: "Clinical Confidence",
     subTitle: "Phase 02: Engineered Neurology for REAL Practice",
     expectedROI: "100% Case Certainty",
     quickAsset: { name: "Case Presentation Deck", link: "/portal/triage?category=patient_edu" },
-    statusBadge: "Clinical Architect"
+    statusBadge: "Confidence Builder"
   },
   3: {
     outcomeTitle: "The Communication Engine",
     subTitle: "Phase 03: Closing $5,000 Care Plans with Zero Resistance",
     expectedROI: "Save 1 lost case/mo ($5k+)",
-    quickAsset: { name: "The Neurological Pivot Script", link: "/portal/rapid-roi/script" },
-    statusBadge: "Authorized Communicator"
+    quickAsset: { name: "Patient Conversation Script", link: "/portal/rapid-roi/script" },
+    statusBadge: "Communication Pro"
   },
   4: {
-    outcomeTitle: "The Philosophical Anchor",
+    outcomeTitle: "Practice Philosophy",
     subTitle: "Phase 04: Building a Practice That Never Quits",
     expectedROI: "Lifetime Patient Retention",
     quickAsset: { name: "Retention Language Patterns", link: "/portal/triage?category=communication" },
@@ -68,11 +68,11 @@ const hormoziMetadata: Record<number, any> = {
     statusBadge: "Elite Leader"
   },
   7: {
-    outcomeTitle: "The Market Authority Engine",
-    subTitle: "Phase 07: Omnipresence & Local Community Dominance",
+    outcomeTitle: "Marketing & Growth",
+    subTitle: "Phase 07: Marketing & Community Growth",
     expectedROI: "5-10 New Patients/Mo",
     quickAsset: { name: "The Reactivation Campaign", link: "/portal/triage?category=marketing" },
-    statusBadge: "Market Authority"
+    statusBadge: "Growth Leader"
   },
   8: {
     outcomeTitle: "The Mastermind Exit",

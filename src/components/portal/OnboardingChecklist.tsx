@@ -19,10 +19,10 @@ export function OnboardingChecklist({ isFirstLogin }: { isFirstLogin: boolean })
   const [isOpen, setIsOpen] = useState(isFirstLogin);
   // ... (keep tasks state)
   const [tasks, setTasks] = useState<Task[]>([
-    { id: '1', title: "Watch: Welcome to the OS", description: "A high-intensity briefing from Dr. Nichols.", icon: Play, completed: false, link: "/portal/curriculum/week-1-identity" },
-    { id: '2', title: "Complete Your Clinical Profile", description: "Calibrate your practice data for precision tracking.", icon: ShieldCheck, completed: true, link: "/portal/onboarding" },
-    { id: '3', title: "Download the Clinical Playbook", description: "Your field manual for nervous system certainty.", icon: Target, completed: false, link: "/portal/vault" },
-    { id: '4', title: "Submit Your First KPI Entry", description: "Establish your baseline metrics.", icon: Zap, completed: false, link: "/portal/kpi" },
+    { id: '1', title: "Watch the Welcome Video", description: "A 5-minute intro from Dr. Nichols on how to get the most from the program.", icon: Play, completed: false, link: "/portal/curriculum/week-1-identity" },
+    { id: '2', title: "Complete Your Profile", description: "Set up your profile so we can personalize your experience.", icon: ShieldCheck, completed: true, link: "/portal/onboarding" },
+    { id: '3', title: "Browse the Playbooks", description: "Step-by-step guides for your first patient interactions.", icon: Target, completed: false, link: "/portal/playbooks" },
+    { id: '4', title: "Submit Your First KPIs", description: "Log your practice numbers to start tracking progress.", icon: Zap, completed: false, link: "/portal/kpi" },
   ]);
 
   async function handleClose() {

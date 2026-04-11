@@ -106,8 +106,8 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         type: 'marketing',
         severity: 'warning',
         title: 'Growth Velocity Warning',
-        message: 'Your New Patient volume is below benchmark. Your clinical engine is ready, but your marketing omnipresence is lagging.',
-        action: 'Open "Market Authority" Training',
+        message: 'Your New Patient volume is below the group average. Your clinical skills are strong — now it\'s time to focus on marketing and patient attraction.',
+        action: 'Open "Growth Leader" Training',
         link: '/portal/curriculum/week-7-marketing'
       });
     }
@@ -280,7 +280,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         </div>
       </EliteCard>
 
-      {/* Insight Grid / Benchmark Mirror */}
+      {/* Insight Grid / Your Benchmarks */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         <EliteCard title="New Patients" subtitle="Recent Entry" icon={Plus} className="p-6 md:p-8">
           <div className="flex flex-col gap-4 mt-2">

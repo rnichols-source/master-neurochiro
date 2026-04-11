@@ -25,7 +25,7 @@ export default function AuthorityResetPage() {
         
         <div className="flex justify-between items-center print:hidden">
           <Link href="/portal/triage?category=rof" className="flex items-center gap-2 text-brand-navy/60 hover:text-brand-navy font-black text-xs uppercase tracking-widest transition-colors">
-            <ArrowLeft size={14} /> Back to ROF System
+            <ArrowLeft size={14} /> Back to Care Plan Scripts
           </Link>
           <button 
             onClick={handlePrint}
@@ -54,7 +54,7 @@ export default function AuthorityResetPage() {
               </div>
               <div className="text-right hidden md:block">
                 <div className="text-3xl font-black text-brand-navy">LEVEL 03</div>
-                <div className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest">Mastermind Elite</div>
+                <div className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest">Advanced</div>
               </div>
             </div>
 

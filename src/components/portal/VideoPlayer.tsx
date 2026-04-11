@@ -139,7 +139,7 @@ export default function VideoPlayer({
         <div className="w-8 h-8 rounded-xl bg-brand-navy flex items-center justify-center text-brand-orange">
           <Zap size={14} fill="currentColor" />
         </div>
-        <h3 className="text-xs font-black uppercase tracking-widest text-brand-navy">Operator Checklist</h3>
+        <h3 className="text-xs font-black uppercase tracking-widest text-brand-navy">Action Checklist</h3>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

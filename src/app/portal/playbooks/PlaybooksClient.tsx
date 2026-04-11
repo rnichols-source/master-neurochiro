@@ -31,7 +31,7 @@ const playbookLibrary: Playbook[] = [
     title: "Day 1: The Discovery System",
     tagline: "Reducing uncertainty and establishing authority through clinical orientation.",
     summary: [
-      "Day 1 is about De-escalation of Uncertainty, not education.",
+      "Day 1 is about reducing patient anxiety, not education.",
       "Follow the 10/20/70 rule: 10% Orientation, 20% Data, 70% Listening.",
       "The goal is to create a 'Gap' that only Day 2 can fill."
     ],
@@ -41,7 +41,7 @@ const playbookLibrary: Playbook[] = [
         label: "01 Identity",
         icon: Info,
         title: "What this playbook is",
-        content: "Day 1 is not an exam; it is a De-escalation of Uncertainty. When a patient walks in, their nervous system is in 'Scan Mode.' They aren't looking for a neurology lecture; they are looking for safety, authority, and a reason to trust you. This system gathers clean data while establishing total clinical stability."
+        content: "Day 1 is not an exam; it is a reducing patient anxiety. When a patient walks in, their nervous system is in 'alert mode.' They aren't looking for a neurology lecture; they are looking for safety, authority, and a reason to trust you. This system gathers clean data while establishing total clinical stability."
       },
       {
         label: "02 The Stakes",
@@ -53,12 +53,12 @@ const playbookLibrary: Playbook[] = [
         label: "03 The Amateur Trap",
         icon: AlertTriangle,
         title: "What most doctors get wrong",
-        content: "The 'Lecture Trap.' Doctors walk into Day 1 feeling a quiet pressure to prove themselves. They talk too much, explain too much philosophy, and show too many scans. This increases the patient's 'Cognitive Load.' The more you talk, the more you signal insecurity. Authority isn't personality; it's stability under evaluation."
+        content: "The 'Lecture Trap.' Doctors walk into Day 1 feeling a quiet pressure to prove themselves. They talk too much, explain too much philosophy, and show too many scans. This increases the patient's 'information overload.' The more you talk, the more you signal insecurity. Authority isn't personality; it's stability under evaluation."
       },
       {
         label: "04 Hidden Breakdowns",
         icon: Zap,
-        title: "The Cognitive Load Leak",
+        title: "The Information Overload Problem",
         content: "Explaining scans or findings in real-time is a massive mistake. It forces the patient to process complex data while they are already stressed. This creates 'Mental Friction.' When a patient feels overwhelmed, they don't say 'I'm confused'—they say 'I need to think about it' on Day 2."
       },
       {
@@ -112,7 +112,7 @@ const playbookLibrary: Playbook[] = [
       {
         label: "09 Key Reminders",
         icon: Brain,
-        title: "The Operator's Mantras",
+        title: "The Key Reminders",
         content: (
           <div className="space-y-3">
             <p className="font-bold italic">"Authority is stability."</p>
@@ -216,12 +216,12 @@ const playbookLibrary: Playbook[] = [
         label: "08 Mastery",
         icon: Eye,
         title: "What mastery looks like",
-        content: "Mastery is Tonal Stability. If your voice goes up at the end of the price presentation, you've signaled uncertainty. The master speaks with 'Down-Tones.' They don't rescue the patient from the silence of the decision."
+        content: "Mastery is steady voice tone. If your voice goes up at the end of the price presentation, you've signaled uncertainty. The master speaks with 'a calm, steady tone.' They don't rescue the patient from the silence of the decision."
       },
       {
         label: "09 Key Reminders",
         icon: Brain,
-        title: "The Operator's Mantras",
+        title: "The Key Reminders",
         content: (
           <div className="space-y-3">
             <p className="font-bold italic">"Move from convincing to clarifying."</p>
@@ -288,7 +288,7 @@ const playbookLibrary: Playbook[] = [
             <p>A robust care plan follows three distinct neurological phases:</p>
             <ul className="list-disc pl-5 space-y-2">
               <li><strong>Stabilization:</strong> High frequency to break the old stress pattern.</li>
-              <li><strong>Reconstruction:</strong> Moderate frequency to build new neuro-structural habits.</li>
+              <li><strong>Recovery:</strong> Moderate frequency to build new neuro-structural habits.</li>
               <li><strong>Integration:</strong> Lower frequency to integrate the new pattern into daily life.</li>
             </ul>
           </div>
@@ -326,7 +326,7 @@ const playbookLibrary: Playbook[] = [
       {
         label: "09 Key Reminders",
         icon: Brain,
-        title: "The Operator's Mantras",
+        title: "The Key Reminders",
         content: (
           <div className="space-y-3">
             <p className="font-bold italic">"Protect the adaptation, not the comfort."</p>
@@ -421,7 +421,7 @@ const playbookLibrary: Playbook[] = [
       {
         label: "09 Key Reminders",
         icon: Brain,
-        title: "The Operator's Mantras",
+        title: "The Key Reminders",
         content: (
           <div className="space-y-3">
             <p className="font-bold italic">"Objections are just spikes in uncertainty."</p>
@@ -506,7 +506,7 @@ const playbookLibrary: Playbook[] = [
           <div className="space-y-4">
             <ul className="list-disc pl-5 space-y-2">
               <li><strong>Visit 12:</strong> Stabilization check. Is the pattern holding?</li>
-              <li><strong>Visit 24:</strong> Reconstruction check. Is the new habit forming?</li>
+              <li><strong>Visit 24:</strong> Recovery check. Is the new habit forming?</li>
               <li><strong>Visit 36:</strong> Integration check. Moving to lifestyle frequency.</li>
             </ul>
           </div>

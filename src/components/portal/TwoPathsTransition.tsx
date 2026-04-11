@@ -17,7 +17,7 @@ export function TwoPathsTransition() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {/* Option 1: Solo Operator */}
+        {/* Option 1: Independent Path */}
         <EliteCard className="p-8 border-brand-navy/5 bg-white flex flex-col justify-between opacity-80 hover:opacity-100 transition-opacity">
           <div className="space-y-6">
             <div className="w-12 h-12 rounded-2xl bg-brand-navy/5 flex items-center justify-center">
