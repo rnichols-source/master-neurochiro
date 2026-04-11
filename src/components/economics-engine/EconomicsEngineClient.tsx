@@ -43,18 +43,14 @@ export function EconomicsEngineClient() {
 
   return (
     <div className="space-y-8 pb-24">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-brand-navy/5 pb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 rounded-full text-brand-orange mb-4">
-            <Calculator size={14} /><p className="text-xs font-black uppercase tracking-widest">Price Builder</p>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-black text-brand-navy tracking-tighter leading-none">Practice Money Machine</h1>
-          <p className="text-brand-gray font-medium mt-2 max-w-xl text-lg">Stop guessing your prices. Get the numbers you need to stay stable.</p>
+          <h2 className="text-xl md:text-2xl font-black text-brand-navy tracking-tight">Pricing Calculator</h2>
+          <p className="text-sm text-brand-gray font-medium mt-1">Enter your expenses and income goal. We&apos;ll calculate your ideal per-visit fee.</p>
         </div>
-        <div className="flex gap-4 w-full md:w-auto">
-          <BrandButton variant="outline" onClick={() => setShowEdu(!showEdu)} className={cn("text-xs gap-2 flex-1", showEdu && "bg-brand-navy text-white")}><BookOpen size={14} /> {showEdu ? "Hide Logic" : "Why these numbers matter"}</BrandButton>
-          <BrandButton variant="primary" className="text-xs gap-2 flex-1"><Download size={14} /> Export Report</BrandButton>
-        </div>
+        <button onClick={() => setShowEdu(!showEdu)} className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors shrink-0">
+          {showEdu ? "Hide tips" : "Show tips"}
+        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -78,7 +74,7 @@ export function EconomicsEngineClient() {
                     { id: 'loans', label: 'Loan Payments' }, { id: 'misc', label: 'Other Costs' },
                   ].map((f) => (
                     <div key={f.id} className="space-y-1">
-                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">{f.label}</label>
+                      <label className="text-sm font-bold text-brand-navy/60 ml-1">{f.label}</label>
                       <div className="relative">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-navy/20 font-bold">$</span>
                         <input type="number" value={data[f.id as keyof EconomicsData]} onChange={(e) => upd(f.id as keyof EconomicsData, e.target.value)} className="w-full bg-white border border-brand-navy/5 rounded-xl py-3 pl-8 pr-4 text-brand-navy font-bold focus:border-brand-orange/40 outline-none transition-all text-sm" />
@@ -94,19 +90,19 @@ export function EconomicsEngineClient() {
                 <div><h2 className="text-2xl font-black text-brand-navy tracking-tight">Step 2: Your Pay & Safety</h2><p className="text-sm text-brand-gray font-medium">Define your take-home pay goal and safety reserves.</p></div>
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-black text-brand-navy uppercase">Target Take-Home Pay (Monthly)</label>
+                    <label className="text-sm font-bold text-brand-navy">Target Take-Home Pay (Monthly)</label>
                     <div className="relative">
-                      <span className="absolute left-6 top-1/2 -translate-y-1/2 text-2xl font-black text-brand-navy/20">$</span>
-                      <input type="number" value={data.desiredIncome} onChange={(e) => upd('desiredIncome', e.target.value)} className="w-full bg-white border border-brand-navy/10 rounded-3xl py-6 pl-12 pr-8 text-4xl font-black text-brand-navy focus:border-brand-orange outline-none transition-all shadow-xl" />
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-navy/20 font-bold">$</span>
+                      <input type="number" value={data.desiredIncome} onChange={(e) => upd('desiredIncome', e.target.value)} className="w-full bg-white border border-brand-navy/10 rounded-xl py-4 pl-8 pr-4 text-xl font-black text-brand-navy focus:border-brand-orange/40 outline-none transition-all" />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1 text-center block">Emergency Fund / Savings</label>
+                      <label className="text-sm font-bold text-brand-navy/60 ml-1 text-center block">Emergency Fund / Savings</label>
                       <input type="number" value={data.buffer} onChange={(e) => upd('buffer', e.target.value)} className="w-full bg-white border border-brand-navy/5 rounded-2xl py-4 px-6 text-brand-navy text-xl font-black focus:border-brand-orange outline-none text-center" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1 text-center block">Tax (%)</label>
+                      <label className="text-sm font-bold text-brand-navy/60 ml-1 text-center block">Tax (%)</label>
                       <input type="number" value={data.taxRate * 100} onChange={(e) => upd('taxRate', (parseFloat(e.target.value) / 100).toString())} className="w-full bg-white border border-brand-navy/5 rounded-2xl py-4 px-6 text-brand-navy text-xl font-black focus:border-brand-orange outline-none text-center" />
                     </div>
                   </div>
@@ -125,11 +121,11 @@ export function EconomicsEngineClient() {
                   </div>
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Actual Weekly Visits</label>
+                      <label className="text-sm font-bold text-brand-navy/60 ml-1">Actual Weekly Visits</label>
                       <input type="number" value={data.currentWeeklyVisits} onChange={(e) => upd('currentWeeklyVisits', e.target.value)} className="w-full bg-white border border-brand-navy/5 rounded-xl py-4 px-6 text-brand-navy text-xl font-black focus:border-brand-orange outline-none" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 ml-1">Current Visit Value</label>
+                      <label className="text-sm font-bold text-brand-navy/60 ml-1">Current Visit Value</label>
                       <input type="number" value={data.currentCPV} onChange={(e) => upd('currentCPV', e.target.value)} className="w-full bg-white border border-brand-navy/5 rounded-xl py-4 px-6 text-brand-navy text-xl font-black focus:border-brand-orange outline-none" />
                     </div>
                   </div>
@@ -238,7 +234,7 @@ export function EconomicsEngineClient() {
             </div>
           </EliteCard>
           <div className="bg-white border border-brand-navy/5 rounded-2xl p-8 space-y-6 shadow-sm">
-            <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40 text-center">Where the money goes</p>
+            <p className="text-sm font-bold text-brand-navy/60 text-center">Where the money goes</p>
             <div className="space-y-4">
               {[ { label: "Monthly Bills", val: overhead }, { label: "Your Take Home", val: data.desiredIncome }, { label: "Tax (30%)", val: tax }, { label: "Savings / Buffer", val: data.buffer } ].map((item, i) => (
                 <div key={i} className="flex justify-between items-center text-sm font-bold"><span className="text-brand-gray">{item.label}</span><span className="text-brand-navy">${Math.round(item.val).toLocaleString()}</span></div>
