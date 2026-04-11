@@ -3,124 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro: The Clinical OS</title>
+    <title>NeuroChiro: Building Systems That Run Without You</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
-        
-        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
-        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
-        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .os-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
-        .os-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
-        .os-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; line-height: 1.6; }
-
-        .system-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--navy); margin-bottom: 1rem; }
-        .sys-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
-        .sys-desc { font-size: 11px; color: var(--gray); }
-
-        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
-        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
-    </style>
+    <style>:root{--navy:#1A232E;--orange:#FF6600;--cream:#F9F7F2;--gray:#4B5563;--white:#FFF}*{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact}body{background:#E5E7EB;font-family:'Inter',sans-serif;color:var(--navy);line-height:1.6}.page{width:8.5in;min-height:11in;padding:.75in;margin:2rem auto;background:var(--white);box-shadow:0 10px 25px rgba(0,0,0,.1);position:relative}@media print{body{background:none}.page{margin:0;box-shadow:none;width:100%}}@media(max-width:768px){.page{width:100%;padding:1.5rem;margin:0;min-height:auto;box-shadow:none}.grid-2{grid-template-columns:1fr!important;gap:1.5rem!important}}.header-stripe{position:absolute;top:0;left:0;right:0;height:8px;background:var(--orange)}.logo-area{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.logo-text{font-family:'Lato',sans-serif;text-transform:uppercase;font-weight:900;letter-spacing:.2em;font-size:14px}.logo-subtext{color:var(--orange);font-size:10px;font-weight:700;display:block;margin-top:-2px}.type-tag{border:1px solid var(--navy);color:var(--navy);padding:4px 12px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;border-radius:4px}h1{font-size:30px;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:.5rem}.subtitle{font-size:14px;font-weight:600;color:var(--gray);margin-bottom:2.5rem}.section-header{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:var(--orange);margin-bottom:1.5rem;display:flex;align-items:center}.section-header::after{content:"";flex:1;height:1px;background:var(--cream);margin-left:1rem}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}h3{font-size:16px;font-weight:900;margin-bottom:.75rem}p{font-size:13px;color:var(--gray);margin-bottom:.75rem}.tip-card{background:var(--cream);padding:1.25rem;border-radius:12px;margin-bottom:.75rem}.tip-title{font-weight:900;font-size:14px;display:block;margin-bottom:.5rem}.tip-desc{font-size:12px;color:var(--gray);line-height:1.5}.key-insight{background:var(--navy);color:var(--white);padding:1.5rem;border-radius:12px;margin:1.5rem 0}.key-insight p{color:rgba(255,255,255,.85);margin-bottom:0}.key-insight strong{color:var(--orange)}.footer{position:absolute;bottom:.5in;left:.75in;right:.75in;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;color:var(--gray);border-top:1px solid var(--cream);padding-top:1rem;text-transform:uppercase;letter-spacing:.1em}</style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
         <div class="logo-area">
-            <div>
-                <span class="logo-text">NeuroChiro</span>
-                <span class="logo-subtext">MASTERMIND</span>
-            </div>
-            <div class="type-tag">Operations Doctrine</div>
+            <div><span class="logo-text">NeuroChiro</span><span class="logo-subtext">MASTERMIND</span></div>
+            <div class="type-tag">Leadership Guide</div>
         </div>
 
         <header>
-            <h1>The Clinical OS:<br>Building Systems That Run Without You</h1>
-            <div class="subtitle">Building the Infrastructure for Predictable Growth and Operational Excellence</div>
+            <h1>Building Systems That<br>Run Without You</h1>
+            <div class="subtitle">How to create repeatable processes so your practice grows even when you're not there.</div>
         </header>
 
-        <div class="section-header">01 / The System over the Doctor</div>
+        <div class="section-header">The Test</div>
+        <p>Ask yourself: <strong>If you took a week off tomorrow, what would break?</strong> Whatever comes to mind first — that's the system you need to build next.</p>
+
+        <div class="section-header">The 5 Systems Every Practice Needs</div>
         <div class="grid-2">
             <div>
-                <p>Growth without systems is a recipe for burnout. If the practice depends on your presence to function, you don't have a business—you have a high-paying job. A true **Clinical OS** is the set of non-negotiable rules that govern the practice.</p>
-                <p>Pulling from operational giants like Ray Dalio and modern practice architects, we know that the best systems are self-correcting. They identify drift and trigger a response without the CEO ever having to get involved.</p>
-            </div>
-            <div>
-                <div class="system-box">
-                    <span class="sys-title">The Standard Operating Procedure (SOP)</span>
-                    <span class="sys-desc">Every recurring task must have a defined process. If it’s not written down, it doesn’t exist.</span>
+                <div class="tip-card">
+                    <span class="tip-title">1. New Patient Flow</span>
+                    <span class="tip-desc">From phone call → scheduling → Day 1 → Day 2 → Day 3 → onboarding. Every step should have a checklist. If your CA quits tomorrow, the next person should be able to follow the checklist and deliver the same experience.</span>
                 </div>
-                <div class="system-box">
-                    <span class="sys-title">The Feedback Loop</span>
-                    <span class="sys-desc">Daily, weekly, and monthly syncs to verify that the OS is running correctly and to address leaks early.</span>
+                <div class="tip-card">
+                    <span class="tip-title">2. Daily Huddle</span>
+                    <span class="tip-desc">5 minutes every morning. Review the schedule, highlight new patients and re-exams, check yesterday's missed visits. This one ritual keeps the entire team aligned.</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">3. Missed Visit Response</span>
+                    <span class="tip-desc">Text within 4 hours, phone call on 2nd miss, doctor call on 3rd. Written out, posted on the wall, followed every time.</span>
                 </div>
             </div>
-        </div>
-
-        <div class="section-header">02 / The Scaling Framework</div>
-        <div class="grid-2">
             <div>
-                <h3>Predictable Onboarding</h3>
-                <p>Scaling requires a team that can onboard patients with the same level of certainty as the doctor. The system must absorb the variability of the team and deliver a consistent outcome.</p>
-            </div>
-            <div>
-                <h3>Infrastructure for Freedom</h3>
-                <p>Freedom is the result of discipline. The more rigid your systems are, the more freedom you have as a CEO to move into higher-level strategic work.</p>
+                <div class="tip-card">
+                    <span class="tip-title">4. Payment Collection</span>
+                    <span class="tip-desc">Collect at every visit. No exceptions. If there's a balance, address it at checkout — not 3 months later with a collections call. Your CA should know the exact script.</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">5. Weekly Numbers Review</span>
+                    <span class="tip-desc">Every Monday: collections, new patients, visits, retention rate. Takes 15 minutes. If you're not tracking it, you can't improve it.</span>
+                </div>
+                <h3>How to Build a System</h3>
+                <p><strong>Step 1:</strong> Do the task yourself and write down every step.<br><strong>Step 2:</strong> Simplify to 3-5 steps max.<br><strong>Step 3:</strong> Show someone else how to do it.<br><strong>Step 4:</strong> Check their work for 2 weeks.<br><strong>Step 5:</strong> It's theirs now.</p>
             </div>
         </div>
 
-        <div class="os-card">
-            <h3>The Operating Standard</h3>
-            <p>A scaling practice is built on the "Law of Three": Every key system must be simple enough for a team member to learn in three days, execute with 95% accuracy in three weeks, and master in three months. If your systems are more complex than that, they are fragile. Simplify the architecture, and the practice will scale. Complexity is the enemy of growth.</p>
-        </div>
-
-        <div class="callout-box">
-            <p class="callout-text">"Systems run the business. People run the systems. The CEO leads the people. Focus on the architecture, and the people will rise to the standard."</p>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> A system is just a checklist that someone follows the same way every time. You don't need software. You don't need a consultant. You need a piece of paper with 5 steps on it, posted where your team can see it. Start with one system this week. Add one more next week. In 5 weeks, your practice runs itself.</p>
         </div>
 
         <div class="footer">
-            <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Clinical OS Series</span>
+            <span>&copy; 2026 NeuroChiro Mastermind</span>
+            <span>Building Systems</span>
             <span>For Members Only</span>
         </div>
     </div>

@@ -3,145 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource 6: The Containment Protocol</title>
+    <title>NeuroChiro: Training Your Team to Stay Consistent</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--navy); }
-        
-        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
-        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; }
-        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .compare-box { display: grid; grid-template-cols: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
-        .compare-side { padding: 1.5rem; border-radius: 12px; }
-        .side-title { font-weight: 900; font-size: 11px; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
-        .persuasion { background: var(--cream); border: 1px solid rgba(0,0,0,0.05); }
-        .containment { background: var(--navy); color: var(--white); }
-
-        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
-        .checklist { list-style: none; margin-top: 1rem; }
-        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
-        .check-box { width: 16px; height: 16px; border: 2px solid var(--navy); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
-
-        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
-    </style>
+    <style>:root{--navy:#1A232E;--orange:#FF6600;--cream:#F9F7F2;--gray:#4B5563;--white:#FFF}*{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact}body{background:#E5E7EB;font-family:'Inter',sans-serif;color:var(--navy);line-height:1.6}.page{width:8.5in;min-height:11in;padding:.75in;margin:2rem auto;background:var(--white);box-shadow:0 10px 25px rgba(0,0,0,.1);position:relative}@media print{body{background:none}.page{margin:0;box-shadow:none;width:100%}}@media(max-width:768px){.page{width:100%;padding:1.5rem;margin:0;min-height:auto;box-shadow:none}.grid-2{grid-template-columns:1fr!important;gap:1.5rem!important}}.header-stripe{position:absolute;top:0;left:0;right:0;height:8px;background:var(--orange)}.logo-area{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.logo-text{font-family:'Lato',sans-serif;text-transform:uppercase;font-weight:900;letter-spacing:.2em;font-size:14px}.logo-subtext{color:var(--orange);font-size:10px;font-weight:700;display:block;margin-top:-2px}.type-tag{border:1px solid var(--navy);color:var(--navy);padding:4px 12px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;border-radius:4px}h1{font-size:32px;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:.5rem}.subtitle{font-size:14px;font-weight:600;color:var(--gray);margin-bottom:2.5rem}.section-header{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:var(--orange);margin-bottom:1.5rem;display:flex;align-items:center}.section-header::after{content:"";flex:1;height:1px;background:var(--cream);margin-left:1rem}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}h3{font-size:16px;font-weight:900;margin-bottom:.75rem}p{font-size:13px;color:var(--gray);margin-bottom:.75rem}.script-box{border-left:4px solid var(--orange);background:var(--cream);padding:1.5rem;margin:1.5rem 0;border-radius:0 12px 12px 0}.script-label{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--orange);margin-bottom:.5rem;display:block}.script-text{font-size:14px;font-weight:600;font-style:italic;color:var(--navy);line-height:1.6}.tip-card{background:var(--cream);padding:1.25rem;border-radius:12px;margin-bottom:.75rem}.tip-title{font-weight:900;font-size:14px;display:block;margin-bottom:.5rem}.tip-desc{font-size:12px;color:var(--gray);line-height:1.5}.key-insight{background:var(--navy);color:var(--white);padding:1.5rem;border-radius:12px;margin:1.5rem 0}.key-insight p{color:rgba(255,255,255,.85);margin-bottom:0}.key-insight strong{color:var(--orange)}.checklist{list-style:none;margin-top:1rem}.checklist-item{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.75rem;font-size:13px;font-weight:600}.check-box{width:16px;height:16px;border:2px solid var(--orange);border-radius:4px;margin-top:2px;flex-shrink:0}.footer{position:absolute;bottom:.5in;left:.75in;right:.75in;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;color:var(--gray);border-top:1px solid var(--cream);padding-top:1rem;text-transform:uppercase;letter-spacing:.1em}</style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
         <div class="logo-area">
-            <div>
-                <span class="logo-text">NeuroChiro</span>
-                <span class="logo-subtext">MASTERMIND</span>
-            </div>
-            <div class="type-tag">The Protocol</div>
+            <div><span class="logo-text">NeuroChiro</span><span class="logo-subtext">MASTERMIND</span></div>
+            <div class="type-tag">Team Guide</div>
         </div>
 
         <header>
-            <h1>The Containment Protocol:<br>Enforcing Structure</h1>
-            <div class="subtitle">Managing Clinical Uncertainty and Protecting Clinical Authority</div>
+            <h1>Training Your Team<br>to Stay Consistent</h1>
+            <div class="subtitle">How to get your staff saying and doing the right things — even when you're not in the room.</div>
         </header>
 
-        <div class="section-header">01 / Redefining the Objection</div>
+        <div class="section-header">The Problem</div>
+        <p>You've built great systems. You know exactly what to say to patients. But when your CA or front desk handles a call, they wing it. When you're in the back adjusting, the front desk is making promises you didn't approve or forgetting to reschedule a missed visit.</p>
+        <p><strong>Your team doesn't need motivation. They need scripts and checklists.</strong></p>
+
+        <div class="section-header">3 Things to Standardize This Week</div>
         <div class="grid-2">
             <div>
-                <p>Objections are not pushback; they are <strong>uncertainty expressed out loud.</strong> Uncertainty is a nervous system state where the brain feels a lack of safety or predictability.</p>
-                <p>When you hear an objection, their nervous system is Tightening. If you react, yours tightens too. Persuasion at this moment creates pressure, and pressure increases threat detection.</p>
+                <div class="tip-card">
+                    <span class="tip-title">1. The Phone Script</span>
+                    <span class="tip-desc">Write out exactly what your front desk says when a new patient calls. Word for word. Post it next to the phone. "Thank you for calling [Clinic]. This is [Name]. How can I help you today?" Then: collect name, concern, schedule the visit.</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">2. The Missed Visit Follow-Up</span>
+                    <span class="tip-desc">When a patient no-shows, your CA texts within 4 hours: "Hi [Name], we missed you today! Want me to reschedule for tomorrow?" No judgment, just a warm nudge. Print the template and post it.</span>
+                </div>
             </div>
             <div>
-                <h3>The Power of Silence</h3>
-                <p>Most doctors break silence too quickly because they interpret hesitation as danger. Silence gives the nervous system room to regulate.</p>
-                <p><strong>Silence is Leverage.</strong> When you speak less, the room stabilizes. When you talk more, the room destabilizes.</p>
+                <div class="tip-card">
+                    <span class="tip-title">3. The Checkout Process</span>
+                    <span class="tip-desc">After every visit: confirm next appointment, collect payment, and say one specific thing: "Great visit today — we'll see you [day] at [time]." No "see you whenever." Specific day, specific time, every time.</span>
+                </div>
+                <h3>How to Roll This Out</h3>
+                <p>Don't hand your team a 10-page manual. Give them <strong>one script this week.</strong> Practice it together for 5 minutes at the morning huddle. Once they've got it, add the next one. One script per week = a fully trained team in 3 weeks.</p>
             </div>
         </div>
 
-        <div class="compare-box">
-            <div class="compare-side persuasion">
-                <span class="side-title">Persuasion</span>
-                <p style="font-size: 11px;">Attempts to move the patient. Increases pressure and triggers threat detection. Signals insecurity.</p>
-            </div>
-            <div class="compare-side containment">
-                <span class="side-title">Containment</span>
-                <p style="font-size: 11px; color: rgba(255,255,255,0.7);">Stabilizes the environment. Signals that the structure stands. Lowers threat and builds trust.</p>
-            </div>
+        <div class="section-header">The Morning Huddle Script</div>
+        <div class="script-box">
+            <span class="script-label">5 Minutes Every Morning</span>
+            <span class="script-text">"Good morning team. Today we have [X] patients, including [X] new patients. [Name] has their re-exam today — let's make sure we have their comparison scans ready. Any missed visits from yesterday that need follow-up? OK — let's have a great day."</span>
         </div>
+        <p>That's it. 5 minutes. Every morning. This single ritual improves collections by 20-40% because it keeps the team focused and accountable.</p>
 
-        <div class="section-header">02 / The Non-Reactive Posture</div>
-        <div class="grid-2">
-            <div>
-                <h3>Identity Detachment</h3>
-                <p>When your identity is fused with agreement, an objection feels personal. This triggers reactivity. You must detach your value from their "yes."</p>
-            </div>
-            <div>
-                <h3>Tone and Pacing</h3>
-                <p>Containment means your tone does not change when theirs does. Your pacing does not speed up when they hesitate. Your explanation does not multiply.</p>
-            </div>
-        </div>
-
-        <div class="callout-box">
-            <p class="callout-text">"Persuasion increases pressure. Pressure increases threat. Threat increases hesitation. Containment lowers threat and stabilizes commitment."</p>
-        </div>
-
-        <div class="section-header">03 / Mastery Checklist</div>
-        <div class="grid-2">
-            <div>
-                <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Minimal language under evaluation</li>
-                    <li class="checklist-item"><div class="check-box"></div> High tolerance for silence</li>
-                    <li class="checklist-item"><div class="check-box"></div> Constant pacing during ROF</li>
-                </ul>
-            </div>
-            <div>
-                <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Zero identity attachment</li>
-                    <li class="checklist-item"><div class="check-box"></div> No emotional negotiation</li>
-                    <li class="checklist-item"><div class="check-box"></div> Upstream structure verification</li>
-                </ul>
-            </div>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> Your team will perform exactly as well as the systems you give them. No system = inconsistent results. A simple script posted on the wall beats a 3-hour training session every time. Give them the words. Practice once. Then hold them to it.</p>
         </div>
 
         <div class="footer">
-            <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Resource 06: Containment Reference</span>
+            <span>&copy; 2026 NeuroChiro Mastermind</span>
+            <span>Training Your Team</span>
             <span>For Members Only</span>
         </div>
     </div>

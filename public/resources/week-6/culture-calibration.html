@@ -3,146 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource: The Culture Calibration</title>
+    <title>NeuroChiro: Team Performance Check-In</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--orange); }
-        
-        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
-        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
-        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .audit-card { background: var(--navy); color: var(--white); padding: 2rem; border-radius: 16px; margin: 2rem 0; }
-        .audit-card h3 { color: var(--orange); font-size: 14px; margin-bottom: 0.75rem; }
-        .audit-card p { color: rgba(255,255,255,0.7); font-size: 12px; margin-bottom: 0; line-height: 1.6; }
-
-        .metric-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--navy); margin-bottom: 1rem; }
-        .metric-title { font-weight: 900; font-size: 12px; text-transform: uppercase; display: block; margin-bottom: 0.25rem; }
-        .metric-desc { font-size: 11px; color: var(--gray); }
-
-        .callout-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
-        .checklist { list-style: none; margin-top: 1rem; }
-        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
-        .check-box { width: 16px; height: 16px; border: 2px solid var(--orange); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
-
-        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
-    </style>
+    <style>:root{--navy:#1A232E;--orange:#FF6600;--cream:#F9F7F2;--gray:#4B5563;--white:#FFF}*{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact}body{background:#E5E7EB;font-family:'Inter',sans-serif;color:var(--navy);line-height:1.6}.page{width:8.5in;min-height:11in;padding:.75in;margin:2rem auto;background:var(--white);box-shadow:0 10px 25px rgba(0,0,0,.1);position:relative}@media print{body{background:none}.page{margin:0;box-shadow:none;width:100%}}@media(max-width:768px){.page{width:100%;padding:1.5rem;margin:0;min-height:auto;box-shadow:none}.grid-2{grid-template-columns:1fr!important;gap:1.5rem!important}}.header-stripe{position:absolute;top:0;left:0;right:0;height:8px;background:var(--orange)}.logo-area{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.logo-text{font-family:'Lato',sans-serif;text-transform:uppercase;font-weight:900;letter-spacing:.2em;font-size:14px}.logo-subtext{color:var(--orange);font-size:10px;font-weight:700;display:block;margin-top:-2px}.type-tag{border:1px solid var(--navy);color:var(--navy);padding:4px 12px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;border-radius:4px}h1{font-size:32px;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:.5rem}.subtitle{font-size:14px;font-weight:600;color:var(--gray);margin-bottom:2.5rem}.section-header{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:var(--orange);margin-bottom:1.5rem;display:flex;align-items:center}.section-header::after{content:"";flex:1;height:1px;background:var(--cream);margin-left:1rem}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}h3{font-size:16px;font-weight:900;margin-bottom:.75rem}p{font-size:13px;color:var(--gray);margin-bottom:.75rem}.tip-card{background:var(--cream);padding:1.25rem;border-radius:12px;margin-bottom:.75rem}.tip-title{font-weight:900;font-size:14px;display:block;margin-bottom:.5rem}.tip-desc{font-size:12px;color:var(--gray);line-height:1.5}.checklist{list-style:none;margin-top:1rem}.checklist-item{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.75rem;font-size:13px;font-weight:600}.check-box{width:16px;height:16px;border:2px solid var(--orange);border-radius:4px;margin-top:2px;flex-shrink:0}.key-insight{background:var(--navy);color:var(--white);padding:1.5rem;border-radius:12px;margin:1.5rem 0}.key-insight p{color:rgba(255,255,255,.85);margin-bottom:0}.key-insight strong{color:var(--orange)}.footer{position:absolute;bottom:.5in;left:.75in;right:.75in;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;color:var(--gray);border-top:1px solid var(--cream);padding-top:1rem;text-transform:uppercase;letter-spacing:.1em}</style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
         <div class="logo-area">
-            <div>
-                <span class="logo-text">NeuroChiro</span>
-                <span class="logo-subtext">MASTERMIND</span>
-            </div>
-            <div class="type-tag">Technical Reference</div>
+            <div><span class="logo-text">NeuroChiro</span><span class="logo-subtext">MASTERMIND</span></div>
+            <div class="type-tag">Team Guide</div>
         </div>
 
         <header>
-            <h1>The Culture Calibration:<br>Performance Audit</h1>
-            <div class="subtitle">Diagnosing the Invisible Gaps in Clinical Leadership</div>
+            <h1>Team Performance<br>Check-In</h1>
+            <div class="subtitle">A simple monthly audit to find where your team is strong and where they need support.</div>
         </header>
 
-        <div class="section-header">01 / The Symptoms of Drift</div>
+        <div class="section-header">How to Use This</div>
+        <p>Once a month, take 15 minutes to score your team on these 8 areas. Rate each 1-5 (1 = needs work, 5 = excellent). Any score below 3 is your priority for the next month. Don't try to fix everything at once — pick the lowest score and focus there.</p>
+
+        <div class="section-header">The 8 Areas — Print and Score Monthly</div>
         <div class="grid-2">
             <div>
-                <p>Team underperformance is rarely a skill issue; it is almost always a <strong>certainty issue.</strong> When the vision is vague, the team reverts to the path of least resistance.</p>
-                <p>Human beings require a defined clinical container to operate at a high level. Without it, drift is inevitable. You don't manage people; you manage the environment they work in.</p>
-            </div>
-            <div>
-                <div class="metric-box">
-                    <span class="metric-title">Low Conversion</span>
-                    <span class="metric-desc">The team is leaking uncertainty during the orientation phase or the financial transition.</span>
+                <div class="tip-card">
+                    <span class="tip-title">1. Phone Handling ___/5</span>
+                    <span class="tip-desc">Does the team answer within 3 rings? Do they follow the phone script? Do they sound welcoming and confident?</span>
                 </div>
-                <div class="metric-box">
-                    <span class="metric-title">Vague Language</span>
-                    <span class="metric-desc">"Maybe," "Probably," or "We'll see." Clinical authority is being diluted by soft communication.</span>
+                <div class="tip-card">
+                    <span class="tip-title">2. Scheduling ___/5</span>
+                    <span class="tip-desc">Are patients being scheduled for their next visit before they leave? Is the schedule being filled proactively?</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">3. Missed Visit Follow-Up ___/5</span>
+                    <span class="tip-desc">Are no-shows being contacted within 24 hours? Is the follow-up warm and consistent?</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">4. Patient Experience ___/5</span>
+                    <span class="tip-desc">Are patients greeted by name? Is the wait time under 10 minutes? Does the team make patients feel valued?</span>
+                </div>
+            </div>
+            <div>
+                <div class="tip-card">
+                    <span class="tip-title">5. Payment Collection ___/5</span>
+                    <span class="tip-desc">Is payment collected at every visit? Are payment plans being followed? Are overdue balances being addressed?</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">6. Morning Huddle ___/5</span>
+                    <span class="tip-desc">Is the team doing a daily 5-minute huddle? Does everyone know the day's schedule and priorities?</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">7. Doctor Support ___/5</span>
+                    <span class="tip-desc">Is the team preparing rooms, pulling charts, and setting up before the doctor walks in? Or is the doctor doing it themselves?</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">8. Energy & Attitude ___/5</span>
+                    <span class="tip-desc">Does the team seem engaged and positive? Or do they seem checked out? Are they taking initiative or waiting to be told?</span>
                 </div>
             </div>
         </div>
 
-        <div class="section-header">02 / The Calibration Grid</div>
-        <div class="grid-2">
-            <div>
-                <h3>Pacing & Restraint</h3>
-                <p>Does the team move at the speed of the doctor? Or is the front desk rushing patients through the sequence? Pacing signals authority.</p>
-            </div>
-            <div>
-                <h3>Containment</h3>
-                <p>Is the team absorbing patient drama or reacting to it? High-performance teams maintain the container regardless of the patient's emotional state.</p>
-            </div>
-        </div>
-
-        <div class="audit-card">
-            <h3>The Culture Standard</h3>
-            <p>Culture isn't a feeling; it's the standard that persists when the doctor isn't looking. If you have to micro-manage, you haven't built a system—you've built a job for yourself. True scaling requires a team that enforces the structure autonomously.</p>
-        </div>
-
-        <div class="callout-box">
-            <p class="callout-text">"You stop managing people when you start calibrating the culture. A high-performance team is the natural byproduct of clear architecture and non-negotiable standards."</p>
-        </div>
-
-        <div class="section-header">03 / Implementation Checklist</div>
-        <div class="grid-2">
-            <div>
-                <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Define the Non-Negotiables</li>
-                    <li class="checklist-item"><div class="check-box"></div> Remove "Soft Language" entirely</li>
-                    <li class="checklist-item"><div class="check-box"></div> Audit the First 2 Minutes</li>
-                </ul>
-            </div>
-            <div>
-                <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Verify Structural Containment</li>
-                    <li class="checklist-item"><div class="check-box"></div> Establish Daily Sync Pacing</li>
-                    <li class="checklist-item"><div class="check-box"></div> Identify Drift Early</li>
-                </ul>
-            </div>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> You don't need a perfect team. You need a team that improves by 1 point per month in their weakest area. That's 12 improvements per year. Score monthly, pick one focus, train on it, and move on.</p>
         </div>
 
         <div class="footer">
-            <span>© 2026 NeuroChiro Mastermind</span>
-            <span>The Culture Calibration Audit</span>
+            <span>&copy; 2026 NeuroChiro Mastermind</span>
+            <span>Team Performance Check-In</span>
             <span>For Members Only</span>
         </div>
     </div>

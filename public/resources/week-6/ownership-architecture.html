@@ -3,148 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource: The Ownership Architecture</title>
+    <title>NeuroChiro: Delegating Without Losing Control</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--navy); }
-        
-        .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
-        .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; }
-        .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .doctrine-card { background: var(--navy); color: var(--white); padding: 2.5rem; border-radius: 16px; margin: 2rem 0; position: relative; }
-        .doctrine-card h3 { color: var(--orange); font-size: 16px; margin-bottom: 1rem; }
-        .doctrine-card p { color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.7; margin-bottom: 0; }
-
-        .step-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; }
-        .step-num { color: var(--orange); font-weight: 900; font-size: 10px; display: block; margin-bottom: 0.25rem; }
-        .step-title { font-weight: 900; font-size: 13px; text-transform: uppercase; display: block; }
-
-        .callout-box { border-left: 4px solid var(--navy); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
-        .checklist { list-style: none; margin-top: 1rem; }
-        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
-        .check-box { width: 16px; height: 16px; border: 2px solid var(--navy); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
-
-        .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
-    </style>
+    <style>:root{--navy:#1A232E;--orange:#FF6600;--cream:#F9F7F2;--gray:#4B5563;--white:#FFF}*{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact}body{background:#E5E7EB;font-family:'Inter',sans-serif;color:var(--navy);line-height:1.6}.page{width:8.5in;min-height:11in;padding:.75in;margin:2rem auto;background:var(--white);box-shadow:0 10px 25px rgba(0,0,0,.1);position:relative}@media print{body{background:none}.page{margin:0;box-shadow:none;width:100%}}@media(max-width:768px){.page{width:100%;padding:1.5rem;margin:0;min-height:auto;box-shadow:none}.grid-2{grid-template-columns:1fr!important;gap:1.5rem!important}}.header-stripe{position:absolute;top:0;left:0;right:0;height:8px;background:var(--orange)}.logo-area{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}.logo-text{font-family:'Lato',sans-serif;text-transform:uppercase;font-weight:900;letter-spacing:.2em;font-size:14px}.logo-subtext{color:var(--orange);font-size:10px;font-weight:700;display:block;margin-top:-2px}.type-tag{border:1px solid var(--navy);color:var(--navy);padding:4px 12px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;border-radius:4px}h1{font-size:32px;font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:.5rem}.subtitle{font-size:14px;font-weight:600;color:var(--gray);margin-bottom:2.5rem}.section-header{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.15em;color:var(--orange);margin-bottom:1.5rem;display:flex;align-items:center}.section-header::after{content:"";flex:1;height:1px;background:var(--cream);margin-left:1rem}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}h3{font-size:16px;font-weight:900;margin-bottom:.75rem}p{font-size:13px;color:var(--gray);margin-bottom:.75rem}.tip-card{background:var(--cream);padding:1.25rem;border-radius:12px;margin-bottom:.75rem}.tip-title{font-weight:900;font-size:14px;display:block;margin-bottom:.5rem}.tip-desc{font-size:12px;color:var(--gray);line-height:1.5}.key-insight{background:var(--navy);color:var(--white);padding:1.5rem;border-radius:12px;margin:1.5rem 0}.key-insight p{color:rgba(255,255,255,.85);margin-bottom:0}.key-insight strong{color:var(--orange)}.footer{position:absolute;bottom:.5in;left:.75in;right:.75in;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;color:var(--gray);border-top:1px solid var(--cream);padding-top:1rem;text-transform:uppercase;letter-spacing:.1em}</style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
         <div class="logo-area">
-            <div>
-                <span class="logo-text">NeuroChiro</span>
-                <span class="logo-subtext">MASTERMIND</span>
-            </div>
-            <div class="type-tag">The Doctrine</div>
+            <div><span class="logo-text">NeuroChiro</span><span class="logo-subtext">MASTERMIND</span></div>
+            <div class="type-tag">Team Guide</div>
         </div>
 
         <header>
-            <h1>The Ownership Architecture:<br>Accountability Systems</h1>
-            <div class="subtitle">Building a Team That Leads Itself Through Structural Integrity</div>
+            <h1>Delegating Without<br>Losing Control</h1>
+            <div class="subtitle">How to hand off tasks to your team without worrying that things will fall apart.</div>
         </header>
 
-        <div class="section-header">01 / The Trap of Management</div>
+        <div class="section-header">The Real Reason You Do Everything Yourself</div>
+        <p>Most clinic owners don't delegate because they tried once, it went badly, and they decided "it's faster if I just do it myself." That's true in the short term. But in the long term, it means you can never take a day off, you're exhausted, and your team never grows.</p>
+        <p><strong>The fix isn't trusting your team more. It's giving them better instructions.</strong></p>
+
+        <div class="section-header">The Delegation Formula</div>
         <div class="grid-2">
             <div>
-                <p>Management is a low-leverage activity. It relies on the doctor's energy to push the team forward. <strong>Ownership</strong> is high-leverage; it relies on the system's architecture to pull the team forward.</p>
-                <p>When you have to remind a staff member to follow the script or check a KPI, you are compensating for a weak system with your own willpower. This is the path to burnout.</p>
-            </div>
-            <div>
-                <div class="step-box">
-                    <span class="step-num">PHASE 01</span>
-                    <span class="step-title">The Handover of Authority</span>
-                    <p style="font-size: 11px; color: var(--gray); margin-top: 0.5rem;">Ownership requires the transfer of both responsibility AND the authority to execute.</p>
+                <div class="tip-card">
+                    <span class="tip-title">Step 1: Write It Down</span>
+                    <span class="tip-desc">If you can't write the task in 3-5 steps, you don't understand it well enough to delegate it. Write the steps first — then hand them the written steps, not a verbal explanation.</span>
                 </div>
-                <div class="step-box">
-                    <span class="step-num">PHASE 02</span>
-                    <span class="step-title">Objective Feedback Loops</span>
-                    <p style="font-size: 11px; color: var(--gray); margin-top: 0.5rem;">Subjective management creates friction. Objective data creates clarity and agreement.</p>
+                <div class="tip-card">
+                    <span class="tip-title">Step 2: Show Them Once</span>
+                    <span class="tip-desc">Do the task in front of them while they watch. Then have them do it while you watch. Then let them do it alone. Three reps — not one and done.</span>
                 </div>
             </div>
+            <div>
+                <div class="tip-card">
+                    <span class="tip-title">Step 3: Check, Don't Hover</span>
+                    <span class="tip-desc">Set a check-in point (daily for the first week, weekly after that). Review the outcome, not the process. If the result is right, don't nitpick how they got there.</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">Step 4: Let Them Own It</span>
+                    <span class="tip-desc">Once they can do it consistently for 2 weeks, it's theirs. Stop checking. If something goes wrong, they come to you — you don't go to them.</span>
+                </div>
+            </div>
         </div>
 
-        <div class="section-header">02 / The Accountability Loop</div>
+        <div class="section-header">What to Delegate First</div>
         <div class="grid-2">
             <div>
-                <h3>Self-Correcting Teams</h3>
-                <p>A high-performance team doesn't wait for the doctor to find a problem. They use the systems to identify drift and correct it before it impacts the clinical outcome.</p>
+                <h3>Delegate These</h3>
+                <p>• Scheduling and rescheduling<br>• Payment collection at checkout<br>• Missed visit follow-up calls/texts<br>• Room prep and cleanup<br>• Supply ordering</p>
             </div>
             <div>
-                <h3>Radical Transparency</h3>
-                <p>Transparency removes the need for "check-ins." When the data is visible to everyone, the standard becomes the manager, not the doctor.</p>
+                <h3>Keep These (For Now)</h3>
+                <p>• New patient phone calls (until they have the script down)<br>• Re-exam presentations<br>• Care plan recommendations<br>• Difficult patient conversations<br>• Financial hardship cases</p>
             </div>
         </div>
 
-        <div class="doctrine-card">
-            <h3>The Architecture of Trust</h3>
-            <p>Trust is not a feeling; it is the predictable outcome of consistent systems. When the architecture is strong, you can trust the team to lead. When the architecture is weak, trust is replaced by anxiety and micro-management. Focus on the structure, and the people will rise to the standard.</p>
-        </div>
-
-        <div class="callout-box">
-            <p class="callout-text">"Systems don't just manage work; they manage energy. When your team owns the architecture, your energy is freed up to move into higher-level leadership and clinical mastery."</p>
-        </div>
-
-        <div class="section-header">03 / Mastery Checklist</div>
-        <div class="grid-2">
-            <div>
-                <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Transfer of Authority Protocol</li>
-                    <li class="checklist-item"><div class="check-box"></div> Daily Objective Data Review</li>
-                    <li class="checklist-item"><div class="check-box"></div> Zero-Management Culture</li>
-                </ul>
-            </div>
-            <div>
-                <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Structural Feedback Loops</li>
-                    <li class="checklist-item"><div class="check-box"></div> Automated KPI Visualization</li>
-                    <li class="checklist-item"><div class="check-box"></div> Empowered Problem Solving</li>
-                </ul>
-            </div>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> Delegation isn't about trust — it's about systems. If you give someone a clear checklist, they'll follow it. If you give them vague instructions, they'll guess. The problem is almost never the person — it's the quality of the instructions you gave them.</p>
         </div>
 
         <div class="footer">
-            <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Ownership Architecture Doctrine</span>
+            <span>&copy; 2026 NeuroChiro Mastermind</span>
+            <span>Delegating Without Losing Control</span>
             <span>For Members Only</span>
         </div>
     </div>
