@@ -74,6 +74,21 @@ export default async function ModuleDetailPage(props: {
               </p>
             </div>
 
+            {/* Related Playbook */}
+            {week?.week_number && week.week_number <= 3 && (
+              <div className="bg-brand-navy/5 rounded-2xl p-4 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold text-brand-orange uppercase tracking-wider">Related Playbook</p>
+                  <p className="text-sm font-bold text-brand-navy mt-0.5">
+                    {week.week_number === 1 ? "Day 1: The Discovery System" : week.week_number === 2 ? "Day 2: Care Plan Presentation" : "Care Plan Architecture"}
+                  </p>
+                </div>
+                <Link href="/portal/playbooks" className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors shrink-0">
+                  Open →
+                </Link>
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-brand-navy/5">
               {prevModule ? (
                 <Link href={`/portal/curriculum/${week?.slug}/${prevModule.slug}`} className="flex items-center gap-4 group">
@@ -92,7 +107,7 @@ export default async function ModuleDetailPage(props: {
                 await completeModule(module.id);
               }}>
                 <BrandButton type="submit" variant={module.status === 'completed' ? 'outline' : 'primary'} className="w-full sm:w-auto">
-                  {module.status === 'completed' ? "Completed" : "Mark as Complete"}
+                  {module.status === 'completed' ? "✓ Completed — Nice work!" : "Mark as Complete"}
                 </BrandButton>
               </form>
 

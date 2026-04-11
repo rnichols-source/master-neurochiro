@@ -3,7 +3,6 @@ import { OnboardingChecklist } from "@/components/portal/OnboardingChecklist";
 import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { KPISnapshotCard } from "@/components/portal/KPISnapshotCard";
 import { WinsFeed } from "@/components/portal/wins-feed";
-import { WelcomeBanner } from "@/components/portal/WelcomeBanner";
 import { WeeklyFocusCard } from "@/components/portal/WeeklyFocusCard";
 import { createClient } from "@/lib/supabase/server";
 import { fetchNextCall } from "@/app/actions/call-actions";
@@ -17,14 +16,22 @@ export default async function PortalDashboard() {
   const { data: { user } } = await supabase.auth.getUser();
 
   let isFirstLogin = false;
+  let userName = "Doctor";
   if (user) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("is_first_login")
+      .select("is_first_login, full_name")
       .eq("id", user.id)
       .single();
     isFirstLogin = !!profile?.is_first_login;
+    if (profile?.full_name) userName = profile.full_name.split(" ")[0];
   }
+
+  // Get cohort size for community feel
+  const { count: cohortSize } = await supabase
+    .from("profiles")
+    .select("id", { count: "exact", head: true })
+    .neq("tier", "admin");
 
   // Fetch curriculum progress
   const curriculumResult = await fetchCurriculumWithProgress();
@@ -56,15 +63,14 @@ export default async function PortalDashboard() {
       <OnboardingChecklist isFirstLogin={isFirstLogin} />
 
       <div className="space-y-6">
-        {/* Welcome banner for new members */}
-        {isFirstLogin && <WelcomeBanner />}
-
         {/* Page Title */}
         <div>
           <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
-            Dashboard
+            Welcome back, {userName}
           </h1>
-          <p className="text-sm text-brand-gray font-medium mt-1">Your progress at a glance.</p>
+          <p className="text-sm text-brand-gray font-medium mt-1">
+            You&apos;re learning with {cohortSize || 0} other doctors and students this cohort.
+          </p>
         </div>
 
         {/* This Week's Focus */}
