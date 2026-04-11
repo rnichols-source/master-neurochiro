@@ -3,120 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource: The "Think About It" Terminator</title>
+    <title>NeuroChiro: Handling "I Need to Think About It"</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
+        :root { --navy: #1A232E; --orange: #FF6600; --cream: #F9F7F2; --gray: #4B5563; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.6; }
+        .page { width: 8.5in; min-height: 11in; padding: 0.75in; margin: 2rem auto; background: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
         @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--navy); }
-        
+        @media (max-width: 768px) { .page { width: 100%; padding: 1.5rem; margin: 0; min-height: auto; box-shadow: none; } .grid-2 { grid-template-columns: 1fr !important; gap: 1.5rem !important; } }
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--orange); }
         .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
         .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+        h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 600; color: var(--gray); margin-bottom: 2.5rem; }
+        .section-header { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
         .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .script-box { background: var(--cream); padding: 2rem; border-radius: 16px; border-left: 4px solid var(--orange); margin: 2rem 0; }
-        .script-label { font-size: 9px; font-weight: 900; text-transform: uppercase; color: var(--orange); letter-spacing: 0.1em; display: block; margin-bottom: 1rem; }
-        .script-text { font-size: 15px; font-weight: 700; color: var(--navy); font-style: italic; line-height: 1.6; }
-
-        .doctrine-card { background: var(--navy); color: var(--white); padding: 2.5rem; border-radius: 16px; margin: 2rem 0; position: relative; }
-        .doctrine-card h3 { color: var(--orange); font-size: 16px; margin-bottom: 1rem; }
-        .doctrine-card p { color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.7; margin-bottom: 0; }
-
-        .callout-box { border-left: 4px solid var(--navy); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+        h3 { font-size: 16px; font-weight: 900; margin-bottom: 0.75rem; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 0.75rem; }
+        .script-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+        .script-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.5rem; display: block; }
+        .script-text { font-size: 14px; font-weight: 600; font-style: italic; color: var(--navy); line-height: 1.6; }
+        .tip-card { background: var(--cream); padding: 1.25rem; border-radius: 12px; margin-bottom: 0.75rem; }
+        .tip-title { font-weight: 900; font-size: 14px; display: block; margin-bottom: 0.5rem; }
+        .tip-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+        .key-insight { background: var(--navy); color: var(--white); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+        .key-insight p { color: rgba(255,255,255,0.85); margin-bottom: 0; }
+        .key-insight strong { color: var(--orange); }
         .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
+
         <div class="logo-area">
             <div>
                 <span class="logo-text">NeuroChiro</span>
                 <span class="logo-subtext">MASTERMIND</span>
             </div>
-            <div class="type-tag">The Protocol</div>
+            <div class="type-tag">Script Guide</div>
         </div>
 
         <header>
-            <h1>The "Think About It" Terminator:<br>The End of Indecision</h1>
-            <div class="subtitle">Eliminating the Uncertainty Loop and Securing Clinical Commitment</div>
+            <h1>Handling "I Need<br>to Think About It"</h1>
+            <div class="subtitle">The most common objection in chiropractic — and exactly how to respond without being pushy.</div>
         </header>
 
-        <div class="section-header">01 / Defining the Hesitation</div>
+        <div class="section-header">Why They Say It</div>
         <div class="grid-2">
             <div>
-                <p>When a patient says, "I need to think about it," they aren't actually asking for more time. They are signaling that <strong>Uncertainty</strong> still exists in the room.</p>
-                <p>Indecision is a neurological state of threat. As Sid Williams taught, "You can't think about a fact." If the clinical truth is clear, the decision is binary. Anything else is a leak in your authority.</p>
+                <p>When a patient says "I need to think about it," they're not asking for more time. They're telling you one of two things:</p>
+                <p><strong>1. They're not sure your plan will work.</strong> They heard the recommendation but aren't convinced it's the right solution for them.</p>
+                <p><strong>2. They're worried about the money.</strong> They want the care but aren't sure they can afford it or justify the investment.</p>
+                <p>Your job is to figure out which one it is — without guessing.</p>
             </div>
             <div>
-                <div class="doctrine-card" style="padding: 1.5rem; margin: 0;">
-                    <h3 style="font-size: 12px;">The Uncertainty Gap</h3>
-                    <p style="font-size: 11px;">They either don't believe this is the solution, or they don't believe they can execute the plan. Your job is to find out which one it is without being defensive.</p>
+                <div class="tip-card">
+                    <span class="tip-title">The Common Mistake</span>
+                    <span class="tip-desc">Most doctors hear "I need to think about it" and say "OK, take your time" — then the patient walks out and never comes back. You just lost a $3,000-$5,000 case because you didn't ask one follow-up question.</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">The Better Approach</span>
+                    <span class="tip-desc">Don't argue. Don't discount. Just ask one simple question to find out what's actually holding them back.</span>
                 </div>
             </div>
         </div>
 
-        <div class="script-box">
-            <span class="script-label">The Terminator Script</span>
-            <p class="script-text">"I understand. Usually, when someone says they need to think about it, it’s for one of two reasons. Either they don’t believe that this is the solution to their problem, or they don’t believe they can afford the solution. Which one is it for you?"</p>
-        </div>
+        <div class="section-header">The Script — 3 Steps</div>
 
-        <div class="section-header">02 / Neutralizing the Loop</div>
+        <h3>Step 1: Acknowledge (Don't Resist)</h3>
+        <div class="script-box">
+            <span class="script-label">Say This</span>
+            <span class="script-text">"I completely understand. This is an important decision and I want you to feel good about it."</span>
+        </div>
+        <p>This disarms them. They expect you to push back. When you don't, they relax.</p>
+
+        <h3>Step 2: Ask the Real Question</h3>
+        <div class="script-box">
+            <span class="script-label">Say This</span>
+            <span class="script-text">"Can I ask — when you say you need to think about it, is it that you're not sure this is the right approach for you? Or is it more about the financial side? I just want to make sure I've answered all your questions."</span>
+        </div>
+        <p>Now they have to tell you the real reason. And once you know the real reason, you can address it specifically.</p>
+
+        <h3>Step 3: Address What They Actually Said</h3>
         <div class="grid-2">
             <div>
-                <h3>Call the Bluff</h3>
-                <p>Indecision is the enemy of healing. Every day they "think about it" is a day their nervous system continues to degenerate. Authority requires you to hold them accountable to the truth you found.</p>
+                <h3>If it's the plan:</h3>
+                <div class="script-box" style="margin-top: 0.5rem;">
+                    <span class="script-label">Say This</span>
+                    <span class="script-text">"That's fair. Let me show you one more time what your scans revealed and why I'm recommending this specific plan. [Review the key finding briefly.] Does that make more sense?"</span>
+                </div>
             </div>
             <div>
-                <h3>Isolate the Variable</h3>
-                <p>Once they choose (Solution or Money), you can solve the specific problem. If you let them leave with a "maybe," you have allowed them to stay in their current stress pattern.</p>
+                <h3>If it's the money:</h3>
+                <div class="script-box" style="margin-top: 0.5rem;">
+                    <span class="script-label">Say This</span>
+                    <span class="script-text">"I appreciate you being honest about that. We have a few payment options that can make this more manageable. Let me have [staff name] walk you through them — most patients find one that works."</span>
+                </div>
             </div>
         </div>
 
-        <div class="callout-box">
-            <p class="callout-text">"A 'No' is fine. A 'Yes' is better. A 'Maybe' is a slow death for your practice and the patient's health. Terminate the maybe."</p>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> "I need to think about it" is never the real objection — it's a cover for a specific concern they haven't voiced yet. One follow-up question reveals it every time. And once you know what it is, you can usually solve it in 30 seconds.</p>
+        </div>
+
+        <div class="section-header">Quick Reference</div>
+        <div class="tip-card">
+            <span class="tip-title">The 3-Step Formula</span>
+            <span class="tip-desc">1. Acknowledge ("I understand") → 2. Ask ("Is it the plan or the investment?") → 3. Address the specific concern. Done. No pressure, no awkwardness.</span>
         </div>
 
         <div class="footer">
             <span>© 2026 NeuroChiro Mastermind</span>
-            <span>The Objection Terminator</span>
+            <span>Handling "I Need to Think About It"</span>
             <span>For Members Only</span>
         </div>
     </div>
