@@ -1,5 +1,5 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { Calculator, TrendingUp, Sun, MessageSquare, Users, Mic, Briefcase, DollarSign, Target, ClipboardCheck } from "lucide-react";
+import { Calculator, TrendingUp, Sun, MessageSquare, Users, Mic, Briefcase, DollarSign, Target, ClipboardCheck, BarChart3, GraduationCap } from "lucide-react";
 import Link from "next/link";
 
 const practiceTools = [
@@ -8,6 +8,7 @@ const practiceTools = [
   { name: "Daily Huddle", desc: "2-minute morning check-in for your team.", href: "/portal/tools/huddle", icon: Sun },
   { name: "Reactivation Scripts", desc: "Bring back inactive patients.", href: "/portal/tools/reactivation", icon: MessageSquare },
   { name: "Retention Tracker", desc: "See who finishes care and who drops off.", href: "/portal/tools/retention", icon: Users },
+  { name: "Patient Source Tracker", desc: "Which marketing actually produces paying patients?", href: "/portal/tools/patient-sources", icon: BarChart3 },
 ];
 
 const studentTools = [
@@ -16,6 +17,7 @@ const studentTools = [
   { name: "First Year Budget", desc: "See what your finances look like after graduation.", href: "/portal/tools/budget-planner", icon: DollarSign },
   { name: "Confidence Tracker", desc: "Rate your skills weekly and track improvement.", href: "/portal/tools/confidence-tracker", icon: Target },
   { name: "Job Offer Evaluator", desc: "Is that associate position actually a good deal?", href: "/portal/tools/job-evaluator", icon: ClipboardCheck },
+  { name: "Graduation Checklist", desc: "Everything to have ready before you start practicing.", href: "/portal/tools/grad-checklist", icon: GraduationCap },
 ];
 
 function ToolCard({ tool }: { tool: typeof practiceTools[0] }) {
