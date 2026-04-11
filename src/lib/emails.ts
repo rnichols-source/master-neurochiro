@@ -79,7 +79,16 @@ export const EmailService = {
 
   // 1. APPLICATION FLOW
   async sendAppReceived(email: string, name: string) {
-    const html = getEmailTemplate('Application Received', 'Admissions Update', `<p>Dr. ${name}, we have received your application data for the NeuroChiro Mastermind.</p>`);
+    const bookingLink = "https://calendly.com/neurochiro-pro/1-on-1";
+    const action = `<a href="${bookingLink}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Book a Free Call with Dr. Nichols</a>`;
+    const html = getEmailTemplate(
+      'Application Received',
+      'Admissions Update',
+      `<p>Dr. ${name}, we&rsquo;ve received your application for the NeuroChiro Mastermind. Dr. Nichols will personally review it and you&rsquo;ll hear back within 48 hours.</p>
+      <p><strong>Next cohort starts April 21, 2026</strong> &mdash; seats are limited and filling fast.</p>
+      <p>Have questions about the program or want to discuss your practice before your review? Book a free 15-minute call:</p>`,
+      action
+    );
     return this.send(email, 'Application Received: NeuroChiro Mastermind', html, 'app_received');
   },
 

@@ -5,12 +5,12 @@ import { BrandButton } from "@/components/ui/elite-ui";
 import {
   ArrowRight,
   Loader2,
-  PartyPopper,
   CheckCircle2,
 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { submitApplication } from "@/app/actions/submit-application";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function ApplicationPage() {
@@ -22,8 +22,8 @@ export default function ApplicationPage() {
     biggest_struggle: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleChange = (id: string, value: string) => {
     setFormData((prev) => ({ ...prev, [id]: value }));
@@ -53,40 +53,16 @@ export default function ApplicationPage() {
     setIsSubmitting(false);
 
     if (result.success) {
-      setIsSuccess(true);
+      const params = new URLSearchParams({
+        name: formData.full_name,
+        role: formData.current_role,
+      });
+      router.push(`/apply/confirmation?${params.toString()}`);
+      return;
     } else {
       setError(result.error || "Something went wrong. Please try again.");
     }
   };
-
-  if (isSuccess) {
-    return (
-      <div className="min-h-[100dvh] bg-brand-cream flex items-center justify-center p-5">
-        <MastermindHeader />
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="max-w-lg w-full text-center space-y-6"
-        >
-          <div className="inline-flex p-5 bg-brand-orange/10 rounded-full">
-            <PartyPopper className="w-10 h-10 text-brand-orange" />
-          </div>
-          <h1 className="text-2xl md:text-4xl font-black text-brand-navy tracking-tight">
-            Application Received!
-          </h1>
-          <p className="text-base text-brand-gray font-medium leading-relaxed">
-            Thank you for applying. Dr. Nichols will personally review your
-            application and you&apos;ll hear back via email within 48 hours.
-          </p>
-          <Link href="/">
-            <BrandButton variant="outline" className="py-4 px-8">
-              Back to Home
-            </BrandButton>
-          </Link>
-        </motion.div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-[100dvh] bg-brand-cream">
