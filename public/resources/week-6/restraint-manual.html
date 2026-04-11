@@ -3,124 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource: The Power of Saying Less</title>
+    <title>NeuroChiro: The Power of Saying Less</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
+        :root { --navy: #1A232E; --orange: #FF6600; --cream: #F9F7F2; --gray: #4B5563; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.6; }
+        .page { width: 8.5in; min-height: 11in; padding: 0.75in; margin: 2rem auto; background: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
         @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 12px; background: var(--navy); }
-        
+        @media (max-width: 768px) { .page { width: 100%; padding: 1.5rem; margin: 0; min-height: auto; box-shadow: none; } .grid-2 { grid-template-columns: 1fr !important; gap: 1.5rem !important; } }
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--orange); }
         .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
         .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 2px solid var(--navy); color: var(--navy); padding: 4px 16px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+        h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 600; color: var(--gray); margin-bottom: 2.5rem; }
+        .section-header { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
         .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1.2fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1.5rem; }
-
-        .tone-card { background: var(--navy); color: var(--white); padding: 2.5rem; border-radius: 16px; margin: 2rem 0; position: relative; }
-        .tone-card h3 { color: var(--orange); font-size: 16px; margin-bottom: 1rem; }
-        .tone-card p { color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.7; margin-bottom: 0; }
-
-        .metric-box { background: var(--cream); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; }
-        .metric-title { font-weight: 900; font-size: 11px; text-transform: uppercase; display: block; color: var(--navy); }
-        .metric-value { font-size: 13px; font-weight: 700; color: var(--orange); margin-top: 0.25rem; display: block; }
-
-        .callout-box { border-left: 4px solid var(--navy); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+        h3 { font-size: 16px; font-weight: 900; margin-bottom: 0.75rem; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 0.75rem; }
+        .tip-card { background: var(--cream); padding: 1.25rem; border-radius: 12px; margin-bottom: 0.75rem; }
+        .tip-title { font-weight: 900; font-size: 14px; display: block; margin-bottom: 0.5rem; }
+        .tip-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+        .script-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+        .script-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.5rem; display: block; }
+        .script-text { font-size: 14px; font-weight: 600; font-style: italic; color: var(--navy); line-height: 1.6; }
+        .key-insight { background: var(--navy); color: var(--white); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+        .key-insight p { color: rgba(255,255,255,0.85); margin-bottom: 0; }
+        .key-insight strong { color: var(--orange); }
         .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
+
         <div class="logo-area">
             <div>
                 <span class="logo-text">NeuroChiro</span>
                 <span class="logo-subtext">MASTERMIND</span>
             </div>
-            <div class="type-tag">The Protocol</div>
+            <div class="type-tag">Practical Guide</div>
         </div>
 
         <header>
-            <h1>The Power of Saying Less:<br>Using Tone and Silence Effectively</h1>
-            <div class="subtitle">Mastering the Psychology of Silence and the Power of Minimal Language</div>
+            <h1>The Power of<br>Saying Less</h1>
+            <div class="subtitle">How to use silence and a steady voice to close more cases — without feeling salesy.</div>
         </header>
 
-        <section class="grid-2">
-            <div>
-                <h2>01 / Silence is Leverage</h2>
-                <p>The average chiropractor talks too much because they are trying to <strong>avoid the discomfort of evaluation.</strong> They interpret a patient's silence as danger, so they fill the room with philosophy and science.</p>
-                <p>Restraint is the ability to present the truth and then allow the patient's nervous system to process it. Authority is signaled by the comfort you have in the silence.</p>
-            </div>
-            <div>
-                <div class="metric-box">
-                    <span class="metric-title">The Authority Ratio</span>
-                    <span class="metric-value">Patient speaks 60% / Doctor speaks 40%</span>
-                </div>
-                <div class="metric-box">
-                    <span class="metric-title">The Decision Gap</span>
-                    <span class="metric-value">Minimum 5 seconds of silence after price presentation</span>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-header">02 / Tone Stability</div>
+        <div class="section-header">The Problem: Talking Too Much</div>
         <div class="grid-2">
             <div>
-                <h3>Monotone Authority</h3>
-                <p>High-ticket clinical decisions are made when the doctor's tone remains stable. If your pitch goes up at the end of a sentence, you are seeking approval. If your volume drops during the recommendation, you are leaking certainty.</p>
+                <p>Most chiropractors talk too much during their care plan presentation. Not because they don't know what they're doing — but because <strong>silence feels uncomfortable.</strong></p>
+                <p>When a patient goes quiet after hearing the price, the natural instinct is to fill the space: "Of course, we also have payment plans..." or "If that's too many visits, we could do..." Every word you add weakens your recommendation.</p>
+                <p><strong>The rule is simple:</strong> Say what you need to say. Then stop.</p>
             </div>
             <div>
-                <h3>Restrained Enthusiasm</h3>
-                <p>Over-excitement signals that you need the patient more than they need you. Genuine clinical authority is calm, steady, and slightly detached from the outcome.</p>
+                <div class="tip-card">
+                    <span class="tip-title">The 5-Second Rule</span>
+                    <span class="tip-desc">After you state the price or make your recommendation, count to 5 in your head before saying anything else. Let them process. The silence isn't awkward — it's respectful.</span>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-title">The 60/40 Rule</span>
+                    <span class="tip-desc">The patient should be talking 60% of the time, you 40%. If you're talking more than the patient, you're explaining too much.</span>
+                </div>
             </div>
         </div>
 
-        <div class="tone-card">
-            <h3>The Architecture of Certainty</h3>
-            <p>Your tone is the environment the patient's nervous system lives in during the Report of Findings. If your environment is shaky, their commitment will be shaky. Mastery is the ability to hold a neutral, high-authority tone even when the patient is in crisis or expressing doubt. Stable Tone = Stable Commitment.</p>
+        <div class="section-header">How Your Voice Affects Their Decision</div>
+        <div class="grid-2">
+            <div>
+                <h3>Keep Your Voice Steady</h3>
+                <p>When you say the price, keep the same tone as when you explained the findings. Don't speed up. Don't lower your volume. Don't let your voice go up at the end like a question.</p>
+                <p><strong>Steady voice = "I believe in this recommendation."</strong></p>
+                <p><strong>Shaky voice = "I'm hoping you'll say yes."</strong></p>
+                <p>Patients hear the difference immediately.</p>
+            </div>
+            <div>
+                <h3>Don't Over-Explain</h3>
+                <p>If you've already explained the findings and the plan, you don't need to re-explain when you say the price. Adding justifications after the number signals that even YOU think it's too much.</p>
+
+                <div class="script-box" style="margin-top: 1rem;">
+                    <span class="script-label">Don't say this</span>
+                    <span class="script-text">"The investment is $3,600... but of course that includes all the visits and the re-exam and the home exercises and the scan comparison and..."</span>
+                </div>
+
+                <div class="script-box">
+                    <span class="script-label">Say this instead</span>
+                    <span class="script-text">"The total investment for this plan is $3,600. We have payment options if that's easier. [Then stop.]"</span>
+                </div>
+            </div>
         </div>
 
-        <div class="callout-box">
-            <p class="callout-text">"He who speaks less, leads more. Restraint is the ultimate signal of clinical mastery. If you have to over-explain, your structure is weak."</p>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> The less you say after the recommendation, the more confident you appear. Patients don't need more information — they need to see that YOU are certain. Your calm silence tells them everything they need to know.</p>
+        </div>
+
+        <div class="section-header">Quick Reference — Tape This to Your Desk</div>
+        <div class="grid-2">
+            <div>
+                <div class="tip-card">
+                    <span class="tip-title">Before the Presentation</span>
+                    <span class="tip-desc">Take a breath. Slow down. Remind yourself: "I am presenting their results, not selling a product."</span>
+                </div>
+            </div>
+            <div>
+                <div class="tip-card">
+                    <span class="tip-title">After Saying the Price</span>
+                    <span class="tip-desc">Stop talking. Count to 5. Let them respond first. If they say nothing, ask: "What questions do you have?"</span>
+                </div>
+            </div>
         </div>
 
         <div class="footer">
             <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Restraint & Tone Doctrine</span>
+            <span>The Power of Saying Less</span>
             <span>For Members Only</span>
         </div>
     </div>

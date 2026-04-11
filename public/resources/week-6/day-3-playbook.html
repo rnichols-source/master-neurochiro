@@ -3,152 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroChiro Resource 4: Day 3 Playbook: Stabilization</title>
+    <title>NeuroChiro: Day 3 — Setting Up the Patient for Success</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --navy: #1A232E;
-            --orange: #FF6600;
-            --cream: #F9F7F2;
-            --gray: #4B5563;
-            --white: #FFFFFF;
-        }
-
+        :root { --navy: #1A232E; --orange: #FF6600; --cream: #F9F7F2; --gray: #4B5563; --white: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
-        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.5; }
-
-        .page {
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.75in;
-            margin: 2rem auto;
-            background: var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
+        body { background-color: #E5E7EB; font-family: 'Inter', sans-serif; color: var(--navy); line-height: 1.6; }
+        .page { width: 8.5in; min-height: 11in; padding: 0.75in; margin: 2rem auto; background: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
         @media print { body { background: none; } .page { margin: 0; box-shadow: none; width: 100%; } }
-
-        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--gray); }
-        
+        @media (max-width: 768px) { .page { width: 100%; padding: 1.5rem; margin: 0; min-height: auto; box-shadow: none; } .grid-2 { grid-template-columns: 1fr !important; gap: 1.5rem !important; } }
+        .header-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--orange); }
         .logo-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .logo-text { font-family: 'Lato', sans-serif; text-transform: uppercase; font-weight: 900; letter-spacing: 0.2em; font-size: 14px; }
         .logo-subtext { color: var(--orange); font-size: 10px; font-weight: 700; display: block; margin-top: -2px; }
-        .type-tag { border: 1px solid var(--gray); color: var(--gray); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
-
-        h1 { font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 14px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3rem; }
-
-        .section-header { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; color: var(--navy); margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .type-tag { border: 1px solid var(--navy); color: var(--navy); padding: 4px 12px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; }
+        h1 { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 14px; font-weight: 600; color: var(--gray); margin-bottom: 2.5rem; }
+        .section-header { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: var(--orange); margin-bottom: 1.5rem; display: flex; align-items: center; }
         .section-header::after { content: ""; flex: 1; height: 1px; background: var(--cream); margin-left: 1rem; }
-
-        .grid-2 { display: grid; grid-template-cols: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-
-        h3 { font-size: 18px; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        p { font-size: 13px; color: var(--gray); margin-bottom: 1rem; }
-
-        .onboard-step { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding: 1rem; border-radius: 8px; border: 1px solid var(--cream); }
-        .step-icon { width: 40px; height: 40px; background: var(--navy); color: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; flex-shrink: 0; }
-        .step-txt { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; }
-
-        .gray-card { background: var(--cream); padding: 2rem; border-radius: 16px; margin: 2rem 0; border: 1px solid rgba(0,0,0,0.05); }
-        .gray-card h3 { color: var(--navy); font-size: 14px; margin-bottom: 0.75rem; }
-        .gray-card p { color: var(--gray); font-size: 12px; margin-bottom: 0; }
-
-        .callout-box { border-left: 4px solid var(--gray); background: var(--cream); padding: 2rem; margin: 2rem 0; border-radius: 0 12px 12px 0; }
-        .callout-text { font-size: 16px; font-weight: 700; font-style: italic; color: var(--navy); }
-
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+        h3 { font-size: 16px; font-weight: 900; margin-bottom: 0.75rem; }
+        p { font-size: 13px; color: var(--gray); margin-bottom: 0.75rem; }
+        .step-card { background: var(--cream); padding: 1.25rem; border-radius: 12px; margin-bottom: 0.75rem; }
+        .step-num { color: var(--orange); font-weight: 900; font-size: 11px; margin-bottom: 0.25rem; display: block; }
+        .step-title { font-weight: 900; font-size: 14px; display: block; margin-bottom: 0.5rem; }
+        .step-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+        .script-box { border-left: 4px solid var(--orange); background: var(--cream); padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+        .script-label { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--orange); margin-bottom: 0.5rem; display: block; }
+        .script-text { font-size: 14px; font-weight: 600; font-style: italic; color: var(--navy); line-height: 1.6; }
         .checklist { list-style: none; margin-top: 1rem; }
-        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 700; }
-        .check-box { width: 16px; height: 16px; border: 2px solid var(--gray); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
-
+        .checklist-item { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 13px; font-weight: 600; }
+        .check-box { width: 16px; height: 16px; border: 2px solid var(--orange); border-radius: 4px; margin-top: 2px; flex-shrink: 0; }
+        .key-insight { background: var(--navy); color: var(--white); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+        .key-insight p { color: rgba(255,255,255,0.85); margin-bottom: 0; }
+        .key-insight strong { color: var(--orange); }
         .footer { position: absolute; bottom: 0.5in; left: 0.75in; right: 0.75in; display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 700; color: var(--gray); border-top: 1px solid var(--cream); padding-top: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
     <div class="page">
         <div class="header-stripe"></div>
-        
+
         <div class="logo-area">
             <div>
                 <span class="logo-text">NeuroChiro</span>
                 <span class="logo-subtext">MASTERMIND</span>
             </div>
-            <div class="type-tag">Implementation Guide</div>
+            <div class="type-tag">Practical Guide</div>
         </div>
 
         <header>
-            <h1>Day 3 Playbook:<br>The Stabilization Protocol</h1>
-            <div class="subtitle">Onboarding and the Protection of Clinical Outcomes</div>
+            <h1>Day 3: Setting Up the<br>Patient for Success</h1>
+            <div class="subtitle">The onboarding visit that determines whether they complete their care plan or drop off at week 4.</div>
         </header>
 
-        <div class="section-header">01 / Stabilization over sales</div>
+        <div class="section-header">Why Day 3 Matters More Than You Think</div>
         <div class="grid-2">
             <div>
-                <p>Day 2 creates cognitive commitment (agreement), but Day 3 is where that commitment becomes <strong>behavioral (action).</strong></p>
-                <p>If you skip or rush this onboarding, retention will collapse quietly three to six weeks later. Motivation is a feeling; structure is a fact.</p>
+                <p>On Day 2, the patient agreed to a plan. On Day 3, they start following it. This is where most practices lose patients — not because the plan was wrong, but because nobody set clear expectations for what comes next.</p>
+                <p><strong>Day 3 is not a treatment visit. It's an onboarding visit.</strong> Take 5 extra minutes to set up their entire experience.</p>
             </div>
             <div>
-                <div class="onboard-step">
-                    <div class="step-icon">01</div>
-                    <div class="step-txt">Role Clarity</div>
+                <div class="step-card">
+                    <span class="step-num">Step 1</span>
+                    <span class="step-title">Confirm the Schedule</span>
+                    <span class="step-desc">Walk through their visit schedule for the next 4 weeks. Make sure they know exactly which days and times they're coming in.</span>
                 </div>
-                <div class="onboard-step">
-                    <div class="step-icon">02</div>
-                    <div class="step-txt">Rhythm Establishment</div>
+                <div class="step-card">
+                    <span class="step-num">Step 2</span>
+                    <span class="step-title">Set Re-Exam Expectations</span>
+                    <span class="step-desc">Tell them when you'll re-evaluate: "At visit 12, we'll re-scan and compare to your Day 1 results."</span>
                 </div>
-                <div class="onboard-step">
-                    <div class="step-icon">03</div>
-                    <div class="step-txt">Re-Eval Strategy</div>
+                <div class="step-card">
+                    <span class="step-num">Step 3</span>
+                    <span class="step-title">Prepare Them for Ups and Downs</span>
+                    <span class="step-desc">Let them know that progress isn't always linear. Some weeks they'll feel great, some they won't. That's normal.</span>
                 </div>
             </div>
         </div>
 
-        <div class="section-header">02 / Compliance Mechanics</div>
+        <div class="section-header">What to Say on Day 3</div>
+
+        <div class="script-box">
+            <span class="script-label">The Onboarding Script</span>
+            <span class="script-text">"Before we get started today, I want to make sure you know exactly what the next few weeks look like. You'll be coming in [3 times a week / Monday, Wednesday, Friday] for the first 4 weeks. At visit 12, we'll do a full re-evaluation — same scans as Day 1 — so we can measure exactly how you're responding. Some days you'll feel great. Some days you might feel a little sore. That's completely normal and actually a good sign. Any questions before we begin?"</span>
+        </div>
+
+        <h3>Why This Prevents Drop-Off</h3>
         <div class="grid-2">
             <div>
-                <h3>Rhythm & Predictability</h3>
-                <p>Predictable frequency builds a behavioral pattern. When the patient knows exactly what to expect at every visit, their stress drops and compliance increases.</p>
-                <p><strong>Rhythm lowers stress.</strong> Structure makes behavior easier. When visits are predictable, the brain relaxes into the pattern.</p>
+                <p><strong>Without Day 3 onboarding:</strong> The patient comes in for a few visits, starts feeling better around visit 6, and thinks "I'm good now." They cancel. You lose $2,000-$4,000.</p>
             </div>
             <div>
-                <h3>The Drift Factor</h3>
-                <p>Drift is subtle. It starts with a casual tone or a skipped onboarding conversation because the patient "seems to get it."</p>
-                <p><strong>Erosion:</strong> Without Day 3, the authority established on Day 2 begins to bleed out. Skipping Day 3 leaves behavior unstable.</p>
+                <p><strong>With Day 3 onboarding:</strong> The patient knows the re-exam is at visit 12. They have a milestone to work toward. When they feel better at visit 6, they think "I'm halfway there" instead of "I'm done."</p>
             </div>
         </div>
 
-        <div class="gray-card">
-            <h3>Structure vs. Motivation</h3>
-            <p>Onboarding is the process of setting the behavioral rhythm for the entire care plan. Motivation fades. Structure remains. Day 3 onboarding exists not to resell, but to protect behavior.</p>
+        <div class="key-insight">
+            <p><strong>The Key Insight:</strong> Patients don't drop off because they don't like you. They drop off because they don't know what comes next. Day 3 removes that uncertainty. Give them a schedule, a milestone, and realistic expectations — and they'll stick with the plan.</p>
         </div>
 
-        <div class="callout-box">
-            <p class="callout-text">"Structure makes behavior easier. Motivation fades. Structure remains. Day 3 exists not to convince, but to contain."</p>
-        </div>
-
-        <div class="section-header">03 / Mastery Checklist</div>
+        <div class="section-header">Day 3 Checklist — Print This</div>
         <div class="grid-2">
             <div>
                 <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Verify patient role clarity</li>
-                    <li class="checklist-item"><div class="check-box"></div> Conduct dedicated onboarding</li>
-                    <li class="checklist-item"><div class="check-box"></div> Establish visit rhythm</li>
+                    <li class="checklist-item"><div class="check-box"></div> Confirmed their visit schedule for the next 4 weeks</li>
+                    <li class="checklist-item"><div class="check-box"></div> Told them when their first re-evaluation is</li>
+                    <li class="checklist-item"><div class="check-box"></div> Warned them about normal ups and downs</li>
                 </ul>
             </div>
             <div>
                 <ul class="checklist">
-                    <li class="checklist-item"><div class="check-box"></div> Set re-exam expectations</li>
-                    <li class="checklist-item"><div class="check-box"></div> Zero "selling" energy</li>
-                    <li class="checklist-item"><div class="check-box"></div> Predictability check</li>
+                    <li class="checklist-item"><div class="check-box"></div> Asked if they have any questions</li>
+                    <li class="checklist-item"><div class="check-box"></div> Did NOT try to re-sell or re-justify the plan</li>
+                    <li class="checklist-item"><div class="check-box"></div> Treated this as onboarding, not just another visit</li>
                 </ul>
             </div>
         </div>
 
         <div class="footer">
             <span>© 2026 NeuroChiro Mastermind</span>
-            <span>Day 3 Playbook: Stabilization</span>
+            <span>Day 3: Patient Onboarding Guide</span>
             <span>For Members Only</span>
         </div>
     </div>
