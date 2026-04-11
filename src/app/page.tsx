@@ -7,9 +7,8 @@ import {
   Quote,
   TrendingUp,
   ShieldCheck,
-  Users,
-  Calendar,
   Check,
+  Play,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -70,106 +69,121 @@ export default function HomePage() {
       <MastermindHeader />
 
       {/* ──────────────── HERO ──────────────── */}
-      <section className="pt-24 md:pt-40 pb-16 md:pb-28 px-5 md:px-6 bg-gradient-to-b from-white to-brand-cream">
-        <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
-          <div className="inline-flex items-center gap-2 bg-brand-navy/5 rounded-full px-4 py-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-sm font-bold text-brand-navy">Next cohort starts April 21 · 25 seats</span>
-          </div>
-
-          <h1 className="text-[2rem] leading-[1.1] md:text-5xl lg:text-6xl font-black text-brand-navy tracking-tight">
-            Stop Losing Patients to{" "}
-            <span className="text-brand-orange">&ldquo;I Need to Think About It.&rdquo;</span>
-          </h1>
-
-          <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed max-w-2xl mx-auto">
-            Master the communication skills that turn nervous patients into confident care plan acceptances — in 8 weeks.
-            Word-for-word scripts, live coaching, and a system you&apos;ll use for the rest of your career.
-          </p>
-
-          <p className="text-sm text-brand-gray">
-            Also available for chiropractic students. <Link href="/pricing" className="text-brand-orange hover:text-brand-navy transition-colors underline">See student pricing</Link>.
-          </p>
-
-          <div className="pt-2">
-            <Link href="/apply" className="block sm:inline-block">
-              <BrandButton
-                variant="primary"
-                size="lg"
-                className="group w-full sm:w-auto px-10 py-5 text-base"
-              >
-                Apply Now{" "}
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </BrandButton>
-            </Link>
-          </div>
-
-          {/* Social Proof Stats */}
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 pt-6 md:pt-8 border-t border-brand-navy/5">
-            <div className="flex items-center gap-2.5">
-              <Users className="w-5 h-5 text-brand-orange shrink-0" />
-              <div>
-                <p className="text-lg font-black text-brand-navy leading-none">150+</p>
-                <p className="text-xs text-brand-gray font-medium">Doctors Trained</p>
+      <section className="pt-20 md:pt-32 pb-16 md:pb-24 px-5 md:px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+            {/* Left: Copy */}
+            <div className="space-y-6 md:space-y-8">
+              <div className="inline-flex items-center gap-2 bg-brand-navy/5 rounded-full px-4 py-2">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm font-bold text-brand-navy">Next cohort: April 21 · 25 seats</span>
               </div>
-            </div>
-            <div className="flex items-center gap-2.5">
-              <Calendar className="w-5 h-5 text-brand-orange shrink-0" />
-              <div>
-                <p className="text-lg font-black text-brand-navy leading-none">8 Weeks</p>
-                <p className="text-xs text-brand-gray font-medium">Start to Finish</p>
+
+              <h1 className="text-[2rem] leading-[1.1] md:text-5xl font-black text-brand-navy tracking-tight">
+                Stop Losing Patients to{" "}
+                <span className="text-brand-orange">&ldquo;I Need to Think About It.&rdquo;</span>
+              </h1>
+
+              <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
+                Master the communication skills that turn nervous patients into confident care plan acceptances — in 8 weeks. Word-for-word scripts, live coaching, and a system you&apos;ll use for the rest of your career.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="/apply">
+                  <BrandButton
+                    variant="primary"
+                    size="lg"
+                    className="group w-full sm:w-auto px-8 py-4 text-base"
+                  >
+                    Apply Now
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </BrandButton>
+                </Link>
+                <Link href="/pricing" className="px-6 py-4 text-sm font-bold text-brand-navy hover:text-brand-orange transition-colors text-center">
+                  See pricing →
+                </Link>
               </div>
+
+              <p className="text-xs text-brand-gray">
+                For practicing chiropractors and students. Student pricing from $497.
+              </p>
             </div>
-            <div className="flex items-center gap-2.5">
-              <Users className="w-5 h-5 text-brand-orange shrink-0" />
-              <div>
-                <p className="text-lg font-black text-brand-navy leading-none">25 Max</p>
-                <p className="text-xs text-brand-gray font-medium">Per Cohort</p>
+
+            {/* Right: Photo */}
+            <div className="relative">
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-brand-navy max-w-sm mx-auto md:max-w-none shadow-2xl shadow-brand-navy/20">
+                <Image
+                  src="/dr-raymond-hero.jpg"
+                  alt="Dr. Raymond Nichols"
+                  fill
+                  className="object-cover object-top"
+                  priority
+                />
+              </div>
+              {/* Floating stat cards */}
+              <div className="absolute -bottom-4 -left-4 md:-left-8 bg-white rounded-2xl shadow-lg p-4 border border-brand-navy/5">
+                <p className="text-2xl font-black text-brand-navy leading-none">150+</p>
+                <p className="text-xs text-brand-gray font-medium mt-0.5">Doctors trained</p>
+              </div>
+              <div className="absolute -top-2 -right-2 md:-right-6 bg-white rounded-2xl shadow-lg p-4 border border-brand-navy/5">
+                <p className="text-2xl font-black text-brand-orange leading-none">8</p>
+                <p className="text-xs text-brand-gray font-medium mt-0.5">Week program</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* ──────────────── SOCIAL PROOF BAR ──────────────── */}
+      <section className="py-6 md:py-8 px-5 md:px-6 bg-brand-navy">
+        <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-8 md:gap-16">
+          {[
+            { number: "150+", label: "Doctors Trained" },
+            { number: "5", label: "Countries" },
+            { number: "25 Max", label: "Per Cohort" },
+            { number: "100+", label: "Workshops Led" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-xl md:text-2xl font-black text-white leading-none">{stat.number}</p>
+              <p className="text-xs text-white/50 font-medium mt-1">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ──────────────── WHAT YOU'LL LEARN ──────────────── */}
       <section id="how-it-works" className="py-16 md:py-28 px-5 md:px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10 md:mb-14 space-y-3">
+        <div className="max-w-5xl mx-auto">
+          <div className="max-w-2xl mb-10 md:mb-14">
             <h2 className="text-2xl md:text-4xl font-black text-brand-navy tracking-tight">
               What You&apos;ll Learn Each Week
             </h2>
-            <p className="text-base md:text-lg text-brand-gray font-medium max-w-2xl mx-auto">
+            <p className="text-base text-brand-gray font-medium mt-3">
               Not theory. A step-by-step system you practice on real patients starting week 1.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               { week: "1", title: "Your Identity as a Doctor", desc: "How to show up with certainty from the moment a patient walks in." },
-              { week: "2", title: "Clinical Confidence", desc: "How to explain findings clearly so patients understand and trust you." },
-              { week: "3", title: "Patient Communication", desc: "Word-for-word scripts for presenting care plans that get a yes." },
-              { week: "4", title: "Keeping Patients", desc: "Handle the \"I feel better\" conversation and improve retention." },
-              { week: "5", title: "Practice Finances", desc: "Know your break-even, set your pricing, and make your practice profitable." },
-              { week: "6", title: "Leading Your Team", desc: "Delegate, train your staff, and build systems that run without you." },
-              { week: "7", title: "Marketing & Growth", desc: "Get new patients and reactivate old ones with proven outreach scripts." },
-              { week: "8", title: "Putting It All Together", desc: "Review your results, set your 10-year vision, and plan what's next." },
+              { week: "2", title: "Clinical Confidence", desc: "Explain findings clearly so patients understand and trust you." },
+              { week: "3", title: "Patient Communication", desc: "Word-for-word scripts for care plans that get a yes." },
+              { week: "4", title: "Keeping Patients", desc: "Handle \"I feel better\" and improve long-term retention." },
+              { week: "5", title: "Practice Finances", desc: "Know your break-even, set pricing, and get profitable." },
+              { week: "6", title: "Leading Your Team", desc: "Delegate, train staff, and build systems that run without you." },
+              { week: "7", title: "Marketing & Growth", desc: "Get new patients and reactivate old ones with proven scripts." },
+              { week: "8", title: "Putting It All Together", desc: "Review results, set your 10-year vision, plan what's next." },
             ].map((item) => (
-              <div key={item.week} className="flex gap-4 p-4 md:p-5 bg-brand-cream/50 rounded-2xl border border-brand-navy/5">
-                <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center shrink-0">
-                  <span className="text-sm font-black text-brand-orange">{item.week}</span>
+              <div key={item.week} className="group flex gap-4 p-5 rounded-2xl border border-brand-navy/5 bg-white hover:bg-brand-cream/50 hover:border-brand-orange/20 transition-all">
+                <div className="w-11 h-11 rounded-xl bg-brand-orange text-white flex items-center justify-center shrink-0">
+                  <span className="text-sm font-black">{item.week}</span>
                 </div>
                 <div>
                   <p className="text-sm font-black text-brand-navy">{item.title}</p>
-                  <p className="text-sm text-brand-gray font-medium mt-1">{item.desc}</p>
+                  <p className="text-sm text-brand-gray font-medium mt-1 leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="text-center mt-8">
-            <Link href="/apply" className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors">
-              Apply to join the next cohort →
-            </Link>
           </div>
         </div>
       </section>
@@ -177,57 +191,55 @@ export default function HomePage() {
       {/* ──────────────── RESULTS ──────────────── */}
       <section id="results" className="py-16 md:py-28 px-5 md:px-6 bg-brand-cream">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10 md:mb-14 space-y-3">
+          <div className="max-w-2xl mb-10 md:mb-14">
             <h2 className="text-2xl md:text-4xl font-black text-brand-navy tracking-tight">
               Real Results From Real Doctors
             </h2>
-            <p className="text-base md:text-lg text-brand-gray font-medium max-w-2xl mx-auto">
+            <p className="text-base text-brand-gray font-medium mt-3">
               Here&apos;s what happens when you stop guessing and start communicating with certainty.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
                 name: "Dr. Melissa",
                 role: "Practicing Chiropractor",
-                result: "2x practice revenue",
+                result: "2x revenue",
                 quote:
                   "NeuroChiro gave me the breakthrough I needed. My philosophy, language, and recommendations are finally aligned. It completely changed how I communicate with patients — more clarity, stronger communication, and real patient confidence.",
-                icon: TrendingUp,
               },
               {
                 name: "Dr. Mike",
                 role: "Practicing Chiropractor",
-                result: "Transformed case presentations",
+                result: "Case presentations transformed",
                 quote:
                   "I realized I was talking too much when recommending care because I was uncertain. Through the framework, I learned to speak with certainty, say less, and let the silence work. My recommendations are stronger than ever.",
-                icon: ShieldCheck,
               },
             ].map((study) => (
               <div
                 key={study.name}
-                className="bg-white rounded-2xl p-6 md:p-10 border border-brand-navy/5 shadow-sm space-y-5 md:space-y-6"
+                className="bg-white rounded-2xl border border-brand-navy/5 shadow-sm overflow-hidden"
               >
-                <Quote className="w-7 h-7 md:w-8 md:h-8 text-brand-orange/20" />
+                {/* Result banner */}
+                <div className="bg-brand-navy px-6 py-3 flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-brand-orange" />
+                  <span className="text-sm font-bold text-white">{study.result}</span>
+                </div>
 
-                <p className="text-base md:text-lg font-medium text-brand-navy leading-relaxed italic">
-                  &ldquo;{study.quote}&rdquo;
-                </p>
+                <div className="p-6 md:p-8 space-y-5">
+                  <p className="text-base font-medium text-brand-navy leading-relaxed italic">
+                    &ldquo;{study.quote}&rdquo;
+                  </p>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-brand-navy/5">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-brand-navy/5 flex items-center justify-center text-sm font-black text-brand-navy shrink-0">
+                  <div className="flex items-center gap-3 pt-4 border-t border-brand-navy/5">
+                    <div className="w-10 h-10 rounded-full bg-brand-navy flex items-center justify-center text-sm font-black text-white shrink-0">
                       {study.name.split(" ")[1]?.[0] || study.name[0]}
                     </div>
                     <div>
-                      <p className="text-base font-black text-brand-navy">{study.name}</p>
-                      <p className="text-sm text-brand-gray font-medium">{study.role}</p>
+                      <p className="text-sm font-black text-brand-navy">{study.name}</p>
+                      <p className="text-xs text-brand-gray font-medium">{study.role}</p>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2 bg-brand-orange/10 rounded-full px-4 py-2 self-start sm:self-auto">
-                    <study.icon className="w-4 h-4 text-brand-orange" />
-                    <span className="text-sm font-bold text-brand-orange">{study.result}</span>
                   </div>
                 </div>
               </div>
@@ -236,102 +248,97 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────── FOUNDER (moved above pricing) ──────────────── */}
+      {/* ──────────────── ABOUT DR. NICHOLS ──────────────── */}
       <section className="py-16 md:py-28 px-5 md:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-brand-navy max-w-xs mx-auto md:max-w-sm md:mx-0">
-              <Image
-                src="/dr-raymond-hero.jpg"
-                alt="Dr. Raymond Nichols"
-                fill
-                className="object-cover object-top"
-              />
-            </div>
-            <div className="space-y-5 md:space-y-6">
-              <h2 className="text-2xl md:text-4xl font-black text-brand-navy tracking-tight">
-                Meet Dr. Raymond Nichols
-              </h2>
-              <p className="text-base text-brand-gray font-medium leading-relaxed">
-                After years of watching chiropractors struggle with clinical
-                certainty, patient communication, and practice stability, Dr.
-                Nichols created the NeuroChiro framework — a practical system for
-                communicating the value of chiropractic care without the
-                awkwardness or the sales pitch.
-              </p>
-              <p className="text-base text-brand-gray font-medium leading-relaxed">
-                He has trained over 150 doctors across 5 countries, led 100+
-                clinical workshops, and built this program to give every
-                chiropractor the tools to lead their patients with confidence.
-              </p>
+          <div className="bg-brand-cream rounded-3xl p-6 md:p-12">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12 items-center">
+              <div className="md:col-span-2">
+                <div className="relative aspect-square rounded-2xl overflow-hidden bg-brand-navy max-w-xs mx-auto">
+                  <Image
+                    src="/dr-raymond-hero.jpg"
+                    alt="Dr. Raymond Nichols"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-3 space-y-4">
+                <p className="text-xs font-bold text-brand-orange">Your Coach</p>
+                <h2 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
+                  Dr. Raymond Nichols
+                </h2>
+                <p className="text-base text-brand-gray font-medium leading-relaxed">
+                  After years of watching chiropractors struggle with clinical
+                  certainty, patient communication, and practice stability, Dr.
+                  Nichols created the NeuroChiro framework — a practical system for
+                  communicating the value of chiropractic care without the
+                  awkwardness or the sales pitch.
+                </p>
+                <p className="text-base text-brand-gray font-medium leading-relaxed">
+                  150+ doctors trained. 100+ workshops. 5 countries. This program
+                  gives every chiropractor the tools to lead their patients with
+                  confidence.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ──────────────── WHAT'S INCLUDED + PRICING ──────────────── */}
+      {/* ──────────────── PRICING ──────────────── */}
       <section id="pricing" className="py-16 md:py-28 px-5 md:px-6 bg-brand-navy text-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10 md:mb-16 space-y-3 md:space-y-4">
-            <h2 className="text-2xl md:text-5xl font-black text-white tracking-tight">
-              Everything You Need for $997
-            </h2>
-            <p className="text-base md:text-lg text-white/60 font-medium max-w-2xl mx-auto">
-              One investment. A complete system you&apos;ll use for the rest of your career.
-            </p>
-          </div>
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight mb-3">
+            Everything You Need for $997
+          </h2>
+          <p className="text-base text-white/50 font-medium mb-10 md:mb-14">
+            One investment. A complete system you&apos;ll use for the rest of your career.
+          </p>
 
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-12 space-y-6 md:space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+          <div className="bg-white rounded-3xl p-6 md:p-10 text-left space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                "8 weeks of live group coaching (max 25 per cohort)",
+                "8 weeks of live group coaching (25 max per cohort)",
                 "38 ready-to-use patient communication scripts",
-                "12 practice tools (KPI tracker, break-even calculator, and more)",
-                "Word-for-word scripts for Day 1, care plans, objections, and retention",
+                "12 practice tools (KPI tracker, calculators, and more)",
+                "Word-for-word scripts for Day 1, care plans, and objections",
                 "Weekly KPI tracking with personalized benchmarks",
-                "Lifetime access to all session replays and resources",
+                "Lifetime access to all replays and resources",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-brand-orange shrink-0 mt-0.5" />
-                  <span className="text-base text-white/80 font-medium">{item}</span>
+                  <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                  <span className="text-sm text-brand-navy font-medium">{item}</span>
                 </div>
               ))}
             </div>
 
-            <div className="border-t border-white/10 pt-6 md:pt-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-              <div className="text-center md:text-left">
-                <p className="text-sm text-white/40 font-medium mb-1">Enrollment</p>
-                <div className="flex items-baseline gap-3">
-                  <span className="text-4xl md:text-5xl font-black text-white">$997</span>
-                  <span className="text-sm text-white/40 font-medium">or 3 payments of $350</span>
+            <div className="border-t border-brand-navy/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl font-black text-brand-navy">$997</span>
+                  <span className="text-sm text-brand-gray font-medium">or 3 x $350</span>
                 </div>
               </div>
-              <Link href="/apply" className="block w-full md:w-auto">
+              <Link href="/apply" className="w-full sm:w-auto">
                 <BrandButton
-                  variant="accent"
+                  variant="primary"
                   size="lg"
-                  className="group w-full md:w-auto px-10 py-5 text-base"
+                  className="group w-full sm:w-auto px-10 py-4 text-base"
                 >
-                  Apply Now{" "}
+                  Apply Now
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </BrandButton>
               </Link>
             </div>
 
-            <p className="text-sm text-white/30 font-medium text-center">
-              Student pricing starts at $497.{" "}
-              <Link
-                href="/pricing"
-                className="text-brand-orange hover:text-white transition-colors underline"
-              >
-                See all pricing options
-              </Link>
-              .
+            <p className="text-xs text-brand-gray text-center">
+              Student pricing from $497. <Link href="/pricing" className="text-brand-orange hover:text-brand-navy transition-colors underline">See all options</Link>.
             </p>
           </div>
 
-          {/* Trust Row */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mt-8 md:mt-12 text-sm text-white/40 font-medium">
+          {/* Trust */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mt-8 text-sm text-white/40 font-medium">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4" />
               <span>Secure checkout via Stripe</span>
@@ -346,7 +353,7 @@ export default function HomePage() {
 
       {/* ──────────────── FAQ ──────────────── */}
       <section className="py-16 md:py-28 px-5 md:px-6 bg-brand-cream">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10 md:mb-12 space-y-3">
             <h2 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
               Common Questions
@@ -360,24 +367,26 @@ export default function HomePage() {
       </section>
 
       {/* ──────────────── FINAL CTA ──────────────── */}
-      <section className="py-16 md:py-28 px-5 md:px-6 bg-brand-cream">
-        <div className="max-w-3xl mx-auto text-center space-y-6 md:space-y-8">
-          <h2 className="text-2xl md:text-5xl font-black text-brand-navy tracking-tight">
-            Ready to Lead With Certainty?
-          </h2>
-          <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
-            The next cohort starts April 21, 2026. Only 25 seats per group. Apply today and we&apos;ll follow up within 48 hours.
-          </p>
-          <Link href="/apply" className="block sm:inline-block">
-            <BrandButton
-              variant="primary"
-              size="lg"
-              className="group w-full sm:w-auto px-10 py-5 text-base"
-            >
-              Apply Now{" "}
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </BrandButton>
-          </Link>
+      <section className="py-16 md:py-24 px-5 md:px-6 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-brand-navy rounded-3xl p-8 md:p-14 text-center space-y-6">
+            <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight">
+              Ready to Lead With Certainty?
+            </h2>
+            <p className="text-base text-white/60 font-medium leading-relaxed max-w-xl mx-auto">
+              The next cohort starts April 21, 2026. Only 25 seats per group. Apply today and we&apos;ll follow up within 48 hours.
+            </p>
+            <Link href="/apply" className="block sm:inline-block">
+              <BrandButton
+                variant="accent"
+                size="lg"
+                className="group w-full sm:w-auto px-10 py-5 text-base"
+              >
+                Apply Now
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </BrandButton>
+            </Link>
+          </div>
         </div>
       </section>
 
