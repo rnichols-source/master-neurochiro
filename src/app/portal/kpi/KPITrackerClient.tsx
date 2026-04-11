@@ -280,103 +280,52 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         </div>
       </EliteCard>
 
-      {/* Insight Grid / Your Benchmarks */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        <EliteCard title="New Patients" subtitle="Recent Entry" icon={Plus} className="p-6 md:p-8">
-          <div className="flex flex-col gap-4 mt-2">
-            <div className="flex items-end gap-2">
-              <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.new_patients}</span>
-              <span className={`text-xs md:text-xs font-bold mb-1 ${calculateGrowth('new_patients') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
-                {calculateGrowth('new_patients') >= 0 ? '+' : ''}{calculateGrowth('new_patients')}%
-              </span>
+      {/* Your Numbers */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        {[
+          { label: "New Patients", value: latestStats.new_patients, growth: calculateGrowth('new_patients'), avg: benchmarks.new_patients.avg, top: benchmarks.new_patients.elite },
+          { label: "Collections", value: `$${(latestStats.collections / 1000).toFixed(1)}k`, growth: calculateGrowth('collections'), avg: `$${benchmarks.collections.avg/1000}k`, top: `$${benchmarks.collections.elite/1000}k` },
+          { label: "Acceptance", value: `${conversionRate}%`, growth: null, avg: `${benchmarks.conversion.avg}%`, top: `${benchmarks.conversion.elite}%` },
+          { label: "Visits", value: latestStats.patient_visits, growth: calculateGrowth('patient_visits'), avg: benchmarks.patient_visits.avg, top: benchmarks.patient_visits.elite },
+        ].map((metric) => (
+          <div key={metric.label} className="bg-white rounded-2xl border border-brand-navy/5 p-4 shadow-sm">
+            <p className="text-xs font-bold text-brand-gray mb-2">{metric.label}</p>
+            <div className="flex items-end gap-1.5 mb-3">
+              <span className="text-2xl font-black text-brand-navy">{metric.value}</span>
+              {metric.growth !== null && (
+                <span className={`text-xs font-bold mb-0.5 ${metric.growth >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                  {metric.growth >= 0 ? '+' : ''}{metric.growth}%
+                </span>
+              )}
             </div>
-            <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
-                <span className="text-xs font-black text-brand-navy/60">{benchmarks.new_patients.avg}</span>
+            <div className="space-y-1 pt-2 border-t border-brand-navy/5">
+              <div className="flex justify-between text-xs">
+                <span className="text-brand-gray font-medium">Group avg</span>
+                <span className="font-bold text-brand-navy/60">{metric.avg}</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
-                <span className="text-xs font-black text-brand-orange">{benchmarks.new_patients.elite}</span>
-              </div>
-            </div>
-          </div>
-        </EliteCard>
-
-        <EliteCard title="Collections" subtitle="Recent Entry" icon={TrendingUp} className="p-6 md:p-8">
-          <div className="flex flex-col gap-4 mt-2">
-            <div className="flex items-end gap-2">
-              <span className="text-2xl md:text-3xl font-black text-brand-navy">${(latestStats.collections / 1000).toFixed(1)}k</span>
-              <span className={`text-xs md:text-xs font-bold mb-1 ${calculateGrowth('collections') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
-                {calculateGrowth('collections') >= 0 ? '+' : ''}{calculateGrowth('collections')}%
-              </span>
-            </div>
-            <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
-                <span className="text-xs font-black text-brand-navy/60">${(benchmarks.collections.avg/1000)}k</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
-                <span className="text-xs font-black text-brand-orange">${(benchmarks.collections.elite/1000)}k</span>
+              <div className="flex justify-between text-xs">
+                <span className="text-brand-orange font-medium">Top performers</span>
+                <span className="font-bold text-brand-orange">{metric.top}</span>
               </div>
             </div>
           </div>
-        </EliteCard>
-
-        <EliteCard title="Care Plan Acceptance" subtitle="Recent Entry" icon={Target} className="p-6 md:p-8">
-          <div className="flex flex-col gap-4 mt-2">
-            <div className="flex items-end gap-2">
-              <span className="text-2xl md:text-3xl font-black text-brand-navy">{conversionRate}%</span>
-              <span className="text-xs md:text-xs font-bold mb-1 text-brand-navy/40 uppercase tracking-widest">Target: 90%+</span>
-            </div>
-            <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
-                <span className="text-xs font-black text-brand-navy/60">{benchmarks.conversion.avg}%</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
-                <span className="text-xs font-black text-brand-orange">{benchmarks.conversion.elite}%</span>
-              </div>
-            </div>
-          </div>
-        </EliteCard>
-
-        <EliteCard title="Weekly Visits" subtitle="Recent Entry" icon={Activity} className="p-6 md:p-8">
-          <div className="flex flex-col gap-4 mt-2">
-            <div className="flex items-end gap-2">
-              <span className="text-2xl md:text-3xl font-black text-brand-navy">{latestStats.patient_visits}</span>
-              <span className={`text-xs md:text-xs font-bold mb-1 ${calculateGrowth('patient_visits') >= 0 ? 'text-green-500' : 'text-brand-orange'}`}>
-                {calculateGrowth('patient_visits') >= 0 ? '+' : ''}{calculateGrowth('patient_visits')}%
-              </span>
-            </div>
-            <div className="space-y-1.5 pt-4 border-t border-brand-navy/5 text-left">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black uppercase text-brand-navy/40 tracking-widest">Mastermind Avg</span>
-                <span className="text-xs font-black text-brand-navy/60">{benchmarks.patient_visits.avg}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black uppercase text-brand-orange tracking-widest">Top 1% Elite</span>
-                <span className="text-xs font-black text-brand-orange">{benchmarks.patient_visits.elite}</span>
-              </div>
-            </div>
-          </div>
-        </EliteCard>
+        ))}
       </div>
 
-      {/* Wins & Bottlenecks */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-4">
-        <EliteCard title="Your Wins" subtitle="Recent Wins" className="bg-green-50/50 border-green-100 p-6 md:p-8">
-          <div className="mt-2 text-sm font-medium text-brand-navy whitespace-pre-wrap leading-relaxed">
-            {latestStats.wins || "No wins recorded for this period."}
-          </div>
-        </EliteCard>
-        <EliteCard title="Stuck Points" subtitle="Focus Area" className="bg-orange-50/50 border-orange-100 p-6 md:p-8">
-          <div className="mt-2 text-sm font-medium text-brand-navy whitespace-pre-wrap leading-relaxed">
-            {latestStats.bottlenecks || "No bottlenecks recorded for this period."}
-          </div>
-        </EliteCard>
+      {/* Wins & Challenges */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-white rounded-2xl border border-brand-navy/5 p-5 shadow-sm">
+          <p className="text-sm font-bold text-brand-navy mb-2">Wins This Week</p>
+          <p className="text-sm text-brand-gray font-medium whitespace-pre-wrap leading-relaxed">
+            {latestStats.wins || "No wins recorded yet."}
+          </p>
+        </div>
+        <div className="bg-white rounded-2xl border border-brand-navy/5 p-5 shadow-sm">
+          <p className="text-sm font-bold text-brand-navy mb-2">Where You&apos;re Stuck</p>
+          <p className="text-sm text-brand-gray font-medium whitespace-pre-wrap leading-relaxed">
+            {latestStats.bottlenecks || "Nothing reported yet."}
+          </p>
+        </div>
       </div>
 
       <KPIEntryModal 
