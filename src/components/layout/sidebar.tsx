@@ -13,6 +13,7 @@ import {
   Activity,
   MessageSquare,
   FileText,
+  Calculator,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -22,6 +23,7 @@ const navItems = [
   { name: "Learn", href: "/portal/curriculum", icon: BookOpen, matchAlso: ["/portal/playbooks"] },
   { name: "Scripts", href: "/portal/triage", icon: FileText },
   { name: "Track", href: "/portal/engine", icon: BarChart3, matchAlso: ["/portal/kpi"] },
+  { name: "Tools", href: "/portal/tools", icon: Calculator },
 ];
 
 const linkClass =
