@@ -123,10 +123,10 @@ export async function GET(request: Request) {
         for (const member of activeMembers) {
           // Determine which week the member is on
           const { count: completedModules } = await supabase
-            .from("module_progress")
+            .from("member_progress")
             .select("id", { count: "exact", head: true })
             .eq("user_id", member.id)
-            .eq("is_completed", true);
+            .not("completed_at", "is", null);
 
           // Rough mapping: ~3 modules per week
           const currentWeek = Math.min(Math.floor((completedModules || 0) / 3) + 1, 8);
@@ -235,10 +235,10 @@ export async function GET(request: Request) {
     if (completingMembers) {
       for (const member of completingMembers) {
         const { count } = await supabase
-          .from("module_progress")
+          .from("member_progress")
           .select("id", { count: "exact", head: true })
           .eq("user_id", member.id)
-          .eq("is_completed", true);
+          .not("completed_at", "is", null);
 
         if (count && count >= 20) {
           const { data: alreadyInvited } = await supabase
@@ -265,10 +265,11 @@ export async function GET(request: Request) {
     // =========================================================
     const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000).toISOString();
     const { data: upcomingCalls } = await supabase
-      .from("events")
+      .from("live_calls")
       .select("*")
-      .gte("start_date", now.toISOString())
-      .lte("start_date", oneHourFromNow);
+      .eq("is_completed", false)
+      .gte("call_time", now.toISOString())
+      .lte("call_time", oneHourFromNow);
 
     if (upcomingCalls && upcomingCalls.length > 0) {
       const { data: allMembers } = await supabase
@@ -291,7 +292,7 @@ export async function GET(request: Request) {
               await EmailService.sendCallReminder(
                 member.email,
                 "Starting in 1 Hour",
-                call.zoom_link || `${SITE}/portal`
+                call.zoom_url || `${SITE}/portal`
               );
             }
             await EmailService.logAutomation({
