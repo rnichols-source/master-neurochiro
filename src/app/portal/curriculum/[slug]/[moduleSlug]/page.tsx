@@ -1,13 +1,8 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
+import { BrandButton } from "@/components/ui/elite-ui";
 import { fetchWeekDetail, completeModule } from "@/app/actions/curriculum-actions";
 import { createClient } from "@/lib/supabase/server";
 import VideoPlayer from "@/components/portal/VideoPlayer";
-import { 
-  ChevronLeft,
-  ChevronRight,
-  MessageSquare
-} from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -40,141 +35,102 @@ export default async function ModuleDetailPage(props: {
 
   return (
     <DashboardLayout>
-      <div className="space-y-10">
-        <div className="flex items-center gap-4 text-xs font-black uppercase tracking-widest text-brand-navy/40">
-          <Link href="/portal/curriculum" className="hover:text-brand-orange">Curriculum</Link>
-          <span>/</span>
-          <Link href={`/portal/curriculum/${week?.slug || ''}`} className="hover:text-brand-orange">{week?.title || 'Phase'}</Link>
-          <span>/</span>
-          <span className="text-brand-navy">{module?.title}</span>
+      <div className="max-w-3xl mx-auto space-y-6 pb-20">
+        {/* Back link */}
+        <Link href={`/portal/curriculum/${week?.slug || ''}`} className="text-sm text-brand-gray hover:text-brand-navy transition-colors inline-block">
+          ← Back to Week {week?.week_number}
+        </Link>
+
+        {/* Title */}
+        <div>
+          <p className="text-xs font-bold text-brand-orange mb-1">
+            Week {week?.week_number} · Lesson {module?.order_index}
+            {module?.duration_minutes && ` · ${module.duration_minutes} min`}
+          </p>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{module?.title}</h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          <div className="lg:col-span-2 space-y-8">
-            <div className="space-y-2">
-              <div className="flex items-center gap-3">
-                <p className="text-brand-orange font-bold uppercase tracking-wider text-xs">Module 0{week?.week_number}.0{module?.order_index}</p>
-                {module?.duration_minutes && (
-                  <span className="text-xs font-medium text-brand-gray bg-brand-navy/5 px-2 py-0.5 rounded-full">{module.duration_minutes} min</span>
-                )}
-              </div>
-              <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{module?.title}</h1>
-            </div>
+        {/* Video */}
+        <VideoPlayer
+          userId={user.id}
+          moduleId={module.id}
+          videoUrl={module.video_url || ""}
+          title={module.title}
+        />
 
-            <VideoPlayer 
-              userId={user.id}
-              moduleId={module.id}
-              videoUrl={module.video_url || ""}
-              title={module.title}
-            />
+        {/* Description (only if there's content) */}
+        {module.content && (
+          <p className="text-sm text-brand-gray font-medium leading-relaxed">{module.content}</p>
+        )}
 
-            <div className="prose prose-brand max-w-none">
-              <p className="text-brand-gray font-medium leading-relaxed whitespace-pre-line">
-                {module.content || "No additional content for this module."}
+        {/* Related Playbook */}
+        {week?.week_number && week.week_number <= 3 && (
+          <div className="bg-brand-navy/5 rounded-2xl p-4 flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-bold text-brand-orange mb-0.5">Related Playbook</p>
+              <p className="text-sm font-bold text-brand-navy">
+                {week.week_number === 1 ? "Day 1: First Visit Guide" : week.week_number === 2 ? "Day 2: Care Plan Presentation" : "Patient Communication Scripts"}
               </p>
             </div>
+            <Link href="/portal/playbooks" className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors shrink-0">
+              Open →
+            </Link>
+          </div>
+        )}
 
-            {/* Related Playbook */}
-            {week?.week_number && week.week_number <= 3 && (
-              <div className="bg-brand-navy/5 rounded-2xl p-4 flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs font-bold text-brand-orange uppercase tracking-wider">Related Playbook</p>
-                  <p className="text-sm font-bold text-brand-navy mt-0.5">
-                    {week.week_number === 1 ? "Day 1: The Discovery System" : week.week_number === 2 ? "Day 2: Care Plan Presentation" : "Care Plan Architecture"}
-                  </p>
+        {/* Downloads (only if any exist) */}
+        {moduleResources.length > 0 && (
+          <div className="space-y-2">
+            <p className="text-sm font-bold text-brand-navy">Downloads</p>
+            {moduleResources.map((asset: any, i: number) => (
+              <a key={asset.id || i} href={asset.url} target="_blank" rel="noopener noreferrer"
+                className="block bg-white rounded-xl border border-brand-navy/5 p-3 hover:border-brand-orange/30 transition-all">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-brand-navy">{asset.title}</span>
+                  <span className="text-xs text-brand-gray">{asset.type}</span>
                 </div>
-                <Link href="/portal/playbooks" className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors shrink-0">
-                  Open →
-                </Link>
-              </div>
+              </a>
+            ))}
+          </div>
+        )}
+
+        {/* Mark Complete + Navigation */}
+        <div className="pt-6 border-t border-brand-navy/5 space-y-4">
+          <form action={async () => {
+            'use server'
+            await completeModule(module.id);
+          }}>
+            <BrandButton type="submit" variant={module.status === 'completed' ? 'outline' : 'primary'} className="w-full py-4">
+              {module.status === 'completed' ? "✓ Completed" : "Mark as Complete"}
+            </BrandButton>
+          </form>
+
+          <div className="flex justify-between items-center">
+            {prevModule ? (
+              <Link href={`/portal/curriculum/${week?.slug}/${prevModule.slug}`} className="text-sm font-bold text-brand-gray hover:text-brand-navy transition-colors">
+                ← {prevModule.title}
+              </Link>
+            ) : <span />}
+            {nextModule ? (
+              <Link href={`/portal/curriculum/${week?.slug}/${nextModule.slug}`} className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors">
+                {nextModule.title} →
+              </Link>
+            ) : (
+              <Link href={`/portal/curriculum/${week?.slug}`} className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors">
+                Back to Week {week?.week_number} →
+              </Link>
             )}
-
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-brand-navy/5">
-              {prevModule ? (
-                <Link href={`/portal/curriculum/${week?.slug}/${prevModule.slug}`} className="flex items-center gap-4 group">
-                  <div className="w-10 h-10 rounded-full border border-brand-navy/10 flex items-center justify-center group-hover:border-brand-orange/40 transition-colors">
-                    <ChevronLeft className="w-4 h-4 text-brand-navy group-hover:text-brand-orange" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-xs font-black uppercase text-brand-navy/40">Previous</p>
-                    <p className="text-sm font-black text-brand-navy group-hover:text-brand-orange">{prevModule.title}</p>
-                  </div>
-                </Link>
-              ) : <div />}
-
-              <form action={async () => {
-                'use server'
-                await completeModule(module.id);
-              }}>
-                <BrandButton type="submit" variant={module.status === 'completed' ? 'outline' : 'primary'} className="w-full sm:w-auto">
-                  {module.status === 'completed' ? "✓ Completed — Nice work!" : "Mark as Complete"}
-                </BrandButton>
-              </form>
-
-              {nextModule ? (
-                <Link href={`/portal/curriculum/${week?.slug}/${nextModule?.slug}`} className="flex items-center gap-4 group">
-                  <div className="text-right">
-                    <p className="text-xs font-black uppercase text-brand-navy/40">Next Up</p>
-                    <p className="text-sm font-black text-brand-navy group-hover:text-brand-orange">{nextModule?.title}</p>
-                  </div>
-                  <div className="w-10 h-10 rounded-full border border-brand-navy/10 flex items-center justify-center group-hover:border-brand-orange/40 transition-colors">
-                    <ChevronRight className="w-4 h-4 text-brand-navy group-hover:text-brand-orange" />
-                  </div>
-                </Link>
-              ) : (
-                <Link href={`/portal/curriculum/${week?.slug}`} className="flex items-center gap-4 group">
-                  <div className="text-right">
-                    <p className="text-xs font-black uppercase text-brand-navy/40">Finish Phase</p>
-                    <p className="text-sm font-black text-brand-navy group-hover:text-brand-orange">Overview</p>
-                  </div>
-                  <div className="w-10 h-10 rounded-full border border-brand-navy/10 flex items-center justify-center group-hover:border-brand-orange/40 transition-colors">
-                    <ChevronRight className="w-4 h-4 text-brand-navy group-hover:text-brand-orange" />
-                  </div>
-                </Link>
-              )}
-            </div>
           </div>
+        </div>
 
-          <div className="space-y-8">
-            <EliteCard title="Resources" subtitle="Module Assets">
-              <div className="space-y-3 mt-4">
-                {moduleResources.length > 0 ? moduleResources.map((asset: any, i: number) => (
-                  <a 
-                    key={asset.id || i} 
-                    href={asset.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-full p-4 bg-brand-navy/5 hover:bg-brand-orange/5 rounded-xl border border-transparent hover:border-brand-orange/20 transition-all text-left flex justify-between items-center group"
-                  >
-                    <span className="text-xs font-bold text-brand-navy group-hover:text-brand-orange transition-colors">{asset.title}</span>
-                    <span className="text-xs font-black text-brand-navy/30 uppercase">{asset.type}</span>
-                  </a>
-                )) : (
-                  <div className="w-full p-4 bg-brand-navy/5 rounded-xl border border-transparent text-left">
-                    <span className="text-xs font-bold text-brand-navy/40 uppercase">No individual unit assets</span>
-                  </div>
-                )}
-              </div>
-            </EliteCard>
-
-            <EliteCard className="bg-brand-navy text-white border-none p-8">
-              <div className="space-y-4">
-                <div className="p-3 bg-brand-orange/20 rounded-xl w-fit">
-                  <MessageSquare className="w-5 h-5 text-brand-orange" />
-                </div>
-                <h4 className="text-xl font-black">Connect With Your Cohort</h4>
-                <p className="text-sm font-medium text-white/60 leading-relaxed">
-                  Have a question about this module? Reach out to the group or Dr. Nichols directly.
-                </p>
-                <a
-                  href="mailto:support@neurochiromastermind.com"
-                  className="inline-flex items-center gap-2 text-sm font-bold text-brand-orange hover:text-white transition-colors"
-                >
-                  Contact Support
-                </a>
-              </div>
-            </EliteCard>
-          </div>
+        {/* Support */}
+        <div className="text-center pt-4">
+          <p className="text-xs text-brand-gray">
+            Question about this lesson?{" "}
+            <a href="mailto:support@neurochiromastermind.com" className="text-brand-orange hover:text-brand-navy transition-colors">
+              Contact support
+            </a>
+          </p>
         </div>
       </div>
     </DashboardLayout>

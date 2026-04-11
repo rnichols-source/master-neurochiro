@@ -68,16 +68,12 @@ export default async function AdminDashboardPage() {
     console.error("[ADMIN DASHBOARD ERROR]", err);
     return (
       <DashboardLayout>
-        <div className="p-12 text-center bg-red-50 rounded-2xl border border-red-100">
-          <h1 className="text-2xl font-black text-brand-navy">Dashboard Intelligence Failure</h1>
-          <p className="text-brand-orange uppercase tracking-widest text-xs mt-2 font-black">
-            A critical error occurred while fetching system metrics.
-          </p>
-          <div className="mt-8">
-            <a href="/admin" className="text-xs font-bold text-brand-navy underline underline-offset-4">
-              Retry Connection
-            </a>
-          </div>
+        <div className="p-8 text-center bg-red-50 rounded-2xl border border-red-100">
+          <h1 className="text-xl font-black text-brand-navy">Something went wrong</h1>
+          <p className="text-sm text-brand-gray mt-2">Could not load admin data. Try refreshing.</p>
+          <a href="/admin" className="text-sm font-bold text-brand-orange mt-4 inline-block hover:text-brand-navy transition-colors">
+            Refresh →
+          </a>
         </div>
       </DashboardLayout>
     );
