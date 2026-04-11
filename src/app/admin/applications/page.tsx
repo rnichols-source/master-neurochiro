@@ -13,8 +13,8 @@ export default async function AdminApplicationsPage() {
   if (error) {
     return (
       <DashboardLayout>
-        <div className="p-8 text-center bg-red-50 text-red-600 rounded-2xl border border-red-100 font-bold uppercase tracking-widest text-xs">
-          Error loading applications: {error.message}
+        <div className="p-8 text-center bg-red-50 rounded-2xl border border-red-100">
+          <p className="text-sm font-bold text-red-600">Error loading applications: {error.message}</p>
         </div>
       </DashboardLayout>
     );
@@ -22,12 +22,11 @@ export default async function AdminApplicationsPage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-10">
+      <div className="max-w-5xl mx-auto space-y-6 pb-20">
         <div>
-          <p className="text-brand-orange font-black uppercase tracking-widest text-xs mb-2">Admission Control</p>
-          <h1 className="text-4xl font-black text-brand-navy tracking-tighter">Cohort II Applications</h1>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Applications</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Review and manage applicants.</p>
         </div>
-
         <ApplicationsClient initialApplications={applications || []} />
       </div>
     </DashboardLayout>
