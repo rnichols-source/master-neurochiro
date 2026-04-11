@@ -34,6 +34,13 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
   const [activeRange, setActiveRange] = useState("ALL");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [monthlyGoal, setMonthlyGoal] = useState(() => {
+    if (typeof window !== "undefined") {
+      return Number(localStorage.getItem("kpi-monthly-goal")) || 0;
+    }
+    return 0;
+  });
+  const [editingGoal, setEditingGoal] = useState(false);
   const [kpiData, setKpiData] = useState<any[]>(initialData.map((entry: any) => ({
     ...entry,
     week: new Date(entry.week_start_date).toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' })
@@ -117,6 +124,52 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
     return leaks.sort((a, b) => (a.severity === 'critical' ? -1 : 1))[0] || null;
   }, [latestStats, conversionRate, kpiData]);
 
+  // Streak: count consecutive weeks with entries (from most recent backward)
+  const streak = useMemo(() => {
+    if (kpiData.length === 0) return 0;
+    let count = 0;
+    const sorted = [...kpiData].sort((a, b) => new Date(b.week_start_date).getTime() - new Date(a.week_start_date).getTime());
+    let lastDate = new Date();
+    for (const entry of sorted) {
+      const entryDate = new Date(entry.week_start_date);
+      const diffDays = (lastDate.getTime() - entryDate.getTime()) / (1000 * 60 * 60 * 24);
+      if (diffDays <= 10) { count++; lastDate = entryDate; } else break;
+    }
+    return count;
+  }, [kpiData]);
+
+  // Monthly comparison: this month vs last month
+  const monthlyComparison = useMemo(() => {
+    const now = new Date();
+    const thisMonth = kpiData.filter(d => {
+      const date = new Date(d.week_start_date);
+      return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+    });
+    const lastMonth = kpiData.filter(d => {
+      const date = new Date(d.week_start_date);
+      const prev = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      return date.getMonth() === prev.getMonth() && date.getFullYear() === prev.getFullYear();
+    });
+    const sum = (arr: any[], key: string) => arr.reduce((s, e) => s + (e[key] || 0), 0);
+    return {
+      thisCollections: sum(thisMonth, 'collections'),
+      lastCollections: sum(lastMonth, 'collections'),
+      thisNP: sum(thisMonth, 'new_patients'),
+      lastNP: sum(lastMonth, 'new_patients'),
+      thisVisits: sum(thisMonth, 'patient_visits'),
+      lastVisits: sum(lastMonth, 'patient_visits'),
+    };
+  }, [kpiData]);
+
+  // Goal progress
+  const goalProgress = monthlyGoal > 0 ? Math.min(Math.round((monthlyComparison.thisCollections / monthlyGoal) * 100), 100) : 0;
+
+  const saveGoal = (val: number) => {
+    setMonthlyGoal(val);
+    setEditingGoal(false);
+    if (typeof window !== "undefined") localStorage.setItem("kpi-monthly-goal", String(val));
+  };
+
   const calculateGrowth = (metric: string) => {
     if (kpiData.length < 2) return 0;
     const current = kpiData[kpiData.length - 1][metric];
@@ -142,6 +195,65 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         >
           <Plus className="w-4 h-4" /> New Entry
         </BrandButton>
+      </div>
+
+      {/* Streak + Goal + Monthly */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {/* Streak */}
+        <div className="bg-white rounded-2xl border border-brand-navy/5 p-4 shadow-sm text-center">
+          <p className="text-xs font-bold text-brand-gray mb-1">Weekly Streak</p>
+          <p className="text-2xl font-black text-brand-navy">{streak}</p>
+          <p className="text-xs text-brand-gray">{streak === 0 ? "Submit your first week" : streak === 1 ? "week logged" : "weeks in a row"}</p>
+        </div>
+
+        {/* Monthly Goal */}
+        <div className="bg-white rounded-2xl border border-brand-navy/5 p-4 shadow-sm text-center">
+          <p className="text-xs font-bold text-brand-gray mb-1">Monthly Goal</p>
+          {monthlyGoal > 0 && !editingGoal ? (
+            <>
+              <p className="text-2xl font-black text-brand-navy">{goalProgress}%</p>
+              <div className="h-1.5 bg-brand-navy/5 rounded-full mt-2 overflow-hidden">
+                <div className={cn("h-full rounded-full", goalProgress >= 100 ? "bg-green-500" : "bg-brand-orange")} style={{ width: `${goalProgress}%` }} />
+              </div>
+              <button onClick={() => setEditingGoal(true)} className="text-xs text-brand-gray hover:text-brand-orange mt-1 transition-colors">
+                ${monthlyGoal.toLocaleString()} target · edit
+              </button>
+            </>
+          ) : (
+            <div className="space-y-2">
+              <input
+                type="number"
+                inputMode="numeric"
+                placeholder="e.g. 50000"
+                defaultValue={monthlyGoal || ""}
+                onKeyDown={(e) => { if (e.key === "Enter") saveGoal(Number((e.target as HTMLInputElement).value) || 0); }}
+                onBlur={(e) => saveGoal(Number(e.target.value) || 0)}
+                className="w-full bg-brand-navy/5 rounded-lg py-2 px-3 text-center text-sm font-bold text-brand-navy outline-none focus:ring-2 focus:ring-brand-orange/20"
+                autoFocus
+              />
+              <p className="text-xs text-brand-gray">Enter your monthly collections goal</p>
+            </div>
+          )}
+        </div>
+
+        {/* This Month vs Last */}
+        <div className="bg-white rounded-2xl border border-brand-navy/5 p-4 shadow-sm text-center">
+          <p className="text-xs font-bold text-brand-gray mb-1">This Month vs Last</p>
+          {monthlyComparison.lastCollections > 0 ? (
+            <>
+              <p className={cn("text-2xl font-black", monthlyComparison.thisCollections >= monthlyComparison.lastCollections ? "text-green-600" : "text-red-500")}>
+                {monthlyComparison.thisCollections >= monthlyComparison.lastCollections ? "+" : ""}
+                {Math.round(((monthlyComparison.thisCollections - monthlyComparison.lastCollections) / monthlyComparison.lastCollections) * 100)}%
+              </p>
+              <p className="text-xs text-brand-gray">${monthlyComparison.thisCollections.toLocaleString()} vs ${monthlyComparison.lastCollections.toLocaleString()}</p>
+            </>
+          ) : (
+            <>
+              <p className="text-2xl font-black text-brand-navy">${monthlyComparison.thisCollections.toLocaleString()}</p>
+              <p className="text-xs text-brand-gray">this month so far</p>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Revenue Gap Alert */}
