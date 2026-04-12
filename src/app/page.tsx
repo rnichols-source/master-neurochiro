@@ -73,7 +73,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
             {/* Left: Copy */}
-            <div className="space-y-6 md:space-y-8">
+            <div className="space-y-6 md:space-y-8 text-center md:text-left">
               <div className="inline-flex items-center gap-2 bg-brand-navy/5 rounded-full px-4 py-2">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-sm font-bold text-brand-navy">Next cohort: April 21 · 25 seats</span>
@@ -81,7 +81,7 @@ export default function HomePage() {
 
               <h1 className="text-[2rem] leading-[1.1] md:text-5xl font-black text-brand-navy tracking-tight">
                 Stop Losing Patients to{" "}
-                <span className="text-brand-orange">&ldquo;I Need to Think About It.&rdquo;</span>
+                <span className="text-brand-orange whitespace-nowrap">&ldquo;I Need to Think About It.&rdquo;</span>
               </h1>
 
               <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
