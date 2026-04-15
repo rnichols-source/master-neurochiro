@@ -6,7 +6,7 @@ import {
   LayoutDashboard,
   BookOpen,
   BarChart3,
-  FileText,
+  Users,
   ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 const mobileItems = [
   { name: "Home", href: "/portal", icon: LayoutDashboard },
   { name: "Learn", href: "/portal/curriculum", icon: BookOpen },
-  { name: "Scripts", href: "/portal/triage", icon: FileText },
+  { name: "Community", href: "/portal/community", icon: Users },
   { name: "Track", href: "/portal/engine", icon: BarChart3 },
 ];
 

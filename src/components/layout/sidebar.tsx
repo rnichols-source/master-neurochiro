@@ -21,6 +21,7 @@ import { signOut } from "@/app/actions/auth-actions";
 const navItems = [
   { name: "Home", href: "/portal", icon: LayoutDashboard },
   { name: "Learn", href: "/portal/curriculum", icon: BookOpen, matchAlso: ["/portal/playbooks"] },
+  { name: "Community", href: "/portal/community", icon: Users },
   { name: "Scripts", href: "/portal/triage", icon: FileText },
   { name: "Track", href: "/portal/engine", icon: BarChart3, matchAlso: ["/portal/kpi"] },
   { name: "Tools", href: "/portal/tools", icon: Calculator },
