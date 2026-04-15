@@ -56,9 +56,9 @@ export function EngineClient({
     const latest = localData[localData.length - 1];
     const conversion = latest.new_patients > 0 ? (latest.care_plans_accepted / latest.new_patients) : 1;
     if (conversion < 0.65) return { text: "Your case acceptance is below average. The communication module can help.", action: "Watch Communication Module", link: "/portal/curriculum/week-3-communication" };
-    if (latest.new_patients < 15) return { text: "Your new patient volume is low. Focus on marketing and reactivation.", action: "Open Marketing Module", link: "/portal/curriculum/week-7-marketing" };
-    if (latest.patient_visits < 100) return { text: "Patient visits are low. Strengthen your retention and re-exam process.", action: "Review Retention", link: "/portal/curriculum/week-4-philosophy" };
-    return { text: "Your numbers look strong. Time to focus on leadership and scaling.", action: "Open Leadership Module", link: "/portal/curriculum/week-6-leadership" };
+    if (latest.new_patients < 15) return { text: "Your new patient volume is low. Focus on patient management and retention.", action: "Open Patient Management", link: "/portal/curriculum/week-7-patient-management" };
+    if (latest.patient_visits < 100) return { text: "Patient visits are low. Strengthen your retention and re-exam process.", action: "Review Care Plans", link: "/portal/curriculum/week-6-care-plans" };
+    return { text: "Your numbers look strong. Time to focus on ownership and scaling.", action: "Open Scaling Module", link: "/portal/curriculum/week-8-ownership" };
   }, [localData]);
 
   const handleModalSuccess = () => {

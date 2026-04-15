@@ -165,14 +165,14 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              { week: "1", title: "Your Identity as a Doctor", desc: "How to show up with certainty from the moment a patient walks in." },
-              { week: "2", title: "Clinical Confidence", desc: "Explain findings clearly so patients understand and trust you." },
-              { week: "3", title: "Patient Communication", desc: "Word-for-word scripts for care plans that get a yes." },
-              { week: "4", title: "Keeping Patients", desc: "Handle \"I feel better\" and improve long-term retention." },
-              { week: "5", title: "Practice Finances", desc: "Know your break-even, set pricing, and get profitable." },
-              { week: "6", title: "Leading Your Team", desc: "Delegate, train staff, and build systems that run without you." },
-              { week: "7", title: "Marketing & Growth", desc: "Get new patients and reactivate old ones with proven scripts." },
-              { week: "8", title: "Putting It All Together", desc: "Review results, set your 10-year vision, plan what's next." },
+              { week: "1", title: "Identity of a Nervous System Doctor", desc: "How to show up with certainty from the moment a patient walks in." },
+              { week: "2", title: "Chiropractic Neurology for REAL Practice", desc: "Explain findings clearly so patients understand and trust you." },
+              { week: "3", title: "Communication Mastery", desc: "Word-for-word scripts for care plans that get a yes." },
+              { week: "4", title: "Philosophy (Modern + Powerful)", desc: "Build a philosophy that drives confident recommendations." },
+              { week: "5", title: "Business: What School NEVER Taught You", desc: "Know your break-even, set pricing, and get profitable." },
+              { week: "6", title: "Care Plans, Day 1 / Day 2 Mastery", desc: "Master Day 1 consultations and Day 2 report of findings." },
+              { week: "7", title: "Patient Management & Long-Term Clinical Leadership", desc: "Build retention systems and lead patients through complete care." },
+              { week: "8", title: "Ownership, Contracts & Scaling", desc: "Contracts, associate agreements, and scaling your practice." },
             ].map((item) => (
               <div key={item.week} className="group flex gap-4 p-5 rounded-2xl border border-brand-navy/5 bg-white hover:bg-brand-cream/50 hover:border-brand-orange/20 transition-all">
                 <div className="w-11 h-11 rounded-xl bg-brand-orange text-white flex items-center justify-center shrink-0">

@@ -143,9 +143,9 @@ export async function GET(request: Request) {
 
             if (!alreadySent || alreadySent.length === 0) {
               const weekSlugs: Record<number, string> = {
-                1: "week-1-identity", 2: "week-2-scanning", 3: "week-3-communication",
-                4: "week-4-philosophy", 5: "week-5-care-plans", 6: "week-6-leadership",
-                7: "week-7-marketing", 8: "week-8-mastery",
+                1: "week-1-identity", 2: "week-2-neurology", 3: "week-3-communication",
+                4: "week-4-philosophy", 5: "week-5-business", 6: "week-6-care-plans",
+                7: "week-7-patient-management", 8: "week-8-ownership",
               };
               const slug = weekSlugs[currentWeek] || "week-1-identity";
               await EmailService.sendWeeklyDrip(

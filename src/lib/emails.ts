@@ -220,13 +220,13 @@ export const EmailService = {
   async sendWeeklyDrip(email: string, name: string, weekNumber: number, moduleLink: string) {
     const weekMessages: Record<number, string> = {
       1: "Your first module is live! Start with the Identity Worksheet — it takes about 15 minutes and sets the foundation for everything else.",
-      2: "Week 2 is about patient communication. Practice the Day 1 script from the Playbook this week, and don't forget to submit your KPIs.",
-      3: "This week's focus is the communication framework. Try using it on your next 3 patient conversations and see what changes.",
-      4: "Week 4: care plan presentations. Record yourself presenting a care plan this week — even just to your phone. You'll be surprised what you notice.",
-      5: "You're halfway through! Submit your KPIs and compare to Week 1. The numbers tell the story.",
-      6: "Week 6 is about leadership and team dynamics. If you have staff, audit how your team handles patient interactions this week.",
-      7: "Almost there. This week, prepare for the live immersion call. Bring your biggest question or challenge.",
-      8: "Final week! Complete your last module and review your 8-week progress. You've come a long way.",
+      2: "Week 2: Chiropractic Neurology for REAL Practice. Learn to explain findings clearly so patients understand and trust you. Start tracking KPIs.",
+      3: "This week's focus is Communication Mastery. Try using the framework on your next 3 patient conversations and see what changes.",
+      4: "Week 4: Philosophy (Modern + Powerful). Build a philosophy that drives confident recommendations every time.",
+      5: "You're halfway through! Business: What School NEVER Taught You. Submit your KPIs and compare to Week 1 — the numbers tell the story.",
+      6: "Week 6: Care Plans, Day 1 / Day 2 Mastery. Master the architecture of consultations and report of findings.",
+      7: "Week 7: Patient Management & Long-Term Clinical Leadership. Build retention systems and lead patients through complete care plans.",
+      8: "Final week! Ownership, Contracts & Scaling. Complete your last module, review your 8-week progress, and plan your next chapter.",
     };
     const message = weekMessages[weekNumber] || "A new week of content is available in your portal.";
     const action = `<a href="${moduleLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Open This Week's Module</a>`;

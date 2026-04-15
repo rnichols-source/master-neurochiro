@@ -3,13 +3,13 @@ import Link from "next/link";
 
 const weeklyFocus: Record<number, { task: string; action: string; link: string }> = {
   1: { task: "Watch Module 1.1 and complete the Identity Worksheet", action: "Start Module 1.1", link: "/portal/curriculum/week-1-identity" },
-  2: { task: "Practice the Day 1 script from the Playbook, then submit your KPIs", action: "Open Playbook", link: "/portal/playbooks" },
+  2: { task: "Learn to explain neurological findings so patients understand and trust you", action: "Start Week 2", link: "/portal/curriculum/week-2-neurology" },
   3: { task: "Use the communication framework on your next 3 patients, then log results", action: "View Framework", link: "/portal/curriculum/week-3-communication" },
-  4: { task: "Record yourself presenting a care plan and review it", action: "Go to Curriculum", link: "/portal/curriculum/week-4-philosophy" },
-  5: { task: "Submit your KPIs and compare to last week", action: "Submit KPIs", link: "/portal/kpi" },
-  6: { task: "Watch the leadership module and audit your team", action: "Start Week 6", link: "/portal/curriculum/week-6-leadership" },
-  7: { task: "Prepare for the live immersion call this week", action: "View Details", link: "/portal/curriculum/week-7-marketing" },
-  8: { task: "Complete your final module and review your 8-week progress", action: "Finish Program", link: "/portal/curriculum/week-8-mastery" },
+  4: { task: "Build a modern philosophy that drives confident recommendations", action: "Start Week 4", link: "/portal/curriculum/week-4-philosophy" },
+  5: { task: "Know your break-even, set pricing, and submit your KPIs", action: "Submit KPIs", link: "/portal/kpi" },
+  6: { task: "Master Day 1 consultations and Day 2 report of findings", action: "Start Week 6", link: "/portal/curriculum/week-6-care-plans" },
+  7: { task: "Build retention systems and lead patients through complete care plans", action: "Start Week 7", link: "/portal/curriculum/week-7-patient-management" },
+  8: { task: "Contracts, scaling, and planning your next chapter", action: "Finish Program", link: "/portal/curriculum/week-8-ownership" },
 };
 
 export function WeeklyFocusCard({

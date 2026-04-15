@@ -114,8 +114,8 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         severity: 'warning',
         title: 'New Patients Below Average',
         message: 'Your new patient volume is below the group average. Focus on marketing and patient reactivation this week.',
-        action: 'Open Marketing Module',
-        link: '/portal/curriculum/week-7-marketing'
+        action: 'Open Patient Management Module',
+        link: '/portal/curriculum/week-7-patient-management'
       });
     }
 
