@@ -13,10 +13,7 @@ const doctorTiers = [
     name: "Mastermind Standard",
     price: "997",
     paymentPlan: "3 Payments of $350",
-    links: {
-      pif: process.env.NEXT_PUBLIC_STRIPE_STANDARD_PIF || "https://buy.stripe.com/5kQdRb8Z1eEscGOfas7wA0f",
-      plan: process.env.NEXT_PUBLIC_STRIPE_STANDARD_PLAN || "https://buy.stripe.com/cNi8wRa3553SfT09Q87wA0g",
-    },
+    priceKeys: { pif: "standard-pif", plan: "standard-plan" },
     description:
       "The full 8-week system for doctors who want clarity and a better way to practice.",
     features: [
@@ -36,10 +33,7 @@ const doctorTiers = [
     name: "Mastermind Pro",
     price: "1,997",
     paymentPlan: "3 Payments of $800",
-    links: {
-      pif: process.env.NEXT_PUBLIC_STRIPE_PRO_PIF || "https://buy.stripe.com/3cIeVfa351RG6iqaUc7wA0h",
-      plan: process.env.NEXT_PUBLIC_STRIPE_PRO_PLAN || "https://buy.stripe.com/aFa28t8Z1aocdKSbYg7wA0i",
-    },
+    priceKeys: { pif: "pro-pif", plan: "pro-plan" },
     description:
       "Limited to 5 doctors. Direct feedback and faster results.",
     features: [
@@ -63,10 +57,7 @@ const studentTiers = [
     name: "Student Standard",
     price: "497",
     paymentPlan: "3 Payments of $175",
-    links: {
-      pif: process.env.NEXT_PUBLIC_STRIPE_STUDENT_STANDARD_PIF || "/apply?tier=student-standard",
-      plan: process.env.NEXT_PUBLIC_STRIPE_STUDENT_STANDARD_PLAN || "/apply?tier=student-standard-plan",
-    },
+    priceKeys: { pif: "student-standard-pif", plan: "student-standard-plan" },
     description:
       "Build your clinical authority before you even graduate.",
     features: [
@@ -86,10 +77,7 @@ const studentTiers = [
     name: "Student Pro",
     price: "997",
     paymentPlan: "3 Payments of $350",
-    links: {
-      pif: process.env.NEXT_PUBLIC_STRIPE_STUDENT_PRO_PIF || "/apply?tier=student-pro",
-      plan: process.env.NEXT_PUBLIC_STRIPE_STUDENT_PRO_PLAN || "/apply?tier=student-pro-plan",
-    },
+    priceKeys: { pif: "student-pro-pif", plan: "student-pro-plan" },
     description:
       "For serious students who want direct mentorship and a head start.",
     features: [
@@ -108,8 +96,21 @@ const studentTiers = [
   },
 ];
 
+async function handleCheckout(priceKey: string) {
+  const res = await fetch("/api/stripe/create-checkout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ priceKey }),
+  });
+  const data = await res.json();
+  if (data.url) {
+    window.location.href = data.url;
+  }
+}
+
 export default function PricingPage() {
   const [activeTab, setActiveTab] = useState<"doctor" | "student">("doctor");
+  const [loadingKey, setLoadingKey] = useState<string | null>(null);
   const tiers = activeTab === "doctor" ? doctorTiers : studentTiers;
 
   return (
@@ -224,45 +225,38 @@ export default function PricingPage() {
               </div>
 
               <div className="space-y-3">
-                <a
-                  href={tier.links.pif}
-                  target={
-                    tier.links.pif.startsWith("http") ? "_blank" : undefined
-                  }
-                  rel={
-                    tier.links.pif.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
+                <button
+                  onClick={async () => {
+                    setLoadingKey(tier.priceKeys.pif);
+                    await handleCheckout(tier.priceKeys.pif);
+                    setLoadingKey(null);
+                  }}
+                  disabled={loadingKey === tier.priceKeys.pif}
                   className="block w-full"
                 >
                   <BrandButton
                     variant={tier.highlight ? "accent" : "primary"}
                     className="w-full py-4 group text-sm"
                   >
-                    Pay in Full (${tier.price}){" "}
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    {loadingKey === tier.priceKeys.pif ? "Loading..." : <>Pay in Full (${tier.price}) <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" /></>}
                   </BrandButton>
-                </a>
-                <a
-                  href={tier.links.plan}
-                  target={
-                    tier.links.plan.startsWith("http") ? "_blank" : undefined
-                  }
-                  rel={
-                    tier.links.plan.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
+                </button>
+                <button
+                  onClick={async () => {
+                    setLoadingKey(tier.priceKeys.plan);
+                    await handleCheckout(tier.priceKeys.plan);
+                    setLoadingKey(null);
+                  }}
+                  disabled={loadingKey === tier.priceKeys.plan}
                   className="block w-full"
                 >
                   <BrandButton
                     variant="ghost"
                     className="w-full py-4 text-sm font-bold text-brand-navy/40 hover:text-brand-orange"
                   >
-                    or {tier.paymentPlan}
+                    {loadingKey === tier.priceKeys.plan ? "Loading..." : `or ${tier.paymentPlan}`}
                   </BrandButton>
-                </a>
+                </button>
                 <p className="text-xs text-center text-brand-navy/30 font-medium mt-3">
                   100% Secure Checkout via Stripe
                 </p>

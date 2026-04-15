@@ -30,44 +30,59 @@ export async function updateApplicationStatus(id: string, status: string, notes:
       || '';
     const notesLower = (notes || '').toLowerCase();
     const isPro = tierRaw.toLowerCase().includes('pro') || notesLower.includes('pro');
-    
-    console.log(`[ADMIN] Detected Tier: ${isPro ? 'PRO' : 'STANDARD'} from raw: "${tierRaw}"`);
+    const isStudent = (application.responses?.current_role || '').toLowerCase().includes('student');
 
-    // Choose correct PIF and Plan links based on tier
-    let checkoutUrl = isPro 
-      ? process.env.NEXT_PUBLIC_STRIPE_PRO_PIF 
-      : process.env.NEXT_PUBLIC_STRIPE_STANDARD_PIF;
-    
-    let planUrl = isPro
-      ? process.env.NEXT_PUBLIC_STRIPE_PRO_PLAN
-      : process.env.NEXT_PUBLIC_STRIPE_STANDARD_PLAN;
+    console.log(`[ADMIN] Detected Tier: ${isPro ? 'PRO' : 'STANDARD'}, Student: ${isStudent}`);
 
-    // --- ENHANCED GEAR: Convert to Smart Links ---
-    const generateSmartLink = (base: string | undefined) => {
-      if (!base) return undefined;
-      const url = new URL(base);
-      url.searchParams.set('client_reference_id', id);
-      url.searchParams.set('prefilled_email', application.email);
-      return url.toString();
+    const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://neurochiromastermind.com";
+    const prefix = isStudent ? "student-" : "";
+    const pifKey = `${prefix}${isPro ? "pro" : "standard"}-pif`;
+    const planKey = `${prefix}${isPro ? "pro" : "standard"}-plan`;
+
+    // Create Stripe Checkout Sessions server-side
+    const PRICE_MAP: Record<string, string> = {
+      "standard-pif": "price_1TMIbJQ4WJOENoxrEKMvkpSn",
+      "standard-plan": "price_1TMIcMQ4WJOENoxrsnTbl5pE",
+      "pro-pif": "price_1TMIcxQ4WJOENoxrOIzjxwFe",
+      "pro-plan": "price_1TMIdRQ4WJOENoxr3LRCze6x",
+      "student-standard-pif": "price_1TMIg4Q4WJOENoxr1yTHzAXn",
+      "student-standard-plan": "price_1TMIe6Q4WJOENoxrpe96iLSQ",
+      "student-pro-pif": "price_1TMIenQ4WJOENoxrXqQnI23v",
+      "student-pro-plan": "price_1TMIfOQ4WJOENoxrQNflH2pq",
     };
 
-    const smartCheckoutUrl = generateSmartLink(checkoutUrl);
-    const smartPlanUrl = generateSmartLink(planUrl);
+    try {
+      const pifSession = await stripe.checkout.sessions.create({
+        mode: "payment",
+        line_items: [{ price: PRICE_MAP[pifKey], quantity: 1 }],
+        success_url: `${SITE}/apply/confirmation?name=${encodeURIComponent(application.full_name)}&role=enrolled&status=success`,
+        cancel_url: `${SITE}/pricing`,
+        customer_email: application.email,
+        client_reference_id: id,
+        payment_intent_data: { metadata: { price_key: pifKey, application_id: id } },
+      });
 
-    console.log(`[ADMIN] Sending Smart Links to ${application.email}: PIF: ${smartCheckoutUrl}, Plan: ${smartPlanUrl}`);
+      const planSession = await stripe.checkout.sessions.create({
+        mode: "subscription",
+        line_items: [{ price: PRICE_MAP[planKey], quantity: 1 }],
+        success_url: `${SITE}/apply/confirmation?name=${encodeURIComponent(application.full_name)}&role=enrolled&status=success`,
+        cancel_url: `${SITE}/pricing`,
+        customer_email: application.email,
+        client_reference_id: id,
+        subscription_data: { metadata: { price_key: planKey, application_id: id } },
+      });
 
-    if (smartCheckoutUrl) {
-      try {
-        const emailResult = await EmailService.sendAppApproved(
-          application.email, 
-          application.full_name, 
-          smartCheckoutUrl, 
-          smartPlanUrl
-        );
-        console.log(`[ADMIN] Email sent result:`, emailResult);
-      } catch (emailErr) {
-        console.error("[ADMIN] Email Error:", emailErr);
-      }
+      console.log(`[ADMIN] Checkout sessions created for ${application.email}`);
+
+      await EmailService.sendAppApproved(
+        application.email,
+        application.full_name,
+        pifSession.url!,
+        planSession.url || undefined
+      );
+      console.log(`[ADMIN] Approval email sent to ${application.email}`);
+    } catch (emailErr) {
+      console.error("[ADMIN] Checkout/Email Error:", emailErr);
     }
   }
 

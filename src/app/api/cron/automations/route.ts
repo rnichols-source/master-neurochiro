@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { EmailService } from "@/lib/emails";
 import { NotificationService } from "@/lib/notifications";
+import { stripe } from "@/lib/stripe";
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get("authorization");
@@ -44,25 +45,39 @@ export async function GET(request: Request) {
             .limit(1);
 
           if (!alreadySent || alreadySent.length === 0) {
-            // Rebuild the checkout URL
             const tierRaw = app.responses?.tier_applying || app.responses?.tier_requested || "";
             const isPro = tierRaw.toLowerCase().includes("pro");
-            const baseUrl = isPro
-              ? process.env.NEXT_PUBLIC_STRIPE_PRO_PIF
-              : process.env.NEXT_PUBLIC_STRIPE_STANDARD_PIF;
+            const isStudent = (app.responses?.current_role || "").toLowerCase().includes("student");
+            const prefix = isStudent ? "student-" : "";
+            const pifKey = `${prefix}${isPro ? "pro" : "standard"}-pif`;
 
-            if (baseUrl) {
-              const url = new URL(baseUrl);
-              url.searchParams.set("client_reference_id", app.id);
-              url.searchParams.set("prefilled_email", app.email);
+            const PRICE_MAP: Record<string, string> = {
+              "standard-pif": "price_1TMIbJQ4WJOENoxrEKMvkpSn",
+              "pro-pif": "price_1TMIcxQ4WJOENoxrOIzjxwFe",
+              "student-standard-pif": "price_1TMIg4Q4WJOENoxr1yTHzAXn",
+              "student-pro-pif": "price_1TMIenQ4WJOENoxrXqQnI23v",
+            };
+
+            try {
+              const session = await stripe.checkout.sessions.create({
+                mode: "payment",
+                line_items: [{ price: PRICE_MAP[pifKey], quantity: 1 }],
+                success_url: `${SITE}/apply/confirmation?name=${encodeURIComponent(app.full_name || "Doctor")}&role=enrolled&status=success`,
+                cancel_url: `${SITE}/pricing`,
+                customer_email: app.email,
+                client_reference_id: app.id,
+                payment_intent_data: { metadata: { price_key: pifKey, application_id: app.id } },
+              });
 
               await EmailService.sendApprovedReminder(
                 app.email,
                 app.full_name || "Doctor",
-                url.toString(),
+                session.url!,
                 Math.floor(hoursSince / 24)
               );
               results.push({ type: followUpKey, email: app.email });
+            } catch (stripeErr) {
+              console.error("Cron checkout error:", stripeErr);
             }
           }
         }
