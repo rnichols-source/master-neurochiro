@@ -74,7 +74,7 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
 
         {/* Lessons */}
         <div className="space-y-2">
-          <p className="text-sm font-bold text-brand-navy">Lessons</p>
+          <p className="text-sm font-bold text-brand-navy">Training</p>
           {safeModules.map((mod: any) => {
             const moduleUrl = `/portal/curriculum/${week?.slug}/${mod?.slug}`;
             return (

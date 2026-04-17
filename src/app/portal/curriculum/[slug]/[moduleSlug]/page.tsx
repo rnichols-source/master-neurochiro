@@ -44,7 +44,7 @@ export default async function ModuleDetailPage(props: {
         {/* Title */}
         <div>
           <p className="text-xs font-bold text-brand-orange mb-1">
-            Week {week?.week_number} · Lesson {module?.order_index}
+            Week {week?.week_number} Training
             {module?.duration_minutes && ` · ${module.duration_minutes} min`}
           </p>
           <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">{module?.title}</h1>

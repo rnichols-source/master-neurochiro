@@ -180,20 +180,13 @@ export default function VideoPlayer({
             </div>
             
             <div className="space-y-2">
-              <span className="text-xs font-black text-brand-orange uppercase tracking-widest">Premium Coming Soon</span>
-              <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight leading-none uppercase">Update in Progress</h3>
+              <span className="text-xs font-black text-brand-orange uppercase tracking-widest">Recording</span>
+              <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight leading-none uppercase">Coming Soon</h3>
             </div>
-            
+
             <p className="text-white/40 text-sm font-medium leading-relaxed">
-              This Masterclass is currently being updated for the latest session. Check back soon!
+              The recorded coaching call for this week will be uploaded after the live session.
             </p>
-            
-            <div className="pt-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10">
-                <div className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-ping" />
-                <span className="text-xs font-black text-white/60 uppercase tracking-widest">Clinical Update: 84% Complete</span>
-              </div>
-            </div>
           </motion.div>
         </div>
         {renderChecklist()}
