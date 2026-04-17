@@ -2,7 +2,7 @@ import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { fetchWeekDetail } from "@/app/actions/curriculum-actions";
 import { fetchNextCall } from "@/app/actions/call-actions";
 import LiveCallBanner from "@/components/portal/LiveCallBanner";
-import { Play, CheckCircle2, Lock } from "lucide-react";
+import { Play, CheckCircle2, Lock, FileText } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { notFound } from "next/navigation";
@@ -108,6 +108,28 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
             );
           })}
         </div>
+
+        {/* Worksheet (Week 1 only) */}
+        {week?.week_number === 1 && (
+          <div className="space-y-2">
+            <p className="text-sm font-bold text-brand-navy">Worksheet</p>
+            <Link
+              href="/portal/curriculum/week-1-identity/worksheet"
+              className="block bg-brand-orange/5 border border-brand-orange/20 rounded-2xl p-4 hover:bg-brand-orange/10 transition-all"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-9 h-9 rounded-xl bg-brand-orange text-white flex items-center justify-center shrink-0">
+                  <FileText className="w-4 h-4" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-black text-brand-navy">Identity Worksheet</p>
+                  <p className="text-xs text-brand-gray font-medium">15 minutes — the foundation for everything else</p>
+                </div>
+                <span className="text-sm font-bold text-brand-orange shrink-0">Start →</span>
+              </div>
+            </Link>
+          </div>
+        )}
 
         {/* Downloads (only show if there are any) */}
         {safeResources.length > 0 && (
