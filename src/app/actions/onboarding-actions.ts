@@ -41,7 +41,7 @@ export async function triggerCohortOnboarding() {
   const { data: apps, error } = await supabaseAdmin
     .from('applications')
     .select('email, full_name')
-    .eq('status', 'approved')
+    .in('status', ['approved', 'paid'])
 
   if (error) return { success: false, error: error.message }
   
