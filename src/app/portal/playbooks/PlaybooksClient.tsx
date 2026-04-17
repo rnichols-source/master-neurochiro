@@ -656,10 +656,10 @@ const playbookLibrary: Playbook[] = [
 ];
 
 export function PlaybooksClient() {
-  const [activeId, setActiveId] = useState(playbookLibrary[0].id);
+  const [activeId, setActiveId] = useState<string | null>(null);
   const [expandedSection, setExpandedSection] = useState<number | null>(0);
 
-  const activePlaybook = playbookLibrary.find(p => p.id === activeId) || playbookLibrary[0];
+  const activePlaybook = activeId ? playbookLibrary.find(p => p.id === activeId) : null;
 
   return (
     <div className="space-y-6 pb-20">
@@ -671,28 +671,55 @@ export function PlaybooksClient() {
           <Link href="/portal/curriculum" className="px-4 py-2 bg-brand-navy/5 text-brand-navy/60 rounded-xl text-sm font-bold hover:bg-brand-navy/10 transition-colors">
             Curriculum
           </Link>
-          <span className="px-4 py-2 bg-brand-navy text-white rounded-xl text-sm font-bold">Playbooks</span>
+          <button onClick={() => setActiveId(null)} className="px-4 py-2 bg-brand-navy text-white rounded-xl text-sm font-bold">Playbooks</button>
         </div>
       </div>
 
-      {/* Playbook Selector */}
-      <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
-        {playbookLibrary.map((p) => (
-          <button
-            key={p.id}
-            onClick={() => { setActiveId(p.id); setExpandedSection(0); }}
-            className={cn(
-              "flex items-center gap-3 px-5 py-3 rounded-xl border transition-all whitespace-nowrap touch-target",
-              activeId === p.id
-                ? "bg-brand-navy border-brand-navy text-white shadow-sm"
-                : "bg-white border-brand-navy/5 text-brand-navy/60 hover:border-brand-orange/40"
-            )}
-          >
-            <p.icon size={16} className={activeId === p.id ? "text-brand-orange" : ""} />
-            <span className="text-sm font-bold">{p.title}</span>
-          </button>
-        ))}
-      </div>
+      {/* Table of Contents — shows when no playbook is selected */}
+      {!activePlaybook && (
+        <div className="space-y-4">
+          <p className="text-sm text-brand-gray font-medium">Choose a playbook to get started. Each one gives you the exact script and framework for that situation.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {playbookLibrary.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => { setActiveId(p.id); setExpandedSection(0); }}
+                className="flex items-center gap-3 p-4 bg-white rounded-2xl border border-brand-navy/5 hover:border-brand-orange/30 transition-all text-left group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-brand-navy/5 flex items-center justify-center shrink-0 group-hover:bg-brand-orange/10 transition-colors">
+                  <p.icon size={18} className="text-brand-navy/40 group-hover:text-brand-orange transition-colors" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-brand-navy truncate">{p.title}</p>
+                  <p className="text-xs text-brand-gray font-medium truncate">{p.tagline}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Active Playbook Content */}
+      {activePlaybook && (
+        <>
+          {/* Back + Playbook Selector */}
+          <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+            {playbookLibrary.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => { setActiveId(p.id); setExpandedSection(0); }}
+                className={cn(
+                  "flex items-center gap-3 px-5 py-3 rounded-xl border transition-all whitespace-nowrap touch-target",
+                  activeId === p.id
+                    ? "bg-brand-navy border-brand-navy text-white shadow-sm"
+                    : "bg-white border-brand-navy/5 text-brand-navy/60 hover:border-brand-orange/40"
+                )}
+              >
+                <p.icon size={16} className={activeId === p.id ? "text-brand-orange" : ""} />
+                <span className="text-sm font-bold">{p.title}</span>
+              </button>
+            ))}
+          </div>
 
       {/* Summary */}
       <div className="bg-brand-navy/5 rounded-2xl p-5 md:p-6">
@@ -749,6 +776,8 @@ export function PlaybooksClient() {
           </div>
         ))}
       </div>
+        </>
+      )}
     </div>
   );
 }

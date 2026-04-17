@@ -39,6 +39,10 @@ export function EngineClient({
   const [activeTab, setActiveTab] = useState("kpi");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [localData, setLocalData] = useState(initialData);
+  const [showMoneyGuide, setShowMoneyGuide] = useState(() => {
+    if (typeof window !== "undefined") return localStorage.getItem("neurochiro_money_guide_dismissed") !== "true";
+    return true;
+  });
   const isPro = userTier === 'pro' || userTier === 'admin';
   const router = useRouter();
 
@@ -75,19 +79,44 @@ export function EngineClient({
         <p className="text-sm text-brand-gray font-medium mt-1">Your practice numbers, all in one place.</p>
       </div>
 
-      {/* Smart Recommendation */}
-      <div className="bg-brand-navy/5 border-l-4 border-l-brand-orange rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <p className="text-sm text-brand-navy font-medium">{recommendation.text}</p>
-        {recommendation.isModal ? (
-          <button onClick={() => setIsModalOpen(true)} className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors shrink-0">
-            {recommendation.action} →
+      {/* KPI Explainer — shows only when no data entered yet */}
+      {localData.length === 0 && activeTab === "kpi" && (
+        <div className="bg-brand-navy rounded-2xl p-6 md:p-8 space-y-5">
+          <div>
+            <h2 className="text-lg font-black text-white tracking-tight">Track these 4 numbers every week</h2>
+            <p className="text-sm text-white/50 font-medium mt-1">To see what&apos;s working and what needs attention.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { label: "Patient Visits", desc: "Total patient visits this week. Check your scheduling software or daily sign-in sheet." },
+              { label: "New Patients", desc: "First-time patients seen this week — patients who have never been to your office before." },
+              { label: "Care Plans Accepted", desc: "How many patients said yes to your recommended care plan this week." },
+              { label: "Collections", desc: "Total money collected this week (not billed — actually collected). Check your POS or billing system." },
+            ].map((item) => (
+              <div key={item.label} className="p-4 bg-white/5 rounded-xl">
+                <p className="text-sm font-bold text-brand-orange">{item.label}</p>
+                <p className="text-xs text-white/40 font-medium mt-1 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-brand-orange text-white text-sm font-bold px-6 py-3 rounded-xl hover:bg-[#B35520] transition-colors active:scale-[0.98]"
+          >
+            Got it — enter my first week
           </button>
-        ) : (
+        </div>
+      )}
+
+      {/* Smart Recommendation — shows when they have data */}
+      {localData.length > 0 && (
+        <div className="bg-brand-navy/5 border-l-4 border-l-brand-orange rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <p className="text-sm text-brand-navy font-medium">{recommendation.text}</p>
           <Link href={recommendation.link} className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors shrink-0">
             {recommendation.action} →
           </Link>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Tabs */}
       <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
@@ -127,7 +156,31 @@ export function EngineClient({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            className="space-y-6"
           >
+            {showMoneyGuide && (
+              <div className="bg-brand-navy/5 rounded-2xl p-5 md:p-6 space-y-4">
+                <h3 className="text-base font-black text-brand-navy">How to use the Practice Money tools</h3>
+                <div className="space-y-2.5">
+                  {[
+                    { step: "1", text: "Enter your monthly overhead (rent, staff, supplies) to see your break-even point" },
+                    { step: "2", text: "Set your target income to see how many patients you need per week" },
+                    { step: "3", text: "Adjust the sliders to model different scenarios for your practice" },
+                  ].map((item) => (
+                    <div key={item.step} className="flex items-start gap-3">
+                      <span className="w-6 h-6 rounded-full bg-brand-orange text-white text-xs font-black flex items-center justify-center shrink-0">{item.step}</span>
+                      <p className="text-sm text-brand-navy font-medium">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={() => { localStorage.setItem("neurochiro_money_guide_dismissed", "true"); setShowMoneyGuide(false); }}
+                  className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors"
+                >
+                  Got it — start calculating →
+                </button>
+              </div>
+            )}
             <EconomicsEngineClient />
           </motion.div>
         )}
