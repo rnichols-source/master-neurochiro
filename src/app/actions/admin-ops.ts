@@ -29,9 +29,13 @@ export async function seedDashboardData() {
   // A.2 Ensure Curriculum exists (Weeks & Modules)
   const weeksData = [
     { week_number: 1, title: 'Identity of a Nervous System Doctor', theme: 'Who you are determines how you practice.', slug: 'week-1-identity', description: 'Doctor identity reconstruction, Certainty vs insecurity.' },
-    { week_number: 2, title: 'Chiropractic Neurology for REAL Practice', theme: 'Not theory. Application.', slug: 'week-2-neuro-real', description: 'Functional nervous system explanation, HRV, tone, adaptability.' },
+    { week_number: 2, title: 'Chiropractic Neurology for REAL Practice', theme: 'Not theory. Application.', slug: 'week-2-neurology', description: 'Functional nervous system explanation, HRV, tone, adaptability.' },
     { week_number: 3, title: 'Communication Mastery', theme: 'Recommend with certainty. No chasing yes.', slug: 'week-3-communication', description: 'ROF mastery, Tone calibration, Removing persuasion energy.' },
-    { week_number: 4, title: 'Philosophy (Modern + Powerful)', theme: 'Make it make sense in today’s world.', slug: 'week-4-philosophy', description: 'Subluxation without sounding outdated, Science + philosophy integration.' },
+    { week_number: 4, title: 'Philosophy (Modern + Powerful)', theme: 'Make it make sense in today\'s world.', slug: 'week-4-philosophy', description: 'Subluxation without sounding outdated, Science + philosophy integration.' },
+    { week_number: 5, title: 'Business: What School NEVER Taught You', theme: 'Money, structure, sustainability.', slug: 'week-5-business', description: 'Revenue structure, Case value clarity, Systems vs chaos.' },
+    { week_number: 6, title: 'Care Plans, Day 1 / Day 2 Mastery', theme: 'Clarity removes pressure.', slug: 'week-6-care-plans', description: 'Day 1 consultation structure, Day 2 report of findings.' },
+    { week_number: 7, title: 'Patient Management & Long-Term Clinical Leadership', theme: 'Build retention systems and lead patients through complete care.', slug: 'week-7-patient-management', description: 'Retention systems, handling "I feel better", long-term care leadership.' },
+    { week_number: 8, title: 'Ownership, Contracts & Scaling', theme: 'Build something bigger than a job.', slug: 'week-8-ownership', description: 'Contracts, associate agreements, scaling your practice.' },
   ]
 
   const { data: seededWeeks, error: sWeekError } = await supabaseAdmin

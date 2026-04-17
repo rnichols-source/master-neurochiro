@@ -6,7 +6,10 @@ export async function POST(req: NextRequest) {
     const { passphrase } = await req.json();
     
     // The founder passphrase. For extreme security, this should be in .env
-    const VALID_PASSPHRASE = process.env.FOUNDER_PASSPHRASE || 'omega-protocol-26';
+    const VALID_PASSPHRASE = process.env.FOUNDER_PASSPHRASE;
+    if (!VALID_PASSPHRASE) {
+      return NextResponse.json({ success: false, error: 'Not configured' }, { status: 500 });
+    }
 
     if (passphrase === VALID_PASSPHRASE) {
       const cookieStore = await cookies();

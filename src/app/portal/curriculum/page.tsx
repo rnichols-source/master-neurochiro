@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils";
 import { EmptyState } from "@/components/ui/empty-state";
 
 const weekData: Record<number, { title: string; desc: string; resource?: { name: string; link: string } }> = {
-  1: { title: "Your Identity as a Doctor", desc: "Build the foundation — how you show up, how you communicate, who you are in the room.", resource: { name: "Getting Started Worksheet", link: "/portal/triage" } },
-  2: { title: "Clinical Confidence", desc: "Learn to explain findings clearly and feel certain about what you see.", resource: { name: "Case Presentation Guide", link: "/portal/triage" } },
-  3: { title: "Patient Communication", desc: "How to present care plans so patients understand and say yes.", resource: { name: "Conversation Scripts", link: "/portal/triage" } },
-  4: { title: "Keeping Patients", desc: "Retention, re-exams, and handling the 'I feel better' conversation.", resource: { name: "Retention Scripts", link: "/portal/triage" } },
-  5: { title: "Practice Finances", desc: "Break-even, pricing, and making your practice profitable.", resource: { name: "Pricing Calculator", link: "/portal/tools/break-even" } },
-  6: { title: "Leading Your Team", desc: "Delegating, training staff, and building systems that run without you.", resource: { name: "Team Training Guide", link: "/portal/triage" } },
-  7: { title: "Marketing & Growth", desc: "Getting new patients and bringing back inactive ones.", resource: { name: "Reactivation Scripts", link: "/portal/tools/reactivation" } },
-  8: { title: "Putting It All Together", desc: "Review your progress, set your 10-year vision, and plan what's next.", resource: { name: "Your 10-Year Vision", link: "/portal/triage" } },
+  1: { title: "Identity of a Nervous System Doctor", desc: "Build the foundation — how you show up, how you communicate, who you are in the room.", resource: { name: "Getting Started Worksheet", link: "/portal/triage" } },
+  2: { title: "Chiropractic Neurology for REAL Practice", desc: "Learn to explain findings clearly so patients understand and trust you.", resource: { name: "Case Presentation Guide", link: "/portal/triage" } },
+  3: { title: "Communication Mastery", desc: "Word-for-word scripts for care plans that get a yes.", resource: { name: "Conversation Scripts", link: "/portal/triage" } },
+  4: { title: "Philosophy (Modern + Powerful)", desc: "Build a philosophy that drives confident recommendations.", resource: { name: "Philosophy Framework", link: "/portal/triage" } },
+  5: { title: "Business: What School NEVER Taught You", desc: "Break-even, pricing, and making your practice profitable.", resource: { name: "Pricing Calculator", link: "/portal/tools/break-even" } },
+  6: { title: "Care Plans, Day 1 / Day 2 Mastery", desc: "Master the architecture of consultations and report of findings.", resource: { name: "Care Plan Scripts", link: "/portal/triage" } },
+  7: { title: "Patient Management & Long-Term Clinical Leadership", desc: "Build retention systems and lead patients through complete care plans.", resource: { name: "Retention Framework", link: "/portal/triage" } },
+  8: { title: "Ownership, Contracts & Scaling", desc: "Contracts, associate agreements, and scaling your practice.", resource: { name: "Scaling Playbook", link: "/portal/triage" } },
 };
 
 export default async function PortalCurriculumPage() {
