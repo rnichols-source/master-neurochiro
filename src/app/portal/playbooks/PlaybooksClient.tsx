@@ -702,23 +702,19 @@ export function PlaybooksClient() {
       {/* Active Playbook Content */}
       {activePlaybook && (
         <>
-          {/* Back + Playbook Selector */}
-          <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
-            {playbookLibrary.map((p) => (
-              <button
-                key={p.id}
-                onClick={() => { setActiveId(p.id); setExpandedSection(0); }}
-                className={cn(
-                  "flex items-center gap-3 px-5 py-3 rounded-xl border transition-all whitespace-nowrap touch-target",
-                  activeId === p.id
-                    ? "bg-brand-navy border-brand-navy text-white shadow-sm"
-                    : "bg-white border-brand-navy/5 text-brand-navy/60 hover:border-brand-orange/40"
-                )}
-              >
-                <p.icon size={16} className={activeId === p.id ? "text-brand-orange" : ""} />
-                <span className="text-sm font-bold">{p.title}</span>
-              </button>
-            ))}
+          {/* Back button + current playbook title */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setActiveId(null)}
+              className="text-sm font-bold text-brand-gray hover:text-brand-navy transition-colors shrink-0"
+            >
+              ← All Playbooks
+            </button>
+            <span className="text-brand-navy/10">|</span>
+            <div className="flex items-center gap-2">
+              <activePlaybook.icon size={16} className="text-brand-orange shrink-0" />
+              <span className="text-sm font-black text-brand-navy">{activePlaybook.title}</span>
+            </div>
           </div>
 
       {/* Summary */}
