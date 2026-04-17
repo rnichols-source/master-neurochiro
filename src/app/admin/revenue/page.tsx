@@ -130,7 +130,7 @@ export default async function AdminRevenuePage() {
 
             <EliteCard title="Efficiency" subtitle="Conversion Metrics" className="p-8">
               <div className="mt-6 space-y-4">
-                <p className="text-sm text-brand-gray font-medium">Conversion tracking coming soon.</p>
+                <p className="text-sm text-brand-gray font-medium">Track conversion data in the applications dashboard.</p>
               </div>
             </EliteCard>
           </div>

@@ -16,7 +16,7 @@ const PRICE_MAP: Record<string, string> = {
 
 export async function POST(request: Request) {
   try {
-    const { priceKey, email, applicationId } = await request.json();
+    const { priceKey, email, name, applicationId } = await request.json();
 
     const priceId = PRICE_MAP[priceKey];
     if (!priceId) {
@@ -25,11 +25,12 @@ export async function POST(request: Request) {
 
     const isRecurring = priceKey.endsWith("-plan");
     const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://neurochiromastermind.com";
+    const displayName = name || "Doctor";
 
     const session = await stripe.checkout.sessions.create({
       mode: isRecurring ? "subscription" : "payment",
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${SITE}/apply/confirmation?name=${encodeURIComponent("Doctor")}&role=enrolled&status=success`,
+      success_url: `${SITE}/apply/confirmation?name=${encodeURIComponent(displayName)}&role=enrolled&status=success`,
       cancel_url: `${SITE}/pricing`,
       ...(email && { customer_email: email }),
       ...(applicationId && { client_reference_id: applicationId }),

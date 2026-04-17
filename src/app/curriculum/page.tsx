@@ -23,7 +23,7 @@ import Link from "next/link";
 const weeks = [
   {
     number: 1,
-    title: "Who You Are as a Doctor",
+    title: "Identity of a Nervous System Doctor",
     why: "If you don't value yourself, patients won't either.",
     change: "Stop acting like a technician and start acting like the expert in the room.",
     skills: ["Confident Presence", "Removing Neediness", "Leadership Skills"],
@@ -32,7 +32,7 @@ const weeks = [
   },
   {
     number: 2,
-    title: "Explaining Neurology Simply",
+    title: "Chiropractic Neurology for REAL Practice",
     why: "If they don't understand it, they won't buy it.",
     change: "Learn how to talk about scans and nerves so patients actually get it.",
     skills: ["Simple Scan Talk", "Reading HRV Simply", "The Patient-First Method"],
@@ -41,7 +41,7 @@ const weeks = [
   },
   {
     number: 3,
-    title: "Mastering the Recommendation",
+    title: "Communication Mastery",
     why: "Stop being afraid to ask for the commitment.",
     change: "A better way to do your Report of Findings that feels natural.",
     skills: ["The Script System", "Handling Money Talks", "Confident Close"],
@@ -50,7 +50,7 @@ const weeks = [
   },
   {
     number: 4,
-    title: "The Modern Philosophy",
+    title: "Philosophy (Modern + Powerful)",
     why: "You need a powerful way to explain what we do.",
     change: "How to talk about subluxation in a way that makes sense in 2026.",
     skills: ["Modern Framing", "Science + Philosophy", "Clear Explanations"],
@@ -59,7 +59,7 @@ const weeks = [
   },
   {
     number: 5,
-    title: "The Business Numbers",
+    title: "Business: What School NEVER Taught You",
     why: "Practice should give you freedom, not stress.",
     change: "Get control of your money, your overhead, and your growth.",
     skills: ["Money Mapping", "Knowing Your Value", "Predictable Growth"],
@@ -68,7 +68,7 @@ const weeks = [
   },
   {
     number: 6,
-    title: "The Day 1 & Day 2 Process",
+    title: "Care Plans, Day 1 / Day 2 Mastery",
     why: "First impressions are everything.",
     change: "A streamlined process from the first phone call to the first adjustment.",
     skills: ["Case Layout", "No-Tension Payments", "New Patient Flow"],
@@ -77,19 +77,19 @@ const weeks = [
   },
   {
     number: 7,
-    title: "Understanding Your Patients",
+    title: "Patient Management & Long-Term Clinical Leadership",
     why: "Every patient is different. You need to read them.",
-    change: "How to handle different personalities and emotional states.",
-    skills: ["Reading People", "Stress & Trauma Talk", "Building Trust"],
+    change: "Build retention systems and lead patients through complete care plans.",
+    skills: ["Reading People", "Retention Systems", "Building Trust"],
     mistakes: ["One-size-fits-all", "Ignoring the person"],
     icon: Brain
   },
   {
     number: 8,
-    title: "The Long-Term Strategy",
+    title: "Ownership, Contracts & Scaling",
     why: "Build a clinic that works even when you aren't there.",
-    change: "Create a brand that people know, trust, and refer to.",
-    skills: ["Authority Branding", "Future Planning", "Clinic Leadership"],
+    change: "Contracts, associate agreements, and scaling your practice for the long term.",
+    skills: ["Contract Mastery", "Future Planning", "Clinic Leadership"],
     mistakes: ["Thinking too small", "No clear exit plan"],
     icon: Target
   }
@@ -145,7 +145,7 @@ export default function CurriculumPage() {
                       </div>
                       <div>
                         <p className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Week Mechanism</p>
-                        <p className="text-sm font-black text-brand-navy">Progress Update required</p>
+                        <p className="text-sm font-black text-brand-navy">Live coaching + implementation</p>
                       </div>
                     </div>
                   </div>

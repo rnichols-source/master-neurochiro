@@ -296,7 +296,7 @@ export default function MentorshipLandingPage() {
       <section className="py-24 px-6 bg-brand-cream">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 bg-white p-12 rounded-2xl shadow-sm border border-brand-navy/5">
           <div className="w-48 h-48 rounded-full overflow-hidden shrink-0 border-4 border-brand-cream">
-            <img src="/founder.jpg" alt="Dr. Raymond Nichols" className="w-full h-full object-cover" />
+            <img src="/dr-raymond.jpg" alt="Dr. Raymond Nichols" className="w-full h-full object-cover" />
           </div>
           <div className="space-y-4 text-center md:text-left">
             <p className="text-brand-orange font-black uppercase tracking-widest text-xs">The Architect</p>

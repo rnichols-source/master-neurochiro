@@ -66,8 +66,9 @@ export default function BlogListingPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white rounded-2xl border border-brand-navy/5">
-              <p className="text-brand-gray font-medium">New training articles coming soon.</p>
+            <div className="text-center py-20 bg-white rounded-2xl border border-brand-navy/5 space-y-3">
+              <p className="text-lg font-black text-brand-navy">Resources are shared inside the Mastermind portal.</p>
+              <p className="text-sm text-brand-gray font-medium">Members get access to scripts, playbooks, and training materials after enrollment.</p>
             </div>
           )}
         </div>
