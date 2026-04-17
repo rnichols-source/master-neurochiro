@@ -45,20 +45,56 @@ export async function seedDashboardData() {
 
   if (sWeekError) return { success: false, error: sWeekError.message }
 
-  // Seed some modules for Week 1 & 2
+  // Seed modules for all 8 weeks
   if (seededWeeks) {
+    const moduleMap: Record<number, Array<{ title: string; slug: string; order_index: number }>> = {
+      1: [
+        { title: 'The Identity Gap', slug: '1-1-identity-gap', order_index: 1 },
+        { title: 'Eliminating Neediness', slug: '1-2-eliminating-neediness', order_index: 2 },
+      ],
+      2: [
+        { title: 'Tone and Adaptability', slug: '2-1-tone-adaptability', order_index: 1 },
+        { title: 'HRV: The Gold Standard', slug: '2-2-hrv-gold-standard', order_index: 2 },
+      ],
+      3: [
+        { title: 'The Script System', slug: '3-1-script-system', order_index: 1 },
+        { title: 'Handling Money Talks', slug: '3-2-money-talks', order_index: 2 },
+        { title: 'The Confident Close', slug: '3-3-confident-close', order_index: 3 },
+      ],
+      4: [
+        { title: 'Modern Framing of Chiropractic', slug: '4-1-modern-framing', order_index: 1 },
+        { title: 'Science + Philosophy Integration', slug: '4-2-science-philosophy', order_index: 2 },
+        { title: 'Clear Patient Explanations', slug: '4-3-clear-explanations', order_index: 3 },
+      ],
+      5: [
+        { title: 'Revenue Structure & Break-Even Mastery', slug: '5-1-revenue-structure', order_index: 1 },
+        { title: 'Pricing With Confidence', slug: '5-2-pricing-confidence', order_index: 2 },
+        { title: 'Systems vs Chaos: Building Predictable Growth', slug: '5-3-systems-growth', order_index: 3 },
+      ],
+      6: [
+        { title: 'Day 1 Consultation Architecture', slug: '6-1-day1-consultation', order_index: 1 },
+        { title: 'Day 2 Report of Findings Structure', slug: '6-2-day2-rof', order_index: 2 },
+        { title: 'Care Plan Worksheet & Practice Scenarios', slug: '6-3-care-plan-practice', order_index: 3 },
+      ],
+      7: [
+        { title: 'Retention Systems That Work', slug: '7-1-retention-systems', order_index: 1 },
+        { title: 'Leading Patients Through Complete Care', slug: '7-2-leading-patients', order_index: 2 },
+        { title: 'Long-Term Practice Leadership', slug: '7-3-practice-leadership', order_index: 3 },
+      ],
+      8: [
+        { title: 'Contracts & Associate Agreements', slug: '8-1-contracts-agreements', order_index: 1 },
+        { title: 'Scaling Your Practice', slug: '8-2-scaling-practice', order_index: 2 },
+        { title: 'Your 10-Year Vision & Next Chapter', slug: '8-3-vision-next-chapter', order_index: 3 },
+      ],
+    }
+
     const modulesToSeed = []
     for (const week of seededWeeks) {
-      if (week.week_number === 1) {
-        modulesToSeed.push(
-          { week_id: week.id, title: 'The Identity Gap', slug: '1-1-identity-gap', order_index: 1 },
-          { week_id: week.id, title: 'Eliminating Neediness', slug: '1-2-eliminating-neediness', order_index: 2 }
-        )
-      } else if (week.week_number === 2) {
-        modulesToSeed.push(
-          { week_id: week.id, title: 'Tone and Adaptability', slug: '2-1-tone-adaptability', order_index: 1 },
-          { week_id: week.id, title: 'HRV: The Gold Standard', slug: '2-2-hrv-gold-standard', order_index: 2 }
-        )
+      const modules = moduleMap[week.week_number]
+      if (modules) {
+        for (const mod of modules) {
+          modulesToSeed.push({ week_id: week.id, ...mod })
+        }
       }
     }
     if (modulesToSeed.length > 0) {

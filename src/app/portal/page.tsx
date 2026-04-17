@@ -1,4 +1,5 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { StartHere } from "@/components/portal/StartHere";
 import { OnboardingChecklist } from "@/components/portal/OnboardingChecklist";
 import { LiveSessionTimer } from "@/components/portal/LiveSessionTimer";
 import { KPISnapshotCard } from "@/components/portal/KPISnapshotCard";
@@ -60,6 +61,7 @@ export default async function PortalDashboard() {
 
   return (
     <DashboardLayout>
+      <StartHere userName={userName} />
       <OnboardingChecklist isFirstLogin={isFirstLogin} />
 
       <div className="space-y-6">
