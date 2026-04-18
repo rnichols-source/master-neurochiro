@@ -38,8 +38,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/portal', request.url))
   }
 
-  // 2. Protect Portal routes (Members only)
-  if (!user && request.nextUrl.pathname.startsWith('/portal')) {
+  // 2. Protect Portal routes (Members only) — except activation page
+  if (!user && request.nextUrl.pathname.startsWith('/portal') && !request.nextUrl.pathname.startsWith('/portal/activate')) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
