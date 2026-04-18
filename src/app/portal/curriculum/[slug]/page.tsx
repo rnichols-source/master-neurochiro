@@ -109,12 +109,12 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
           })}
         </div>
 
-        {/* Worksheet (Week 1 only) */}
-        {week?.week_number === 1 && (
+        {/* Weekly Activity */}
+        {week?.slug && (
           <div className="space-y-2">
-            <p className="text-sm font-bold text-brand-navy">Worksheet</p>
+            <p className="text-sm font-bold text-brand-navy">This Week&apos;s Activity</p>
             <Link
-              href="/portal/curriculum/week-1-identity/worksheet"
+              href={`/portal/curriculum/${week.slug}/worksheet`}
               className="block bg-brand-orange/5 border border-brand-orange/20 rounded-2xl p-4 hover:bg-brand-orange/10 transition-all"
             >
               <div className="flex items-center gap-4">
@@ -122,8 +122,8 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
                   <FileText className="w-4 h-4" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-black text-brand-navy">Identity Worksheet</p>
-                  <p className="text-xs text-brand-gray font-medium">15 minutes — the foundation for everything else</p>
+                  <p className="text-sm font-black text-brand-navy">Week {week.week_number} Worksheet</p>
+                  <p className="text-xs text-brand-gray font-medium">Apply what you learned — takes 10-15 minutes</p>
                 </div>
                 <span className="text-sm font-bold text-brand-orange shrink-0">Start →</span>
               </div>
