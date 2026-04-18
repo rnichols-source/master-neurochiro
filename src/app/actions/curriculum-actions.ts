@@ -60,29 +60,30 @@ export async function fetchCurriculumWithProgress() {
       isAdmin = profile?.tier === 'admin'
     } catch (e) {}
     
+    // Determine which week is unlocked based on cohort start date
+    const COHORT_START = new Date('2026-04-21T00:00:00-04:00') // April 21, 2026 ET
+    const now = new Date()
+    const msPerWeek = 7 * 24 * 60 * 60 * 1000
+    const weeksSinceStart = Math.floor((now.getTime() - COHORT_START.getTime()) / msPerWeek)
+    // Week 1 unlocks on start date (weeksSinceStart >= 0), Week 2 one week later, etc.
+    const maxUnlockedWeek = Math.max(0, weeksSinceStart + 1) // 1-based
+
     // Determine status for each week
     const formattedWeeks = (weeks || []).map((week, index) => {
       const weekModules = (modules || []).filter(m => m.week_id === week.id)
       const isCompleted = weekModules.length > 0 && weekModules.every(m => completedModuleIds.has(m.id))
-      
+
       let status: 'locked' | 'active' | 'completed' = 'locked'
-      
+
       if (isCompleted) {
         status = 'completed'
-      } else if (index === 0) {
+      } else if (week.week_number <= maxUnlockedWeek) {
         status = 'active'
-      } else {
-        const prevWeek = weeks[index - 1]
-        if (prevWeek) {
-            const prevWeekModules = (modules || []).filter(m => m.week_id === prevWeek.id)
-            const prevWeekCompleted = prevWeekModules.length > 0 && prevWeekModules.every(m => completedModuleIds.has(m.id))
-            if (prevWeekCompleted) status = 'active'
-        }
       }
 
-      // OVERRIDE: Unlock for current mastermind phase
-      if (isAdmin || week.week_number <= 8) {
-        if (status === 'locked') status = 'active'
+      // Admins can access all weeks
+      if (isAdmin && status === 'locked') {
+        status = 'active'
       }
 
       return { ...week, status }
@@ -160,18 +161,27 @@ export async function fetchWeekDetail(slug: string) {
       isAdmin = profile?.tier === 'admin'
     } catch (e) {}
 
+    // Check if this week is unlocked based on cohort date
+    const COHORT_START = new Date('2026-04-21T00:00:00-04:00')
+    const now = new Date()
+    const msPerWeek = 7 * 24 * 60 * 60 * 1000
+    const weeksSinceStart = Math.floor((now.getTime() - COHORT_START.getTime()) / msPerWeek)
+    const maxUnlockedWeek = Math.max(0, weeksSinceStart + 1)
+    const weekIsUnlocked = isAdmin || week.week_number <= maxUnlockedWeek
+
     const formattedModules = (modules || []).map((mod, index) => {
       const isCompleted = completedModuleIds.has(mod.id)
       let status: 'locked' | 'active' | 'completed' = 'locked'
 
       if (isCompleted) {
         status = 'completed'
-      } else if (index === 0 || (modules[index - 1] && completedModuleIds.has(modules[index - 1].id))) {
+      } else if (weekIsUnlocked && (index === 0 || (modules[index - 1] && completedModuleIds.has(modules[index - 1].id)))) {
         status = 'active'
       }
 
-      if (isAdmin || week.week_number <= 8) {
-        if (status === 'locked') status = 'active'
+      // Admins see all modules as active
+      if (isAdmin && status === 'locked') {
+        status = 'active'
       }
 
       return { ...mod, status }

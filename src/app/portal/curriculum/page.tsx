@@ -85,7 +85,9 @@ export default async function PortalCurriculumPage() {
                         Continue
                       </Link>
                     ) : (
-                      <span className="text-xs font-bold text-brand-navy/20">Locked</span>
+                      <span className="text-xs font-bold text-brand-navy/20">
+                        Unlocks {new Date(new Date('2026-04-21').getTime() + (phase.week_number - 1) * 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </span>
                     )}
                   </div>
                 </div>
