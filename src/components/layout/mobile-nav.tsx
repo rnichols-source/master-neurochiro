@@ -8,6 +8,7 @@ import {
   BarChart3,
   Users,
   ShieldCheck,
+  Star,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -21,8 +22,14 @@ const mobileItems = [
 export function MobileNav({ userTier = "standard" }: { userTier?: string }) {
   const pathname = usePathname();
 
-  const items = userTier === "admin"
-    ? [...mobileItems, { name: "Admin", href: "/admin", icon: ShieldCheck }]
+  const isPro = userTier === "pro" || userTier === "admin";
+  const proItem = { name: "Pro", href: "/portal/pro", icon: Star };
+  const adminItem = { name: "Admin", href: "/admin", icon: ShieldCheck };
+
+  const items = isPro
+    ? userTier === "admin"
+      ? [...mobileItems, proItem, adminItem]
+      : [...mobileItems, proItem]
     : mobileItems;
 
   return (
