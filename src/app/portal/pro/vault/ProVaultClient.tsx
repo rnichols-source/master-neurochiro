@@ -39,43 +39,40 @@ const categories: Category[] = [
     title: "Contracts & Agreements",
     icon: FileText,
     resources: [
-      { title: "Associate Agreement Template", type: "PDF" },
-      { title: "Non-Compete Agreement Template", type: "PDF" },
-      { title: "Independent Contractor Agreement", type: "PDF" },
-      { title: "Partnership Agreement Template", type: "PDF" },
+      { title: "Associate Agreement Template", type: "PDF", href: "/vault/associate-agreement.html" },
+      { title: "Non-Compete Agreement Template", type: "PDF", href: "/vault/non-compete-agreement.html" },
+      { title: "Independent Contractor Agreement", type: "PDF", href: "/vault/independent-contractor-agreement.html" },
+      { title: "Partnership / Buy-In Agreement", type: "PDF", href: "/vault/partnership-agreement.html" },
     ],
   },
   {
     title: "Marketing Materials",
     icon: TrendingUp,
     resources: [
-      { title: "New Patient Welcome Packet", type: "Template" },
-      { title: "Reactivation Letter Templates (3 versions)", type: "Template" },
-      { title: "Referral Card Design", type: "Template" },
-      { title: "Social Media Post Templates", type: "Template" },
+      { title: "New Patient Welcome Packet", type: "Template", href: "/vault/welcome-packet.html" },
+      { title: "Patient Reactivation Letters (3 versions)", type: "Template", href: "/vault/reactivation-letters.html" },
+      { title: "Referral Program Kit", type: "Template", href: "/vault/referral-program.html" },
+      { title: "Social Media Content Calendar (30 days)", type: "Template", href: "/vault/social-media-kit.html" },
     ],
   },
   {
     title: "Practice Systems",
     icon: Settings,
     resources: [
-      { title: "Morning Huddle Checklist", type: "PDF" },
-      { title: "Front Desk Phone Script", type: "Script" },
-      { title: "New Patient Onboarding Checklist", type: "PDF" },
-      { title: "Staff Training Manual Template", type: "Template" },
+      { title: "Morning Huddle System", type: "PDF", href: "/vault/morning-huddle.html" },
+      { title: "Front Desk Phone Scripts (10 scripts)", type: "Script", href: "/vault/phone-scripts.html" },
+      { title: "New Patient Onboarding Checklist", type: "PDF", href: "/vault/onboarding-checklist.html" },
+      { title: "Staff Training Manual Template", type: "Template", href: "/vault/staff-training-manual.html" },
     ],
   },
   {
     title: "Financial Tools",
     icon: Calculator,
     resources: [
-      {
-        title: "Care Plan Pricing Calculator",
-        type: "Link",
-        href: "/portal/engine",
-      },
-      { title: "Monthly P&L Template", type: "Template" },
-      { title: "Insurance Verification Checklist", type: "PDF" },
+      { title: "Care Plan Pricing Calculator", type: "Link", href: "/portal/engine" },
+      { title: "Monthly P&L Template", type: "Template", href: "/vault/monthly-pnl.html" },
+      { title: "Insurance Verification Checklist", type: "PDF", href: "/vault/insurance-verification.html" },
+      { title: "Care Plan Pricing Guide", type: "PDF", href: "/vault/pricing-guide.html" },
     ],
   },
 ];
@@ -134,7 +131,16 @@ function CategoryCard({ category }: { category: Category }) {
                 </span>
               </div>
 
-              {resource.href ? (
+              {resource.href?.startsWith("/vault/") ? (
+                <a
+                  href={resource.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-orange hover:text-brand-navy transition-colors"
+                >
+                  Open <ExternalLink className="w-3 h-3" />
+                </a>
+              ) : resource.href ? (
                 <Link
                   href={resource.href}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-orange hover:text-brand-navy transition-colors"
