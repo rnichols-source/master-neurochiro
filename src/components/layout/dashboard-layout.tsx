@@ -1,6 +1,5 @@
 import { Sidebar } from "./sidebar";
 import { MobileNav } from "./mobile-nav";
-import { NeuralDumpButton } from "@/components/portal/neural-dump-button";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
@@ -91,8 +90,6 @@ export async function DashboardLayout({
       {/* Mobile Bottom Tab Navigation */}
       <MobileNav userTier={userTier} />
 
-      {/* Floating Actions */}
-      <NeuralDumpButton />
     </div>
   );
 }
