@@ -112,6 +112,18 @@ export async function activateMemberProfile(token: string, password: string, pro
 
   const invitation = validation.data!
 
+  // 1b. Determine tier from application
+  let memberTier = 'standard'
+  const { data: application } = await supabaseAdmin
+    .from('applications')
+    .select('responses')
+    .eq('email', invitation.email)
+    .single()
+
+  if (application?.responses?.tier_applying?.toLowerCase().includes('pro')) {
+    memberTier = 'pro'
+  }
+
   // 2. Create Auth User
   const { data: authUser, error: authError } = await supabaseAdmin.auth.admin.createUser({
     email: invitation.email,
@@ -143,7 +155,7 @@ export async function activateMemberProfile(token: string, password: string, pro
       graduation_year: profileData.graduation_year,
       current_year_in_school: profileData.current_year_in_school,
       areas_of_interest: profileData.areas_of_interest || [],
-      tier: 'pro',
+      tier: memberTier,
       status: 'profile_completed',
       is_first_login: true,
       onboarding_completed_at: new Date().toISOString()
