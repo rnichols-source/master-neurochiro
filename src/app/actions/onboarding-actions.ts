@@ -124,24 +124,37 @@ export async function activateMemberProfile(token: string, password: string, pro
     memberTier = 'pro'
   }
 
-  // 2. Create Auth User
+  // 2. Create Auth User (or update if they already exist from directory)
+  let userId: string
   const { data: authUser, error: authError } = await supabaseAdmin.auth.admin.createUser({
     email: invitation.email,
     password: password,
     email_confirm: true,
-    user_metadata: { 
+    user_metadata: {
       full_name: profileData.first_name + ' ' + profileData.last_name,
       onboarding_source: 'mastermind_transition'
     }
   })
 
-  if (authError) return { success: false, error: authError.message }
+  if (authError) {
+    // User might already exist from directory — try to find and update password
+    const { data: existingUsers } = await supabaseAdmin.auth.admin.listUsers()
+    const existingUser = existingUsers?.users?.find(u => u.email === invitation.email)
+    if (existingUser) {
+      await supabaseAdmin.auth.admin.updateUserById(existingUser.id, { password })
+      userId = existingUser.id
+    } else {
+      return { success: false, error: authError.message }
+    }
+  } else {
+    userId = authUser.user.id
+  }
 
   // 3. Create Profile
   const { error: profileError } = await supabaseAdmin
     .from('profiles')
     .upsert({
-      id: authUser.user.id,
+      id: userId,
       email: invitation.email,
       full_name: profileData.first_name + ' ' + profileData.last_name,
       user_type: profileData.user_type,
