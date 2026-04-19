@@ -191,7 +191,8 @@ export async function fetchMembersWithHealth() {
   const isAdmin = await checkAdmin(supabase)
   if (!isAdmin) return { success: false, error: 'Unauthorized' }
 
-  const { data: members, error } = await supabase
+  const adminClient = createAdminClient()
+  const { data: members, error } = await adminClient
     .from('profiles')
     .select(`
       id,
@@ -199,6 +200,7 @@ export async function fetchMembersWithHealth() {
       email,
       tier,
       created_at,
+      onboarding_completed_at,
       member_health (
         health_score,
         risk_level,
