@@ -207,6 +207,7 @@ export async function fetchMembersWithHealth() {
       )
     `)
     .not('tier', 'eq', 'admin')
+    .not('onboarding_completed_at', 'is', null)
     .order('created_at', { ascending: false })
 
   if (error) return { success: false, error: error.message }
