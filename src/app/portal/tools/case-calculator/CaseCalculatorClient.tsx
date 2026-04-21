@@ -640,18 +640,22 @@ export function CaseCalculatorClient() {
                 <p className="text-3xl font-black">${grandTotal.toLocaleString()}</p>
                 <p className="text-xs text-white/40 mt-1">${perVisitFee}/visit &times; {totalVisits} visits{addOnTotal > 0 ? ` + $${addOnTotal} add-ons` : ""}</p>
               </div>
-              <div className="grid grid-cols-2 gap-3 mt-3">
+              <div className={cn("grid gap-3 mt-3", settings.paymentSplits.length <= 2 ? "grid-cols-2 md:grid-cols-3" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4")}>
                 <div className="bg-brand-orange/5 border border-brand-orange/20 rounded-xl p-3 text-center">
                   <p className="text-xs font-bold text-brand-orange">Pay in Full</p>
                   <p className="text-lg font-black text-brand-navy">${pifTotal.toLocaleString()}</p>
                   <p className="text-xs text-green-600 font-bold">Save ${pifDiscount.toLocaleString()}</p>
                 </div>
-                {settings.paymentSplits.length > 0 && (
-                  <div className="bg-brand-navy/5 rounded-xl p-3 text-center">
-                    <p className="text-xs font-bold text-brand-gray">{settings.paymentSplits[0]} Monthly Payments</p>
-                    <p className="text-lg font-black text-brand-navy">${Math.ceil(grandTotal / settings.paymentSplits[0]).toLocaleString()}/mo</p>
+                {settings.paymentSplits.map((split: number) => (
+                  <div key={split} className="bg-brand-navy/5 rounded-xl p-3 text-center">
+                    <p className="text-xs font-bold text-brand-gray">{split} Payments</p>
+                    <p className="text-lg font-black text-brand-navy">${Math.ceil(grandTotal / split).toLocaleString()}/mo</p>
                   </div>
-                )}
+                ))}
+                <div className="bg-brand-navy/5 rounded-xl p-3 text-center">
+                  <p className="text-xs font-bold text-brand-gray">Per Visit</p>
+                  <p className="text-lg font-black text-brand-navy">${perVisitFee.toLocaleString()}</p>
+                </div>
               </div>
             </div>
 
