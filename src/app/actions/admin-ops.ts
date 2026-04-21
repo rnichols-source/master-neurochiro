@@ -2,6 +2,7 @@
 
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
+import { EmailService } from '@/lib/emails'
 import { revalidatePath } from 'next/cache'
 
 /**
@@ -160,9 +161,29 @@ export async function sendAnnouncement(title: string, content: string) {
 
   if (error) return { success: false, error: error.message }
 
+  // Send notifications to all members
+  const { createBulkNotifications } = await import('@/app/actions/notification-actions')
+  const count = await createBulkNotifications(title, content, 'announcement', '/portal')
+
+  // Send emails to all members
+  const adminClient = createAdminClient()
+  const { data: members } = await adminClient
+    .from('profiles')
+    .select('email, full_name')
+    .not('tier', 'eq', 'admin')
+    .not('onboarding_completed_at', 'is', null)
+
+  if (members) {
+    for (const member of members) {
+      try {
+        await EmailService.sendAnnouncement(member.email, member.full_name || 'Doctor', title, content)
+      } catch (e) { /* continue on email error */ }
+    }
+  }
+
   revalidatePath('/admin')
   revalidatePath('/portal')
-  return { success: true }
+  return { success: true, message: `Announcement sent to ${count} members` }
 }
 
 /**

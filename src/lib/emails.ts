@@ -188,6 +188,12 @@ export const EmailService = {
     return this.send(adminEmail, `Admin Preview: ${previewName}`, html, 'admin_preview');
   },
   
+  async sendAnnouncement(email: string, name: string, title: string, content: string) {
+    const action = `<a href="${process.env.NEXT_PUBLIC_SITE_URL}/portal" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">View in Portal</a>`;
+    const html = getEmailTemplate(title, 'Announcement', `<p>Dr. ${name},</p><p>${content.replace(/\n/g, '</p><p>')}</p>`, action);
+    return this.send(email, `${title} — NeuroChiro Mastermind`, html, 'announcement');
+  },
+
   async sendEventConfirmation(email: string, name: string, eventTitle: string) {
     const html = getEmailTemplate('Seat Reserved', 'Event Confirmation', `<p>Dr. ${name}, you are registered for <strong>${eventTitle}</strong>.</p>`);
     return this.send(email, `Seat Reserved: ${eventTitle}`, html, 'event_confirmation');

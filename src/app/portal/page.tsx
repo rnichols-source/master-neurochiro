@@ -9,7 +9,8 @@ import { createClient } from "@/lib/supabase/server";
 import { fetchNextCall } from "@/app/actions/call-actions";
 import { fetchCurriculumWithProgress } from "@/app/actions/curriculum-actions";
 import { fetchKPIEntries } from "@/app/actions/kpi-actions";
-import { ArrowRight, BookOpen, BarChart3 } from "lucide-react";
+import { fetchAnnouncements } from "@/app/actions/notification-actions";
+import { ArrowRight, BookOpen, BarChart3, Megaphone } from "lucide-react";
 import Link from "next/link";
 
 export default async function PortalDashboard() {
@@ -59,6 +60,9 @@ export default async function PortalDashboard() {
   const latestKPI = kpiData.length > 0 ? kpiData[kpiData.length - 1] : null;
   const previousKPI = kpiData.length > 1 ? kpiData[kpiData.length - 2] : null;
 
+  // Fetch announcements
+  const announcements = await fetchAnnouncements();
+
   return (
     <DashboardLayout>
       <StartHere userName={userName} />
@@ -77,6 +81,45 @@ export default async function PortalDashboard() {
 
         {/* This Week's Focus */}
         <WeeklyFocusCard weekNumber={activeWeek?.week_number || 0} completedWeeks={completedWeeks} />
+
+        {/* Announcements */}
+        {announcements.length > 0 && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Megaphone className="w-4 h-4 text-brand-orange" />
+              <p className="text-xs font-bold text-brand-orange uppercase tracking-wider">Announcements</p>
+            </div>
+            {announcements.map((a: any) => {
+              const now = new Date();
+              const date = new Date(a.created_at);
+              const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+              let ago = "just now";
+              if (seconds >= 60) {
+                const minutes = Math.floor(seconds / 60);
+                if (minutes >= 60) {
+                  const hours = Math.floor(minutes / 60);
+                  if (hours >= 24) {
+                    const days = Math.floor(hours / 24);
+                    ago = days < 7 ? `${days}d ago` : date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+                  } else {
+                    ago = `${hours}h ago`;
+                  }
+                } else {
+                  ago = `${minutes}m ago`;
+                }
+              }
+              return (
+                <div key={a.id} className="bg-white rounded-2xl border border-brand-orange/20 p-4 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-black text-brand-navy">{a.title}</h3>
+                    <span className="text-xs text-brand-gray">{ago}</span>
+                  </div>
+                  <p className="text-sm text-brand-gray font-medium">{a.content}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         {/* 3-Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">

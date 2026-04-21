@@ -453,3 +453,28 @@ export async function fetchSystemHealth() {
     }
   }
 }
+
+export async function sendEmailToAllMembers(subject: string, body: string) {
+  const supabase = await createClient()
+  const isAdmin = await checkAdmin(supabase)
+  if (!isAdmin) return { success: false, error: 'Unauthorized' }
+
+  const adminClient = createAdminClient()
+  const { data: members } = await adminClient
+    .from('profiles')
+    .select('email, full_name')
+    .not('tier', 'eq', 'admin')
+    .not('onboarding_completed_at', 'is', null)
+
+  if (!members || members.length === 0) return { success: true, count: 0 }
+
+  let sent = 0
+  for (const member of members) {
+    try {
+      await EmailService.sendAnnouncement(member.email, member.full_name || 'Doctor', subject, body)
+      sent++
+    } catch (e) { /* continue */ }
+  }
+
+  return { success: true, count: sent }
+}

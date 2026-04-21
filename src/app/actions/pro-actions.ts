@@ -38,6 +38,10 @@ export async function createCoachingNote(userId: string, title: string, content:
   ]);
 
   if (error) return { success: false, error: error.message };
+
+  const { createNotification } = await import('@/app/actions/notification-actions');
+  await createNotification(userId, 'New Coaching Note', title, 'coaching_note', '/portal/pro/coaching');
+
   revalidatePath("/portal/pro/coaching");
   revalidatePath("/admin/coaching");
   return { success: true };
@@ -72,6 +76,18 @@ export async function sendDirectMessage(recipientId: string, content: string) {
   ]);
 
   if (error) return { success: false, error: error.message };
+
+  // Notify recipient if sender is admin
+  const { data: senderProfile } = await supabase
+    .from("profiles")
+    .select("tier")
+    .eq("id", user.id)
+    .single();
+  if (senderProfile?.tier === "admin") {
+    const { createNotification } = await import('@/app/actions/notification-actions');
+    await createNotification(recipientId, 'New Message', 'Dr. Nichols sent you a message', 'message', '/portal/pro/messages');
+  }
+
   revalidatePath("/portal/pro/messages");
   revalidatePath("/admin/messages");
   return { success: true };
@@ -194,6 +210,18 @@ export async function reviewScript(reviewId: string, feedback: string) {
     .eq("id", reviewId);
 
   if (error) return { success: false, error: error.message };
+
+  // Notify the script author
+  const { data: review } = await supabase
+    .from("script_reviews")
+    .select("user_id, title")
+    .eq("id", reviewId)
+    .single();
+  if (review) {
+    const { createNotification } = await import('@/app/actions/notification-actions');
+    await createNotification(review.user_id, 'Script Reviewed', `Dr. Nichols reviewed: ${review.title}`, 'script_reviewed', '/portal/pro/script-review');
+  }
+
   revalidatePath("/admin/script-reviews");
   revalidatePath("/portal/pro/script-review");
   return { success: true };

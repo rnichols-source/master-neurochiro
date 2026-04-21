@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { AccountMenu } from "./AccountMenu";
+import { NotificationBell } from "./NotificationBell";
 import { SearchBar } from "./SearchBar";
 import { Suspense } from "react";
 
@@ -67,7 +68,10 @@ export async function DashboardLayout({
                 </Suspense>
               </div>
             </div>
-            <AccountMenu userEmail={userEmail} userTier={userTier} />
+            <div className="flex items-center gap-3">
+              <NotificationBell />
+              <AccountMenu userEmail={userEmail} userTier={userTier} />
+            </div>
           </div>
           {/* Mobile search — full width below */}
           <div className="md:hidden px-4 pb-3">
