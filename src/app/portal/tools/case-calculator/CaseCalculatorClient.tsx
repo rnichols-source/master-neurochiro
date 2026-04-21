@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import {
   ChevronLeft, ChevronRight, Printer, Save, Trash2, Plus, X,
-  User, Activity, ClipboardList, DollarSign, FileText, Calculator
+  User, Activity, ClipboardList, DollarSign, FileText, Calculator,
+  Settings, RotateCcw
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -30,11 +31,11 @@ interface SavedPlan {
   data: any;
 }
 
-// Complaints and duration options
-const COMPLAINTS = ["Neck Pain", "Low Back Pain", "Headaches/Migraines", "Sciatica", "Scoliosis", "Postural Issues", "Sports Injury", "Auto Accident", "Wellness/Prevention", "Other"];
-const DURATIONS = ["Less than 2 weeks", "2-6 weeks", "6 weeks - 3 months", "3-6 months", "6-12 months", "1+ year"];
+// Defaults (customizable via settings)
+const DEFAULT_COMPLAINTS = ["Neck Pain", "Low Back Pain", "Headaches/Migraines", "Sciatica", "Scoliosis", "Postural Issues", "Sports Injury", "Auto Accident", "Wellness/Prevention", "Other"];
+const DEFAULT_DURATIONS = ["Less than 2 weeks", "2-6 weeks", "6 weeks - 3 months", "3-6 months", "6-12 months", "1+ year"];
 
-const SCORING_CATEGORIES = [
+const DEFAULT_SCORING = [
   { name: "Postural Distortion", low: "Minimal", high: "Severe" },
   { name: "Range of Motion", low: "Full ROM", high: "Severely Restricted" },
   { name: "Neurological Findings", low: "Normal", high: "Significant Compromise" },
@@ -42,10 +43,44 @@ const SCORING_CATEGORIES = [
   { name: "Functional Limitation", low: "No Limitation", high: "Unable to Perform Daily Activities" },
 ];
 
+const DEFAULT_PHASES: PlanPhase[] = [
+  { name: "Intensive", visitsPerWeek: 3, weeks: 4 },
+  { name: "Corrective", visitsPerWeek: 2, weeks: 6 },
+  { name: "Stabilization", visitsPerWeek: 1, weeks: 8 },
+];
+
+const DEFAULT_PAYMENT_SPLITS = [2, 3, 6, 12];
+
 const STORAGE_KEY = "neurochiro_care_plans";
+const SETTINGS_KEY = "neurochiro_care_plan_settings";
+
+interface PracticeSettings {
+  doctorName: string;
+  practiceName: string;
+  defaultFee: number;
+  defaultDiscount: number;
+  complaints: string[];
+  scoringCategories: { name: string; low: string; high: string }[];
+  paymentSplits: number[];
+  customPhaseNames: string[];
+}
 
 export function CaseCalculatorClient() {
   const [step, setStep] = useState(1);
+  const [showSettings, setShowSettings] = useState(false);
+  const [manualPlanEdit, setManualPlanEdit] = useState(false);
+
+  // Practice settings (persisted)
+  const [settings, setSettings] = useState<PracticeSettings>({
+    doctorName: "",
+    practiceName: "",
+    defaultFee: 65,
+    defaultDiscount: 10,
+    complaints: DEFAULT_COMPLAINTS,
+    scoringCategories: DEFAULT_SCORING,
+    paymentSplits: DEFAULT_PAYMENT_SPLITS,
+    customPhaseNames: ["Intensive", "Corrective", "Stabilization"],
+  });
 
   // Step 1: Patient info
   const [patientName, setPatientName] = useState("");
@@ -55,11 +90,7 @@ export function CaseCalculatorClient() {
   const [scores, setScores] = useState([3, 3, 3, 3, 3]);
 
   // Step 2: Plan
-  const [phases, setPhases] = useState<PlanPhase[]>([
-    { name: "Intensive", visitsPerWeek: 3, weeks: 4 },
-    { name: "Corrective", visitsPerWeek: 2, weeks: 6 },
-    { name: "Stabilization", visitsPerWeek: 1, weeks: 8 },
-  ]);
+  const [phases, setPhases] = useState<PlanPhase[]>(DEFAULT_PHASES);
   const [perVisitFee, setPerVisitFee] = useState(65);
 
   // Step 3: Financial
@@ -71,19 +102,34 @@ export function CaseCalculatorClient() {
   // History
   const [savedPlans, setSavedPlans] = useState<SavedPlan[]>([]);
 
-  // Load saved plans from localStorage
+  // Load saved plans and settings from localStorage
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) setSavedPlans(JSON.parse(saved));
+      const savedSettings = localStorage.getItem(SETTINGS_KEY);
+      if (savedSettings) {
+        const s = JSON.parse(savedSettings);
+        setSettings(s);
+        setPerVisitFee(s.defaultFee || 65);
+        setDiscountPercent(s.defaultDiscount || 10);
+        setScores(new Array(s.scoringCategories?.length || 5).fill(3));
+      }
     } catch {}
   }, []);
 
-  // Calculations
+  const saveSettings = (newSettings: PracticeSettings) => {
+    setSettings(newSettings);
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(newSettings));
+  };
+
+  // Calculations — severity adapts to number of categories
+  const maxScore = settings.scoringCategories.length * 5;
   const severityScore = scores.reduce((a, b) => a + b, 0);
-  const severityLabel = severityScore <= 10 ? "Mild" : severityScore <= 17 ? "Moderate" : "Severe";
-  const severityColor = severityScore <= 10 ? "text-green-600" : severityScore <= 17 ? "text-brand-orange" : "text-red-500";
-  const severityBg = severityScore <= 10 ? "bg-green-500" : severityScore <= 17 ? "bg-brand-orange" : "bg-red-500";
+  const severityPercent = maxScore > 0 ? severityScore / maxScore : 0;
+  const severityLabel = severityPercent <= 0.4 ? "Mild" : severityPercent <= 0.68 ? "Moderate" : "Severe";
+  const severityColor = severityPercent <= 0.4 ? "text-green-600" : severityPercent <= 0.68 ? "text-brand-orange" : "text-red-500";
+  const severityBg = severityPercent <= 0.4 ? "bg-green-500" : severityPercent <= 0.68 ? "bg-brand-orange" : "bg-red-500";
 
   const totalVisits = phases.reduce((sum, p) => sum + p.visitsPerWeek * p.weeks, 0);
   const totalWeeks = phases.reduce((sum, p) => sum + p.weeks, 0);
@@ -94,31 +140,45 @@ export function CaseCalculatorClient() {
   const pifTotal = grandTotal - pifDiscount;
   const costPerDay = totalWeeks > 0 ? Math.ceil(grandTotal / (totalWeeks * 7)) : 0;
 
-  // Auto-suggest plan based on severity
-  useEffect(() => {
-    if (severityScore <= 10) {
+  // Auto-suggest plan based on severity — only if user hasn't manually edited
+  const applySuggestion = () => {
+    const names = settings.customPhaseNames.length >= 3 ? settings.customPhaseNames : ["Intensive", "Corrective", "Stabilization"];
+    if (severityPercent <= 0.4) {
       setPhases([
-        { name: "Intensive", visitsPerWeek: 2, weeks: 4 },
-        { name: "Corrective", visitsPerWeek: 1, weeks: 4 },
-        { name: "Stabilization", visitsPerWeek: 1, weeks: 8 },
+        { name: names[0], visitsPerWeek: 2, weeks: 4 },
+        { name: names[1], visitsPerWeek: 1, weeks: 4 },
+        { name: names[2], visitsPerWeek: 1, weeks: 8 },
       ]);
-    } else if (severityScore <= 17) {
+    } else if (severityPercent <= 0.68) {
       setPhases([
-        { name: "Intensive", visitsPerWeek: 3, weeks: 4 },
-        { name: "Corrective", visitsPerWeek: 2, weeks: 6 },
-        { name: "Stabilization", visitsPerWeek: 1, weeks: 8 },
+        { name: names[0], visitsPerWeek: 3, weeks: 4 },
+        { name: names[1], visitsPerWeek: 2, weeks: 6 },
+        { name: names[2], visitsPerWeek: 1, weeks: 8 },
       ]);
     } else {
       setPhases([
-        { name: "Intensive", visitsPerWeek: 4, weeks: 4 },
-        { name: "Corrective", visitsPerWeek: 3, weeks: 6 },
-        { name: "Stabilization", visitsPerWeek: 2, weeks: 8 },
+        { name: names[0], visitsPerWeek: 4, weeks: 4 },
+        { name: names[1], visitsPerWeek: 3, weeks: 6 },
+        { name: names[2], visitsPerWeek: 2, weeks: 8 },
       ]);
     }
-  }, [severityScore]);
+    setManualPlanEdit(false);
+  };
 
-  const updatePhase = (index: number, field: keyof PlanPhase, value: number) => {
+  const updatePhase = (index: number, field: keyof PlanPhase, value: number | string) => {
     setPhases(prev => prev.map((p, i) => i === index ? { ...p, [field]: value } : p));
+    setManualPlanEdit(true);
+  };
+
+  const addPhase = () => {
+    setPhases(prev => [...prev, { name: "New Phase", visitsPerWeek: 1, weeks: 4 }]);
+    setManualPlanEdit(true);
+  };
+
+  const removePhase = (index: number) => {
+    if (phases.length <= 1) return;
+    setPhases(prev => prev.filter((_, i) => i !== index));
+    setManualPlanEdit(true);
   };
 
   const addAddOn = () => {
@@ -185,10 +245,72 @@ export function CaseCalculatorClient() {
       <Link href="/portal/tools" className="text-sm text-brand-gray hover:text-brand-navy transition-colors inline-block no-print">&larr; Back to Tools</Link>
 
       {/* Header */}
-      <div className="no-print">
-        <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Care Plan Builder</h1>
-        <p className="text-sm text-brand-gray font-medium mt-1">Build and present care plans for your patients.</p>
+      <div className="no-print flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Care Plan Builder</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Build and present care plans for your patients.</p>
+        </div>
+        <button onClick={() => setShowSettings(!showSettings)} className={cn("p-2.5 rounded-xl transition-colors", showSettings ? "bg-brand-orange text-white" : "bg-brand-navy/5 text-brand-navy/40 hover:text-brand-navy")}>
+          <Settings className="w-5 h-5" />
+        </button>
       </div>
+
+      {/* Settings Panel */}
+      {showSettings && (
+        <div className="bg-white rounded-2xl border border-brand-orange/20 p-5 md:p-6 shadow-sm space-y-5 no-print">
+          <h2 className="text-base font-black text-brand-navy">Practice Settings</h2>
+          <p className="text-xs text-brand-gray">These save automatically and apply to all future care plans.</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-brand-navy">Doctor Name</label>
+              <input type="text" value={settings.doctorName} onChange={e => saveSettings({ ...settings, doctorName: e.target.value })} placeholder="Dr. Smith" className="w-full bg-brand-navy/5 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none" />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-brand-navy">Practice Name</label>
+              <input type="text" value={settings.practiceName} onChange={e => saveSettings({ ...settings, practiceName: e.target.value })} placeholder="Spine & Wellness Clinic" className="w-full bg-brand-navy/5 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none" />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-brand-navy">Default Per-Visit Fee ($)</label>
+              <input type="number" value={settings.defaultFee} onChange={e => { const v = Number(e.target.value) || 0; saveSettings({ ...settings, defaultFee: v }); setPerVisitFee(v); }} className="w-full bg-brand-navy/5 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none" />
+            </div>
+            <div className="space-y-1">
+              <label className="text-xs font-bold text-brand-navy">Default PIF Discount (%)</label>
+              <input type="number" value={settings.defaultDiscount} onChange={e => { const v = Number(e.target.value) || 0; saveSettings({ ...settings, defaultDiscount: v }); setDiscountPercent(v); }} className="w-full bg-brand-navy/5 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none" />
+            </div>
+          </div>
+
+          {/* Custom Payment Splits */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-brand-navy">Payment Split Options (months)</label>
+            <div className="flex flex-wrap gap-2">
+              {settings.paymentSplits.map((split, i) => (
+                <div key={i} className="flex items-center gap-1 bg-brand-navy/5 rounded-lg px-2 py-1">
+                  <input type="number" value={split} onChange={e => { const newSplits = [...settings.paymentSplits]; newSplits[i] = Number(e.target.value) || 2; saveSettings({ ...settings, paymentSplits: newSplits }); }} className="w-12 bg-transparent text-sm font-bold text-brand-navy outline-none text-center" />
+                  <button onClick={() => saveSettings({ ...settings, paymentSplits: settings.paymentSplits.filter((_, j) => j !== i) })} className="text-red-400 hover:text-red-600"><X className="w-3 h-3" /></button>
+                </div>
+              ))}
+              <button onClick={() => saveSettings({ ...settings, paymentSplits: [...settings.paymentSplits, settings.paymentSplits.length + 2] })} className="text-xs font-bold text-brand-orange flex items-center gap-1 px-2 py-1"><Plus className="w-3 h-3" /> Add</button>
+            </div>
+          </div>
+
+          {/* Custom Phase Names */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-brand-navy">Default Phase Names</label>
+            <div className="flex flex-wrap gap-2">
+              {settings.customPhaseNames.map((name, i) => (
+                <div key={i} className="flex items-center gap-1 bg-brand-navy/5 rounded-lg px-2 py-1">
+                  <input type="text" value={name} onChange={e => { const newNames = [...settings.customPhaseNames]; newNames[i] = e.target.value; saveSettings({ ...settings, customPhaseNames: newNames }); }} className="w-24 bg-transparent text-sm font-bold text-brand-navy outline-none" />
+                  {settings.customPhaseNames.length > 1 && <button onClick={() => saveSettings({ ...settings, customPhaseNames: settings.customPhaseNames.filter((_, j) => j !== i) })} className="text-red-400 hover:text-red-600"><X className="w-3 h-3" /></button>}
+                </div>
+              ))}
+              <button onClick={() => saveSettings({ ...settings, customPhaseNames: [...settings.customPhaseNames, "Phase " + (settings.customPhaseNames.length + 1)] })} className="text-xs font-bold text-brand-orange flex items-center gap-1 px-2 py-1"><Plus className="w-3 h-3" /> Add</button>
+            </div>
+          </div>
+
+          <button onClick={() => setShowSettings(false)} className="text-sm font-bold text-brand-orange">Done — close settings</button>
+        </div>
+      )}
 
       {/* Progress Bar */}
       <div className="flex items-center justify-between no-print">
@@ -233,14 +355,14 @@ export function CaseCalculatorClient() {
                 <label className="text-xs font-bold text-brand-navy">Chief Complaint</label>
                 <select value={complaint} onChange={e => setComplaint(e.target.value)} className="w-full bg-brand-navy/5 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none appearance-none">
                   <option value="">Select...</option>
-                  {COMPLAINTS.map(c => <option key={c} value={c}>{c}</option>)}
+                  {settings.complaints.map((c: string) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-bold text-brand-navy">Duration</label>
                 <select value={duration} onChange={e => setDuration(e.target.value)} className="w-full bg-brand-navy/5 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none appearance-none">
                   <option value="">Select...</option>
-                  {DURATIONS.map(d => <option key={d} value={d}>{d}</option>)}
+                  {DEFAULT_DURATIONS.map((d: string) => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
             </div>
@@ -251,11 +373,11 @@ export function CaseCalculatorClient() {
             <div className="flex items-center justify-between">
               <h2 className="text-base font-black text-brand-navy">Clinical Scoring</h2>
               <div className={cn("px-3 py-1 rounded-full text-xs font-black", severityBg, "text-white")}>
-                {severityScore}/25 &mdash; {severityLabel}
+                {severityScore}/{maxScore} — {severityLabel}
               </div>
             </div>
 
-            {SCORING_CATEGORIES.map((cat, i) => (
+            {settings.scoringCategories.map((cat, i) => (
               <div key={cat.name} className="space-y-2">
                 <div className="flex justify-between">
                   <label className="text-sm font-bold text-brand-navy">{cat.name}</label>
@@ -285,13 +407,16 @@ export function CaseCalculatorClient() {
             ))}
 
             {/* Severity Summary */}
-            <div className={cn("rounded-xl p-4 text-center", severityScore <= 10 ? "bg-green-50" : severityScore <= 17 ? "bg-orange-50" : "bg-red-50")}>
+            <div className={cn("rounded-xl p-4 text-center", severityPercent <= 0.4 ? "bg-green-50" : severityPercent <= 0.68 ? "bg-orange-50" : "bg-red-50")}>
               <p className={cn("text-lg font-black", severityColor)}>Clinical Severity: {severityLabel}</p>
               <p className="text-xs text-brand-gray font-medium mt-1">
-                {severityScore <= 10 ? "Recommend a shorter corrective plan (~24 visits)" :
-                 severityScore <= 17 ? "Recommend a standard corrective plan (~32 visits)" :
+                {severityPercent <= 0.4 ? "Recommend a shorter corrective plan (~24 visits)" :
+                 severityPercent <= 0.68 ? "Recommend a standard corrective plan (~32 visits)" :
                  "Recommend an extended corrective plan (~48+ visits)"}
               </p>
+              <button onClick={applySuggestion} className="mt-3 text-xs font-bold text-brand-orange hover:text-brand-navy transition-colors inline-flex items-center gap-1">
+                <RotateCcw className="w-3 h-3" /> Apply suggested plan
+              </button>
             </div>
           </div>
 
@@ -315,9 +440,17 @@ export function CaseCalculatorClient() {
 
             {phases.map((phase, i) => (
               <div key={i} className="bg-brand-navy/5 rounded-xl p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-black text-brand-navy">{phase.name} Phase</h3>
-                  <span className="text-sm font-black text-brand-orange">{phase.visitsPerWeek * phase.weeks} visits</span>
+                <div className="flex items-center justify-between gap-2">
+                  <input
+                    type="text"
+                    value={phase.name}
+                    onChange={e => updatePhase(i, "name", e.target.value)}
+                    className="text-sm font-black text-brand-navy bg-transparent outline-none border-b border-transparent focus:border-brand-orange/40 flex-1"
+                  />
+                  <span className="text-sm font-black text-brand-orange shrink-0">{phase.visitsPerWeek * phase.weeks} visits</span>
+                  {phases.length > 1 && (
+                    <button onClick={() => removePhase(i)} className="p-1 text-red-400 hover:text-red-600 shrink-0"><Trash2 className="w-3.5 h-3.5" /></button>
+                  )}
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
@@ -335,6 +468,10 @@ export function CaseCalculatorClient() {
                 </div>
               </div>
             ))}
+
+            <button onClick={addPhase} className="w-full py-3 border-2 border-dashed border-brand-navy/10 rounded-xl text-sm font-bold text-brand-navy/30 hover:border-brand-orange/30 hover:text-brand-orange transition-colors flex items-center justify-center gap-2">
+              <Plus className="w-4 h-4" /> Add Phase
+            </button>
           </div>
 
           {/* Per-Visit Fee */}
@@ -374,23 +511,21 @@ export function CaseCalculatorClient() {
               <p className="text-sm text-white/40 mt-2">{totalVisits} visits over {totalWeeks} weeks</p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-4 border-t border-white/10">
+            <div className={cn("grid gap-3 pt-4 border-t border-white/10", settings.paymentSplits.length <= 3 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-5")}>
               <div className="bg-white/5 rounded-xl p-3">
                 <p className="text-xs text-white/40 font-bold">Pay in Full</p>
                 <p className="text-lg font-black text-brand-orange">${pifTotal.toLocaleString()}</p>
                 <p className="text-xs text-green-400 font-bold">Save ${pifDiscount.toLocaleString()}</p>
               </div>
+              {settings.paymentSplits.map(split => (
+                <div key={split} className="bg-white/5 rounded-xl p-3">
+                  <p className="text-xs text-white/40 font-bold">{split} Payments</p>
+                  <p className="text-lg font-black">${Math.ceil(grandTotal / split).toLocaleString()}/mo</p>
+                </div>
+              ))}
               <div className="bg-white/5 rounded-xl p-3">
-                <p className="text-xs text-white/40 font-bold">2 Payments</p>
-                <p className="text-lg font-black">${Math.ceil(grandTotal / 2).toLocaleString()}/mo</p>
-              </div>
-              <div className="bg-white/5 rounded-xl p-3">
-                <p className="text-xs text-white/40 font-bold">3 Payments</p>
-                <p className="text-lg font-black">${Math.ceil(grandTotal / 3).toLocaleString()}/mo</p>
-              </div>
-              <div className="bg-white/5 rounded-xl p-3">
-                <p className="text-xs text-white/40 font-bold">6 Payments</p>
-                <p className="text-lg font-black">${Math.ceil(grandTotal / 6).toLocaleString()}/mo</p>
+                <p className="text-xs text-white/40 font-bold">Per Visit</p>
+                <p className="text-lg font-black">${perVisitFee.toLocaleString()}</p>
               </div>
             </div>
 
@@ -453,7 +588,8 @@ export function CaseCalculatorClient() {
           <div className="bg-white rounded-2xl border border-brand-navy/5 p-6 md:p-8 shadow-sm space-y-6 print-area">
             {/* Header */}
             <div className="text-center border-b border-brand-navy/10 pb-4">
-              <p className="text-xs font-black text-brand-orange uppercase tracking-widest">NeuroChiro Mastermind</p>
+              {settings.practiceName && <p className="text-xs font-black text-brand-orange uppercase tracking-widest">{settings.practiceName}</p>}
+              {!settings.practiceName && <p className="text-xs font-black text-brand-orange uppercase tracking-widest">Care Plan</p>}
               <h2 className="text-xl font-black text-brand-navy mt-1">Care Plan Summary</h2>
               <p className="text-sm text-brand-gray mt-1">{new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</p>
             </div>
@@ -510,10 +646,12 @@ export function CaseCalculatorClient() {
                   <p className="text-lg font-black text-brand-navy">${pifTotal.toLocaleString()}</p>
                   <p className="text-xs text-green-600 font-bold">Save ${pifDiscount.toLocaleString()}</p>
                 </div>
-                <div className="bg-brand-navy/5 rounded-xl p-3 text-center">
-                  <p className="text-xs font-bold text-brand-gray">3 Monthly Payments</p>
-                  <p className="text-lg font-black text-brand-navy">${Math.ceil(grandTotal / 3).toLocaleString()}/mo</p>
-                </div>
+                {settings.paymentSplits.length > 0 && (
+                  <div className="bg-brand-navy/5 rounded-xl p-3 text-center">
+                    <p className="text-xs font-bold text-brand-gray">{settings.paymentSplits[0]} Monthly Payments</p>
+                    <p className="text-lg font-black text-brand-navy">${Math.ceil(grandTotal / settings.paymentSplits[0]).toLocaleString()}/mo</p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -521,7 +659,7 @@ export function CaseCalculatorClient() {
             <div className="grid grid-cols-2 gap-8 pt-8 mt-8 border-t border-brand-navy/10">
               <div>
                 <div className="border-b border-brand-navy h-10" />
-                <p className="text-xs text-brand-gray mt-1">Doctor Signature / Date</p>
+                <p className="text-xs text-brand-gray mt-1">{settings.doctorName || "Doctor"} / Date</p>
               </div>
               <div>
                 <div className="border-b border-brand-navy h-10" />
