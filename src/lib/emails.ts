@@ -114,6 +114,25 @@ export const EmailService = {
     return this.send(email, 'Application Update: NeuroChiro Mastermind', html, 'app_rejected');
   },
 
+  async sendWaitlistConfirmation(email: string, name: string) {
+    const bookingLink = "https://calendly.com/neurochiro-pro/1-on-1";
+    const action = `<a href="${bookingLink}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Book a Free Call</a>`;
+    const html = getEmailTemplate(
+      "You're on the Cohort 3 Waitlist",
+      'Waitlist Confirmed',
+      `<p>Dr. ${name}, you're officially on the waitlist for Cohort 3 of the NeuroChiro Mastermind.</p>
+      <p><strong>What this means for you:</strong></p>
+      <ul style="margin: 10px 0; padding-left: 20px;">
+        <li>You'll get <strong>48-hour early access</strong> when enrollment opens</li>
+        <li>You lock in <strong>early bird pricing</strong> (before the price increase)</li>
+        <li>You'll receive updates on Cohort 2 wins and program improvements</li>
+      </ul>
+      <p>We'll email you the moment doors open. In the meantime, have questions?</p>`,
+      action
+    );
+    return this.send(email, "You're on the Cohort 3 Waitlist — NeuroChiro Mastermind", html, 'waitlist_confirmation');
+  },
+
   async sendAppWaitlisted(email: string, name: string) {
     const html = getEmailTemplate(
       'You\'re On the Waitlist',

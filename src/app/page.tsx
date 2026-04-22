@@ -76,7 +76,7 @@ export default function HomePage() {
             <div className="space-y-6 md:space-y-8 text-center md:text-left">
               <div className="inline-flex items-center gap-2 bg-brand-navy/5 rounded-full px-4 py-2">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-sm font-bold text-brand-navy">Next cohort: April 21 · 25 seats</span>
+                <span className="text-sm font-bold text-brand-navy">Cohort 2 in session · Cohort 3 waitlist is open</span>
               </div>
 
               <h1 className="text-[2rem] leading-[1.1] md:text-5xl font-black text-brand-navy tracking-tight">
@@ -99,8 +99,14 @@ export default function HomePage() {
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </BrandButton>
                 </Link>
-                <Link href="/pricing" className="px-6 py-4 text-sm font-bold text-brand-navy hover:text-brand-orange transition-colors text-center">
-                  See pricing →
+                <Link href="/waitlist">
+                  <BrandButton
+                    variant="outline"
+                    size="lg"
+                    className="group w-full sm:w-auto px-8 py-4 text-base"
+                  >
+                    Join Cohort 3 Waitlist
+                  </BrandButton>
                 </Link>
               </div>
 
@@ -334,6 +340,9 @@ export default function HomePage() {
 
             <p className="text-xs text-brand-gray text-center">
               Student pricing from $497. <Link href="/pricing" className="text-brand-orange hover:text-brand-navy transition-colors underline">See all options</Link>.
+            </p>
+            <p className="text-xs text-brand-orange font-bold text-center">
+              Cohort 3 pricing increases — <Link href="/waitlist" className="underline hover:text-brand-navy transition-colors">join the waitlist</Link> to lock in current rates.
             </p>
           </div>
 

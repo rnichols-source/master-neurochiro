@@ -34,6 +34,7 @@ export function MastermindHeader() {
     { name: "How It Works", href: "/#how-it-works" },
     { name: "Results", href: "/#results" },
     { name: "Pricing", href: "/#pricing" },
+    { name: "Waitlist", href: "/waitlist" },
   ];
 
   return (
