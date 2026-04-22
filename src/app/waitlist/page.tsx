@@ -565,7 +565,7 @@ export default function WaitlistPage() {
               />
             </div>
 
-            <div className="hidden md:block pt-2">
+            <div className="pt-2">
               <BrandButton
                 variant="accent"
                 type="submit"
