@@ -95,10 +95,10 @@ export default function WaitlistPage() {
             </div>
             <div className="border-t border-brand-navy/5 mt-3" />
             {[
-              { tier: "Standard", early: "$997", regular: "$1,497" },
-              { tier: "Student", early: "$497", regular: "$697" },
-              { tier: "Pro", early: "$1,997", regular: "$2,997" },
-              { tier: "Student Pro", early: "$997", regular: "$1,497" },
+              { tier: "Standard", early: "$997", plan: "or 3x $350", regular: "$1,497", regPlan: "or 3x $525" },
+              { tier: "Student", early: "$497", plan: "or 3x $175", regular: "$697", regPlan: "or 3x $250" },
+              { tier: "Pro", early: "$1,997", plan: "or 3x $800", regular: "$2,997", regPlan: "or 3x $1,100" },
+              { tier: "Student Pro", early: "$997", plan: "or 3x $350", regular: "$1,497", regPlan: "or 3x $525" },
             ].map((row) => (
               <div
                 key={row.tier}
@@ -107,12 +107,14 @@ export default function WaitlistPage() {
                 <p className="text-sm font-bold text-brand-navy text-left">
                   {row.tier}
                 </p>
-                <p className="text-sm font-black text-brand-orange">
-                  {row.early}
-                </p>
-                <p className="text-sm text-brand-gray line-through">
-                  {row.regular}
-                </p>
+                <div>
+                  <p className="text-sm font-black text-brand-orange">{row.early}</p>
+                  <p className="text-xs text-brand-orange/60 font-medium">{row.plan}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-brand-gray line-through">{row.regular}</p>
+                  <p className="text-xs text-brand-gray/40 line-through">{row.regPlan}</p>
+                </div>
               </div>
             ))}
           </div>
