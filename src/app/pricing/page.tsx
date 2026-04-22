@@ -97,14 +97,20 @@ const studentTiers = [
 ];
 
 async function handleCheckout(priceKey: string) {
-  const res = await fetch("/api/stripe/create-checkout", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ priceKey }),
-  });
-  const data = await res.json();
-  if (data.url) {
-    window.location.href = data.url;
+  try {
+    const res = await fetch("/api/stripe/create-checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ priceKey }),
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert(data.error || "Checkout failed. Please try again.");
+    }
+  } catch (err) {
+    alert("Connection error. Please try again.");
   }
 }
 
