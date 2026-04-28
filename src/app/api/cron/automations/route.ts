@@ -216,7 +216,8 @@ export async function GET(request: Request) {
       .from("profiles")
       .select("id, email, full_name, last_sign_in_at")
       .neq("tier", "admin")
-      .not("email", "is", null);
+      .not("email", "is", null)
+      .not("stripe_customer_id", "is", null);
 
     if (inactiveUsers) {
       for (const user of inactiveUsers) {
@@ -234,6 +235,15 @@ export async function GET(request: Request) {
 
         if (!alreadySent || alreadySent.length === 0) {
           await EmailService.sendReengagement(user.email, user.full_name || "Doctor", `${SITE}/portal`);
+          // Belt-and-suspenders: log directly in case EmailService logging fails
+          await supabase.from("automation_logs").insert({
+            user_id: user.id,
+            user_email: user.email,
+            event_type: "reengagement",
+            automation_type: "email",
+            status: "sent",
+            metadata: { source: "cron_direct_log" }
+          });
           results.push({ type: "reengagement", email: user.email });
         }
       }
