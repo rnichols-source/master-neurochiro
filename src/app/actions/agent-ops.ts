@@ -185,8 +185,9 @@ export async function runKPIReminders() {
 }
 
 /**
- * SENTINEL: Chase members stuck in onboarding (invited but not activated).
- * Dedup: max 1 chase per member per 3 days (allows follow-up, not just once ever).
+ * SENTINEL: Chase PAID members stuck in onboarding (invited but not activated).
+ * Only chases people whose email is in applications with status 'paid'.
+ * Dedup: max 1 chase per member per 3 days.
  */
 export async function runOnboardingChase() {
   const supabase = await createClient();
@@ -194,6 +195,7 @@ export async function runOnboardingChase() {
 
   try {
     const adminClient = createAdminClient();
+    const paidEmails = await getPaidMemberEmails(adminClient);
 
     // Get pending invitations older than 24 hours
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
@@ -207,11 +209,20 @@ export async function runOnboardingChase() {
       return { success: true, message: 'No stuck onboarding' };
     }
 
-    // Dedup: max 1 chase per 3 days (not once ever — allows follow-up)
+    // Only chase paid mastermind members
+    const paidInvitations = stuckInvitations.filter((inv) =>
+      inv.email && paidEmails.has(inv.email.toLowerCase())
+    );
+
+    if (paidInvitations.length === 0) {
+      return { success: true, message: 'No paid members stuck' };
+    }
+
+    // Dedup: max 1 chase per 3 days
     const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString();
     let sentCount = 0;
 
-    for (const inv of stuckInvitations) {
+    for (const inv of paidInvitations) {
       const { data: alreadySent } = await adminClient
         .from('automation_logs')
         .select('id')
@@ -307,13 +318,24 @@ export async function runApprovedReminders() {
   try {
     const adminClient = createAdminClient();
 
-    // Get approved applications
-    const { data: approved } = await adminClient
+    // Get approved applications — exclude test/internal emails
+    const { data: allApproved } = await adminClient
       .from('applications')
       .select('id, email, full_name, created_at')
       .eq('status', 'approved');
 
-    if (!approved || approved.length === 0) {
+    // Filter out test/admin emails
+    const approved = (allApproved || []).filter((a) => {
+      const lower = (a.email || '').toLowerCase();
+      return !lower.includes('test') &&
+        !lower.includes('@neurochiro.co') &&
+        !lower.includes('@neurochiro.com') &&
+        !lower.includes('@alignlife.com') &&
+        !lower.includes('pelhamfalls') &&
+        !lower.includes('neurochirodirectory');
+    });
+
+    if (approved.length === 0) {
       return { success: true, message: 'No approved apps' };
     }
 
