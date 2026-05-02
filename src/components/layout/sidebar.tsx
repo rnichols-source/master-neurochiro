@@ -15,6 +15,7 @@ import {
   FileText,
   Calculator,
   FolderOpen,
+  Bot,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -148,6 +149,7 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
             </p>
             {[
               { name: "Overview", href: "/admin", icon: ShieldCheck },
+              { name: "Agents", href: "/admin/agents", icon: Bot },
               { name: "Applications", href: "/admin/applications", icon: Users },
               { name: "Cohorts", href: "/admin/cohorts", icon: Activity },
             ].map((item) => {
