@@ -6,16 +6,26 @@ import { checkAdmin } from '@/app/actions/agent-actions'
 import { EmailService } from '@/lib/emails'
 
 /**
- * Helper: Get admin user ID so we never email ourselves.
+ * Helper: Get the emails of real paid mastermind members.
+ * Source of truth: applications table with status = 'paid'.
+ * This is the ONLY way someone gets on the contactable list.
  */
-async function getAdminUserId(adminClient: any) {
+async function getPaidMemberEmails(adminClient: any): Promise<Set<string>> {
   const { data } = await adminClient
-    .from('profiles')
-    .select('id')
-    .eq('tier', 'admin')
-    .limit(1)
-    .single();
-  return data?.id || null;
+    .from('applications')
+    .select('email')
+    .eq('status', 'paid');
+  return new Set((data || []).map((d: any) => d.email?.toLowerCase()));
+}
+
+/**
+ * Helper: Filter a list of profiles to only real paid mastermind members.
+ * Uses the applications table (status = 'paid') as the single source of truth.
+ */
+function filterPaidMembers(profiles: any[], paidEmails: Set<string>): any[] {
+  return profiles.filter((p) =>
+    p.email && paidEmails.has(p.email.toLowerCase())
+  );
 }
 
 /**
@@ -29,9 +39,9 @@ export async function runPulseNudges() {
 
   try {
     const adminClient = createAdminClient();
-    const adminId = await getAdminUserId(adminClient);
+    const paidEmails = await getPaidMemberEmails(adminClient);
 
-    // Get at-risk members — only standard/pro, not admin
+    // Get at-risk members
     const { data: atRisk } = await adminClient
       .from('member_health')
       .select('user_id, health_score, last_activity')
@@ -41,19 +51,19 @@ export async function runPulseNudges() {
       return { success: true, message: 'No at-risk members' };
     }
 
-    // Filter out admin
-    const userIds = atRisk.map((m) => m.user_id).filter((id) => id !== adminId);
-    if (userIds.length === 0) return { success: true, message: 'No at-risk members' };
+    const userIds = atRisk.map((m) => m.user_id);
 
-    // Get profiles — only standard/pro tier
-    const { data: profiles } = await adminClient
+    // Get profiles
+    const { data: rawProfiles } = await adminClient
       .from('profiles')
       .select('id, email, full_name, tier')
-      .in('id', userIds)
-      .in('tier', ['standard', 'pro']);
+      .in('id', userIds);
 
-    if (!profiles || profiles.length === 0) {
-      return { success: true, message: 'No member profiles found' };
+    // Only paid mastermind members
+    const profiles = filterPaidMembers(rawProfiles || [], paidEmails);
+
+    if (profiles.length === 0) {
+      return { success: true, message: 'No paid at-risk members' };
     }
 
     // Dedup: skip anyone nudged in last 7 days
@@ -100,21 +110,19 @@ export async function runKPIReminders() {
 
   try {
     const adminClient = createAdminClient();
-    const adminId = await getAdminUserId(adminClient);
+    const paidEmails = await getPaidMemberEmails(adminClient);
 
-    // Get onboarded standard/pro members only
-    const { data: members } = await adminClient
+    // Get all profiles
+    const { data: rawMembers } = await adminClient
       .from('profiles')
-      .select('id, email, full_name')
-      .in('tier', ['standard', 'pro'])
-      .not('onboarding_completed_at', 'is', null);
+      .select('id, email, full_name');
 
-    if (!members || members.length === 0) {
-      return { success: true, message: 'No onboarded members' };
+    // Only paid mastermind members
+    const eligibleMembers = filterPaidMembers(rawMembers || [], paidEmails);
+
+    if (eligibleMembers.length === 0) {
+      return { success: true, message: 'No paid members' };
     }
-
-    // Filter out admin just in case
-    const eligibleMembers = members.filter((m) => m.id !== adminId);
 
     // Get who already submitted KPIs this week
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -235,7 +243,7 @@ export async function runReengagement() {
 
   try {
     const adminClient = createAdminClient();
-    const adminId = await getAdminUserId(adminClient);
+    const paidEmails = await getPaidMemberEmails(adminClient);
     const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
 
     // Get members whose last activity was 14+ days ago
@@ -248,19 +256,19 @@ export async function runReengagement() {
       return { success: true, message: 'No inactive members' };
     }
 
-    // Filter out admin
-    const userIds = inactive.map((m) => m.user_id).filter((id) => id !== adminId);
-    if (userIds.length === 0) return { success: true, message: 'No inactive members' };
+    const userIds = inactive.map((m) => m.user_id);
 
-    // Only standard/pro members
-    const { data: profiles } = await adminClient
+    // Get profiles
+    const { data: rawProfiles } = await adminClient
       .from('profiles')
       .select('id, email, full_name')
-      .in('id', userIds)
-      .in('tier', ['standard', 'pro']);
+      .in('id', userIds);
 
-    if (!profiles || profiles.length === 0) {
-      return { success: true, message: 'No inactive member profiles' };
+    // Only paid mastermind members
+    const profiles = filterPaidMembers(rawProfiles || [], paidEmails);
+
+    if (profiles.length === 0) {
+      return { success: true, message: 'No paid inactive members' };
     }
 
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
