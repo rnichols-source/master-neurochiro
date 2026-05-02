@@ -9,6 +9,7 @@ import {
   GraduationCap,
   Radio,
   Shield,
+  Crosshair,
   ArrowRight,
   Bot,
   Play,
@@ -31,6 +32,7 @@ import {
   runReengagement,
   runApprovedReminders,
 } from "@/app/actions/agent-ops";
+import { runBatchOutreach } from "@/app/actions/hunter-actions";
 
 interface HubStats {
   scout: { pendingApps: number };
@@ -39,6 +41,7 @@ interface HubStats {
   sage: { totalCompletions: number };
   echo: { pendingReviews: number; unreadMessages: number };
   sentinel: { failedAutomations: number };
+  hunter: { newProspects: number };
 }
 
 interface BriefingSection {
@@ -64,7 +67,7 @@ const statusColors = {
 };
 
 const agentIcons: Record<string, any> = {
-  Radar, HeartPulse, Trophy, GraduationCap, Radio, Shield,
+  Radar, HeartPulse, Trophy, GraduationCap, Radio, Shield, Crosshair,
 };
 
 const agents = [
@@ -140,6 +143,17 @@ const agents = [
     quickAction: "Chase Onboarding",
     quickActionKey: "sentinel" as const,
   },
+  {
+    name: "Hunter",
+    role: "Prospecting & Outreach",
+    href: "/admin/agents/hunter",
+    icon: Crosshair,
+    color: "text-orange-400",
+    bg: "bg-orange-400/10",
+    stat: (s: HubStats) => `${s.hunter.newProspects} prospects`,
+    quickAction: "Send Outreach",
+    quickActionKey: "hunter" as const,
+  },
 ];
 
 export function AgentsHubClient({ stats }: { stats: HubStats | null }) {
@@ -181,6 +195,9 @@ export function AgentsHubClient({ stats }: { stats: HubStats | null }) {
         case "sentinel":
           result = await runOnboardingChase();
           break;
+        case "hunter":
+          result = await runBatchOutreach(10);
+          break;
         case "echo":
           // Echo just navigates
           window.location.href = "/admin/agents/echo";
@@ -214,7 +231,7 @@ export function AgentsHubClient({ stats }: { stats: HubStats | null }) {
               Operations Team
             </h1>
             <p className="text-sm text-brand-gray font-medium mt-0.5">
-              Your AI-powered crew. 6 agents running your mastermind.
+              Your AI-powered crew. 7 agents running your mastermind.
             </p>
           </div>
         </div>

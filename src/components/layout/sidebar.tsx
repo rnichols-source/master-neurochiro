@@ -16,6 +16,7 @@ import {
   Calculator,
   FolderOpen,
   Bot,
+  Crosshair,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";

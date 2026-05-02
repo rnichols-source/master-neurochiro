@@ -71,6 +71,16 @@ export async function fetchAgentHubStats() {
       .from('member_progress')
       .select('*', { count: 'exact', head: true });
 
+    // Get mastermind prospect count
+    let newProspects = 0;
+    try {
+      const { count } = await supabase
+        .from('mastermind_prospects')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'new');
+      newProspects = count || 0;
+    } catch {}
+
     return {
       success: true,
       data: {
@@ -80,6 +90,7 @@ export async function fetchAgentHubStats() {
         sage: { totalCompletions: totalCompletions || 0 },
         echo: { pendingReviews: pendingReviews || 0, unreadMessages: unreadMessages || 0 },
         sentinel: { failedAutomations: failedAutomations || 0 },
+        hunter: { newProspects },
       }
     };
   } catch (err: any) {
