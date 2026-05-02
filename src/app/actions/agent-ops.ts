@@ -218,11 +218,24 @@ export async function runOnboardingChase() {
       return { success: true, message: 'No paid members stuck' };
     }
 
+    // Exclude anyone who already has a profile (they're already in the system)
+    const invEmails = paidInvitations.map((inv) => inv.email);
+    const { data: existingProfiles } = await adminClient
+      .from('profiles')
+      .select('email')
+      .in('email', invEmails);
+    const activeEmails = new Set((existingProfiles || []).map((p: any) => p.email?.toLowerCase()));
+    const reallyStuck = paidInvitations.filter((inv) => !activeEmails.has(inv.email?.toLowerCase()));
+
+    if (reallyStuck.length === 0) {
+      return { success: true, message: 'All paid members already activated' };
+    }
+
     // Dedup: max 1 chase per 3 days
     const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString();
     let sentCount = 0;
 
-    for (const inv of paidInvitations) {
+    for (const inv of reallyStuck) {
       const { data: alreadySent } = await adminClient
         .from('automation_logs')
         .select('id')
