@@ -6,8 +6,22 @@ import { checkAdmin } from '@/app/actions/agent-actions'
 import { EmailService } from '@/lib/emails'
 
 /**
+ * Helper: Get admin user ID so we never email ourselves.
+ */
+async function getAdminUserId(adminClient: any) {
+  const { data } = await adminClient
+    .from('profiles')
+    .select('id')
+    .eq('tier', 'admin')
+    .limit(1)
+    .single();
+  return data?.id || null;
+}
+
+/**
  * PULSE: Send re-engagement nudges to at-risk members via email.
- * Targets members with health_score < 40.
+ * Targets standard/pro members with health_score < 40.
+ * Skips admin. Dedup: max 1 nudge per member per 7 days.
  */
 export async function runPulseNudges() {
   const supabase = await createClient();
@@ -15,8 +29,9 @@ export async function runPulseNudges() {
 
   try {
     const adminClient = createAdminClient();
+    const adminId = await getAdminUserId(adminClient);
 
-    // Get at-risk members
+    // Get at-risk members — only standard/pro, not admin
     const { data: atRisk } = await adminClient
       .from('member_health')
       .select('user_id, health_score, last_activity')
@@ -26,23 +41,27 @@ export async function runPulseNudges() {
       return { success: true, message: 'No at-risk members' };
     }
 
-    // Get their profile info
-    const userIds = atRisk.map((m) => m.user_id);
+    // Filter out admin
+    const userIds = atRisk.map((m) => m.user_id).filter((id) => id !== adminId);
+    if (userIds.length === 0) return { success: true, message: 'No at-risk members' };
+
+    // Get profiles — only standard/pro tier
     const { data: profiles } = await adminClient
       .from('profiles')
-      .select('id, email, full_name')
-      .in('id', userIds);
+      .select('id, email, full_name, tier')
+      .in('id', userIds)
+      .in('tier', ['standard', 'pro']);
 
     if (!profiles || profiles.length === 0) {
-      return { success: true, message: 'No profiles found' };
+      return { success: true, message: 'No member profiles found' };
     }
 
-    // Check which ones haven't been nudged in the last 7 days
+    // Dedup: skip anyone nudged in last 7 days
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
     let sentCount = 0;
+    const skipped: string[] = [];
 
     for (const profile of profiles) {
-      // Dedup: check automation_logs
       const { data: alreadySent } = await adminClient
         .from('automation_logs')
         .select('id')
@@ -51,14 +70,21 @@ export async function runPulseNudges() {
         .gte('created_at', sevenDaysAgo)
         .limit(1);
 
-      if (alreadySent && alreadySent.length > 0) continue;
+      if (alreadySent && alreadySent.length > 0) {
+        skipped.push(profile.full_name || profile.email);
+        continue;
+      }
 
       const portalLink = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://neurochiromastermind.com'}/portal`;
       await EmailService.sendReengagement(profile.email, profile.full_name || 'Doctor', portalLink);
       sentCount++;
     }
 
-    return { success: true, message: `Sent ${sentCount} nudge${sentCount !== 1 ? 's' : ''}` };
+    const msg = sentCount > 0
+      ? `Sent ${sentCount} nudge${sentCount !== 1 ? 's' : ''}${skipped.length > 0 ? `, ${skipped.length} already nudged recently` : ''}`
+      : skipped.length > 0 ? `${skipped.length} already nudged this week` : 'No at-risk members';
+
+    return { success: true, message: msg };
   } catch (err: any) {
     return { success: false, message: err.message };
   }
@@ -66,6 +92,7 @@ export async function runPulseNudges() {
 
 /**
  * CHIEF: Send KPI submission reminders to members who haven't submitted this week.
+ * Only targets onboarded standard/pro members. Skips admin. Max 1 reminder per day.
  */
 export async function runKPIReminders() {
   const supabase = await createClient();
@@ -73,16 +100,21 @@ export async function runKPIReminders() {
 
   try {
     const adminClient = createAdminClient();
+    const adminId = await getAdminUserId(adminClient);
 
-    // Get all active members
+    // Get onboarded standard/pro members only
     const { data: members } = await adminClient
       .from('profiles')
       .select('id, email, full_name')
-      .in('tier', ['standard', 'pro']);
+      .in('tier', ['standard', 'pro'])
+      .not('onboarding_completed_at', 'is', null);
 
     if (!members || members.length === 0) {
-      return { success: true, message: 'No members' };
+      return { success: true, message: 'No onboarded members' };
     }
+
+    // Filter out admin just in case
+    const eligibleMembers = members.filter((m) => m.id !== adminId);
 
     // Get who already submitted KPIs this week
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -92,9 +124,13 @@ export async function runKPIReminders() {
       .gte('updated_at', weekAgo);
 
     const submittedIds = new Set((recentKPIs || []).map((k) => k.user_id));
-    const needsReminder = members.filter((m) => !submittedIds.has(m.id));
+    const needsReminder = eligibleMembers.filter((m) => !submittedIds.has(m.id));
 
-    // Dedup check
+    if (needsReminder.length === 0) {
+      return { success: true, message: `All ${eligibleMembers.length} members submitted` };
+    }
+
+    // Dedup: max 1 per day
     const todayKey = new Date().toISOString().slice(0, 10);
     let sentCount = 0;
 
@@ -131,7 +167,10 @@ export async function runKPIReminders() {
       sentCount++;
     }
 
-    return { success: true, message: `Sent ${sentCount} reminder${sentCount !== 1 ? 's' : ''}` };
+    return {
+      success: true,
+      message: `Sent ${sentCount} reminder${sentCount !== 1 ? 's' : ''} (${submittedIds.size} already submitted)`,
+    };
   } catch (err: any) {
     return { success: false, message: err.message };
   }
@@ -139,6 +178,7 @@ export async function runKPIReminders() {
 
 /**
  * SENTINEL: Chase members stuck in onboarding (invited but not activated).
+ * Dedup: max 1 chase per member per 3 days (allows follow-up, not just once ever).
  */
 export async function runOnboardingChase() {
   const supabase = await createClient();
@@ -159,15 +199,17 @@ export async function runOnboardingChase() {
       return { success: true, message: 'No stuck onboarding' };
     }
 
+    // Dedup: max 1 chase per 3 days (not once ever — allows follow-up)
+    const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString();
     let sentCount = 0;
 
     for (const inv of stuckInvitations) {
-      // Dedup
       const { data: alreadySent } = await adminClient
         .from('automation_logs')
         .select('id')
         .eq('user_email', inv.email)
         .eq('event_type', 'onboarding_chase')
+        .gte('created_at', threeDaysAgo)
         .limit(1);
 
       if (alreadySent && alreadySent.length > 0) continue;
@@ -185,6 +227,7 @@ export async function runOnboardingChase() {
 
 /**
  * SAGE / PULSE: Send re-engagement emails to members who haven't logged in for 14+ days.
+ * Only targets standard/pro. Skips admin. Dedup: max 1 per 7 days.
  */
 export async function runReengagement() {
   const supabase = await createClient();
@@ -192,6 +235,7 @@ export async function runReengagement() {
 
   try {
     const adminClient = createAdminClient();
+    const adminId = await getAdminUserId(adminClient);
     const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
 
     // Get members whose last activity was 14+ days ago
@@ -204,14 +248,19 @@ export async function runReengagement() {
       return { success: true, message: 'No inactive members' };
     }
 
-    const userIds = inactive.map((m) => m.user_id);
+    // Filter out admin
+    const userIds = inactive.map((m) => m.user_id).filter((id) => id !== adminId);
+    if (userIds.length === 0) return { success: true, message: 'No inactive members' };
+
+    // Only standard/pro members
     const { data: profiles } = await adminClient
       .from('profiles')
       .select('id, email, full_name')
-      .in('id', userIds);
+      .in('id', userIds)
+      .in('tier', ['standard', 'pro']);
 
     if (!profiles || profiles.length === 0) {
-      return { success: true, message: 'No profiles' };
+      return { success: true, message: 'No inactive member profiles' };
     }
 
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -241,6 +290,7 @@ export async function runReengagement() {
 
 /**
  * SCOUT: Send reminder emails to approved applicants who haven't paid yet.
+ * Dedup: max 1 per 7 days.
  */
 export async function runApprovedReminders() {
   const supabase = await createClient();
@@ -249,7 +299,7 @@ export async function runApprovedReminders() {
   try {
     const adminClient = createAdminClient();
 
-    // Get approved applications that don't have a matching profile (haven't paid/enrolled)
+    // Get approved applications
     const { data: approved } = await adminClient
       .from('applications')
       .select('id, email, full_name, created_at')
