@@ -227,6 +227,91 @@ export async function reviewScript(reviewId: string, feedback: string) {
   return { success: true };
 }
 
+// ─── Coaching Sessions (Audio Uploads) ────────────────────────────
+
+export async function fetchCoachingSessions() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Not authenticated", data: [] };
+
+  const { data, error } = await supabase
+    .from("coaching_sessions")
+    .select("*")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+
+  if (error) return { success: false, error: error.message, data: [] };
+  return { success: true, data: data || [] };
+}
+
+export async function createCoachingSession(title: string, description: string, audioUrl: string, fileName: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Not authenticated" };
+
+  const { error } = await supabase.from("coaching_sessions").insert([
+    { user_id: user.id, title, description, audio_url: audioUrl, file_name: fileName },
+  ]);
+
+  if (error) return { success: false, error: error.message };
+  revalidatePath("/portal/pro/coaching");
+  return { success: true };
+}
+
+export async function deleteCoachingSession(sessionId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Not authenticated" };
+
+  // Get the session to find the audio file path
+  const { data: session } = await supabase
+    .from("coaching_sessions")
+    .select("audio_url, user_id")
+    .eq("id", sessionId)
+    .single();
+
+  if (!session || session.user_id !== user.id) return { success: false, error: "Not found" };
+
+  // Delete the audio file from storage
+  if (session.audio_url) {
+    const path = session.audio_url.split("/coaching-audio/")[1];
+    if (path) {
+      await supabase.storage.from("coaching-audio").remove([decodeURIComponent(path)]);
+    }
+  }
+
+  const { error } = await supabase
+    .from("coaching_sessions")
+    .delete()
+    .eq("id", sessionId)
+    .eq("user_id", user.id);
+
+  if (error) return { success: false, error: error.message };
+  revalidatePath("/portal/pro/coaching");
+  return { success: true };
+}
+
+export async function fetchAdminCoachingSessions() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { success: false, data: [] };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("tier")
+    .eq("id", user.id)
+    .single();
+  if (profile?.tier !== "admin") return { success: false, data: [] };
+
+  const { data } = await supabase
+    .from("coaching_sessions")
+    .select("*, profiles!coaching_sessions_user_id_fkey(full_name, email)")
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  return { success: true, data: data || [] };
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────
 
 export async function fetchAdminUserId() {

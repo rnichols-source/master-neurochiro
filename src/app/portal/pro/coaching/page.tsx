@@ -1,9 +1,10 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { createClient } from "@/lib/supabase/server";
-import { fetchCoachingNotes } from "@/app/actions/pro-actions";
+import { fetchCoachingNotes, fetchCoachingSessions } from "@/app/actions/pro-actions";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { Lock, BookOpen, Calendar } from "lucide-react";
 import Link from "next/link";
+import CoachingClient from "./CoachingClient";
 
 function timeAgo(date: string) {
   const seconds = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
@@ -50,52 +51,68 @@ export default async function CoachingNotesPage() {
     );
   }
 
-  const { data: notes } = await fetchCoachingNotes();
+  const [{ data: notes }, { data: sessions }] = await Promise.all([
+    fetchCoachingNotes(),
+    fetchCoachingSessions(),
+  ]);
 
   return (
     <DashboardLayout>
       <div className="space-y-10">
         <div>
-          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Private Coaching Notes</h1>
-          <p className="text-sm text-brand-gray font-medium mt-1">Personal notes and insights from your 1-on-1 coaching sessions with Dr. Nichols.</p>
+          <h1 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">Coaching</h1>
+          <p className="text-sm text-brand-gray font-medium mt-1">Your coaching notes from Dr. Nichols and uploaded session recordings.</p>
         </div>
 
-        {notes && notes.length > 0 ? (
-          <div className="space-y-4">
-            {notes.map((note: { id: string; title: string; created_at: string; content: string }) => (
-              <EliteCard key={note.id} className="p-6">
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-lg font-black text-brand-navy">{note.title}</h3>
-                  <span className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest whitespace-nowrap ml-4">
-                    {timeAgo(note.created_at)}
-                  </span>
-                </div>
-                <p className="text-sm text-brand-navy/70 font-medium whitespace-pre-wrap leading-relaxed">{note.content}</p>
-              </EliteCard>
-            ))}
-          </div>
-        ) : (
-          <EliteCard className="p-12 text-center space-y-6">
-            <div className="w-16 h-16 bg-brand-navy/5 rounded-full flex items-center justify-center mx-auto">
-              <BookOpen className="w-8 h-8 text-brand-navy/40" />
+        {/* Coaching Notes from Dr. Nichols */}
+        <div className="space-y-4">
+          <h2 className="text-lg font-black text-brand-navy tracking-tight flex items-center gap-2">
+            <BookOpen className="w-5 h-5 text-brand-orange" />
+            Coaching Notes
+          </h2>
+
+          {notes && notes.length > 0 ? (
+            <div className="space-y-4">
+              {notes.map((note: { id: string; title: string; created_at: string; content: string }) => (
+                <EliteCard key={note.id} className="p-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-lg font-black text-brand-navy">{note.title}</h3>
+                    <span className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest whitespace-nowrap ml-4">
+                      {timeAgo(note.created_at)}
+                    </span>
+                  </div>
+                  <p className="text-sm text-brand-navy/70 font-medium whitespace-pre-wrap leading-relaxed">{note.content}</p>
+                </EliteCard>
+              ))}
             </div>
-            <div className="space-y-2">
-              <h3 className="text-lg font-black text-brand-navy">No coaching notes yet</h3>
-              <p className="text-sm text-brand-gray font-medium max-w-md mx-auto">
-                After your next 1-on-1 session, Dr. Nichols will add personalized notes and action items here.
-              </p>
-            </div>
-            <a
-              href="https://calendly.com/neurochiro-pro/1-on-1"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BrandButton variant="accent" className="px-8 py-3 gap-2">
-                <Calendar className="w-4 h-4" /> Book a 1-on-1 Session
-              </BrandButton>
-            </a>
-          </EliteCard>
-        )}
+          ) : (
+            <EliteCard className="p-8 text-center space-y-4">
+              <div className="space-y-2">
+                <h3 className="text-base font-black text-brand-navy">No coaching notes yet</h3>
+                <p className="text-sm text-brand-gray font-medium max-w-md mx-auto">
+                  After your next 1-on-1 session, Dr. Nichols will add personalized notes and action items here.
+                </p>
+              </div>
+              <a
+                href="https://calendly.com/neurochiro-pro/1-on-1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BrandButton variant="accent" className="px-6 py-2.5 gap-2">
+                  <Calendar className="w-4 h-4" /> Book a 1-on-1 Session
+                </BrandButton>
+              </a>
+            </EliteCard>
+          )}
+        </div>
+
+        {/* Session Recordings */}
+        <div className="space-y-4">
+          <h2 className="text-lg font-black text-brand-navy tracking-tight flex items-center gap-2">
+            <span className="text-brand-orange">Session Recordings</span>
+          </h2>
+          <CoachingClient sessions={sessions || []} />
+        </div>
       </div>
     </DashboardLayout>
   );
