@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: "What's the time commitment?",
-    a: "90 minutes per week for live coaching, plus 1-2 hours of curriculum and implementation work. Live calls are on Thursdays at 11 AM ET. Every session is recorded and available in your portal within 24 hours if you miss one.",
+    a: "60-90 minutes per week for live coaching, plus 1-2 hours of curriculum and implementation work. Doctor calls are Tuesdays at 12 PM ET. Student call time TBA. Every session is recorded and available in your portal within 24 hours if you miss one.",
   },
   {
     q: "What if I'm a student?",

@@ -294,7 +294,7 @@ export async function generateOutreach(prospectId: string) {
 
 I came across your profile${clinicRef}${locationRef} and wanted to reach out personally.
 
-I run a program called the NeuroChiro Mastermind — it's an 8-week clinical and business reconstruction for nervous system chiropractors. We focus on three things: how you communicate with patients, how you structure care plans, and how you build a practice that actually pays you what you're worth.
+I run a program called the NeuroChiro Mastermind — it's a 90-day coaching intensive for nervous system chiropractors. We focus on three things: how you communicate with patients, how you structure care plans, and how you build a practice that actually pays you what you're worth.
 
 Our last cohort had doctors adding $3-5K/month in collections within the first 4 weeks just by fixing their Day 1 and Day 2 flow.
 

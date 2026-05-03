@@ -145,7 +145,7 @@ export default function WaitlistPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-orange/10 rounded-full mb-6">
             <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
             <span className="text-sm font-bold text-brand-orange">
-              Cohort 3 forming now — only 50 spots
+              Cohort 3 starts July 21 — 30 seats for doctors
             </span>
           </div>
 
