@@ -94,7 +94,7 @@ export default async function CoachingNotesPage() {
                 </p>
               </div>
               <a
-                href="https://calendly.com/neurochiro-pro/1-on-1"
+                href="https://calendly.com/drray-neurochirodirectory/15min"
                 target="_blank"
                 rel="noopener noreferrer"
               >

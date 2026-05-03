@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function WaitlistConfirmationPage() {
-  const CALENDLY_URL = "https://calendly.com/neurochiro-pro/1-on-1";
+  const CALENDLY_URL = "https://calendly.com/drray-neurochirodirectory/15min";
 
   return (
     <div className="min-h-[100dvh] bg-brand-cream">

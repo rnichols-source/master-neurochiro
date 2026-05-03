@@ -42,7 +42,7 @@ export default function FreeTrainingConfirmation() {
               and see how the Mastermind can help.
             </p>
             <a
-              href="https://calendly.com/neurochiro-pro/discovery-call"
+              href="https://calendly.com/drray-neurochirodirectory/15min"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#E67E22] hover:bg-[#d4711d] text-white font-bold text-base py-4 px-8 rounded-xl transition-colors group"

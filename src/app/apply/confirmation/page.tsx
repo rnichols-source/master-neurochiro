@@ -21,7 +21,7 @@ function ConfirmationContent() {
   const firstName = name.split(" ").pop() || name;
 
   const isStudent = role === "Chiropractic Student";
-  const CALENDLY_URL = "https://calendly.com/neurochiro-pro/1-on-1";
+  const CALENDLY_URL = "https://calendly.com/drray-neurochirodirectory/15min";
 
   return (
     <div className="min-h-[100dvh] bg-brand-cream">

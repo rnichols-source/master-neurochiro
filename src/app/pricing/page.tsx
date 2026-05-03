@@ -456,7 +456,7 @@ export default function PricingPage() {
         <p className="text-sm text-brand-gray font-medium">
           Not sure if this is right for you?{" "}
           <a
-            href="https://calendly.com/neurochiro-pro/discovery-call"
+            href="https://calendly.com/drray-neurochirodirectory/15min"
             target="_blank"
             rel="noopener noreferrer"
             className="text-brand-orange hover:text-brand-navy underline transition-colors"

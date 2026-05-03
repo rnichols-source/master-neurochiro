@@ -6,7 +6,7 @@ import { checkAdmin } from '@/app/actions/agent-actions'
 import { EmailService } from '@/lib/emails'
 import { revalidatePath } from 'next/cache'
 
-const CALENDLY_LINK = 'https://calendly.com/neurochiro-pro/discovery-call'
+const CALENDLY_LINK = 'https://calendly.com/drray-neurochirodirectory/15min'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://neurochiromastermind.com'
 
 /**

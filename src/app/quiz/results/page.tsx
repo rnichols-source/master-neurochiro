@@ -109,7 +109,7 @@ function ResultsContent() {
         {/* CTA */}
         <div className="space-y-4">
           <a
-            href="https://calendly.com/neurochiro-pro/discovery-call"
+            href="https://calendly.com/drray-neurochirodirectory/15min"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 bg-[#E67E22] hover:bg-[#cf6e1b] text-white font-semibold text-lg px-8 py-4 rounded-lg transition-colors w-full"

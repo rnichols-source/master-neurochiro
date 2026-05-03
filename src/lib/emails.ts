@@ -79,7 +79,7 @@ export const EmailService = {
 
   // 1. APPLICATION FLOW
   async sendAppReceived(email: string, name: string) {
-    const bookingLink = "https://calendly.com/neurochiro-pro/1-on-1";
+    const bookingLink = "https://calendly.com/drray-neurochirodirectory/15min";
     const action = `<a href="${bookingLink}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Book a Free Call with Dr. Nichols</a>`;
     const html = getEmailTemplate(
       'Application Received',
@@ -115,7 +115,7 @@ export const EmailService = {
   },
 
   async sendWaitlistConfirmation(email: string, name: string) {
-    const bookingLink = "https://calendly.com/neurochiro-pro/1-on-1";
+    const bookingLink = "https://calendly.com/drray-neurochirodirectory/15min";
     const action = `<a href="${bookingLink}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Book a Free Call</a>`;
     const html = getEmailTemplate(
       "You're on the Cohort 3 Waitlist",
@@ -148,7 +148,7 @@ export const EmailService = {
   },
 
   async sendProWelcome(email: string, name: string) {
-    const bookingLink = "https://calendly.com/neurochiro-pro/1-on-1";
+    const bookingLink = "https://calendly.com/drray-neurochirodirectory/15min";
     const action = `<a href="${bookingLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Book Private 1:1 Call</a>`;
     const html = getEmailTemplate(
       'Welcome to Mastermind Pro', 
@@ -265,7 +265,7 @@ export const EmailService = {
   },
 
   async sendProBookingReminder(email: string, name: string) {
-    const bookingLink = "https://calendly.com/neurochiro-pro/1-on-1";
+    const bookingLink = "https://calendly.com/drray-neurochirodirectory/15min";
     const action = `<a href="${bookingLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Book Your 1:1 Call</a>`;
     const html = getEmailTemplate(
       'Your Private Call Is Waiting',

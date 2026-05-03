@@ -60,7 +60,7 @@ export default function LinksPage() {
           </Link>
 
           <a
-            href="https://calendly.com/neurochiro-pro/discovery-call"
+            href="https://calendly.com/drray-neurochirodirectory/15min"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white text-center hover:bg-white/10 transition-all"

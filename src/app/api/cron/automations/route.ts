@@ -376,7 +376,7 @@ export async function GET(request: Request) {
     // Day 2: Case study, Day 5: What's inside, Day 7: Discovery call, Day 10: Final push
     // (Day 0 is sent immediately on capture)
     // =========================================================
-    const CALENDLY = "https://calendly.com/neurochiro-pro/discovery-call";
+    const CALENDLY = "https://calendly.com/drray-neurochirodirectory/15min";
     const { data: leads } = await supabase
       .from("mastermind_prospects")
       .select("id, name, email, source, created_at")
