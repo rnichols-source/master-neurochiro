@@ -224,39 +224,9 @@ export default function PricingPage() {
     <div className="min-h-[100dvh] bg-brand-cream pb-24 md:pb-32">
       <MastermindHeader />
 
-      {/* Sticky Toggle */}
-      <div className="sticky top-[60px] md:top-[72px] z-30 bg-brand-cream/90 backdrop-blur-md py-3 px-5 md:px-6 border-b border-brand-navy/5 md:border-none md:bg-transparent md:backdrop-blur-none md:static md:py-0 md:pt-4">
-        <div className="flex justify-center">
-          <div className="inline-flex items-center bg-white border border-brand-navy/10 rounded-xl p-1.5 shadow-sm">
-            <button
-              onClick={() => setActiveTab("doctor")}
-              className={cn(
-                "px-5 md:px-6 py-3 rounded-lg text-sm font-bold transition-all touch-target",
-                activeTab === "doctor"
-                  ? "bg-brand-navy text-white shadow-md"
-                  : "text-brand-navy/50 hover:text-brand-navy"
-              )}
-            >
-              Doctors
-            </button>
-            <button
-              onClick={() => setActiveTab("student")}
-              className={cn(
-                "px-5 md:px-6 py-3 rounded-lg text-sm font-bold transition-all touch-target",
-                activeTab === "student"
-                  ? "bg-brand-navy text-white shadow-md"
-                  : "text-brand-navy/50 hover:text-brand-navy"
-              )}
-            >
-              Students
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Hero — Doctor */}
       {activeTab === "doctor" && (
-        <section className="pt-10 md:pt-16 pb-8 md:pb-12 px-5 md:px-6 text-center space-y-4 md:space-y-6">
+        <section className="pt-24 md:pt-40 pb-6 md:pb-8 px-5 md:px-6 text-center space-y-4 md:space-y-6">
           <h1 className="text-3xl md:text-6xl font-black text-brand-navy tracking-tight max-w-3xl mx-auto">
             Go from second-guessing to certainty in 90 days.
           </h1>
@@ -274,7 +244,7 @@ export default function PricingPage() {
 
       {/* Hero — Student */}
       {activeTab === "student" && (
-        <section className="pt-10 md:pt-16 pb-8 md:pb-12 px-5 md:px-6 text-center space-y-4 md:space-y-6">
+        <section className="pt-24 md:pt-40 pb-6 md:pb-8 px-5 md:px-6 text-center space-y-4 md:space-y-6">
           <h1 className="text-3xl md:text-6xl font-black text-brand-navy tracking-tight max-w-3xl mx-auto">
             Graduate ready — not guessing.
           </h1>
@@ -289,6 +259,34 @@ export default function PricingPage() {
           </div>
         </section>
       )}
+
+      {/* Toggle */}
+      <div className="flex justify-center py-6 px-5">
+        <div className="inline-flex items-center bg-white border border-brand-navy/10 rounded-xl p-1.5 shadow-sm">
+          <button
+            onClick={() => setActiveTab("doctor")}
+            className={cn(
+              "px-6 py-3 rounded-lg text-sm font-bold transition-all",
+              activeTab === "doctor"
+                ? "bg-brand-navy text-white shadow-md"
+                : "text-brand-navy/50 hover:text-brand-navy"
+            )}
+          >
+            Doctors
+          </button>
+          <button
+            onClick={() => setActiveTab("student")}
+            className={cn(
+              "px-6 py-3 rounded-lg text-sm font-bold transition-all",
+              activeTab === "student"
+                ? "bg-brand-navy text-white shadow-md"
+                : "text-brand-navy/50 hover:text-brand-navy"
+            )}
+          >
+            Students
+          </button>
+        </div>
+      </div>
 
       {/* Cohort Banner */}
       <div className="flex items-center justify-center gap-2 py-3 px-5">
