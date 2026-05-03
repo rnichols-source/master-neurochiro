@@ -24,7 +24,7 @@ const doctorIntensive = {
     "Care plan presentation framework",
     "Private cohort community",
     "Implementation sprint with real patients",
-    "Results guarantee: 70% acceptance or stay free",
+    "Guarantee: hit 70% acceptance or stay free (you do the work, we guarantee results)",
   ],
   cta: "Apply for Cohort 3",
   ctaLink: "/apply",
@@ -76,7 +76,7 @@ const studentIntensive = {
     "Build your professional brand before graduation",
     "Private student community",
     "Video submission feedback from Dr. Nichols",
-    "Confidence guarantee: present a care plan by Day 90 or stay free",
+    "Guarantee: confident presenting a care plan by Day 90 or stay free",
   ],
   cta: "Apply as Student",
   ctaLink: "/apply",
@@ -288,11 +288,23 @@ export default function PricingPage() {
         </div>
       </div>
 
+      {/* Who is this for? */}
+      {activeTab === "doctor" && (
+        <p className="text-sm text-brand-gray font-medium text-center px-5 pb-2">
+          For practice owners and associate doctors who are tired of second-guessing their recommendations. No practice is too small or too big.
+        </p>
+      )}
+      {activeTab === "student" && (
+        <p className="text-sm text-brand-gray font-medium text-center px-5 pb-2">
+          For chiro students in their final 2 years and new grads under 1 year out. No patients needed — you&apos;ll practice via role-play and video submissions. Separate calls from doctors.
+        </p>
+      )}
+
       {/* Cohort Banner */}
       <div className="flex items-center justify-center gap-2 py-3 px-5">
         <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
         <span className="text-sm font-bold text-brand-gray">
-          Cohort 3 starts July 21, 2026 &middot; 30 seats &middot; Applications open
+          Cohort 3 starts July 21, 2026 &middot; {activeTab === "doctor" ? "30 seats" : "Open enrollment"} &middot; Applications open
         </span>
       </div>
 
@@ -307,23 +319,74 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* How It Works */}
+      <section className="pt-16 md:pt-20 px-5 md:px-6">
+        <div className="max-w-3xl mx-auto text-center space-y-8">
+          <h3 className="text-xl md:text-2xl font-black text-brand-navy">
+            How It Works
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div className="space-y-2">
+              <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center">
+                <span className="text-lg font-black text-brand-orange">1</span>
+              </div>
+              <h4 className="text-sm font-black text-brand-navy">Apply &amp; Get Approved</h4>
+              <p className="text-sm text-brand-gray font-medium">Submit your application. We review it within 48 hours. If you&apos;re a fit, you&apos;re in.</p>
+            </div>
+            <div className="space-y-2">
+              <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center">
+                <span className="text-lg font-black text-brand-orange">2</span>
+              </div>
+              <h4 className="text-sm font-black text-brand-navy">Complete the 90-Day Intensive</h4>
+              <p className="text-sm text-brand-gray font-medium">13 weekly calls. Learn the system (Weeks 1-8), implement it on real patients (Weeks 9-10), prove it with your KPIs (Weeks 11-13).</p>
+            </div>
+            <div className="space-y-2">
+              <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center">
+                <span className="text-lg font-black text-brand-orange">3</span>
+              </div>
+              <h4 className="text-sm font-black text-brand-navy">Graduate to the Inner Circle</h4>
+              <p className="text-sm text-brand-gray font-medium">After 90 days, your results speak for themselves. Stay connected with monthly coaching at $397/month — completely optional, cancel anytime.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Guarantee (expanded) */}
+      <section className="pt-12 md:pt-16 px-5 md:px-6">
+        <div className="max-w-2xl mx-auto">
+          <EliteCard className="p-6 md:p-10 text-center space-y-4 border-brand-orange/20">
+            <Shield className="w-10 h-10 text-brand-orange mx-auto" />
+            <h3 className="text-xl font-black text-brand-navy">The Guarantee</h3>
+            {activeTab === "doctor" ? (
+              <p className="text-sm text-brand-gray font-medium leading-relaxed">
+                If your care plan acceptance rate doesn&apos;t hit 70% by Day 90, you stay in the program free until it does. The only condition: you have to do the work — show up to calls, submit your KPIs weekly, and implement the scripts. If you do the work and the numbers don&apos;t move, you don&apos;t pay. Simple as that.
+              </p>
+            ) : (
+              <p className="text-sm text-brand-gray font-medium leading-relaxed">
+                If you can&apos;t confidently present a full care plan by Day 90, you stay in the program free until you can. The condition: show up to calls, submit your assignments, and practice the scripts. If you put in the reps and still don&apos;t feel ready, you don&apos;t pay.
+              </p>
+            )}
+          </EliteCard>
+        </div>
+      </section>
+
       {/* Social Proof */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6 px-5 pt-10 max-w-3xl mx-auto">
         <div className="flex-1 text-center sm:text-left">
           <p className="text-sm text-brand-gray italic">
-            &ldquo;My revenue doubled during the program.&rdquo;
+            &ldquo;My care plan acceptance went from 42% to 78% in the first 6 weeks.&rdquo;
           </p>
           <p className="text-xs font-bold text-brand-navy mt-1">
-            — Dr. Melissa, Practicing Chiropractor
+            — Cohort 1 Member, Clinic Owner
           </p>
         </div>
         <div className="hidden sm:block w-px h-10 bg-brand-navy/10" />
         <div className="flex-1 text-center sm:text-left">
           <p className="text-sm text-brand-gray italic">
-            &ldquo;I finally know how to recommend care without the awkwardness.&rdquo;
+            &ldquo;I finally present care with certainty. My patients feel it and my collections show it.&rdquo;
           </p>
           <p className="text-xs font-bold text-brand-navy mt-1">
-            — Dr. Mike, Practicing Chiropractor
+            — Cohort 2 Member, Associate Doctor
           </p>
         </div>
       </div>
@@ -331,14 +394,14 @@ export default function PricingPage() {
       {/* Not Sure CTA */}
       <div className="text-center px-5 pt-8">
         <p className="text-sm text-brand-gray font-medium">
-          Not sure which track is right for you?{" "}
+          Not sure if this is right for you?{" "}
           <a
             href="https://calendly.com/neurochiro-pro/discovery-call"
             target="_blank"
             rel="noopener noreferrer"
             className="text-brand-orange hover:text-brand-navy underline transition-colors"
           >
-            Book a free 15-min call with Dr. Nichols
+            Book a free 15-min call with Dr. Nichols — no pitch, just a conversation
           </a>
         </p>
       </div>
