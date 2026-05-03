@@ -371,6 +371,141 @@ export async function GET(request: Request) {
       }
     }
 
+    // =========================================================
+    // LEAD NURTURE — 5-email sequence for mastermind_prospects
+    // Day 2: Case study, Day 5: What's inside, Day 7: Discovery call, Day 10: Final push
+    // (Day 0 is sent immediately on capture)
+    // =========================================================
+    const CALENDLY = "https://calendly.com/neurochiro-pro/discovery-call";
+    const { data: leads } = await supabase
+      .from("mastermind_prospects")
+      .select("id, name, email, source, created_at")
+      .in("source", ["free_training", "quiz"])
+      .in("status", ["new", "contacted"])
+      .not("email", "is", null);
+
+    if (leads) {
+      for (const lead of leads) {
+        const daysSince = (Date.now() - new Date(lead.created_at).getTime()) / (1000 * 60 * 60 * 24);
+        const firstName = lead.name?.split(" ")[0] || "Doctor";
+
+        // Day 2: Case study
+        if (daysSince >= 2 && daysSince < 4) {
+          const key = "lead_nurture_day2";
+          const { data: sent } = await supabase.from("automation_logs").select("id").eq("user_email", lead.email).eq("event_type", key).limit(1);
+          if (!sent || sent.length === 0) {
+            const html = `
+              <div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#fff;background-color:#0A192F;border-radius:12px;">
+                <p style="text-transform:uppercase;letter-spacing:0.2em;font-size:11px;font-weight:800;color:#E67E22;margin-bottom:20px;">Member Spotlight</p>
+                <h1 style="font-size:28px;font-weight:900;margin-bottom:30px;">How One Doctor Added $4K/Month in 8 Weeks</h1>
+                <div style="font-size:16px;line-height:1.8;color:rgba(255,255,255,0.85);margin-bottom:40px;">
+                  <p>Dr. ${firstName},</p>
+                  <p>When this doctor joined the Mastermind, they were seeing 80 visits/week but collecting under $15K/month. Their care plan acceptance rate was under 40%.</p>
+                  <p><strong>8 weeks later:</strong></p>
+                  <ul style="margin:10px 0;padding-left:20px;">
+                    <li>Care plan acceptance jumped to 78%</li>
+                    <li>Collections increased by $4,200/month</li>
+                    <li>Patient retention doubled</li>
+                  </ul>
+                  <p>The difference? They fixed their Day 1 script and restructured how they present care plans. That's exactly what we work on in the Mastermind.</p>
+                  <p>Curious if this could work for your practice?</p>
+                </div>
+                <div style="margin-bottom:40px;"><a href="${CALENDLY}" style="background-color:#E67E22;color:#fff;padding:16px 32px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;">Book a Free Discovery Call</a></div>
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:40px 0;"/>
+                <p style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;text-align:center;">NeuroChiro Global Mastermind</p>
+              </div>`;
+            await EmailService.send(lead.email, "How One Doctor Added $4K/Month in 8 Weeks", html, key);
+            results.push({ type: key, email: lead.email });
+          }
+        }
+
+        // Day 5: What's inside the Mastermind
+        if (daysSince >= 5 && daysSince < 7) {
+          const key = "lead_nurture_day5";
+          const { data: sent } = await supabase.from("automation_logs").select("id").eq("user_email", lead.email).eq("event_type", key).limit(1);
+          if (!sent || sent.length === 0) {
+            const html = `
+              <div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#fff;background-color:#0A192F;border-radius:12px;">
+                <p style="text-transform:uppercase;letter-spacing:0.2em;font-size:11px;font-weight:800;color:#E67E22;margin-bottom:20px;">Inside the Mastermind</p>
+                <h1 style="font-size:28px;font-weight:900;margin-bottom:30px;">What 8 Weeks Actually Looks Like</h1>
+                <div style="font-size:16px;line-height:1.8;color:rgba(255,255,255,0.85);margin-bottom:40px;">
+                  <p>Dr. ${firstName},</p>
+                  <p>Here's the quick breakdown of what happens inside the NeuroChiro Mastermind:</p>
+                  <p><strong>Week 1-2:</strong> Identity & Neurology — who you are as a doctor and how you explain what you do</p>
+                  <p><strong>Week 3-4:</strong> Communication & Philosophy — scripts, objection handling, building trust fast</p>
+                  <p><strong>Week 5-6:</strong> Business & Care Plans — pricing, Day 1/Day 2 flow, collections systems</p>
+                  <p><strong>Week 7-8:</strong> Patient Management & Scaling — retention, contracts, building a real business</p>
+                  <p>Plus: weekly live calls, KPI tracking, Pro members get 1-on-1 coaching with me.</p>
+                  <p>It's not theory — it's implementation. You build as you learn.</p>
+                </div>
+                <div style="margin-bottom:40px;"><a href="${CALENDLY}" style="background-color:#E67E22;color:#fff;padding:16px 32px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;">See If It's a Fit — Free Call</a></div>
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:40px 0;"/>
+                <p style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;text-align:center;">NeuroChiro Global Mastermind</p>
+              </div>`;
+            await EmailService.send(lead.email, "What 8 Weeks Inside the Mastermind Looks Like", html, key);
+            results.push({ type: key, email: lead.email });
+          }
+        }
+
+        // Day 7: Is this right for you?
+        if (daysSince >= 7 && daysSince < 9) {
+          const key = "lead_nurture_day7";
+          const { data: sent } = await supabase.from("automation_logs").select("id").eq("user_email", lead.email).eq("event_type", key).limit(1);
+          if (!sent || sent.length === 0) {
+            const html = `
+              <div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#fff;background-color:#0A192F;border-radius:12px;">
+                <p style="text-transform:uppercase;letter-spacing:0.2em;font-size:11px;font-weight:800;color:#E67E22;margin-bottom:20px;">Real Talk</p>
+                <h1 style="font-size:28px;font-weight:900;margin-bottom:30px;">Is This Right for You?</h1>
+                <div style="font-size:16px;line-height:1.8;color:rgba(255,255,255,0.85);margin-bottom:40px;">
+                  <p>Dr. ${firstName},</p>
+                  <p>The Mastermind isn't for everyone. It's for chiropractors who:</p>
+                  <ul style="margin:10px 0;padding-left:20px;">
+                    <li>Believe in nervous system-based care (not just pain chasing)</li>
+                    <li>Want to build a real business, not just a busy practice</li>
+                    <li>Are willing to be coached and do the work</li>
+                    <li>Are tired of figuring it out alone</li>
+                  </ul>
+                  <p>If that sounds like you, let's talk. I set aside 15 minutes for a quick discovery call — no pitch, just a real conversation about where your practice is and where you want it to go.</p>
+                </div>
+                <div style="margin-bottom:40px;"><a href="${CALENDLY}" style="background-color:#E67E22;color:#fff;padding:16px 32px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;">Book Your Discovery Call</a></div>
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:40px 0;"/>
+                <p style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;text-align:center;">NeuroChiro Global Mastermind</p>
+              </div>`;
+            await EmailService.send(lead.email, "Is the Mastermind Right for You?", html, key);
+            results.push({ type: key, email: lead.email });
+          }
+        }
+
+        // Day 10: Final push
+        if (daysSince >= 10 && daysSince < 12) {
+          const key = "lead_nurture_day10";
+          const { data: sent } = await supabase.from("automation_logs").select("id").eq("user_email", lead.email).eq("event_type", key).limit(1);
+          if (!sent || sent.length === 0) {
+            const html = `
+              <div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#fff;background-color:#0A192F;border-radius:12px;">
+                <p style="text-transform:uppercase;letter-spacing:0.2em;font-size:11px;font-weight:800;color:#E67E22;margin-bottom:20px;">Last Chance</p>
+                <h1 style="font-size:28px;font-weight:900;margin-bottom:30px;">Next Cohort Is Filling Up</h1>
+                <div style="font-size:16px;line-height:1.8;color:rgba(255,255,255,0.85);margin-bottom:40px;">
+                  <p>Dr. ${firstName},</p>
+                  <p>This is my last email in this series — I don't want to be that person.</p>
+                  <p>But I'd be doing you a disservice if I didn't tell you: our next Mastermind cohort is filling up, and spots are limited.</p>
+                  <p>If there's even a small part of you that knows your practice could be more — more collections, more impact, more confidence — then take 15 minutes and let's talk.</p>
+                  <p>No pressure. No pitch. Just a conversation.</p>
+                </div>
+                <div style="margin-bottom:40px;"><a href="${CALENDLY}" style="background-color:#E67E22;color:#fff;padding:16px 32px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;">Book a Call Before Spots Fill</a></div>
+                <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:20px;">
+                  <p>Either way, keep doing great work. — Dr. Ray</p>
+                </div>
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:40px 0;"/>
+                <p style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;text-align:center;">NeuroChiro Global Mastermind</p>
+              </div>`;
+            await EmailService.send(lead.email, "Last Call — Next Cohort Filling Up", html, key);
+            results.push({ type: key, email: lead.email });
+          }
+        }
+      }
+    }
+
     return NextResponse.json({ success: true, processed: results, count: results.length });
   } catch (error: any) {
     console.error("Cron Error:", error);

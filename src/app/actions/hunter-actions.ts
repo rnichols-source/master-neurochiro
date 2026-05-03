@@ -10,6 +10,104 @@ const CALENDLY_LINK = 'https://calendly.com/neurochiro-pro/discovery-call'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://neurochiromastermind.com'
 
 /**
+ * Create a lead from a public capture page (free-training or quiz).
+ * No auth required — this is called from public pages.
+ */
+export async function createLeadFromCapture(data: {
+  name: string;
+  email: string;
+  source: 'free_training' | 'quiz';
+  fit_score?: number;
+  notes?: string;
+}) {
+  try {
+    const adminClient = createAdminClient()
+
+    // Check if this email already exists
+    const { data: existing } = await adminClient
+      .from('mastermind_prospects')
+      .select('id')
+      .eq('email', data.email)
+      .limit(1)
+
+    if (existing && existing.length > 0) {
+      return { success: true, message: 'Already in pipeline', duplicate: true }
+    }
+
+    // Also check applications
+    const { data: existingApp } = await adminClient
+      .from('applications')
+      .select('id')
+      .eq('email', data.email)
+      .limit(1)
+
+    if (existingApp && existingApp.length > 0) {
+      return { success: true, message: 'Already applied', duplicate: true }
+    }
+
+    // Insert the lead
+    const { error } = await adminClient.from('mastermind_prospects').insert([{
+      name: data.name,
+      email: data.email,
+      source: data.source,
+      status: 'new',
+      fit_score: data.fit_score || 50,
+      notes: data.notes || null,
+    }])
+
+    if (error) return { success: false, error: error.message }
+
+    // Send Day 0 email
+    if (data.source === 'free_training') {
+      const html = `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #ffffff; background-color: #0A192F; border-radius: 12px;">
+          <p style="text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; font-weight: 800; color: #E67E22; margin-bottom: 20px;">Free Training</p>
+          <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 30px;">Your Training Is Ready</h1>
+          <div style="font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 40px;">
+            <p>Hey Dr. ${data.name.split(' ')[0]},</p>
+            <p>Thanks for signing up. Your free training — <strong>"The 3 Mistakes Nervous System Chiropractors Make That Kill Their Collections"</strong> — is ready to watch.</p>
+            <p>Inside, you'll learn the exact framework our Mastermind members use to fix their Day 1 and Day 2 flow and add $3-5K/month in collections.</p>
+          </div>
+          <div style="margin-bottom: 40px;">
+            <a href="${SITE_URL}/free-training/confirmation" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Watch the Training</a>
+          </div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 20px;">
+            <p>Want to skip ahead and talk directly?</p>
+            <a href="${CALENDLY_LINK}" style="color: #E67E22; text-decoration: underline;">Book a free 15-min call with Dr. Ray →</a>
+          </div>
+          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+        </div>
+      `
+      await EmailService.send(data.email, 'Your Free Training Is Ready', html, 'lead_free_training')
+    } else if (data.source === 'quiz') {
+      const scoreLabel = (data.fit_score || 50) >= 70 ? 'Strong' : (data.fit_score || 50) >= 40 ? 'Developing' : 'Needs Work'
+      const html = `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #ffffff; background-color: #0A192F; border-radius: 12px;">
+          <p style="text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; font-weight: 800; color: #E67E22; margin-bottom: 20px;">Practice Assessment</p>
+          <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 30px;">Your Practice Score: ${data.fit_score || 50}/100</h1>
+          <div style="font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 40px;">
+            <p>Hey Dr. ${data.name.split(' ')[0]},</p>
+            <p>Your practice scored <strong>${data.fit_score || 50}/100</strong> — that puts you in the <strong>"${scoreLabel}"</strong> category.</p>
+            <p>I've prepared a personalized breakdown of your results with specific action steps. To get the full report, book a quick 15-minute call with me — I'll walk you through exactly what to focus on first.</p>
+          </div>
+          <div style="margin-bottom: 40px;">
+            <a href="${CALENDLY_LINK}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Get Your Full Results — Book a Call</a>
+          </div>
+          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+        </div>
+      `
+      await EmailService.send(data.email, `Your Practice Score: ${data.fit_score || 50}/100`, html, 'lead_quiz_results')
+    }
+
+    return { success: true }
+  } catch (err: any) {
+    return { success: false, error: err.message }
+  }
+}
+
+/**
  * Fetch the mastermind prospect pipeline.
  */
 export async function fetchHunterPipeline() {
