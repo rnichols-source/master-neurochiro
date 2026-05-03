@@ -85,7 +85,7 @@ export const EmailService = {
       'Application Received',
       'Admissions Update',
       `<p>Dr. ${name}, we&rsquo;ve received your application for the NeuroChiro Mastermind. Dr. Nichols will personally review it and you&rsquo;ll hear back within 48 hours.</p>
-      <p><strong>Next cohort starts April 21, 2026</strong> &mdash; seats are limited and filling fast.</p>
+      <p><strong>Cohort 3 starts July 21, 2026</strong> &mdash; 30 seats for doctors, applications closing soon.</p>
       <p>Have questions about the program or want to discuss your practice before your review? Book a free 15-minute call:</p>`,
       action
     );
@@ -143,7 +143,7 @@ export const EmailService = {
   },
 
   async sendWelcome(email: string, name: string) {
-    const html = getEmailTemplate('Welcome to the Mastermind', 'Your Portal Is Ready', `<p>Dr. ${name}, your portal access is now active. Log in to start your 8-week program.</p>`);
+    const html = getEmailTemplate('Welcome to the Mastermind', 'Your Portal Is Ready', `<p>Dr. ${name}, your portal access is now active. Log in to start your 90-day Intensive.</p>`);
     return this.send(email, 'Welcome to the Mastermind', html, 'welcome_onboarding');
   },
 
@@ -192,7 +192,7 @@ export const EmailService = {
 
   async sendCouncilTransition(email: string, name: string, applyLink: string) {
     const action = `<a href="${applyLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Apply for Council</a>`;
-    const html = getEmailTemplate('The Next Evolution', 'Mastermind Completion', `<p>Dr. ${name}, congratulations on completing the 8-week framework.</p>`, action);
+    const html = getEmailTemplate('The Next Evolution', 'Mastermind Completion', `<p>Dr. ${name}, congratulations on completing the 90-Day Intensive.</p>`, action);
     return this.send(email, 'Next Steps: NeuroChiro Council', html, 'council_transition');
   },
 
@@ -251,7 +251,7 @@ export const EmailService = {
       5: "You're halfway through! Business: What School NEVER Taught You. Submit your KPIs and compare to Week 1 — the numbers tell the story.",
       6: "Week 6: Care Plans, Day 1 / Day 2 Mastery. Master the architecture of consultations and report of findings.",
       7: "Week 7: Patient Management & Long-Term Clinical Leadership. Build retention systems and lead patients through complete care plans.",
-      8: "Final week! Ownership, Contracts & Scaling. Complete your last module, review your 8-week progress, and plan your next chapter.",
+      8: "Final curriculum week! Ownership, Contracts & Scaling. Complete your last module — then it's time to Build and Prove in Weeks 9-13.",
     };
     const message = weekMessages[weekNumber] || "A new week of content is available in your portal.";
     const action = `<a href="${moduleLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Open This Week's Module</a>`;

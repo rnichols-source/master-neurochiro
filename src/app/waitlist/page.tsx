@@ -155,7 +155,7 @@ export default function WaitlistPage() {
           </h1>
 
           <p className="text-lg md:text-xl text-brand-gray font-medium leading-relaxed max-w-3xl mx-auto mb-8">
-            The NeuroChiro Mastermind is an 8-week live coaching program that gives you the
+            The NeuroChiro Mastermind is a 90-day coaching intensive that gives you the
             scripts, systems, and confidence to communicate like a pro, present care plans
             patients actually accept, and build the practice you were trained for.
           </p>
@@ -174,11 +174,11 @@ export default function WaitlistPage() {
           <div className="flex flex-wrap gap-6 justify-center text-sm text-brand-gray font-medium">
             <span className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-brand-orange" />
-              14-day money-back guarantee
+              Results guarantee — or stay free
             </span>
             <span className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-brand-orange" />
-              8 weeks of live coaching
+              13 weeks of live coaching
             </span>
             <span className="flex items-center gap-2">
               <Lock className="w-4 h-4 text-brand-orange" />
@@ -261,7 +261,7 @@ export default function WaitlistPage() {
       <section className="bg-white py-16 md:py-24 px-5 md:px-6">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl md:text-4xl font-black text-brand-navy text-center mb-4">
-            The 8-Week Curriculum
+            The 90-Day Curriculum
           </h2>
           <p className="text-brand-gray text-center text-base md:text-lg mb-12 max-w-2xl mx-auto">
             Each week builds on the last. By Week 8, you&apos;ll run your practice with a completely different level of clarity and confidence.

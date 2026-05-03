@@ -3,7 +3,7 @@ import { MastermindHeader } from "@/components/layout/mastermind-header";
 
 export const metadata: Metadata = {
   title: "Curriculum",
-  description: "The 8-week roadmap for clinical certainty and practice growth.",
+  description: "The 90-day roadmap for clinical certainty and practice growth.",
 };
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import { 
@@ -107,7 +107,7 @@ export default function CurriculumPage() {
             What You&apos;ll Learn
           </h1>
           <p className="text-base md:text-lg text-brand-gray font-medium max-w-2xl mx-auto">
-            8 weeks of live coaching, practical scripts, and real implementation. Here&apos;s the roadmap.
+            90 days of live coaching, practical scripts, and real implementation. Here&apos;s the roadmap.
           </p>
         </div>
       </section>
@@ -202,7 +202,7 @@ export default function CurriculumPage() {
         <div className="max-w-4xl mx-auto bg-brand-navy rounded-2xl p-8 md:p-12 text-center text-white space-y-6">
           <h2 className="text-2xl md:text-4xl font-black tracking-tight">Ready to Apply?</h2>
           <p className="text-base text-white/50 font-medium max-w-xl mx-auto">
-            If the 8-week roadmap looks like what you need, take the next step.
+            If the 90-day roadmap looks like what you need, take the next step.
           </p>
           <Link href="/apply">
             <BrandButton variant="accent" size="lg" className="group py-5 px-10">

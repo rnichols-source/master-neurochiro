@@ -39,7 +39,7 @@ export default function EventSuccessPage() {
             <p className="text-sm text-white/30 font-medium">
               Want to go deeper?{" "}
               <Link href="/apply" className="text-brand-orange hover:text-white transition-colors underline">
-                Join the 8-week Mastermind
+                Join the 90-Day Mastermind Intensive
               </Link>
             </p>
           </div>

@@ -397,11 +397,11 @@ export async function GET(request: Request) {
             const html = `
               <div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#fff;background-color:#0A192F;border-radius:12px;">
                 <p style="text-transform:uppercase;letter-spacing:0.2em;font-size:11px;font-weight:800;color:#E67E22;margin-bottom:20px;">Member Spotlight</p>
-                <h1 style="font-size:28px;font-weight:900;margin-bottom:30px;">How One Doctor Added $4K/Month in 8 Weeks</h1>
+                <h1 style="font-size:28px;font-weight:900;margin-bottom:30px;">How One Doctor Added $4K/Month in 90 Days</h1>
                 <div style="font-size:16px;line-height:1.8;color:rgba(255,255,255,0.85);margin-bottom:40px;">
                   <p>Dr. ${firstName},</p>
                   <p>When this doctor joined the Mastermind, they were seeing 80 visits/week but collecting under $15K/month. Their care plan acceptance rate was under 40%.</p>
-                  <p><strong>8 weeks later:</strong></p>
+                  <p><strong>90 days later:</strong></p>
                   <ul style="margin:10px 0;padding-left:20px;">
                     <li>Care plan acceptance jumped to 78%</li>
                     <li>Collections increased by $4,200/month</li>
@@ -414,7 +414,7 @@ export async function GET(request: Request) {
                 <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:40px 0;"/>
                 <p style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;text-align:center;">NeuroChiro Global Mastermind</p>
               </div>`;
-            await EmailService.send(lead.email, "How One Doctor Added $4K/Month in 8 Weeks", html, key);
+            await EmailService.send(lead.email, "How One Doctor Added $4K/Month in 90 Days", html, key);
             results.push({ type: key, email: lead.email });
           }
         }
@@ -427,7 +427,7 @@ export async function GET(request: Request) {
             const html = `
               <div style="font-family:'Helvetica Neue',Arial,sans-serif;max-width:600px;margin:0 auto;padding:40px 20px;color:#fff;background-color:#0A192F;border-radius:12px;">
                 <p style="text-transform:uppercase;letter-spacing:0.2em;font-size:11px;font-weight:800;color:#E67E22;margin-bottom:20px;">Inside the Mastermind</p>
-                <h1 style="font-size:28px;font-weight:900;margin-bottom:30px;">What 8 Weeks Actually Looks Like</h1>
+                <h1 style="font-size:28px;font-weight:900;margin-bottom:30px;">What 90 Days Actually Looks Like</h1>
                 <div style="font-size:16px;line-height:1.8;color:rgba(255,255,255,0.85);margin-bottom:40px;">
                   <p>Dr. ${firstName},</p>
                   <p>Here's the quick breakdown of what happens inside the NeuroChiro Mastermind:</p>
@@ -442,7 +442,7 @@ export async function GET(request: Request) {
                 <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:40px 0;"/>
                 <p style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;text-align:center;">NeuroChiro Global Mastermind</p>
               </div>`;
-            await EmailService.send(lead.email, "What 8 Weeks Inside the Mastermind Looks Like", html, key);
+            await EmailService.send(lead.email, "What 90 Days Inside the Mastermind Looks Like", html, key);
             results.push({ type: key, email: lead.email });
           }
         }

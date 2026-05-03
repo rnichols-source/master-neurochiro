@@ -51,7 +51,7 @@ export default function WaitlistConfirmationPage() {
             </h2>
             <div className="space-y-3">
               {[
-                "8 weeks of live group coaching (small cohorts, max 50)",
+                "13 weeks of live coaching (90-Day Intensive, max 30 per cohort)",
                 "Word-for-word patient communication scripts",
                 "Weekly KPI tracking with personalized benchmarks",
                 "Day 1 consultation and Day 2 report of findings mastery",

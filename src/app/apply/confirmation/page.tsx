@@ -116,9 +116,9 @@ function ConfirmationContent() {
                   While you wait — explore the program
                 </h2>
                 <p className="text-sm text-white/70 font-medium leading-relaxed max-w-md mx-auto">
-                  See exactly what&apos;s included in the 8-week mastermind,
-                  including the clinical engine, communication playbook, and
-                  student pricing at $497.
+                  See exactly what&apos;s included in the 90-day Foundations Intensive,
+                  including clinical curriculum, interview prep, and
+                  student pricing at $197/month.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                   <Link href="/pricing">
@@ -172,7 +172,7 @@ function ConfirmationContent() {
                 </div>
 
                 <p className="text-xs text-white/40 font-medium">
-                  Next cohort starts April 21, 2026 — seats are limited
+                  Cohort 3 starts July 21, 2026 — applications open
                 </p>
               </>
             )}

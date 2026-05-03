@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     default: "NeuroChiro Mastermind | The Elite Chiropractic Coaching Program",
     template: "%s | NeuroChiro Mastermind",
   },
-  description: "The premier 8-week chiropractic mastermind and coaching program. Master patient communication, clinical certainty, report of findings architecture, and practice growth.",
+  description: "The 90-day chiropractic coaching intensive. Master patient communication, clinical certainty, care plan acceptance, and practice growth.",
   keywords: ["chiropractic coaching", "chiropractic mastermind", "chiropractic mentorship", "chiropractic business coaching", "chiropractic practice management", "report of findings training", "chiropractic patient communication"],
   manifest: "/manifest.json",
   icons: {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "NeuroChiro Mastermind | Elite Chiropractic Coaching",
-    description: "Join the elite 8-week chiropractic mastermind. Master patient communication, clinical certainty, and practice growth.",
+    description: "Join the 90-day chiropractic coaching intensive. Go from second-guessing to certainty. Master patient communication, care plans, and practice growth.",
     url: "https://neurochiromastermind.com",
     siteName: "NeuroChiro Mastermind",
     images: [
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NeuroChiro Mastermind | Elite Chiropractic Coaching",
-    description: "The elite 8-week chiropractic mastermind for modern chiropractors.",
+    description: "The 90-day chiropractic coaching intensive for nervous system chiropractors.",
     images: ["/logo-dark.png"],
   },
   robots: {

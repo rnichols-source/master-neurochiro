@@ -72,8 +72,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                <div className="space-y-8 relative z-10 text-center">
                   <h2 className="text-4xl font-black tracking-tight leading-none">Ready to Master Your Practice?</h2>
                   <p className="text-white/40 text-lg max-w-xl mx-auto font-medium">
-                    This training is just a fraction of what we install inside the 8-week NeuroChiro Mastermind. 
-                    If you're ready for clinical certainty, apply today.
+                    This training is just a fraction of what we install inside the 90-Day NeuroChiro Mastermind Intensive.
+                    If you&apos;re ready for clinical certainty, apply today.
                   </p>
                   <Link href="/apply" className="inline-block">
                     <BrandButton variant="accent" size="lg" className="group py-6 px-12">
