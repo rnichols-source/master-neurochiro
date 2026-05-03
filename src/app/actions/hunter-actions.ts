@@ -61,15 +61,15 @@ export async function createLeadFromCapture(data: {
     if (data.source === 'free_training') {
       const html = `
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #ffffff; background-color: #0A192F; border-radius: 12px;">
-          <p style="text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; font-weight: 800; color: #E67E22; margin-bottom: 20px;">Free Training</p>
-          <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 30px;">Your Training Is Ready</h1>
+          <p style="text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; font-weight: 800; color: #E67E22; margin-bottom: 20px;">Free Session</p>
+          <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 30px;">Your Session Is Ready</h1>
           <div style="font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 40px;">
             <p>Hey Dr. ${data.name.split(' ')[0]},</p>
-            <p>Thanks for signing up. Your free training — <strong>"The 3 Mistakes Nervous System Chiropractors Make That Kill Their Collections"</strong> — is ready to watch.</p>
-            <p>Inside, you'll learn the exact framework our Mastermind members use to fix their Day 1 and Day 2 flow and add $3-5K/month in collections.</p>
+            <p>Thanks for signing up. Your free coaching session — <strong>a real, uncut Week 1 call from Cohort 2 with Dr. Raymond Nichols</strong> — is ready to watch.</p>
+            <p>You'll see exactly how we coach, what we cover in Week 1, and why our members go from 40% to 80% care plan acceptance.</p>
           </div>
           <div style="margin-bottom: 40px;">
-            <a href="${SITE_URL}/free-training/confirmation" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Watch the Training</a>
+            <a href="${SITE_URL}/free-training/confirmation" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Watch the Session</a>
           </div>
           <div style="font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 20px;">
             <p>Want to skip ahead and talk directly?</p>

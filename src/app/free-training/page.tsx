@@ -53,18 +53,16 @@ export default function FreeTrainingPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#E67E22]/10 rounded-full mb-8">
             <span className="w-2 h-2 bg-[#E67E22] rounded-full animate-pulse" />
             <span className="text-sm font-bold text-[#E67E22] uppercase tracking-wider">
-              Free Training
+              Free Session
             </span>
           </div>
 
           <h1 className="text-3xl md:text-5xl lg:text-[3.5rem] font-black text-white tracking-tight leading-[1.1] mb-6">
-            The 3 Mistakes Nervous System Chiropractors Make That Kill Their
-            Collections
+            Watch a Real Mastermind Coaching Session — Uncut
           </h1>
 
           <p className="text-lg md:text-xl text-white/60 font-medium leading-relaxed max-w-2xl mx-auto mb-10">
-            Learn the exact framework our Mastermind members use to add
-            $3-5K/month &mdash; in under 20 minutes.
+            This is an actual Week 1 call from Cohort 2 with Dr. Raymond Nichols. See exactly how we coach, what we cover, and why our members go from 40% to 80% care plan acceptance.
           </p>
 
           {/* Inline Email Capture Form */}
@@ -127,28 +125,28 @@ export default function FreeTrainingPage() {
       <section className="px-5 md:px-6 py-16 md:py-20 border-t border-white/5">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl md:text-4xl font-black text-white text-center mb-4">
-            What You&apos;ll Learn
+            What You&apos;ll See Inside
           </h2>
           <p className="text-white/50 text-center text-base md:text-lg mb-12 max-w-2xl mx-auto">
-            Three practice-killing mistakes &mdash; and how to fix each one.
+            A real coaching session — not a highlight reel. Here&apos;s what Week 1 covers.
           </p>
 
           <div className="grid md:grid-cols-3 gap-5">
             {[
               {
                 icon: MessageSquare,
-                title: "The Day 1 Script Gap",
-                desc: "Most chiropractors lose patients before the first adjustment because of how they run their consultation.",
+                title: "Your Identity as a Doctor",
+                desc: "The framework for defining who you are as a nervous system chiropractor — and why it changes everything about how patients respond to you.",
               },
               {
                 icon: Calculator,
-                title: "The Care Plan Math Error",
-                desc: "Why your patients say \u2018I\u2019ll think about it\u2019 and what to say instead.",
+                title: "Live Coaching & Q&A",
+                desc: "Watch Dr. Ray coach real Mastermind members through their biggest challenges. This is what every weekly call looks like.",
               },
               {
                 icon: TrendingUp,
-                title: "The Collections Ceiling",
-                desc: "The one number you\u2019re not tracking that determines whether your practice grows or stalls.",
+                title: "The Week 1 Assignment",
+                desc: "The homework that kicks off the 90-day transformation. Most members say this single exercise changed how they show up in practice.",
               },
             ].map((card) => (
               <div
@@ -182,7 +180,7 @@ export default function FreeTrainingPage() {
             </span>
           </div>
           <p className="text-lg md:text-xl text-white/60 font-medium">
-            Join 100+ chiropractors who&apos;ve transformed their practice
+            Join 150+ chiropractors who&apos;ve transformed their practice
           </p>
         </div>
       </section>

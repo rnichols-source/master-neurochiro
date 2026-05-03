@@ -17,7 +17,7 @@ const links = [
     external: false,
   },
   {
-    label: "Free Training: 3 Mistakes That Kill Collections",
+    label: "Watch a Real Mastermind Session — Free",
     href: "/free-training",
     accent: false,
     external: false,
@@ -90,7 +90,7 @@ export default function LinksPage() {
               />
             </div>
             <h1 className="text-white text-2xl font-black tracking-tight">
-              Dr. Ray Nichols
+              Dr. Raymond Nichols
             </h1>
             <p className="text-white/40 text-sm font-medium mt-1">
               Chiropractor &bull; Practice Owner &bull; Coach
