@@ -112,7 +112,7 @@ export function MastermindHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 top-0 z-40 bg-brand-cream"
+            className="md:hidden fixed inset-0 top-0 z-[60] bg-brand-cream"
           >
             {/* Drawer header with close button */}
             <div className="flex items-center justify-between px-5 py-4 safe-top">
