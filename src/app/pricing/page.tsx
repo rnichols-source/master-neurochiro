@@ -227,11 +227,12 @@ export default function PricingPage() {
       {/* Hero — Doctor */}
       {activeTab === "doctor" && (
         <section className="pt-24 md:pt-40 pb-6 md:pb-8 px-5 md:px-6 text-center space-y-4 md:space-y-6">
+          <p className="text-sm font-bold text-brand-orange uppercase tracking-widest">For Chiropractors &amp; Practice Owners</p>
           <h1 className="text-3xl md:text-6xl font-black text-brand-navy tracking-tight max-w-3xl mx-auto">
             Go from second-guessing to certainty in 90 days.
           </h1>
           <p className="text-base md:text-lg text-brand-gray font-medium max-w-2xl mx-auto">
-            Cohort 1 &amp; 2 members went from 40-50% care plan acceptance to 70-80%. This is the system that got them there.
+            The 90-day coaching intensive for nervous system chiropractors who want to present care plans with confidence, convert more patients, and collect what they&apos;re worth. Cohort 1 &amp; 2 members went from 40-50% care plan acceptance to 70-80%.
           </p>
           <div className="flex justify-center pt-2">
             <span className="inline-flex items-center gap-2 bg-brand-orange/10 text-brand-orange text-sm font-bold px-5 py-2.5 rounded-full">
@@ -245,11 +246,12 @@ export default function PricingPage() {
       {/* Hero — Student */}
       {activeTab === "student" && (
         <section className="pt-24 md:pt-40 pb-6 md:pb-8 px-5 md:px-6 text-center space-y-4 md:space-y-6">
+          <p className="text-sm font-bold text-brand-orange uppercase tracking-widest">For Chiropractic Students &amp; New Grads</p>
           <h1 className="text-3xl md:text-6xl font-black text-brand-navy tracking-tight max-w-3xl mx-auto">
             Graduate ready — not guessing.
           </h1>
           <p className="text-base md:text-lg text-brand-gray font-medium max-w-2xl mx-auto">
-            The clinical confidence, business knowledge, and personal brand to launch your career — built in 90 days.
+            The 90-day intensive for chiropractic students who want to walk into any practice with clinical confidence, a Day 1/Day 2 system, and the business knowledge school didn&apos;t teach.
           </p>
           <div className="flex justify-center pt-2">
             <span className="inline-flex items-center gap-2 bg-brand-orange/10 text-brand-orange text-sm font-bold px-5 py-2.5 rounded-full">

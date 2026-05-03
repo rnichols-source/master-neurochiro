@@ -74,9 +74,12 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
             {/* Left: Copy */}
             <div className="space-y-6 md:space-y-8 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 bg-brand-navy/5 rounded-full px-4 py-2">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-sm font-bold text-brand-navy">Cohort 3 starts July 21, 2026 · Applications open</span>
+              <div className="space-y-3">
+                <p className="text-sm font-bold text-brand-orange uppercase tracking-widest">The Coaching Intensive for Nervous System Chiropractors</p>
+                <div className="inline-flex items-center gap-2 bg-brand-navy/5 rounded-full px-4 py-2">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-sm font-bold text-brand-navy">Cohort 3 starts July 21, 2026 · Applications open</span>
+                </div>
               </div>
 
               <h1 className="text-[2rem] leading-[1.1] md:text-5xl font-black text-brand-navy tracking-tight">
@@ -85,7 +88,7 @@ export default function HomePage() {
               </h1>
 
               <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
-                Master the communication skills that turn nervous patients into confident care plan acceptances — in 90 days. Word-for-word scripts, live coaching, and a system you&apos;ll use for the rest of your career.
+                The 90-day coaching intensive for chiropractors who want to present care plans with certainty, convert more patients, and collect what they&apos;re worth. Word-for-word scripts, live coaching, and a system you&apos;ll use for the rest of your career.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
