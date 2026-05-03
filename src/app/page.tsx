@@ -342,6 +342,12 @@ export default function HomePage() {
             <p className="text-xs text-brand-orange font-bold text-center">
               Cohort 3 starts July 21 — <Link href="/apply" className="underline hover:text-brand-navy transition-colors">applications open now</Link>.
             </p>
+            <p className="text-xs text-brand-gray text-center pt-2">
+              Not sure yet?{" "}
+              <a href="https://calendly.com/drray-neurochirodirectory/15min" target="_blank" rel="noopener noreferrer" className="text-brand-orange underline hover:text-white transition-colors">
+                Book a free 15-min call with Dr. Nichols
+              </a>
+            </p>
           </div>
 
           {/* Trust */}
@@ -352,7 +358,7 @@ export default function HomePage() {
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
-              <span>14-day satisfaction guarantee</span>
+              <span>70% acceptance guarantee</span>
             </div>
           </div>
         </div>
