@@ -11,15 +11,15 @@ export const metadata: Metadata = {
 
 const links = [
   {
-    label: "Score Your Practice — Free Assessment",
-    href: "/quiz",
-    accent: true,
-    external: false,
-  },
-  {
     label: "Watch a Real Mastermind Session — Free",
     href: "/free-training",
     accent: false,
+    external: false,
+  },
+  {
+    label: "Score Your Practice — Free Assessment",
+    href: "/quiz",
+    accent: true,
     external: false,
   },
   {
@@ -29,24 +29,17 @@ const links = [
     external: false,
   },
   {
-    label: "Pricing & Plans",
-    href: "/pricing",
-    accent: false,
-    external: false,
-  },
-  {
     label: "Book a Discovery Call",
     href: "https://calendly.com/drray-neurochirodirectory/15min",
     accent: false,
     external: true,
   },
-  {
-    label: "Find a Chiropractor Near You",
-    href: "https://neurochiro.co",
-    accent: false,
-    external: true,
-  },
 ];
+
+const patientLink = {
+  label: "Find a Chiropractor Near You",
+  href: "https://neurochiro.co",
+};
 
 export default function LinksPage() {
   return (
@@ -87,7 +80,7 @@ export default function LinksPage() {
             Dr. Raymond Nichols
           </h1>
           <p className="text-[#1E2D3B]/50 text-sm font-medium mt-1">
-            Chiropractor &bull; Practice Owner &bull; Coach
+            Nervous System Chiropractor &bull; Practice Owner &bull; Nervous System Coach
           </p>
           <div className="flex items-center gap-2 mt-3 bg-[#1E2D3B] rounded-full px-4 py-1.5">
             <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
@@ -138,6 +131,27 @@ export default function LinksPage() {
               </Link>
             );
           })}
+        </div>
+
+        {/* Patient Divider */}
+        <div className="w-full flex items-center gap-3 mb-3 mt-2">
+          <div className="flex-1 h-px bg-[#1E2D3B]/10" />
+          <span className="text-[11px] font-medium text-[#1E2D3B]/30 uppercase tracking-wider">Are you a patient?</span>
+          <div className="flex-1 h-px bg-[#1E2D3B]/10" />
+        </div>
+
+        <div className="w-full mb-8">
+          <a
+            href={patientLink.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group w-full bg-white border border-[#1E2D3B]/8 rounded-2xl px-6 py-4 text-[#1E2D3B] text-center shadow-sm hover:border-[#D66829]/30 hover:shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all block"
+          >
+            <span className="flex items-center justify-center gap-2">
+              <span className="text-sm font-semibold">{patientLink.label}</span>
+              <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+            </span>
+          </a>
         </div>
 
         {/* Social */}
