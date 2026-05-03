@@ -256,7 +256,7 @@ export default function PricingPage() {
 
       {/* Hero — Doctor */}
       {activeTab === "doctor" && (
-        <section className="pt-24 md:pt-40 pb-8 md:pb-12 px-5 md:px-6 text-center space-y-4 md:space-y-6">
+        <section className="pt-10 md:pt-16 pb-8 md:pb-12 px-5 md:px-6 text-center space-y-4 md:space-y-6">
           <h1 className="text-3xl md:text-6xl font-black text-brand-navy tracking-tight max-w-3xl mx-auto">
             Go from second-guessing to certainty in 90 days.
           </h1>
@@ -274,7 +274,7 @@ export default function PricingPage() {
 
       {/* Hero — Student */}
       {activeTab === "student" && (
-        <section className="pt-24 md:pt-40 pb-8 md:pb-12 px-5 md:px-6 text-center space-y-4 md:space-y-6">
+        <section className="pt-10 md:pt-16 pb-8 md:pb-12 px-5 md:px-6 text-center space-y-4 md:space-y-6">
           <h1 className="text-3xl md:text-6xl font-black text-brand-navy tracking-tight max-w-3xl mx-auto">
             Graduate ready — not guessing.
           </h1>
