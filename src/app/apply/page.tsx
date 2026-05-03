@@ -75,7 +75,7 @@ export default function ApplicationPage() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-orange/10 rounded-full">
               <span className="w-2 h-2 bg-brand-orange rounded-full animate-pulse" />
               <span className="text-sm font-bold text-brand-orange">
-                Next cohort starts April 21, 2026 — seats are limited
+                Cohort 3 starts July 21, 2026 — 30 seats for doctors
               </span>
             </div>
 
@@ -93,10 +93,13 @@ export default function ApplicationPage() {
             </div>
 
             <p className="text-sm text-brand-gray font-medium pt-2">
-              Doctors: $997 (or $350/mo) · Students: $497 (or $175/mo) ·{" "}
+              Doctors: $697/month × 3 (or $1,797 PIF) · Students: $197/month × 3 (or $497 PIF) ·{" "}
               <Link href="/pricing" className="text-brand-orange hover:text-brand-navy underline transition-colors">
                 Full pricing details
               </Link>
+            </p>
+            <p className="text-xs text-brand-gray/60 font-medium">
+              After 90 days, graduates join the NeuroChiro Inner Circle at $397/month (doctors) or $97/month (students)
             </p>
           </div>
 

@@ -31,9 +31,9 @@ import {
 /* ─── Data Arrays ─── */
 
 const features = [
-  { icon: Video, title: "8 Weeks of Live Coaching", desc: "Weekly calls with Dr. Nichols. Ask anything. Get answers." },
+  { icon: Video, title: "13 Weekly Coaching Calls", desc: "90 days of live calls with Dr. Nichols. Ask anything. Get answers." },
   { icon: BookOpen, title: "12 Comprehensive Playbooks", desc: "3,700+ lines of word-for-word scripts for every patient interaction." },
-  { icon: FileText, title: "Weekly Worksheets", desc: "Apply what you learn immediately. 8 interactive worksheets." },
+  { icon: FileText, title: "Weekly Worksheets", desc: "Apply what you learn immediately. 13 interactive worksheets." },
   { icon: Calculator, title: "Care Plan Builder", desc: "Build and present care plans with clinical scoring. Use with real patients." },
   { icon: DollarSign, title: "Financial Dashboard", desc: "Break-even, scenarios, income goals. 7 sections. Know your numbers." },
   { icon: Target, title: "Daily Huddle", desc: "5-tab command center you open every morning. Pulse, schedule, flags, game plan." },
@@ -68,20 +68,20 @@ const testimonials = [
 ];
 
 const pricing = [
-  { tier: "Standard", early: "$997", plan: "or 3x $350", regular: "$1,497", regPlan: "or 3x $525" },
-  { tier: "Student", early: "$497", plan: "or 3x $175", regular: "$697", regPlan: "or 3x $250" },
-  { tier: "Pro", early: "$1,997", plan: "or 3x $800", regular: "$2,997", regPlan: "or 3x $1,100" },
-  { tier: "Student Pro", early: "$997", plan: "or 3x $350", regular: "$1,497", regPlan: "or 3x $525" },
+  { tier: "Doctor Intensive (90 Days)", early: "$697/mo", plan: "× 3 months or $1,797 PIF", regular: "$697/mo", regPlan: "× 3 months" },
+  { tier: "Student Intensive (90 Days)", early: "$197/mo", plan: "× 3 months or $497 PIF", regular: "$197/mo", regPlan: "× 3 months" },
+  { tier: "Doctor Inner Circle (Ongoing)", early: "$397/mo", plan: "after graduation", regular: "$397/mo", regPlan: "month-to-month" },
+  { tier: "Student Inner Circle (Ongoing)", early: "$97/mo", plan: "after graduation", regular: "$97/mo", regPlan: "month-to-month" },
 ];
 
 const faqs = [
-  { q: "When does Cohort 3 start?", a: "We'll announce the date soon. Waitlist members get 48-hour early access before anyone else." },
-  { q: "What if I'm a student with no practice yet?", a: "Perfect. You'll graduate with scripts, systems, and confidence that most doctors take years to develop. Student pricing starts at $497." },
-  { q: "How much time does this take per week?", a: "1 live call per week (60-90 min) plus 15-30 min for the worksheet. The tools are there whenever you need them." },
-  { q: "Is there a payment plan?", a: "Yes. Every tier has a 3-month payment plan option." },
-  { q: "What's the difference between Standard and Pro?", a: "Standard gets the full 8-week program, playbooks, tools, and community. Pro adds private 1:1 coaching, direct messaging with Dr. Nichols, script reviews with personal feedback, and the premium resource vault with 15 documents." },
+  { q: "When does Cohort 3 start?", a: "July 21, 2026. Waitlist members get 48-hour early access before anyone else." },
+  { q: "What if I'm a student with no practice yet?", a: "Perfect. Our Foundations Intensive is built specifically for students. You'll graduate with scripts, systems, and clinical confidence that most doctors take years to develop. Student pricing is $197/month." },
+  { q: "How long is the program?", a: "The Intensive is 90 days (13 weeks). Weeks 1-8 are curriculum, Weeks 9-10 are implementation, Weeks 11-13 are results review. After that, you can join the Inner Circle for ongoing coaching at a lower monthly rate." },
+  { q: "How much time does this take per week?", a: "1 live call per week (60-90 min) plus 15-30 min for the worksheet. About 2 hours/week total." },
+  { q: "What's the Inner Circle?", a: "After you complete the 90-Day Intensive, you can stay on as an Inner Circle member. Monthly group call, community, content drops, and accountability — $397/month for doctors, $97/month for students. Month-to-month, cancel anytime." },
   { q: "What if I can't make a live call?", a: "Every call is recorded and available in your portal within 24 hours. Watch on your own time, forever." },
-  { q: "Is there a guarantee?", a: "Yes. 14-day money-back guarantee. If the program isn't right for you within the first 14 days, full refund. No questions asked." },
+  { q: "Is there a guarantee?", a: "Yes. For doctors: hit 70% care plan acceptance or stay in the program free until you do. For students: feel confident presenting a care plan by Day 90 or stay free. Both guarantees are conditional — you have to do the work (attend calls, submit KPIs, implement)." },
   { q: "I have more questions.", a: "Book a free 15-minute call with Dr. Nichols to discuss your practice and see if the Mastermind is right for you." },
 ];
 

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const faqs = [
   {
     q: "How is this different from other coaching programs?",
-    a: "Most programs give you information and leave you to figure it out. We give you specific scripts, frameworks, and live coaching every week for 8 weeks. You practice the skills, track your numbers, and get direct feedback in a small group (max 25). It's not a course you watch — it's a system you build into your practice with support every step of the way.",
+    a: "Most programs give you information and leave you to figure it out. We give you specific scripts, frameworks, and live coaching every week for 90 days. You practice the skills, track your numbers, and get direct feedback in a small group (max 30). After the Intensive, you join the Inner Circle for ongoing coaching. It's not a course you watch — it's a system you build into your practice with support every step of the way.",
   },
   {
     q: "Who is this for?",
@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "What if I'm a student?",
-    a: "We have a dedicated student track with pricing starting at $497 (or 3 monthly payments of $175). Many students join before graduation to build their clinical authority early. You don't need patients — the curriculum adapts to where you are.",
+    a: "We have a dedicated Foundations Intensive for students at $197/month (90-day commitment). You'll learn clinical communication, Day 1/Day 2 scripts, interview prep, and career planning. After graduating, join the Student Inner Circle at $97/month for ongoing support.",
   },
   {
     q: "What exactly will I learn?",
@@ -31,11 +31,11 @@ const faqs = [
   },
   {
     q: "Is there a refund policy?",
-    a: "Yes. If you don't feel the program is right for you within the first 14 days, you get a full refund. No questions asked.",
+    a: "For doctors: hit 70% care plan acceptance by Day 90 or stay in the program free until you do. For students: feel confident presenting a care plan by Day 90 or stay free. Both guarantees require you to do the work — attend calls, submit KPIs, and implement the system.",
   },
   {
     q: "When does the next cohort start?",
-    a: "April 21, 2026. Cohorts run every quarter with limited seats (max 25 per cohort).",
+    a: "July 21, 2026. Cohorts launch quarterly with 30 seats for doctors. Student Foundations launches the same date.",
   },
   {
     q: "What if I miss a live call?",

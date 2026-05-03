@@ -23,7 +23,7 @@ export default function HomePage() {
     url: "https://neurochiromastermind.com",
     logo: "https://neurochiromastermind.com/logo-dark.png",
     description:
-      "The 8-week chiropractic coaching program. Master patient communication, clinical certainty, and practice growth.",
+      "The 90-day chiropractic coaching intensive. Master patient communication, clinical certainty, and practice growth.",
     founder: {
       "@type": "Person",
       name: "Dr. Raymond Nichols",
@@ -40,7 +40,7 @@ export default function HomePage() {
         name: "What is the NeuroChiro Mastermind?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The NeuroChiro Mastermind is an 8-week coaching program for chiropractors and students to master patient communication, clinical certainty, and practice growth.",
+          text: "The NeuroChiro Mastermind is a 90-day coaching intensive for chiropractors and students to master patient communication, clinical certainty, and practice growth.",
         },
       },
       {
@@ -48,7 +48,7 @@ export default function HomePage() {
         name: "How long is the program?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The program runs for 8 weeks with live coaching, curriculum, and implementation support.",
+          text: "The program runs for 90 days with live coaching, curriculum, and implementation support.",
         },
       },
       {
@@ -76,7 +76,7 @@ export default function HomePage() {
             <div className="space-y-6 md:space-y-8 text-center md:text-left">
               <div className="inline-flex items-center gap-2 bg-brand-navy/5 rounded-full px-4 py-2">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-sm font-bold text-brand-navy">Cohort 2 in session · Cohort 3 waitlist is open</span>
+                <span className="text-sm font-bold text-brand-navy">Cohort 3 starts July 21, 2026 · Applications open</span>
               </div>
 
               <h1 className="text-[2rem] leading-[1.1] md:text-5xl font-black text-brand-navy tracking-tight">
@@ -85,7 +85,7 @@ export default function HomePage() {
               </h1>
 
               <p className="text-base md:text-lg text-brand-gray font-medium leading-relaxed">
-                Master the communication skills that turn nervous patients into confident care plan acceptances — in 8 weeks. Word-for-word scripts, live coaching, and a system you&apos;ll use for the rest of your career.
+                Master the communication skills that turn nervous patients into confident care plan acceptances — in 90 days. Word-for-word scripts, live coaching, and a system you&apos;ll use for the rest of your career.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -99,19 +99,19 @@ export default function HomePage() {
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </BrandButton>
                 </Link>
-                <Link href="/waitlist">
+                <Link href="/pricing">
                   <BrandButton
                     variant="outline"
                     size="lg"
                     className="group w-full sm:w-auto px-8 py-4 text-base"
                   >
-                    Join Cohort 3 Waitlist
+                    See Pricing
                   </BrandButton>
                 </Link>
               </div>
 
               <p className="text-xs text-brand-gray">
-                For practicing chiropractors and students. Student pricing from $497.
+                For practicing chiropractors and students. Students: $197/month · Doctors: $697/month
               </p>
             </div>
 
@@ -132,8 +132,8 @@ export default function HomePage() {
                 <p className="text-xs text-brand-gray font-medium mt-0.5">Doctors trained</p>
               </div>
               <div className="absolute -top-2 -right-2 md:-right-6 bg-white rounded-2xl shadow-lg p-4 border border-brand-navy/5">
-                <p className="text-2xl font-black text-brand-orange leading-none">8</p>
-                <p className="text-xs text-brand-gray font-medium mt-0.5">Week program</p>
+                <p className="text-2xl font-black text-brand-orange leading-none">90</p>
+                <p className="text-xs text-brand-gray font-medium mt-0.5">Day Intensive</p>
               </div>
             </div>
           </div>
@@ -146,7 +146,7 @@ export default function HomePage() {
           {[
             { number: "150+", label: "Doctors Trained" },
             { number: "5", label: "Countries" },
-            { number: "25 Max", label: "Per Cohort" },
+            { number: "30 Max", label: "Per Cohort" },
             { number: "100+", label: "Workshops Led" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
@@ -162,27 +162,22 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="max-w-2xl mb-10 md:mb-14">
             <h2 className="text-2xl md:text-4xl font-black text-brand-navy tracking-tight">
-              What You&apos;ll Learn Each Week
+              The 90-Day Framework: Learn. Build. Prove.
             </h2>
             <p className="text-base text-brand-gray font-medium mt-3">
               Not theory. A step-by-step system you practice on real patients starting week 1.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { week: "1", title: "Identity of a Nervous System Doctor", desc: "How to show up with certainty from the moment a patient walks in." },
-              { week: "2", title: "Chiropractic Neurology for REAL Practice", desc: "Explain findings clearly so patients understand and trust you." },
-              { week: "3", title: "Communication Mastery", desc: "Word-for-word scripts for care plans that get a yes." },
-              { week: "4", title: "Philosophy (Modern + Powerful)", desc: "Build a philosophy that drives confident recommendations." },
-              { week: "5", title: "Business: What School NEVER Taught You", desc: "Know your break-even, set pricing, and get profitable." },
-              { week: "6", title: "Care Plans, Day 1 / Day 2 Mastery", desc: "Master Day 1 consultations and Day 2 report of findings." },
-              { week: "7", title: "Patient Management & Long-Term Clinical Leadership", desc: "Build retention systems and lead patients through complete care." },
-              { week: "8", title: "Ownership, Contracts & Scaling", desc: "Contracts, associate agreements, and scaling your practice." },
+              { stage: "1", title: "LEARN (Weeks 1-8)", desc: "Master your identity, communication, care plans, and business systems through our proven 8-module curriculum with weekly coaching calls." },
+              { stage: "2", title: "BUILD (Weeks 9-10)", desc: "Implement everything on real patients. Submit recordings. Get live feedback. Install your KPI tracking system." },
+              { stage: "3", title: "PROVE (Weeks 11-13)", desc: "Show us the numbers. Compare your KPIs to baseline. Hot seats, coaching, and graduation into the Inner Circle." },
             ].map((item) => (
-              <div key={item.week} className="group flex gap-4 p-5 rounded-2xl border border-brand-navy/5 bg-white hover:bg-brand-cream/50 hover:border-brand-orange/20 transition-all">
+              <div key={item.stage} className="group flex gap-4 p-5 rounded-2xl border border-brand-navy/5 bg-white hover:bg-brand-cream/50 hover:border-brand-orange/20 transition-all">
                 <div className="w-11 h-11 rounded-xl bg-brand-orange text-white flex items-center justify-center shrink-0">
-                  <span className="text-sm font-black">{item.week}</span>
+                  <span className="text-sm font-black">{item.stage}</span>
                 </div>
                 <div>
                   <p className="text-sm font-black text-brand-navy">{item.title}</p>
@@ -296,7 +291,7 @@ export default function HomePage() {
       <section id="pricing" className="py-16 md:py-28 px-5 md:px-6 bg-brand-navy text-white">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight mb-3">
-            Everything You Need for $997
+            Everything You Need for $697/month
           </h2>
           <p className="text-base text-white/50 font-medium mb-10 md:mb-14">
             One investment. A complete system you&apos;ll use for the rest of your career.
@@ -305,7 +300,7 @@ export default function HomePage() {
           <div className="bg-white rounded-3xl p-6 md:p-10 text-left space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                "8 weeks of live group coaching (25 max per cohort)",
+                "13 weekly coaching calls (30 seats per cohort)",
                 "38 ready-to-use patient communication scripts",
                 "12 practice tools (KPI tracker, calculators, and more)",
                 "Word-for-word scripts for Day 1, care plans, and objections",
@@ -322,8 +317,8 @@ export default function HomePage() {
             <div className="border-t border-brand-navy/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
               <div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-black text-brand-navy">$997</span>
-                  <span className="text-sm text-brand-gray font-medium">or 3 x $350</span>
+                  <span className="text-4xl font-black text-brand-navy">$697/month</span>
+                  <span className="text-sm text-brand-gray font-medium">&times; 3 months (or $1,797 pay-in-full)</span>
                 </div>
               </div>
               <Link href="/apply" className="w-full sm:w-auto">
@@ -339,10 +334,10 @@ export default function HomePage() {
             </div>
 
             <p className="text-xs text-brand-gray text-center">
-              Student pricing from $497. <Link href="/pricing" className="text-brand-orange hover:text-brand-navy transition-colors underline">See all options</Link>.
+              Student Intensive: $197/month. <Link href="/pricing" className="text-brand-orange hover:text-brand-navy transition-colors underline">See all options</Link>.
             </p>
             <p className="text-xs text-brand-orange font-bold text-center">
-              Cohort 3 pricing increases — <Link href="/waitlist" className="underline hover:text-brand-navy transition-colors">join the waitlist</Link> to lock in current rates.
+              Cohort 3 starts July 21 — <Link href="/apply" className="underline hover:text-brand-navy transition-colors">applications open now</Link>.
             </p>
           </div>
 
@@ -357,6 +352,19 @@ export default function HomePage() {
               <span>14-day satisfaction guarantee</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ──────────────── INNER CIRCLE ──────────────── */}
+      <section className="py-12 md:py-16 px-5 md:px-6 bg-brand-cream">
+        <div className="max-w-3xl mx-auto text-center space-y-4">
+          <p className="text-xs font-bold text-brand-orange uppercase tracking-wide">After the Intensive</p>
+          <h2 className="text-2xl md:text-3xl font-black text-brand-navy tracking-tight">
+            The NeuroChiro Inner Circle
+          </h2>
+          <p className="text-base text-brand-gray font-medium leading-relaxed max-w-xl mx-auto">
+            $397/month ongoing coaching, community, and accountability for graduates.
+          </p>
         </div>
       </section>
 
@@ -383,7 +391,7 @@ export default function HomePage() {
               Ready to Lead With Certainty?
             </h2>
             <p className="text-base text-white/60 font-medium leading-relaxed max-w-xl mx-auto">
-              The next cohort starts April 21, 2026. Only 25 seats per group. Apply today and we&apos;ll follow up within 48 hours.
+              The next cohort starts July 21, 2026. Only 30 seats per group. Apply today and we&apos;ll follow up within 48 hours.
             </p>
             <Link href="/apply" className="block sm:inline-block">
               <BrandButton
