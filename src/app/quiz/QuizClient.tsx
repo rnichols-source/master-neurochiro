@@ -8,128 +8,138 @@ import { ArrowRight, CheckCircle, ClipboardList } from "lucide-react";
 type Answers = Record<number, number>;
 
 const categories = [
-  "Practice Foundation",
-  "Clinical Communication",
-  "Business & Collections",
-  "Growth & Leadership",
+  "Practice Identity & Philosophy",
+  "Patient Communication & Case Acceptance",
+  "Business Systems & Collections",
+  "Growth, Team & Leadership",
 ];
 
 const questions = [
-  // --- PRACTICE FOUNDATION (Q1-3) ---
+  // ═══ PRACTICE IDENTITY & PHILOSOPHY (Q1-3) ═══
+  // Inspired by: Sigafoose (Big Idea), Gentempo (identity), Riekeman (vitalism), Plasker (100 Year Lifestyle)
   {
     category: 0,
-    question: "How long have you been in practice?",
+    question: "When a new patient asks 'What kind of chiropractor are you?' — what do you say?",
     options: [
-      { label: "Still in school", score: 3 },
-      { label: "Less than 2 years", score: 5 },
-      { label: "2-5 years", score: 7 },
-      { label: "5+ years", score: 9 },
-    ],
-  },
-  {
-    category: 0,
-    question: "How would you describe your adjusting philosophy?",
-    options: [
-      { label: "Pain-based — I treat what hurts", score: 3 },
-      { label: "Wellness — I focus on overall health", score: 6 },
-      { label: "Nervous system focused — I address the root cause", score: 9 },
-      { label: "I'm still figuring it out", score: 2 },
+      { label: "I help people get out of pain", score: 3 },
+      { label: "I focus on whole-body wellness and prevention", score: 6 },
+      { label: "I restore nervous system function so the body can heal and adapt", score: 9 },
+      { label: "I don't really have a clear answer for that", score: 1 },
     ],
   },
   {
     category: 0,
-    question: "Can you clearly explain what makes you different from every other chiropractor in your area?",
+    question: "Do your patients understand WHY they need ongoing care — not just relief?",
     options: [
-      { label: "Yes — I have a clear identity and message", score: 9 },
-      { label: "Sort of — I know but struggle to articulate it", score: 5 },
-      { label: "Not really — I sound like everyone else", score: 2 },
+      { label: "Yes — they get it because I educate them from Day 1", score: 9 },
+      { label: "Some do — but most still think of me as pain relief", score: 5 },
+      { label: "Honestly, most leave once they feel better", score: 2 },
     ],
   },
-  // --- CLINICAL COMMUNICATION (Q4-6) ---
+  {
+    category: 0,
+    question: "If someone looked at your website, social media, and office — would they see a clear, consistent brand and message?",
+    options: [
+      { label: "Absolutely — every touchpoint reinforces who I am", score: 9 },
+      { label: "It's okay — some things match, some don't", score: 5 },
+      { label: "It's a mess — I've never really built a brand", score: 2 },
+    ],
+  },
+
+  // ═══ PATIENT COMMUNICATION & CASE ACCEPTANCE (Q4-6) ═══
+  // Inspired by: DiDomenico (ROF mastery), Hoffman/Masters Circle (scripting), Dill & Book (Black Diamond case acceptance)
   {
     category: 1,
-    question: "How confident are you in your Day 1 consultation and exam flow?",
+    question: "What happens between your Day 1 exam and your Day 2 Report of Findings?",
     options: [
-      { label: "Very — patients trust me immediately", score: 9 },
-      { label: "It's okay but I lose some patients before Day 2", score: 5 },
-      { label: "I wing it most of the time", score: 2 },
+      { label: "I have a structured system — patients come back ready to commit", score: 9 },
+      { label: "I do a ROF but my show rate and conversion could be better", score: 5 },
+      { label: "I usually try to do everything on Day 1", score: 3 },
+      { label: "I don't have a consistent Day 1 / Day 2 process", score: 1 },
     ],
   },
   {
     category: 1,
-    question: "What's your care plan acceptance rate?",
+    question: "What's your care plan acceptance rate — the percentage of patients who say YES and start the full plan you recommend?",
     options: [
-      { label: "Over 80% — most patients start care", score: 9 },
-      { label: "50-80% — about half accept", score: 6 },
-      { label: "Under 50% — I hear 'I'll think about it' a lot", score: 3 },
-      { label: "I don't track this", score: 1 },
+      { label: "80%+ — I rarely hear 'no'", score: 9 },
+      { label: "50-80% — more than half but not consistent", score: 6 },
+      { label: "Under 50% — 'I'll think about it' is my most common response", score: 3 },
+      { label: "I don't track this number", score: 1 },
     ],
   },
   {
     category: 1,
-    question: "When a patient says 'I need to talk to my spouse' or 'Let me think about it,' what happens?",
+    question: "When a patient hesitates — 'I need to talk to my spouse,' 'That's a lot of money,' 'Let me think about it' — what happens?",
     options: [
-      { label: "I have a script for that — most still start", score: 9 },
-      { label: "I try to handle it but usually lose them", score: 4 },
-      { label: "I just say 'okay' and hope they come back", score: 1 },
+      { label: "I have practiced scripts for each objection and convert most of them", score: 9 },
+      { label: "I try to address it but I freeze up or get uncomfortable", score: 4 },
+      { label: "I back off — I don't want to be salesy", score: 2 },
+      { label: "I've never been trained on objection handling", score: 1 },
     ],
   },
-  // --- BUSINESS & COLLECTIONS (Q7-9) ---
+
+  // ═══ BUSINESS SYSTEMS & COLLECTIONS (Q7-9) ═══
+  // Inspired by: Hoffman (Masters Circle KPIs), Geier/Scheduling Institute (NP acquisition), Perman (practice metrics), Mertz (associate economics)
   {
     category: 2,
-    question: "How many new patients do you see per week?",
+    question: "Do you know your 5 critical KPIs — collections, new patients, PVA, visit average, and case acceptance — for THIS week?",
     options: [
-      { label: "0-5", score: 3 },
-      { label: "6-10", score: 5 },
-      { label: "11-20", score: 7 },
-      { label: "20+", score: 9 },
-    ],
-  },
-  {
-    category: 2,
-    question: "Do you track weekly KPIs (collections, visits, new patients, PVA)?",
-    options: [
-      { label: "Yes — every week, no exceptions", score: 9 },
-      { label: "Sometimes — when I remember", score: 4 },
-      { label: "What are KPIs?", score: 1 },
+      { label: "Yes — I track them every week and review with my team", score: 9 },
+      { label: "I track some of them, some of the time", score: 5 },
+      { label: "I check my bank account and hope for the best", score: 2 },
+      { label: "I don't know what PVA means", score: 1 },
     ],
   },
   {
     category: 2,
-    question: "How do you feel about your collections relative to how hard you work?",
+    question: "What does your Patient Visit Average (PVA) look like — how many visits does your average patient complete?",
     options: [
-      { label: "I'm well-compensated for my effort", score: 9 },
-      { label: "I'm doing okay but should be higher", score: 5 },
-      { label: "I'm working way too hard for what I collect", score: 2 },
-    ],
-  },
-  // --- GROWTH & LEADERSHIP (Q10-12) ---
-  {
-    category: 3,
-    question: "Do you have systems for patient retention (reactivation, re-exams, wellness plans)?",
-    options: [
-      { label: "Yes — my retention systems are solid", score: 9 },
-      { label: "Some — but patients still fall off", score: 5 },
-      { label: "No — patients finish their plan and disappear", score: 2 },
+      { label: "24+ visits — patients complete full corrective plans", score: 9 },
+      { label: "12-24 visits — most do a partial plan", score: 6 },
+      { label: "Under 12 — patients drop off early", score: 3 },
+      { label: "I've never calculated my PVA", score: 1 },
     ],
   },
   {
-    category: 3,
-    question: "How often do you invest in coaching, mentorship, or professional development?",
+    category: 2,
+    question: "How do patients pay for care in your office?",
     options: [
-      { label: "Regularly — I'm always learning", score: 9 },
-      { label: "Occasionally — a seminar here and there", score: 5 },
-      { label: "Rarely — I've been figuring it out alone", score: 2 },
+      { label: "Structured plans — pay-in-full discount, monthly options, insurance billed properly", score: 9 },
+      { label: "Per-visit or insurance only — no real financial system", score: 4 },
+      { label: "I'm uncomfortable talking about money with patients", score: 2 },
+    ],
+  },
+
+  // ═══ GROWTH, TEAM & LEADERSHIP (Q10-12) ═══
+  // Inspired by: Dill & Book (scaling), Lerner (Maximized Living systems), Hughes (leadership), Christie (marketing systems)
+  {
+    category: 3,
+    question: "Where do most of your new patients come from?",
+    options: [
+      { label: "Internal referrals + community events — my patients send me people", score: 9 },
+      { label: "Online marketing — Google, social media, ads", score: 6 },
+      { label: "Insurance directories and walk-ins", score: 3 },
+      { label: "I honestly don't know — I don't track my sources", score: 1 },
     ],
   },
   {
     category: 3,
-    question: "Where do you want your practice to be in 12 months?",
+    question: "Do you run a daily huddle with your team — a quick 5-minute meeting to align on the day's goals, patients, and numbers?",
     options: [
-      { label: "Significantly bigger — I'm ready to scale", score: 9 },
-      { label: "More profitable — same size, better numbers", score: 7 },
-      { label: "More stable — I just want consistency", score: 5 },
-      { label: "I honestly don't know", score: 2 },
+      { label: "Every single morning — it runs the practice", score: 9 },
+      { label: "Sometimes — when things feel off", score: 4 },
+      { label: "No — I'm a solo doc or we don't do huddles", score: 2 },
+    ],
+  },
+  {
+    category: 3,
+    question: "Be honest — how close are you to the practice and life you envisioned when you decided to become a chiropractor?",
+    options: [
+      { label: "I'm living it — this is exactly what I wanted", score: 9 },
+      { label: "I'm on the right track but know I can do more", score: 7 },
+      { label: "I'm frustrated — I know I'm capable of more but something's off", score: 4 },
+      { label: "I'm burned out and questioning if I made the right career choice", score: 2 },
     ],
   },
 ];
