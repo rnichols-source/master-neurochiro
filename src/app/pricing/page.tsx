@@ -370,6 +370,64 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* Your Coach */}
+      <section className="pt-16 md:pt-20 px-5 md:px-6">
+        <div className="max-w-3xl mx-auto">
+          <EliteCard className="p-6 md:p-10">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-start">
+              <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl bg-brand-navy flex items-center justify-center shrink-0">
+                <span className="text-4xl md:text-5xl font-black text-brand-orange">DR</span>
+              </div>
+              <div className="text-center md:text-left space-y-3">
+                <div>
+                  <h3 className="text-xl md:text-2xl font-black text-brand-navy">Dr. Raymond Nichols</h3>
+                  <p className="text-sm font-bold text-brand-orange">Your Coach</p>
+                </div>
+                <p className="text-sm text-brand-gray font-medium leading-relaxed">
+                  Practicing chiropractor and owner of AlignLife Chiropractic in Greenville, SC. Not a retired coach — a doctor who sees patients every single day and built every system he teaches from the ground up.
+                </p>
+                <div className="flex flex-wrap justify-center md:justify-start gap-3 pt-1">
+                  <span className="text-xs font-bold text-brand-navy/60 bg-brand-navy/5 px-3 py-1.5 rounded-full">Doctor of Chiropractic</span>
+                  <span className="text-xs font-bold text-brand-navy/60 bg-brand-navy/5 px-3 py-1.5 rounded-full">Practice Owner</span>
+                  <span className="text-xs font-bold text-brand-navy/60 bg-brand-navy/5 px-3 py-1.5 rounded-full">180K+ Followers</span>
+                  <span className="text-xs font-bold text-brand-navy/60 bg-brand-navy/5 px-3 py-1.5 rounded-full">NeuroChiro Founder</span>
+                  <span className="text-xs font-bold text-brand-navy/60 bg-brand-navy/5 px-3 py-1.5 rounded-full">2 Cohorts Coached</span>
+                </div>
+                <p className="text-sm text-brand-gray font-medium leading-relaxed pt-2">
+                  Built the care plan generator, KPI system, scripts, and clinical tools used inside the Mastermind — the same tools he uses in his own practice. Cohort 1 &amp; 2 members averaged a 30+ percentage point increase in care plan acceptance.
+                </p>
+              </div>
+            </div>
+          </EliteCard>
+        </div>
+      </section>
+
+      {/* Call Schedule */}
+      <section className="pt-10 md:pt-12 px-5 md:px-6">
+        <div className="max-w-3xl mx-auto text-center space-y-4">
+          <h3 className="text-lg font-black text-brand-navy">Live Call Schedule</h3>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="bg-white border border-brand-navy/5 rounded-2xl p-5 flex-1">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Calendar className="w-4 h-4 text-brand-orange" />
+                <span className="text-sm font-black text-brand-navy">Doctor Calls</span>
+              </div>
+              <p className="text-sm text-brand-gray font-medium">Tuesdays at 12:00 PM ET</p>
+              <p className="text-xs text-brand-navy/40 font-medium mt-1">60-90 minutes · Weekly during Intensive</p>
+            </div>
+            <div className="bg-white border border-brand-navy/5 rounded-2xl p-5 flex-1">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Calendar className="w-4 h-4 text-brand-orange" />
+                <span className="text-sm font-black text-brand-navy">Student Calls</span>
+              </div>
+              <p className="text-sm text-brand-gray font-medium">Day &amp; time TBA</p>
+              <p className="text-xs text-brand-navy/40 font-medium mt-1">60 minutes · Weekly during Intensive</p>
+            </div>
+          </div>
+          <p className="text-xs text-brand-gray/60 font-medium">All calls are recorded and available in your portal within 24 hours if you miss one.</p>
+        </div>
+      </section>
+
       {/* Social Proof */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6 px-5 pt-10 max-w-3xl mx-auto">
         <div className="flex-1 text-center sm:text-left">
