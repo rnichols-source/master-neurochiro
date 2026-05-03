@@ -80,8 +80,14 @@ export default function LinksPage() {
 
           {/* Profile */}
           <div className="flex flex-col items-center text-center mb-8">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#E67E22] to-[#c55a1a] flex items-center justify-center text-white text-3xl font-black mb-4 ring-4 ring-[#E67E22]/20">
-              DR
+            <div className="w-24 h-24 rounded-full overflow-hidden mb-4 ring-4 ring-[#E67E22]/20">
+              <Image
+                src="/dr-ray-headshot.png"
+                alt="Dr. Ray Nichols"
+                width={96}
+                height={96}
+                className="w-full h-full object-cover"
+              />
             </div>
             <h1 className="text-white text-2xl font-black tracking-tight">
               Dr. Ray Nichols

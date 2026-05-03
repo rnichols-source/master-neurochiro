@@ -377,8 +377,12 @@ export default function PricingPage() {
         <div className="max-w-3xl mx-auto">
           <EliteCard className="p-6 md:p-10">
             <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-start">
-              <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl bg-brand-navy flex items-center justify-center shrink-0">
-                <span className="text-4xl md:text-5xl font-black text-brand-orange">DR</span>
+              <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden shrink-0">
+                <img
+                  src="/dr-ray-headshot.png"
+                  alt="Dr. Ray Nichols"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="text-center md:text-left space-y-3">
                 <div>
