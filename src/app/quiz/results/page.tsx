@@ -56,26 +56,50 @@ function ResultsContent() {
           </div>
         </div>
 
-        {/* Teaser */}
-        <div className="bg-white/5 rounded-xl p-6 text-left space-y-4 border border-white/10">
+        {/* Category Teaser */}
+        <div className="bg-white/5 rounded-xl p-6 text-left space-y-5 border border-white/10">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#E67E22]" />
             <h3 className="text-lg font-semibold">
-              Your full breakdown includes:
+              Your score across 4 categories:
             </h3>
           </div>
+          <div className="space-y-3">
+            {[
+              { name: "Practice Foundation", icon: "🏗️" },
+              { name: "Clinical Communication", icon: "🗣️" },
+              { name: "Business & Collections", icon: "💰" },
+              { name: "Growth & Leadership", icon: "📈" },
+            ].map((cat) => (
+              <div key={cat.name} className="flex items-center gap-3">
+                <span className="text-lg">{cat.icon}</span>
+                <span className="text-sm font-medium text-gray-300 flex-1">{cat.name}</span>
+                <span className="text-sm font-bold text-gray-500">●●●</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-gray-500 italic">Full category scores revealed on your call</p>
+        </div>
+
+        {/* What you get on the call */}
+        <div className="bg-white/5 rounded-xl p-6 text-left space-y-4 border border-white/10">
+          <h3 className="text-lg font-semibold">On your free call, Dr. Ray will cover:</h3>
           <ul className="space-y-3 text-gray-300">
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />
-              Your #1 growth opportunity
+              Your full category-by-category breakdown
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />
-              Exactly what to fix this week
+              Your #1 growth opportunity based on your answers
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />
-              How you compare to other nervous system chiropractors
+              A specific action plan for the next 30 days
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />
+              Whether the Mastermind is the right fit for you (honest answer)
             </li>
           </ul>
         </div>

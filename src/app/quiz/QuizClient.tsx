@@ -7,57 +7,129 @@ import { ArrowRight, CheckCircle, ClipboardList } from "lucide-react";
 
 type Answers = Record<number, number>;
 
+const categories = [
+  "Practice Foundation",
+  "Clinical Communication",
+  "Business & Collections",
+  "Growth & Leadership",
+];
+
 const questions = [
+  // --- PRACTICE FOUNDATION (Q1-3) ---
   {
+    category: 0,
     question: "How long have you been in practice?",
     options: [
-      { label: "Still in school", score: 5 },
-      { label: "Less than 2 years", score: 10 },
-      { label: "2-5 years", score: 15 },
-      { label: "5+ years", score: 20 },
+      { label: "Still in school", score: 3 },
+      { label: "Less than 2 years", score: 5 },
+      { label: "2-5 years", score: 7 },
+      { label: "5+ years", score: 9 },
     ],
   },
   {
+    category: 0,
+    question: "How would you describe your adjusting philosophy?",
+    options: [
+      { label: "Pain-based — I treat what hurts", score: 3 },
+      { label: "Wellness — I focus on overall health", score: 6 },
+      { label: "Nervous system focused — I address the root cause", score: 9 },
+      { label: "I'm still figuring it out", score: 2 },
+    ],
+  },
+  {
+    category: 0,
+    question: "Can you clearly explain what makes you different from every other chiropractor in your area?",
+    options: [
+      { label: "Yes — I have a clear identity and message", score: 9 },
+      { label: "Sort of — I know but struggle to articulate it", score: 5 },
+      { label: "Not really — I sound like everyone else", score: 2 },
+    ],
+  },
+  // --- CLINICAL COMMUNICATION (Q4-6) ---
+  {
+    category: 1,
+    question: "How confident are you in your Day 1 consultation and exam flow?",
+    options: [
+      { label: "Very — patients trust me immediately", score: 9 },
+      { label: "It's okay but I lose some patients before Day 2", score: 5 },
+      { label: "I wing it most of the time", score: 2 },
+    ],
+  },
+  {
+    category: 1,
+    question: "What's your care plan acceptance rate?",
+    options: [
+      { label: "Over 80% — most patients start care", score: 9 },
+      { label: "50-80% — about half accept", score: 6 },
+      { label: "Under 50% — I hear 'I'll think about it' a lot", score: 3 },
+      { label: "I don't track this", score: 1 },
+    ],
+  },
+  {
+    category: 1,
+    question: "When a patient says 'I need to talk to my spouse' or 'Let me think about it,' what happens?",
+    options: [
+      { label: "I have a script for that — most still start", score: 9 },
+      { label: "I try to handle it but usually lose them", score: 4 },
+      { label: "I just say 'okay' and hope they come back", score: 1 },
+    ],
+  },
+  // --- BUSINESS & COLLECTIONS (Q7-9) ---
+  {
+    category: 2,
     question: "How many new patients do you see per week?",
     options: [
-      { label: "0-5", score: 5 },
-      { label: "6-10", score: 10 },
-      { label: "11-20", score: 15 },
-      { label: "20+", score: 20 },
+      { label: "0-5", score: 3 },
+      { label: "6-10", score: 5 },
+      { label: "11-20", score: 7 },
+      { label: "20+", score: 9 },
     ],
   },
   {
-    question: "What's your biggest challenge right now?",
+    category: 2,
+    question: "Do you track weekly KPIs (collections, visits, new patients, PVA)?",
     options: [
-      { label: "Patient communication", score: 15 },
-      { label: "Care plan acceptance", score: 10 },
-      { label: "Collections", score: 10 },
-      { label: "All of the above", score: 5 },
+      { label: "Yes — every week, no exceptions", score: 9 },
+      { label: "Sometimes — when I remember", score: 4 },
+      { label: "What are KPIs?", score: 1 },
     ],
   },
   {
-    question: "Do you track weekly KPIs?",
+    category: 2,
+    question: "How do you feel about your collections relative to how hard you work?",
     options: [
-      { label: "Yes, every week", score: 20 },
-      { label: "Sometimes", score: 10 },
-      { label: "What are KPIs?", score: 0 },
+      { label: "I'm well-compensated for my effort", score: 9 },
+      { label: "I'm doing okay but should be higher", score: 5 },
+      { label: "I'm working way too hard for what I collect", score: 2 },
+    ],
+  },
+  // --- GROWTH & LEADERSHIP (Q10-12) ---
+  {
+    category: 3,
+    question: "Do you have systems for patient retention (reactivation, re-exams, wellness plans)?",
+    options: [
+      { label: "Yes — my retention systems are solid", score: 9 },
+      { label: "Some — but patients still fall off", score: 5 },
+      { label: "No — patients finish their plan and disappear", score: 2 },
     ],
   },
   {
-    question: "How do you describe your adjusting philosophy?",
+    category: 3,
+    question: "How often do you invest in coaching, mentorship, or professional development?",
     options: [
-      { label: "Pain-based", score: 5 },
-      { label: "Wellness", score: 10 },
-      { label: "Nervous system focused", score: 20 },
-      { label: "Not sure yet", score: 5 },
+      { label: "Regularly — I'm always learning", score: 9 },
+      { label: "Occasionally — a seminar here and there", score: 5 },
+      { label: "Rarely — I've been figuring it out alone", score: 2 },
     ],
   },
   {
-    question: "Are you open to coaching or a mastermind group?",
+    category: 3,
+    question: "Where do you want your practice to be in 12 months?",
     options: [
-      { label: "Absolutely", score: 20 },
-      { label: "Maybe, tell me more", score: 10 },
-      { label: "Not right now", score: 0 },
+      { label: "Significantly bigger — I'm ready to scale", score: 9 },
+      { label: "More profitable — same size, better numbers", score: 7 },
+      { label: "More stable — I just want consistency", score: 5 },
+      { label: "I honestly don't know", score: 2 },
     ],
   },
 ];
@@ -77,7 +149,9 @@ export default function QuizClient() {
   }
 
   function totalScore() {
-    return Object.values(answers).reduce((sum, s) => sum + s, 0);
+    const raw = Object.values(answers).reduce((sum, s) => sum + s, 0);
+    // Max possible = 12 questions × 9 points = 108. Normalize to 0-100.
+    return Math.round((raw / 108) * 100);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -113,12 +187,14 @@ export default function QuizClient() {
     }
   }
 
-  const progressPercent = step === 0 ? 0 : Math.min(((step) / 6) * 100, 100);
+  const totalQuestions = questions.length;
+  const emailStep = totalQuestions + 1;
+  const progressPercent = step === 0 ? 0 : Math.min((step / totalQuestions) * 100, 100);
 
   return (
     <div className="min-h-screen bg-[#050E1D] text-white flex flex-col">
       {/* Progress bar */}
-      {step >= 1 && step <= 6 && (
+      {step >= 1 && step <= totalQuestions && (
         <div className="w-full h-1 bg-white/10">
           <div
             className="h-full bg-[#E67E22] transition-all duration-500 ease-out"
@@ -138,9 +214,16 @@ export default function QuizClient() {
               Score Your Practice in 2 Minutes
             </h1>
             <p className="text-lg text-gray-300 max-w-md mx-auto">
-              Answer 6 quick questions and find out where your practice stands
-              — and what to fix first.
+              Answer 12 questions across 4 categories and get a detailed practice score — plus find out exactly what to fix first.
             </p>
+            <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto text-left">
+              {categories.map((cat, i) => (
+                <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+                  <div className="w-2 h-2 rounded-full bg-[#E67E22]" />
+                  {cat}
+                </div>
+              ))}
+            </div>
             <button
               onClick={() => setStep(1)}
               className="inline-flex items-center gap-2 bg-[#E67E22] hover:bg-[#cf6e1b] text-white font-semibold text-lg px-8 py-4 rounded-lg transition-colors"
@@ -151,12 +234,17 @@ export default function QuizClient() {
           </div>
         )}
 
-        {/* Steps 1-6: Questions */}
-        {step >= 1 && step <= 6 && (
-          <div className="max-w-xl w-full space-y-8">
-            <p className="text-sm text-gray-400 text-center">
-              Question {step} of 6
-            </p>
+        {/* Steps 1-12: Questions */}
+        {step >= 1 && step <= totalQuestions && (
+          <div className="max-w-xl w-full space-y-6">
+            <div className="text-center space-y-1">
+              <p className="text-xs font-bold uppercase tracking-widest text-[#E67E22]">
+                {categories[questions[step - 1].category]}
+              </p>
+              <p className="text-sm text-gray-400">
+                Question {step} of {totalQuestions}
+              </p>
+            </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-center">
               {questions[step - 1].question}
             </h2>
@@ -174,8 +262,8 @@ export default function QuizClient() {
           </div>
         )}
 
-        {/* Step 7: Email Capture */}
-        {step === 7 && (
+        {/* Email Capture */}
+        {step === emailStep && (
           <div className="max-w-xl w-full text-center space-y-8">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 mb-2">
               <CheckCircle className="w-8 h-8 text-green-400" />
