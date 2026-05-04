@@ -230,28 +230,41 @@ export async function postCommunityPrompt(content: string) {
 export async function getScheduledPrompt() {
   const day = new Date().getDay() // 0=Sun, 1=Mon, etc.
 
+  // Prompts are deeply tied to the NeuroChiro Mastermind curriculum:
+  // - Identity as a nervous system chiropractor
+  // - Day 1 consultation & Day 2 ROF system
+  // - Care plan presentation & acceptance
+  // - Objection handling scripts
+  // - KPI tracking (collections, NP, PVA, case acceptance)
+  // - Patient communication & trust building
+  // - The "certainty" transformation
+  // - Learn. Build. Prove. framework
+
   const prompts: Record<number, string[]> = {
-    1: [ // Monday — Week kickoff
-      "🔥 New week, new opportunity.\n\nWhat's the ONE thing you're going to focus on in your practice this week? Drop it below — let's hold each other accountable.",
-      "Monday check-in: How are you feeling about your practice right now? Drop a 1-10 and tell us why.",
-      "Quick question for the group: What's the biggest lesson you took from last week's call? Share it below — your insight might help someone else.",
+    1: [ // Monday — Identity & Intention
+      "🧠 Monday Identity Check.\n\nIf a patient walked in RIGHT NOW and asked 'What kind of chiropractor are you?' — what would you say?\n\nWrite your 30-second identity statement below. Not what you think it should be — what you'd ACTUALLY say today.\n\nThis is where everything starts. Identity first. Certainty follows.",
+      "New week. One intention.\n\nWhat's the ONE thing from the Mastermind that you're going to implement this week? Not three things. ONE.\n\nA Day 1 script change? A new way you present findings? Actually tracking your PVA?\n\nDrop it below. We'll check back Friday.",
+      "Question: When you walk into your office Monday morning — do you feel certain about who you are as a doctor? Or are you still figuring it out?\n\nNo judgment. But the patients feel it either way.\n\nWhat would need to change for you to walk in with complete certainty? Let's talk about it.",
     ],
-    2: [ // Tuesday — Clinical
-      "Let's talk Day 1 flow.\n\nWhat's the hardest part of your consultation right now? Where do you feel patients start to check out? Let's troubleshoot together.",
-      "Role play time 🎯\n\nA patient says: 'My doctor told me chiropractors just crack bones.' What do you say? Drop your response below.",
-      "How do you explain a subluxation to a patient WITHOUT using the word subluxation? Share your go-to explanation.",
+    2: [ // Tuesday — Clinical Communication & Day 1/Day 2
+      "Let's sharpen your Day 1.\n\nWhat's the FIRST thing you say after the patient sits down for their consultation? Not the history intake — the very first words.\n\nDrop your opening line below. Let's compare and refine.\n\nRemember: the first 2 minutes determine whether they trust you enough to come back for Day 2.",
+      "Role play 🎯\n\nYour patient is sitting across from you at the ROF. You've shown them their scans and explained the findings. Now it's time to present the care plan.\n\nA patient says: 'That sounds like a lot of visits. Do I really need to come that often?'\n\nWhat do you say? Drop your response. Let's coach each other.\n\nHint: If you're defending the number of visits, you've already lost. Reframe around the nervous system.",
+      "How do you explain what a nervous system chiropractor does — to someone who's never been to a chiropractor?\n\nNo jargon. No 'subluxation.' No 'interference.' Plain language that makes them lean in.\n\nDrop your explanation below. Keep it under 3 sentences.\n\nThis is the skill that separates a busy practice from a struggling one.",
     ],
-    3: [ // Wednesday — Wins
-      "🏆 WIN WEDNESDAY 🏆\n\nShare ONE win from your practice this week. Big or small. A patient who said yes. A number that went up. A moment where you felt certain.\n\nLet's celebrate each other.",
-      "Mid-week check: Did you implement anything from last call yet? What happened? Share the results — even if it didn't go perfectly.",
+    3: [ // Wednesday — Wins & Implementation
+      "🏆 WIN WEDNESDAY\n\nShare ONE moment from your practice this week where you felt CERTAIN.\n\nMaybe a patient said yes without hesitation. Maybe you nailed your ROF. Maybe you tracked your KPIs for the first time and saw a number go up.\n\nBig or small — if it felt different than before the Mastermind, it counts.\n\nLet's celebrate the identity shifts happening in this group.",
+      "Implementation check ✅\n\nLast call, we worked on [insert topic]. Did you implement it this week?\n\n- If YES: What happened? How did patients respond?\n- If NO: What got in the way? Let's troubleshoot.\n\nThe Mastermind only works if you do the work. Learn. Build. Prove.\n\nWe're in the BUILD phase. Show us what you're building.",
+      "Honest question: Has your CONFIDENCE presenting care plans changed since you joined the Mastermind?\n\nI'm not asking about your numbers yet. I'm asking — do you FEEL different when you walk into a ROF?\n\nThat feeling is the identity shift. The numbers follow.\n\nShare where you are right now.",
     ],
-    4: [ // Thursday — Business
-      "Let's talk numbers.\n\nWhat's your PVA right now? Not where you want it to be — where it actually IS. No judgment. Just truth.\n\nYou can't fix what you don't measure.",
-      "Question for the group: How many new patients did you see this week? And more importantly — how many started a full care plan?",
+    4: [ // Thursday — Business, KPIs & Numbers
+      "Let's talk real numbers.\n\nWhat's your care plan acceptance rate THIS week? Not your best week ever — THIS week.\n\n- How many new patients did you see?\n- How many started a full care plan?\n- What percentage is that?\n\nNo judgment. The whole point of tracking is to know where you stand so you can improve.\n\nIf you don't know your number — that IS the problem. Go calculate it right now.",
+      "PVA check.\n\nYour Patient Visit Average tells you whether patients are completing care or dropping off.\n\n- Under 12: Your care plan presentation has a leak\n- 12-24: You're getting partial compliance\n- 24+: Your patients trust the plan\n\nWhat's yours? And what do you think is causing it?\n\nThis is the number that determines your collections more than anything else.",
+      "Collections reality check.\n\nTake your total collections this week. Divide by total visits.\n\nThat's your collections per visit.\n\nIf it's under $50/visit — your fee schedule, your payment structure, or your case presentation needs work.\n\nIf it's over $75/visit — you're doing something right. Share what's working.\n\nThis number is more important than new patient count.",
     ],
-    5: [ // Friday — KPIs + reflection
-      "📊 Friday = KPI day.\n\nDrop your numbers for the week:\n- Collections: $___\n- New patients: ___\n- Visits: ___\n- Care plans accepted: ___\n\nSubmit them in the KPI tracker too. What gets measured gets managed.",
-      "End of week reflection:\n\n1. What went well this week?\n2. What didn't go as planned?\n3. What will you do differently next week?\n\nWrite it out. It matters.",
+    5: [ // Friday — KPIs, Reflection & Weekend Prep
+      "📊 FRIDAY KPI DROP\n\nPost your numbers for the week:\n\n• Collections: $___\n• New patients: ___\n• Patient visits: ___\n• Care plans accepted: ___ out of ___\n• PVA: ___\n\nThen go submit them in the KPI tracker in your portal.\n\nWhat gets measured gets managed. What gets shared gets improved.\n\nYour numbers are your proof. This is the PROVE phase.",
+      "End of week reflection. Answer honestly:\n\n1. Did I present every care plan with certainty this week — or did I hedge?\n2. Did I track my KPIs — or did I guess?\n3. Did I implement what we discussed on the call — or did I put it off?\n4. Am I closer to the doctor I want to be than I was Monday?\n\nWrite it out. Your future self will thank you.\n\nSee you on the call next week. Come with your numbers and your biggest question.",
+      "Weekend homework 📝\n\nBefore Monday:\n\n1. Submit your KPIs in the portal (takes 2 minutes)\n2. Re-read your identity statement from Week 1 — does it still feel true? Update it if not.\n3. Practice your Day 2 ROF script out loud. One time. Just once.\n\nThe chiropractors who do the reps between calls are the ones who see their numbers move.\n\nIdentity first. Certainty second. Collections third.\n\nHave a great weekend. 🔥",
     ],
   }
 
