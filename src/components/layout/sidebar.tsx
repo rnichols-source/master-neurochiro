@@ -17,6 +17,7 @@ import {
   FolderOpen,
   Bot,
   Crosshair,
+  Megaphone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -151,6 +152,7 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
             {[
               { name: "Overview", href: "/admin", icon: ShieldCheck },
               { name: "Agents", href: "/admin/agents", icon: Bot },
+              { name: "Comms", href: "/admin/comms", icon: Megaphone },
               { name: "Applications", href: "/admin/applications", icon: Users },
               { name: "Cohorts", href: "/admin/cohorts", icon: Activity },
             ].map((item) => {
