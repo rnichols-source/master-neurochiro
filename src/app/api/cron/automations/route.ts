@@ -506,6 +506,72 @@ export async function GET(request: Request) {
       }
     }
 
+    // =========================================================
+    // DAILY COMMUNITY PROMPT — Auto-post engagement prompt
+    // Posts once per day Mon-Fri based on themed prompts
+    // =========================================================
+    try {
+      const day = new Date().getDay();
+      if (day >= 1 && day <= 5) { // Mon-Fri only
+        const today = new Date().toISOString().slice(0, 10);
+
+        // Check if admin already posted today
+        const { data: adminProfile } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("tier", "admin")
+          .limit(1)
+          .single();
+
+        if (adminProfile) {
+          const { data: todayPosts } = await supabase
+            .from("community_posts")
+            .select("id")
+            .eq("user_id", adminProfile.id)
+            .gte("created_at", `${today}T00:00:00`)
+            .lt("created_at", `${today}T23:59:59`)
+            .limit(1);
+
+          if (!todayPosts || todayPosts.length === 0) {
+            // Prompt bank tied to mastermind curriculum
+            const promptBank: Record<number, string[]> = {
+              1: [
+                "🧠 Monday Identity Check.\n\nIf a patient walked in RIGHT NOW and asked 'What kind of chiropractor are you?' — what would you say?\n\nWrite your 30-second identity statement below. Not what you think it should be — what you'd ACTUALLY say today.\n\nIdentity first. Certainty follows.",
+                "New week. One intention.\n\nWhat's the ONE thing from the Mastermind that you're going to implement this week? Not three things. ONE.\n\nDrop it below. We'll check back Friday.",
+              ],
+              2: [
+                "Let's sharpen your Day 1.\n\nWhat's the FIRST thing you say after the patient sits down for their consultation? Drop your opening line below.\n\nRemember: the first 2 minutes determine whether they trust you enough to come back for Day 2.",
+                "Role play 🎯\n\nA patient says: 'That sounds like a lot of visits. Do I really need to come that often?'\n\nWhat do you say? Drop your response.\n\nHint: If you're defending the number of visits, you've already lost. Reframe around the nervous system.",
+              ],
+              3: [
+                "🏆 WIN WEDNESDAY\n\nShare ONE moment from your practice this week where you felt CERTAIN.\n\nBig or small — if it felt different than before the Mastermind, it counts.\n\nLet's celebrate the identity shifts happening in this group.",
+                "Implementation check ✅\n\nDid you implement what we discussed on the last call? What happened?\n\nThe Mastermind only works if you do the work. Learn. Build. Prove.",
+              ],
+              4: [
+                "Let's talk real numbers.\n\nWhat's your care plan acceptance rate THIS week?\n\n- How many new patients did you see?\n- How many started a full care plan?\n\nNo judgment. You can't fix what you don't measure.",
+                "PVA check.\n\nUnder 12: Your care plan presentation has a leak\n12-24: You're getting partial compliance\n24+: Your patients trust the plan\n\nWhat's yours? And what do you think is causing it?",
+              ],
+              5: [
+                "📊 FRIDAY KPI DROP\n\nPost your numbers:\n• Collections: $___\n• New patients: ___\n• Patient visits: ___\n• Care plans accepted: ___ / ___\n\nSubmit them in the KPI tracker too.\n\nIdentity first. Certainty second. Collections third. 🔥",
+                "Weekend homework 📝\n\n1. Submit your KPIs in the portal\n2. Re-read your identity statement — does it still feel true?\n3. Practice your Day 2 ROF script out loud. Once.\n\nThe chiropractors who do the reps between calls are the ones who see their numbers move.",
+              ],
+            };
+
+            const dayPrompts = promptBank[day];
+            if (dayPrompts) {
+              const prompt = dayPrompts[Math.floor(Math.random() * dayPrompts.length)];
+              await supabase
+                .from("community_posts")
+                .insert({ user_id: adminProfile.id, content: prompt });
+              results.push({ type: "daily_community_prompt", day });
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("[CRON] Community prompt failed:", e);
+    }
+
     return NextResponse.json({ success: true, processed: results, count: results.length });
   } catch (error: any) {
     console.error("Cron Error:", error);
