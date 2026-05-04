@@ -148,6 +148,8 @@ export function CommsClient({ sentHistory }: { sentHistory: SentLog[] }) {
   const [callDate, setCallDate] = useState("");
   const [callTime, setCallTime] = useState("12:00 PM");
   const [zoomLink, setZoomLink] = useState("");
+  const [callTopic, setCallTopic] = useState("");
+  const [callPrep, setCallPrep] = useState("");
   const [callSending, setCallSending] = useState(false);
   const [callResult, setCallResult] = useState<string | null>(null);
 
@@ -175,10 +177,10 @@ export function CommsClient({ sentHistory }: { sentHistory: SentLog[] }) {
   };
 
   const handleCallReminder = async () => {
-    if (!callDate.trim() || !zoomLink.trim()) return;
+    if (!callDate.trim() || !zoomLink.trim() || !callTopic.trim() || !callPrep.trim()) return;
     setCallSending(true);
     setCallResult(null);
-    const result = await sendCallReminder(callDate.trim(), callTime, zoomLink.trim());
+    const result = await sendCallReminder(callDate.trim(), callTime, zoomLink.trim(), callTopic.trim(), callPrep.trim());
     setCallResult(result.message || (result.success ? "Sent!" : "Failed"));
     setCallSending(false);
     router.refresh();
@@ -277,11 +279,31 @@ export function CommsClient({ sentHistory }: { sentHistory: SentLog[] }) {
                   onChange={(e) => setZoomLink(e.target.value)}
                   className="w-full bg-white border border-brand-navy/10 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none focus:border-brand-orange/40"
                 />
+                <div>
+                  <label className="text-xs font-bold text-brand-navy/60 mb-1 block">This Week&apos;s Topic</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Communication Mastery — The First 2 Minutes"
+                    value={callTopic}
+                    onChange={(e) => setCallTopic(e.target.value)}
+                    className="w-full bg-white border border-brand-navy/10 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none focus:border-brand-orange/40"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-brand-navy/60 mb-1 block">How to Prepare</label>
+                  <textarea
+                    rows={3}
+                    placeholder={"e.g. Think about how you open your Day 1 consultation.\nWhat are the first words you say when the patient sits down?\nBring your current opening script if you have one — we'll refine it together."}
+                    value={callPrep}
+                    onChange={(e) => setCallPrep(e.target.value)}
+                    className="w-full bg-white border border-brand-navy/10 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none focus:border-brand-orange/40 resize-none"
+                  />
+                </div>
                 <BrandButton
                   variant="primary"
                   className="w-full py-3 gap-2"
                   onClick={handleCallReminder}
-                  disabled={callSending || !callDate.trim() || !zoomLink.trim()}
+                  disabled={callSending || !callDate.trim() || !zoomLink.trim() || !callTopic.trim() || !callPrep.trim()}
                 >
                   {callSending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   Send Call Reminder

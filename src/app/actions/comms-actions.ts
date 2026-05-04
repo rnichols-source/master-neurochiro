@@ -53,7 +53,7 @@ export async function sendAnnouncementToMembers(title: string, body: string) {
 /**
  * Send a call reminder to all paid members.
  */
-export async function sendCallReminder(callDate: string, callTime: string, zoomLink: string) {
+export async function sendCallReminder(callDate: string, callTime: string, zoomLink: string, weekTopic: string, prepInstructions: string) {
   const supabase = await createClient()
   if (!(await checkAdmin(supabase))) return { success: false, message: 'Unauthorized' }
 
@@ -72,10 +72,15 @@ export async function sendCallReminder(callDate: string, callTime: string, zoomL
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #ffffff; background-color: #0A192F; border-radius: 12px;">
           <p style="text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; font-weight: 800; color: #E67E22; margin-bottom: 20px;">Call Reminder</p>
           <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 30px;">Your Coaching Call Is Coming Up</h1>
-          <div style="font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 40px;">
+          <div style="font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 30px;">
             <p>Hey Dr. ${firstName},</p>
-            <p>Just a reminder — your Mastermind coaching call is <strong>${callDate} at ${callTime} ET</strong>.</p>
-            <p>Come ready with your KPIs and your biggest question. See you there.</p>
+            <p>Your Mastermind coaching call is <strong>${callDate} at ${callTime} ET</strong>.</p>
+          </div>
+          <div style="background: rgba(230,126,34,0.1); border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+            <p style="font-size: 14px; font-weight: 800; color: #E67E22; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">This Week's Topic</p>
+            <p style="font-size: 18px; font-weight: 900; color: #ffffff; margin-bottom: 12px;">${weekTopic}</p>
+            <p style="font-size: 14px; font-weight: 800; color: #E67E22; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">How to Prepare</p>
+            <p style="font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.8;">${prepInstructions.replace(/\n/g, '<br>')}</p>
           </div>
           <div style="margin-bottom: 40px;">
             <a href="${zoomLink}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Join Zoom Call</a>
@@ -87,7 +92,7 @@ export async function sendCallReminder(callDate: string, callTime: string, zoomL
           <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
         </div>
       `
-      await EmailService.send(member.email, `Coaching Call Reminder — ${callDate} at ${callTime} ET`, html, 'call_reminder_manual')
+      await EmailService.send(member.email, `${weekTopic} — ${callDate} at ${callTime} ET`, html, 'call_reminder_manual')
       sentCount++
     }
 
