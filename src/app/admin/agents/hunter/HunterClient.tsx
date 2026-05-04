@@ -11,7 +11,7 @@ import Link from "next/link";
 import {
   importFromDirectory, generateOutreach, sendOutreach,
   sendFollowUp, updateProspectStatus, addProspect,
-  runBatchOutreach, runBatchFollowUp,
+  runBatchOutreach, runBatchFollowUp, resendLeadEmail,
 } from "@/app/actions/hunter-actions";
 import { useRouter } from "next/navigation";
 
@@ -26,6 +26,7 @@ interface Prospect {
   status: string;
   fit_score: number;
   notes: string;
+  source: string;
   outreach_subject: string;
   outreach_body: string;
   follow_up_count: number;
@@ -494,6 +495,24 @@ export function HunterClient({ prospects, pipeline }: HunterClientProps) {
                               ? <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
                               : <Send className="w-3.5 h-3.5 mr-1.5" />}
                             Send Follow-Up
+                          </BrandButton>
+                        )}
+
+                        {(prospect.source === "quiz" || prospect.source === "free_training") && (
+                          <BrandButton
+                            variant="ghost"
+                            size="sm"
+                            onClick={async () => {
+                              const result = await resendLeadEmail(prospect.id);
+                              if (result.success) {
+                                alert("Email resent!");
+                              } else {
+                                alert(result.error || "Failed to resend");
+                              }
+                            }}
+                          >
+                            <Mail className="w-3.5 h-3.5 mr-1.5" />
+                            Resend Email
                           </BrandButton>
                         )}
 

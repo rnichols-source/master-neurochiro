@@ -108,6 +108,72 @@ export async function createLeadFromCapture(data: {
 }
 
 /**
+ * Resend the Day 0 email to a lead (quiz results or free session link).
+ * Used when original email bounced due to typo or delivery failure.
+ */
+export async function resendLeadEmail(prospectId: string) {
+  const supabase = await createClient()
+  if (!(await checkAdmin(supabase))) return { success: false, error: 'Unauthorized' }
+
+  try {
+    const adminClient = createAdminClient()
+    const { data: prospect } = await adminClient
+      .from('mastermind_prospects')
+      .select('*')
+      .eq('id', prospectId)
+      .single()
+
+    if (!prospect || !prospect.email) return { success: false, error: 'No email for prospect' }
+
+    const firstName = prospect.name?.split(' ')[0] || 'Doctor'
+
+    if (prospect.source === 'quiz') {
+      const score = prospect.fit_score || 50
+      const scoreLabel = score >= 70 ? 'Strong' : score >= 40 ? 'Developing' : 'Needs Work'
+      const html = `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #ffffff; background-color: #0A192F; border-radius: 12px;">
+          <p style="text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; font-weight: 800; color: #E67E22; margin-bottom: 20px;">Practice Assessment</p>
+          <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 30px;">Your Practice Score: ${score}/100</h1>
+          <div style="font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 40px;">
+            <p>Hey Dr. ${firstName},</p>
+            <p>Your practice scored <strong>${score}/100</strong> — that puts you in the <strong>"${scoreLabel}"</strong> category.</p>
+            <p>I've prepared a personalized breakdown of your results with specific action steps. To get the full report, book a quick 15-minute call with me — I'll walk you through exactly what to focus on first.</p>
+          </div>
+          <div style="margin-bottom: 40px;">
+            <a href="${CALENDLY_LINK}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Get Your Full Results — Book a Call</a>
+          </div>
+          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+        </div>
+      `
+      await EmailService.send(prospect.email, `Your Practice Score: ${score}/100`, html, 'lead_quiz_resend')
+    } else {
+      const html = `
+        <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #ffffff; background-color: #0A192F; border-radius: 12px;">
+          <p style="text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; font-weight: 800; color: #E67E22; margin-bottom: 20px;">Free Session</p>
+          <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 30px;">Your Session Is Ready</h1>
+          <div style="font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 40px;">
+            <p>Hey Dr. ${firstName},</p>
+            <p>Your free coaching session — <strong>a real, uncut Week 1 call from Cohort 2 with Dr. Raymond Nichols</strong> — is ready to watch.</p>
+          </div>
+          <div style="margin-bottom: 40px;">
+            <a href="${SITE_URL}/free-training/confirmation" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Watch the Session</a>
+          </div>
+          <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+        </div>
+      `
+      await EmailService.send(prospect.email, 'Your Free Session Is Ready', html, 'lead_session_resend')
+    }
+
+    revalidatePath('/admin/agents/hunter')
+    return { success: true }
+  } catch (err: any) {
+    return { success: false, error: err.message }
+  }
+}
+
+/**
  * Fetch the mastermind prospect pipeline.
  */
 export async function fetchHunterPipeline() {
