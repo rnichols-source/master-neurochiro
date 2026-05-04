@@ -291,12 +291,39 @@ export default function QuizClient() {
     return Math.round((raw / maxScore) * 100);
   }
 
+  function fixEmailTypos(rawEmail: string): string {
+    const typoMap: Record<string, string> = {
+      "gmail.co": "gmail.com", "gmail.cm": "gmail.com", "gmail.con": "gmail.com",
+      "gmial.com": "gmail.com", "gmal.com": "gmail.com", "gmaill.com": "gmail.com",
+      "yaho.com": "yahoo.com", "yahoo.co": "yahoo.com", "yahooo.com": "yahoo.com",
+      "hotmal.com": "hotmail.com", "hotmai.com": "hotmail.com",
+      "outloo.com": "outlook.com", "outlok.com": "outlook.com",
+      "iclou.com": "icloud.com", "icloud.co": "icloud.com",
+    };
+    const parts = rawEmail.split("@");
+    if (parts.length !== 2) return rawEmail;
+    const domain = parts[1].toLowerCase();
+    return typoMap[domain] ? `${parts[0]}@${typoMap[domain]}` : rawEmail;
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim() || !email.trim()) {
       setError("Please enter your name and email.");
       return;
     }
+
+    const correctedEmail = fixEmailTypos(email.trim());
+    if (correctedEmail !== email.trim()) {
+      setEmail(correctedEmail);
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(correctedEmail)) {
+      setError("Please check your email address — it doesn't look right.");
+      return;
+    }
+
     setError("");
     setSubmitting(true);
 
@@ -310,7 +337,7 @@ export default function QuizClient() {
 
       await createLeadFromCapture({
         name: name.trim(),
-        email: email.trim(),
+        email: correctedEmail,
         source: "quiz",
         fit_score: score,
         notes: JSON.stringify({ track, answers: answerLabels }),

@@ -19,6 +19,21 @@ export default function FreeTrainingPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  function fixEmailTypos(rawEmail: string): string {
+    const typoMap: Record<string, string> = {
+      "gmail.co": "gmail.com", "gmail.cm": "gmail.com", "gmail.con": "gmail.com",
+      "gmial.com": "gmail.com", "gmal.com": "gmail.com", "gmaill.com": "gmail.com",
+      "yaho.com": "yahoo.com", "yahoo.co": "yahoo.com", "yahooo.com": "yahoo.com",
+      "hotmal.com": "hotmail.com", "hotmai.com": "hotmail.com",
+      "outloo.com": "outlook.com", "outlok.com": "outlook.com",
+      "iclou.com": "icloud.com", "icloud.co": "icloud.com",
+    };
+    const parts = rawEmail.split("@");
+    if (parts.length !== 2) return rawEmail;
+    const domain = parts[1].toLowerCase();
+    return typoMap[domain] ? `${parts[0]}@${typoMap[domain]}` : rawEmail;
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -28,10 +43,21 @@ export default function FreeTrainingPage() {
       return;
     }
 
+    const correctedEmail = fixEmailTypos(email.trim());
+    if (correctedEmail !== email.trim()) {
+      setEmail(correctedEmail);
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailRegex.test(correctedEmail)) {
+      setError("Please check your email address — it doesn't look right.");
+      return;
+    }
+
     setIsSubmitting(true);
     const result = await createLeadFromCapture({
       name,
-      email,
+      email: correctedEmail,
       source: "free_training",
     });
     setIsSubmitting(false);
