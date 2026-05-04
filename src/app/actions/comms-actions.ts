@@ -199,6 +199,104 @@ export async function sendWeeklyRecap(weekNumber: number, topicsCovered: string,
 }
 
 /**
+ * Post a discussion prompt to the community as admin.
+ */
+export async function postCommunityPrompt(content: string) {
+  const supabase = await createClient()
+  if (!(await checkAdmin(supabase))) return { success: false, message: 'Unauthorized' }
+
+  try {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return { success: false, message: 'Not authenticated' }
+
+    const adminClient = createAdminClient()
+    const { error } = await adminClient
+      .from('community_posts')
+      .insert({ user_id: user.id, content: content.trim() })
+
+    if (error) return { success: false, message: error.message }
+    revalidatePath('/portal/community')
+    revalidatePath('/admin/comms')
+    return { success: true, message: 'Posted!' }
+  } catch (err: any) {
+    return { success: false, message: err.message }
+  }
+}
+
+/**
+ * Get a scheduled community prompt based on the day of the week.
+ * Returns a pre-written engagement prompt.
+ */
+export async function getScheduledPrompt() {
+  const day = new Date().getDay() // 0=Sun, 1=Mon, etc.
+
+  const prompts: Record<number, string[]> = {
+    1: [ // Monday — Week kickoff
+      "🔥 New week, new opportunity.\n\nWhat's the ONE thing you're going to focus on in your practice this week? Drop it below — let's hold each other accountable.",
+      "Monday check-in: How are you feeling about your practice right now? Drop a 1-10 and tell us why.",
+      "Quick question for the group: What's the biggest lesson you took from last week's call? Share it below — your insight might help someone else.",
+    ],
+    2: [ // Tuesday — Clinical
+      "Let's talk Day 1 flow.\n\nWhat's the hardest part of your consultation right now? Where do you feel patients start to check out? Let's troubleshoot together.",
+      "Role play time 🎯\n\nA patient says: 'My doctor told me chiropractors just crack bones.' What do you say? Drop your response below.",
+      "How do you explain a subluxation to a patient WITHOUT using the word subluxation? Share your go-to explanation.",
+    ],
+    3: [ // Wednesday — Wins
+      "🏆 WIN WEDNESDAY 🏆\n\nShare ONE win from your practice this week. Big or small. A patient who said yes. A number that went up. A moment where you felt certain.\n\nLet's celebrate each other.",
+      "Mid-week check: Did you implement anything from last call yet? What happened? Share the results — even if it didn't go perfectly.",
+    ],
+    4: [ // Thursday — Business
+      "Let's talk numbers.\n\nWhat's your PVA right now? Not where you want it to be — where it actually IS. No judgment. Just truth.\n\nYou can't fix what you don't measure.",
+      "Question for the group: How many new patients did you see this week? And more importantly — how many started a full care plan?",
+    ],
+    5: [ // Friday — KPIs + reflection
+      "📊 Friday = KPI day.\n\nDrop your numbers for the week:\n- Collections: $___\n- New patients: ___\n- Visits: ___\n- Care plans accepted: ___\n\nSubmit them in the KPI tracker too. What gets measured gets managed.",
+      "End of week reflection:\n\n1. What went well this week?\n2. What didn't go as planned?\n3. What will you do differently next week?\n\nWrite it out. It matters.",
+    ],
+  }
+
+  const todayPrompts = prompts[day]
+  if (!todayPrompts) return { success: true, data: null }
+
+  // Pick a random prompt for today
+  const prompt = todayPrompts[Math.floor(Math.random() * todayPrompts.length)]
+  return { success: true, data: prompt }
+}
+
+/**
+ * Auto-post today's community prompt (called from admin or cron).
+ */
+export async function autoPostDailyPrompt() {
+  const supabase = await createClient()
+  if (!(await checkAdmin(supabase))) return { success: false, message: 'Unauthorized' }
+
+  try {
+    const { data: prompt } = await getScheduledPrompt()
+    if (!prompt) return { success: true, message: 'No prompt for today (weekend)' }
+
+    // Check if we already posted today
+    const adminClient = createAdminClient()
+    const today = new Date().toISOString().slice(0, 10)
+    const { data: existing } = await adminClient
+      .from('community_posts')
+      .select('id')
+      .gte('created_at', `${today}T00:00:00`)
+      .lt('created_at', `${today}T23:59:59`)
+      .limit(1)
+
+    // Only auto-post if no posts today
+    if (existing && existing.length > 0) {
+      return { success: true, message: 'Already posted today' }
+    }
+
+    const result = await postCommunityPrompt(prompt)
+    return result
+  } catch (err: any) {
+    return { success: false, message: err.message }
+  }
+}
+
+/**
  * Fetch recent sent emails from automation_logs.
  */
 export async function fetchSentHistory(limit: number = 30) {

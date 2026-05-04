@@ -4,7 +4,7 @@ import { useState } from "react";
 import { EliteCard, BrandButton } from "@/components/ui/elite-ui";
 import {
   Send, Bell, BarChart3, FileText, Megaphone, Video,
-  Loader2, CheckCircle, XCircle, Clock, ArrowLeft,
+  Loader2, CheckCircle, XCircle, Clock, ArrowLeft, MessageSquare, Sparkles, RefreshCw,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -12,6 +12,9 @@ import {
   sendCallReminder,
   sendKPIReminder,
   sendWeeklyRecap,
+  getScheduledPrompt,
+  postCommunityPrompt,
+  autoPostDailyPrompt,
 } from "@/app/actions/comms-actions";
 import { useRouter } from "next/navigation";
 
@@ -52,6 +55,84 @@ const eventTypeLabels: Record<string, string> = {
   mastermind_outreach: "Hunter Outreach",
   mastermind_followup: "Hunter Follow-Up",
 };
+
+function CommunityPromptSection() {
+  const [prompt, setPrompt] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [posting, setPosting] = useState(false);
+  const [result, setResult] = useState<string | null>(null);
+  const router = useRouter();
+
+  const generatePrompt = async () => {
+    setLoading(true);
+    const res = await getScheduledPrompt();
+    if (res.data) setPrompt(res.data);
+    else setPrompt("No prompt scheduled for today (weekends are off).");
+    setLoading(false);
+  };
+
+  const handlePost = async () => {
+    if (!prompt.trim()) return;
+    setPosting(true);
+    setResult(null);
+    const res = await postCommunityPrompt(prompt.trim());
+    setResult(res.message || (res.success ? "Posted!" : "Failed"));
+    setPosting(false);
+    if (res.success) setPrompt("");
+    router.refresh();
+  };
+
+  const handleAutoPost = async () => {
+    setPosting(true);
+    setResult(null);
+    const res = await autoPostDailyPrompt();
+    setResult(res.message || (res.success ? "Posted!" : "Failed"));
+    setPosting(false);
+    router.refresh();
+  };
+
+  return (
+    <EliteCard className="p-6">
+      <div className="flex items-center gap-2 mb-4">
+        <MessageSquare className="w-5 h-5 text-brand-orange" />
+        <h3 className="text-lg font-black text-brand-navy">Community Discussion Prompt</h3>
+      </div>
+      <p className="text-sm text-brand-gray font-medium mb-4">
+        Post a discussion prompt to the community to keep engagement up. Auto-generate based on the day or write your own.
+      </p>
+
+      <div className="flex gap-2 mb-3">
+        <BrandButton variant="ghost" size="sm" onClick={generatePrompt} disabled={loading} className="gap-1.5">
+          {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
+          Generate Today&apos;s Prompt
+        </BrandButton>
+        <BrandButton variant="ghost" size="sm" onClick={handleAutoPost} disabled={posting} className="gap-1.5">
+          {posting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5" />}
+          Auto-Post
+        </BrandButton>
+      </div>
+
+      <textarea
+        rows={5}
+        placeholder="Write a discussion prompt or click 'Generate' to get one based on today's theme...&#10;&#10;Monday = Week kickoff&#10;Tuesday = Clinical discussion&#10;Wednesday = Win Wednesday&#10;Thursday = Numbers & business&#10;Friday = KPIs & reflection"
+        value={prompt}
+        onChange={(e) => setPrompt(e.target.value)}
+        className="w-full bg-white border border-brand-navy/10 rounded-xl py-3 px-4 text-sm font-medium text-brand-navy outline-none focus:border-brand-orange/40 resize-none mb-3"
+      />
+
+      <BrandButton
+        variant="accent"
+        className="w-full py-3 gap-2"
+        onClick={handlePost}
+        disabled={posting || !prompt.trim()}
+      >
+        {posting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+        Post to Community
+      </BrandButton>
+      {result && <p className="text-xs text-center text-brand-gray font-medium mt-2">{result}</p>}
+    </EliteCard>
+  );
+}
 
 export function CommsClient({ sentHistory }: { sentHistory: SentLog[] }) {
   const router = useRouter();
@@ -338,6 +419,9 @@ export function CommsClient({ sentHistory }: { sentHistory: SentLog[] }) {
               {annResult && <p className="text-xs text-center text-brand-gray font-medium mt-2">{annResult}</p>}
             </div>
           </EliteCard>
+
+          {/* Community Prompt */}
+          <CommunityPromptSection />
         </div>
       )}
 
