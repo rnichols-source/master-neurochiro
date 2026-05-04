@@ -326,12 +326,12 @@ export default function QuizClient() {
   const progressPercent = step === 0 ? 0 : Math.min((step / totalQuestions) * 100, 100);
 
   return (
-    <div className="min-h-screen bg-[#050E1D] text-white flex flex-col">
+    <div className="min-h-screen bg-[#F5F3EF] text-[#1E2D3B] flex flex-col">
       {/* Progress bar */}
       {track && step >= 1 && step <= totalQuestions && (
-        <div className="w-full h-1 bg-white/10">
+        <div className="w-full h-1 bg-[#1E2D3B]/10">
           <div
-            className="h-full bg-[#E67E22] transition-all duration-500 ease-out"
+            className="h-full bg-[#D66829] transition-all duration-500 ease-out"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -341,32 +341,32 @@ export default function QuizClient() {
         {/* Step 0: Track Selection */}
         {!track && (
           <div className="max-w-xl w-full text-center space-y-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#E67E22]/20 mb-2">
-              <ClipboardList className="w-8 h-8 text-[#E67E22]" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#D66829]/10 mb-2">
+              <ClipboardList className="w-8 h-8 text-[#D66829]" />
             </div>
-            <p className="text-sm font-bold text-[#E67E22] uppercase tracking-widest">Free Practice Assessment</p>
+            <p className="text-sm font-bold text-[#D66829] uppercase tracking-widest">Free Practice Assessment</p>
             <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
               Which best describes you?
             </h1>
-            <p className="text-lg text-gray-300 max-w-md mx-auto">
+            <p className="text-lg text-[#1E2D3B]/50 max-w-md mx-auto">
               We&apos;ll tailor your assessment based on where you are in your chiropractic career.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
               <button
                 onClick={() => handleTrackSelect("doctor")}
-                className="flex flex-col items-center gap-3 px-6 py-8 rounded-2xl border-2 border-white/10 hover:border-[#E67E22] bg-white/5 hover:bg-white/10 transition-all"
+                className="flex flex-col items-center gap-3 px-6 py-8 rounded-2xl border-2 border-[#1E2D3B]/10 hover:border-[#D66829] bg-white hover:bg-[#D66829]/5 transition-all"
               >
-                <Stethoscope className="w-10 h-10 text-[#E67E22]" />
+                <Stethoscope className="w-10 h-10 text-[#D66829]" />
                 <span className="text-xl font-bold">Practicing Doctor</span>
-                <span className="text-sm text-gray-400">Associate, clinic owner, or practice owner</span>
+                <span className="text-sm text-[#1E2D3B]/40">Associate, clinic owner, or practice owner</span>
               </button>
               <button
                 onClick={() => handleTrackSelect("student")}
-                className="flex flex-col items-center gap-3 px-6 py-8 rounded-2xl border-2 border-white/10 hover:border-[#E67E22] bg-white/5 hover:bg-white/10 transition-all"
+                className="flex flex-col items-center gap-3 px-6 py-8 rounded-2xl border-2 border-[#1E2D3B]/10 hover:border-[#D66829] bg-white hover:bg-[#D66829]/5 transition-all"
               >
-                <GraduationCap className="w-10 h-10 text-[#E67E22]" />
+                <GraduationCap className="w-10 h-10 text-[#D66829]" />
                 <span className="text-xl font-bold">Chiro Student</span>
-                <span className="text-sm text-gray-400">Currently in school or graduated within 1 year</span>
+                <span className="text-sm text-[#1E2D3B]/40">Currently in school or graduated within 1 year</span>
               </button>
             </div>
           </div>
@@ -376,10 +376,10 @@ export default function QuizClient() {
         {track && step >= 1 && step <= totalQuestions && (
           <div className="max-w-xl w-full space-y-6">
             <div className="text-center space-y-1">
-              <p className="text-xs font-bold uppercase tracking-widest text-[#E67E22]">
+              <p className="text-xs font-bold uppercase tracking-widest text-[#D66829]">
                 {cats[questions[step - 1].category]}
               </p>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-[#1E2D3B]/40">
                 Question {step} of {totalQuestions}
               </p>
             </div>
@@ -391,7 +391,7 @@ export default function QuizClient() {
                 <button
                   key={option.label}
                   onClick={() => handleAnswer(step - 1, option)}
-                  className="w-full text-left px-6 py-4 rounded-lg border-2 border-white/10 hover:border-[#E67E22] bg-white/5 hover:bg-white/10 transition-all text-lg font-medium"
+                  className="w-full text-left px-6 py-4 rounded-lg border-2 border-[#1E2D3B]/10 hover:border-[#D66829] bg-white hover:bg-[#D66829]/5 transition-all text-lg font-medium"
                 >
                   {option.label}
                 </button>
@@ -407,14 +407,14 @@ export default function QuizClient() {
               <CheckCircle className="w-8 h-8 text-green-400" />
             </div>
             <h2 className="text-3xl font-bold">Your results are ready!</h2>
-            <p className="text-lg text-gray-300">
+            <p className="text-lg text-[#1E2D3B]/50">
               {track === "doctor"
                 ? "Enter your info to see your Practice Score and find out where you stand."
                 : "Enter your info to see your Career Readiness Score and find out what to focus on before graduation."}
             </p>
             <form onSubmit={handleSubmit} className="space-y-4 text-left">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="name" className="block text-sm font-medium text-[#1E2D3B]/50 mb-1">
                   Name
                 </label>
                 <input
@@ -423,12 +423,12 @@ export default function QuizClient() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder={track === "doctor" ? "Dr. Jane Smith" : "Jane Smith"}
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-[#E67E22] focus:ring-1 focus:ring-[#E67E22] transition-colors"
+                  className="w-full px-4 py-3 rounded-lg bg-white border border-[#1E2D3B]/10 text-[#1E2D3B] placeholder-[#1E2D3B]/30 focus:outline-none focus:border-[#D66829]/40 focus:ring-2 focus:ring-[#D66829]/10 transition-colors"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-[#1E2D3B]/50 mb-1">
                   Email
                 </label>
                 <input
@@ -437,15 +437,15 @@ export default function QuizClient() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={track === "doctor" ? "jane@practice.com" : "jane@student.edu"}
-                  className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-500 focus:outline-none focus:border-[#E67E22] focus:ring-1 focus:ring-[#E67E22] transition-colors"
+                  className="w-full px-4 py-3 rounded-lg bg-white border border-[#1E2D3B]/10 text-[#1E2D3B] placeholder-[#1E2D3B]/30 focus:outline-none focus:border-[#D66829]/40 focus:ring-2 focus:ring-[#D66829]/10 transition-colors"
                   required
                 />
               </div>
-              {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+              {error && <p className="text-red-600 text-sm text-center">{error}</p>}
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#E67E22] hover:bg-[#cf6e1b] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-lg px-8 py-4 rounded-lg transition-colors"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#D66829] hover:bg-[#c05d24] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold text-lg px-8 py-4 rounded-lg transition-colors"
               >
                 {submitting ? "Calculating..." : "See My Score"}
                 {!submitting && <ArrowRight className="w-5 h-5" />}

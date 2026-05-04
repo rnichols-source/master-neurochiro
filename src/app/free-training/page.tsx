@@ -44,34 +44,31 @@ export default function FreeTrainingPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-[#050E1D]">
-      {/* ═══════════════════════════════════════════════════════════
-          HERO SECTION
-      ═══════════════════════════════════════════════════════════ */}
+    <div className="min-h-[100dvh] bg-[#F5F3EF]">
+      {/* Hero */}
       <section className="px-5 md:px-6 pt-16 md:pt-24 pb-16 md:pb-20">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#E67E22]/10 rounded-full mb-8">
-            <span className="w-2 h-2 bg-[#E67E22] rounded-full animate-pulse" />
-            <span className="text-sm font-bold text-[#E67E22] uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#D66829]/10 rounded-full mb-8">
+            <span className="w-2 h-2 bg-[#D66829] rounded-full animate-pulse" />
+            <span className="text-sm font-bold text-[#D66829] uppercase tracking-wider">
               Free Session
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl lg:text-[3.5rem] font-black text-white tracking-tight leading-[1.1] mb-6">
+          <h1 className="text-3xl md:text-5xl lg:text-[3.5rem] font-black text-[#1E2D3B] tracking-tight leading-[1.1] mb-6">
             Watch a Real Mastermind Coaching Session — Uncut
           </h1>
 
-          <p className="text-lg md:text-xl text-white/60 font-medium leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-lg md:text-xl text-[#1E2D3B]/50 font-medium leading-relaxed max-w-2xl mx-auto mb-10">
             This is an actual Week 1 call from Cohort 2 with Dr. Raymond Nichols. See exactly how we coach, what we cover, and why our members go from 40% to 80% care plan acceptance.
           </p>
 
-          {/* Inline Email Capture Form */}
           <form
             onSubmit={handleSubmit}
             className="max-w-xl mx-auto space-y-4"
           >
             {error && (
-              <div className="p-4 bg-red-500/20 border border-red-400/30 rounded-xl text-red-200 text-sm font-medium">
+              <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm font-medium">
                 {error}
               </div>
             )}
@@ -83,7 +80,7 @@ export default function FreeTrainingPage() {
               placeholder="Your name (e.g. Dr. Jane Smith)"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-4 text-base font-medium text-white placeholder:text-white/30 focus:border-[#E67E22]/60 focus:ring-2 focus:ring-[#E67E22]/20 transition-all outline-none"
+              className="w-full bg-white border border-[#1E2D3B]/10 rounded-xl py-4 px-4 text-base font-medium text-[#1E2D3B] placeholder:text-[#1E2D3B]/30 focus:border-[#D66829]/40 focus:ring-2 focus:ring-[#D66829]/10 transition-all outline-none"
             />
 
             <input
@@ -94,40 +91,38 @@ export default function FreeTrainingPage() {
               placeholder="Your best email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-4 text-base font-medium text-white placeholder:text-white/30 focus:border-[#E67E22]/60 focus:ring-2 focus:ring-[#E67E22]/20 transition-all outline-none"
+              className="w-full bg-white border border-[#1E2D3B]/10 rounded-xl py-4 px-4 text-base font-medium text-[#1E2D3B] placeholder:text-[#1E2D3B]/30 focus:border-[#D66829]/40 focus:ring-2 focus:ring-[#D66829]/10 transition-all outline-none"
             />
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#E67E22] hover:bg-[#d4711d] text-white font-bold text-base py-4 px-8 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+              className="w-full bg-[#D66829] hover:bg-[#c05d24] text-white font-bold text-base py-4 px-8 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
             >
               {isSubmitting ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                  Watch Free Training
+                  Watch Free Session
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </>
               )}
             </button>
 
-            <p className="text-sm text-white/30 font-medium">
+            <p className="text-sm text-[#1E2D3B]/30 font-medium">
               No spam. Unsubscribe anytime.
             </p>
           </form>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════
-          WHAT YOU'LL LEARN — 3 Cards
-      ═══════════════════════════════════════════════════════════ */}
-      <section className="px-5 md:px-6 py-16 md:py-20 border-t border-white/5">
+      {/* What You'll See */}
+      <section className="px-5 md:px-6 py-16 md:py-20 border-t border-[#1E2D3B]/5">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl md:text-4xl font-black text-white text-center mb-4">
+          <h2 className="text-2xl md:text-4xl font-black text-[#1E2D3B] text-center mb-4">
             What You&apos;ll See Inside
           </h2>
-          <p className="text-white/50 text-center text-base md:text-lg mb-12 max-w-2xl mx-auto">
+          <p className="text-[#1E2D3B]/50 text-center text-base md:text-lg mb-12 max-w-2xl mx-auto">
             A real coaching session — not a highlight reel. Here&apos;s what Week 1 covers.
           </p>
 
@@ -151,15 +146,15 @@ export default function FreeTrainingPage() {
             ].map((card) => (
               <div
                 key={card.title}
-                className="bg-white/5 rounded-2xl p-6 border border-white/10"
+                className="bg-white rounded-2xl p-6 border border-[#1E2D3B]/5 shadow-sm"
               >
-                <div className="w-10 h-10 rounded-full bg-[#E67E22]/10 flex items-center justify-center mb-4">
-                  <card.icon className="w-5 h-5 text-[#E67E22]" />
+                <div className="w-10 h-10 rounded-full bg-[#D66829]/10 flex items-center justify-center mb-4">
+                  <card.icon className="w-5 h-5 text-[#D66829]" />
                 </div>
-                <h3 className="font-bold text-white text-lg mb-2">
+                <h3 className="font-bold text-[#1E2D3B] text-lg mb-2">
                   {card.title}
                 </h3>
-                <p className="text-sm text-white/60 leading-relaxed">
+                <p className="text-sm text-[#1E2D3B]/50 leading-relaxed">
                   {card.desc}
                 </p>
               </div>
@@ -168,28 +163,24 @@ export default function FreeTrainingPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════
-          SOCIAL PROOF
-      ═══════════════════════════════════════════════════════════ */}
-      <section className="px-5 md:px-6 py-16 md:py-20 border-t border-white/5">
+      {/* Social Proof */}
+      <section className="px-5 md:px-6 py-16 md:py-20 border-t border-[#1E2D3B]/5">
         <div className="max-w-3xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Users className="w-6 h-6 text-[#E67E22]" />
-            <span className="text-xl md:text-2xl font-black text-white">
-              100+
+            <Users className="w-6 h-6 text-[#D66829]" />
+            <span className="text-xl md:text-2xl font-black text-[#1E2D3B]">
+              150+
             </span>
           </div>
-          <p className="text-lg md:text-xl text-white/60 font-medium">
+          <p className="text-lg md:text-xl text-[#1E2D3B]/50 font-medium">
             Join 150+ chiropractors who&apos;ve transformed their practice
           </p>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════
-          FOOTER
-      ═══════════════════════════════════════════════════════════ */}
-      <footer className="px-5 md:px-6 py-10 border-t border-white/5">
-        <p className="text-center text-sm text-white/30 font-medium">
+      {/* Footer */}
+      <footer className="px-5 md:px-6 py-10 border-t border-[#1E2D3B]/5">
+        <p className="text-center text-sm text-[#1E2D3B]/20 font-medium">
           NeuroChiro Global Mastermind
         </p>
       </footer>

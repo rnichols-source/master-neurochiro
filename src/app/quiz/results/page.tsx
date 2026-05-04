@@ -38,16 +38,16 @@ function ResultsContent() {
   const cats = isStudent ? studentCategories : doctorCategories;
 
   return (
-    <div className="min-h-screen bg-[#050E1D] text-white flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-[#F5F3EF] text-[#1E2D3B] flex items-center justify-center px-4 py-12">
       <div className="max-w-xl w-full text-center space-y-10">
         {/* Track Label */}
-        <p className="text-sm font-bold text-[#E67E22] uppercase tracking-widest">
+        <p className="text-sm font-bold text-[#D66829] uppercase tracking-widest">
           {isStudent ? "Student Career Readiness Assessment" : "Practice Assessment Results"}
         </p>
 
         {/* Score Display */}
         <div className="space-y-4">
-          <p className="text-sm uppercase tracking-widest text-gray-400">
+          <p className="text-sm uppercase tracking-widest text-[#1E2D3B]/40">
             {isStudent ? "Your Career Readiness Score" : "Your Practice Score"}
           </p>
           <div className={`inline-flex items-center justify-center w-36 h-36 rounded-full border-4 ${scoreRingColor}`}>
@@ -60,45 +60,45 @@ function ResultsContent() {
         </div>
 
         {/* Category Teaser */}
-        <div className="bg-white/5 rounded-xl p-6 text-left space-y-5 border border-white/10">
+        <div className="bg-white rounded-xl p-6 text-left space-y-5 border border-[#1E2D3B]/5">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#E67E22]" />
+            <Sparkles className="w-5 h-5 text-[#D66829]" />
             <h3 className="text-lg font-semibold">Your score across 4 categories:</h3>
           </div>
           <div className="space-y-3">
             {cats.map((cat) => (
               <div key={cat.name} className="flex items-center gap-3">
                 <span className="text-lg">{cat.icon}</span>
-                <span className="text-sm font-medium text-gray-300 flex-1">{cat.name}</span>
-                <span className="text-sm font-bold text-gray-500">●●●</span>
+                <span className="text-sm font-medium text-[#1E2D3B]/50 flex-1">{cat.name}</span>
+                <span className="text-sm font-bold text-[#1E2D3B]/30">●●●</span>
               </div>
             ))}
           </div>
-          <p className="text-xs text-gray-500 italic">Full category scores revealed on your call</p>
+          <p className="text-xs text-[#1E2D3B]/30 italic">Full category scores revealed on your call</p>
         </div>
 
         {/* What you get on the call */}
-        <div className="bg-white/5 rounded-xl p-6 text-left space-y-4 border border-white/10">
+        <div className="bg-white rounded-xl p-6 text-left space-y-4 border border-[#1E2D3B]/5">
           <h3 className="text-lg font-semibold">On your free call, Dr. Ray will cover:</h3>
-          <ul className="space-y-3 text-gray-300">
+          <ul className="space-y-3 text-[#1E2D3B]/50">
             <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#D66829] flex-shrink-0" />
               Your full category-by-category breakdown
             </li>
             <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#D66829] flex-shrink-0" />
               {isStudent
                 ? "Your biggest gap before graduation — and how to close it"
                 : "Your #1 growth opportunity based on your answers"}
             </li>
             <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#D66829] flex-shrink-0" />
               {isStudent
                 ? "A career action plan — what to do in the next 90 days"
                 : "A specific action plan for the next 30 days"}
             </li>
             <li className="flex items-start gap-3">
-              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#D66829] flex-shrink-0" />
               {isStudent
                 ? "Whether the Foundations Intensive is the right next step for you"
                 : "Whether the Mastermind Intensive is the right fit for you (honest answer)"}
@@ -112,12 +112,12 @@ function ResultsContent() {
             href="https://calendly.com/drray-neurochirodirectory/15min"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-[#E67E22] hover:bg-[#cf6e1b] text-white font-semibold text-lg px-8 py-4 rounded-lg transition-colors w-full"
+            className="inline-flex items-center justify-center gap-2 bg-[#D66829] hover:bg-[#cf6e1b] text-[#1E2D3B] font-semibold text-lg px-8 py-4 rounded-lg transition-colors w-full"
           >
             Book a Free Call to Get Your Full Results
             <ArrowRight className="w-5 h-5" />
           </a>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-[#1E2D3B]/40">
             {isStudent
               ? "Dr. Ray will walk you through your career readiness breakdown in a free 15-minute call."
               : "Dr. Ray will walk you through your personalized action plan in a free 15-minute call."}
@@ -127,7 +127,7 @@ function ResultsContent() {
         {/* Secondary link */}
         <Link
           href="/pricing"
-          className="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-[#E67E22] transition-colors"
+          className="inline-flex items-center gap-1 text-sm text-[#1E2D3B]/40 hover:text-[#D66829] transition-colors"
         >
           {isStudent ? "Learn more about the Foundations Intensive" : "Learn more about the Mastermind Intensive"}
           <ArrowRight className="w-4 h-4" />
@@ -141,8 +141,8 @@ export default function ResultsPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#050E1D] flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-[#E67E22] border-t-transparent rounded-full animate-spin" />
+        <div className="min-h-screen bg-[#F5F3EF] flex items-center justify-center">
+          <div className="w-8 h-8 border-[#D66829] border-[#D66829] border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >
