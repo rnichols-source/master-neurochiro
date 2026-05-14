@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { EmailService } from "@/lib/emails";
+import { stripe } from "@/lib/stripe";
 
 interface StripeSession {
   customer_details: {
@@ -56,6 +57,44 @@ export const StripeProcessor = {
     if (existingAttendee) {
       console.log(`[STRIPE] Session ${session.id} already processed. Skipping.`);
       return { success: true, already_processed: true };
+    }
+
+    // --- DUPLICATE SUBSCRIPTION GUARD ---
+    // If this checkout created a subscription, check if customer already has others and cancel duplicates
+    if (session.subscription && session.customer) {
+      try {
+        const activeSubs = await stripe.subscriptions.list({
+          customer: session.customer,
+          status: "active",
+        });
+        if (activeSubs.data.length > 1) {
+          // Keep the oldest subscription, cancel all newer ones
+          const sorted = activeSubs.data.sort((a, b) => a.created - b.created);
+          const keepSub = sorted[0];
+          for (const sub of sorted.slice(1)) {
+            console.log(`[STRIPE] Cancelling duplicate subscription ${sub.id} for ${customerEmail} (keeping ${keepSub.id})`);
+            await stripe.subscriptions.cancel(sub.id, {
+              prorate: true,
+            });
+            // Refund the latest invoice on the cancelled subscription
+            if (sub.latest_invoice) {
+              const invoiceId = typeof sub.latest_invoice === 'string' ? sub.latest_invoice : sub.latest_invoice.id;
+              try {
+                const invoice = await stripe.invoices.retrieve(invoiceId) as any;
+                const piId = typeof invoice.payment_intent === 'string' ? invoice.payment_intent : invoice.payment_intent?.id;
+                if (piId) {
+                  await stripe.refunds.create({ payment_intent: piId });
+                  console.log(`[STRIPE] Auto-refunded duplicate charge for ${customerEmail} (invoice ${invoiceId})`);
+                }
+              } catch (refundErr: any) {
+                console.error(`[STRIPE] Failed to auto-refund invoice ${invoiceId}:`, refundErr.message);
+              }
+            }
+          }
+        }
+      } catch (dupErr: any) {
+        console.error(`[STRIPE] Duplicate subscription check failed:`, dupErr.message);
+      }
     }
 
     // --- EVENT FULFILLMENT ---

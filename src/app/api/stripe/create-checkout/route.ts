@@ -40,6 +40,26 @@ export async function POST(request: Request) {
     const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://neurochiromastermind.com";
     const displayName = name || "Doctor";
 
+    // --- DUPLICATE SUBSCRIPTION GUARD ---
+    if (isRecurring && email) {
+      const existingCustomers = await stripe.customers.list({ email, limit: 1 });
+      if (existingCustomers.data.length > 0) {
+        const customerId = existingCustomers.data[0].id;
+        const activeSubs = await stripe.subscriptions.list({
+          customer: customerId,
+          status: "active",
+          limit: 1,
+        });
+        if (activeSubs.data.length > 0) {
+          console.log(`[STRIPE] Blocked duplicate subscription for ${email} — already has active sub ${activeSubs.data[0].id}`);
+          return NextResponse.json(
+            { error: "You already have an active subscription. If you need help, contact support." },
+            { status: 409 }
+          );
+        }
+      }
+    }
+
     const session = await stripe.checkout.sessions.create({
       mode: isRecurring ? "subscription" : "payment",
       line_items: [{ price: priceId, quantity: 1 }],
