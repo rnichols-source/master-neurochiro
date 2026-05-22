@@ -466,9 +466,9 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
                     padding: '12px 16px',
                     fontSize: '12px'
                   }}
-                  formatter={(value: number, name: string) => {
-                    if (name === 'collections') return [`$${value.toLocaleString()}`, 'Collections'];
-                    return [value, name];
+                  formatter={(value) => {
+                    if (typeof value === 'number') return `$${value.toLocaleString()}`;
+                    return String(value ?? '');
                   }}
                 />
                 <Area
