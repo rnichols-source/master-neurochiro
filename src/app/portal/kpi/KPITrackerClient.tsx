@@ -385,7 +385,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
       </div>
 
       {/* What-If Slider */}
-      {kpiData.length > 0 && levers.npPerWeek > 0 && (
+      {kpiData.length > 0 && levers.npPerWeek > 0 && levers.cva > 0 && (
         <KPIWhatIfSlider
           levers={levers}
           weakestLever={weakestLever}
