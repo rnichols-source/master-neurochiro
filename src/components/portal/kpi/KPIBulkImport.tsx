@@ -46,15 +46,17 @@ function formatMonth(ym: string): string {
   return d.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 }
 
-function monthToMonday(ym: string, weekIndex: number): string {
-  const [y, m] = ym.split("-");
-  const firstDay = new Date(Number(y), Number(m) - 1, 1);
-  // Find first Monday
-  const dayOfWeek = firstDay.getDay();
-  const mondayOffset = dayOfWeek === 0 ? 1 : dayOfWeek === 1 ? 0 : 8 - dayOfWeek;
-  const monday = new Date(firstDay);
-  monday.setDate(firstDay.getDate() + mondayOffset + weekIndex * 7);
-  return monday.toISOString().split("T")[0];
+function getMondaysInMonth(ym: string): string[] {
+  const [y, m] = ym.split("-").map(Number);
+  const mondays: string[] = [];
+  const lastDay = new Date(y, m, 0).getDate(); // last day of month
+  for (let d = 1; d <= lastDay; d++) {
+    const date = new Date(y, m - 1, d);
+    if (date.getDay() === 1) {
+      mondays.push(date.toISOString().split("T")[0]);
+    }
+  }
+  return mondays;
 }
 
 export function KPIBulkImport({ onSuccess, onCancel }: KPIBulkImportProps) {
@@ -123,21 +125,23 @@ export function KPIBulkImport({ onSuccess, onCancel }: KPIBulkImportProps) {
     let completed = 0;
 
     for (const row of filledRows) {
-      // Convert monthly totals to ~4 weekly entries per month
-      const weeksInMonth = 4;
-      const weeklyCollections = Math.round(row.collections / weeksInMonth);
-      const weeklyVisits = Math.round(row.total_visits / weeksInMonth);
-      // Spread NP and care plans across weeks (put remainder in first week)
-      const weeklyNP = Math.floor(row.new_patients / weeksInMonth);
-      const npRemainder = row.new_patients % weeksInMonth;
-      const weeklyCP = Math.floor(row.care_plans / weeksInMonth);
-      const cpRemainder = row.care_plans % weeksInMonth;
+      const mondays = getMondaysInMonth(row.month);
+      const numWeeks = mondays.length;
+      if (numWeeks === 0) continue;
 
-      for (let w = 0; w < weeksInMonth; w++) {
-        const weekDate = monthToMonday(row.month, w);
+      // Round inputs to integers before splitting
+      const totalNP = Math.round(row.new_patients);
+      const totalCP = Math.round(row.care_plans);
+      const weeklyCollections = Math.round(row.collections / numWeeks);
+      const weeklyVisits = Math.round(row.total_visits / numWeeks);
+      const weeklyNP = Math.floor(totalNP / numWeeks);
+      const npRemainder = totalNP % numWeeks;
+      const weeklyCP = Math.floor(totalCP / numWeeks);
+      const cpRemainder = totalCP % numWeeks;
 
+      for (let w = 0; w < numWeeks; w++) {
         await submitKPIEntry({
-          week_start_date: weekDate,
+          week_start_date: mondays[w],
           collections: weeklyCollections,
           new_patients: weeklyNP + (w === 0 ? npRemainder : 0),
           patient_visits: weeklyVisits,
@@ -378,7 +382,7 @@ export function KPIBulkImport({ onSuccess, onCancel }: KPIBulkImportProps) {
               )}
 
               <p className="text-xs text-white/20 mb-6">
-                This will create {filledRows.length * 4} weekly entries from your monthly data so your dashboard has full context from day one.
+                This will create weekly entries from your monthly data so your dashboard has full context from day one.
               </p>
 
               {/* Actions */}

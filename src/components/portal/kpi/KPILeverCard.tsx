@@ -52,7 +52,7 @@ export function KPILeverCard({
 
       {/* Value */}
       <div className="flex items-end gap-2 mb-2">
-        <span className="text-3xl font-black text-brand-navy tracking-tight">
+        <span className="text-2xl sm:text-3xl font-black text-brand-navy tracking-tight">
           {value}
           {unit && <span className="text-base font-bold text-brand-navy/25 ml-0.5">{unit}</span>}
         </span>

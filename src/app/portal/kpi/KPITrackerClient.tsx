@@ -100,12 +100,12 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
   const latest = kpiData.length > 0 ? kpiData[kpiData.length - 1] : null;
   const prev = kpiData.length > 1 ? kpiData[kpiData.length - 2] : null;
 
-  const latestConv = latest && latest.new_patients > 0
-    ? Math.min(Math.round((latest.care_plans_accepted / latest.new_patients) * 100), 100) : 0;
-  const latestPVA = latest && latest.active_patients > 0
-    ? latest.patient_visits / latest.active_patients : 0;
-  const latestCVA = latest && latest.patient_visits > 0
-    ? latest.collections / latest.patient_visits : 0;
+  const latestConv = latest && (latest.new_patients ?? 0) > 0
+    ? Math.min(Math.round(((latest.care_plans_accepted ?? 0) / (latest.new_patients ?? 0)) * 100), 100) : 0;
+  const latestPVA = latest && (latest.active_patients ?? 0) > 0
+    ? (latest.patient_visits ?? 0) / (latest.active_patients ?? 0) : 0;
+  const latestCVA = latest && (latest.patient_visits ?? 0) > 0
+    ? (latest.collections ?? 0) / (latest.patient_visits ?? 0) : 0;
 
   const prevConv = prev && prev.new_patients > 0
     ? Math.round((prev.care_plans_accepted / prev.new_patients) * 100) : 0;
@@ -178,13 +178,14 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
       });
     }
 
-    return g.sort((a, b) => (a.severity === "critical" ? -1 : 1)).slice(0, 2);
+    const sorted = g.sort((a, b) => (a.severity === "critical" ? -1 : 1));
+    return { displayed: sorted.slice(0, 2), total: sorted.length };
   }, [levers, kpiData.length]);
 
   // ── Biggest gap for formula hero ──
   const biggestGap = useMemo(() => {
-    if (gaps.length === 0) return null;
-    const g = gaps[0];
+    if (gaps.displayed.length === 0) return null;
+    const g = gaps.displayed[0];
     const conv = Math.round(levers.conversionRate);
 
     if (g.lever === "Conversion") {
@@ -306,9 +307,9 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
       />
 
       {/* Gap Insights */}
-      {gaps.length > 0 && (
+      {gaps.displayed.length > 0 && (
         <div className="space-y-2">
-          {gaps.map((gap, i) => (
+          {gaps.displayed.map((gap, i) => (
             <KPIInsight
               key={gap.lever}
               lever={gap.lever}
@@ -319,6 +320,11 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
               delay={i * 0.1}
             />
           ))}
+          {gaps.total > 2 && (
+            <p className="text-xs text-brand-navy/30 font-medium text-center">
+              +{gaps.total - 2} more area{gaps.total - 2 !== 1 ? "s" : ""} to improve
+            </p>
+          )}
         </div>
       )}
 
@@ -396,7 +402,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           {latest.wins && (
             <div className="bg-green-50/50 rounded-xl p-5 border border-green-100">
               <p className="text-[10px] font-black uppercase tracking-widest text-green-600/60 mb-2">This Week&apos;s Wins</p>
-              <p className="text-sm text-brand-navy font-medium whitespace-pre-wrap leading-relaxed">
+              <p className="text-sm text-brand-navy font-medium whitespace-pre-wrap leading-relaxed break-words">
                 {latest.wins}
               </p>
             </div>
@@ -404,7 +410,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
           {latest.bottlenecks && (
             <div className="bg-amber-50/50 rounded-xl p-5 border border-amber-100">
               <p className="text-[10px] font-black uppercase tracking-widest text-amber-600/60 mb-2">Stuck Points</p>
-              <p className="text-sm text-brand-navy font-medium whitespace-pre-wrap leading-relaxed">
+              <p className="text-sm text-brand-navy font-medium whitespace-pre-wrap leading-relaxed break-words">
                 {latest.bottlenecks}
               </p>
             </div>

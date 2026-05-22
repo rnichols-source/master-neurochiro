@@ -79,8 +79,9 @@ export function KPIRevenueFormula({ levers, overrides, biggestGap }: KPIRevenueF
   const cva = overrides?.cva ?? levers.cva;
   const overhead = overrides?.overhead ?? levers.overhead;
 
-  const monthlyRevenue = np * (conv / 100) * pva * cva * 4.33;
-  const margin = monthlyRevenue - overhead;
+  const rawRevenue = (np || 0) * ((conv || 0) / 100) * (pva || 0) * (cva || 0) * 4.33;
+  const monthlyRevenue = isFinite(rawRevenue) ? rawRevenue : 0;
+  const margin = monthlyRevenue - (overhead || 0);
   const isOverridden = overrides != null;
 
   const blocks = [

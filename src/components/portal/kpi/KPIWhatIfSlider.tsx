@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Zap, ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -25,7 +25,7 @@ const leverConfig = {
     field: "conversionRate" as const,
     min: 10,
     max: 95,
-    step: 5,
+    step: 1,
     unit: "%",
     format: (v: number) => `${v}%`,
     humanize: (current: number, target: number) => {
@@ -77,6 +77,12 @@ export function KPIWhatIfSlider({ levers, weakestLever, onOverride }: KPIWhatIfS
   const config = leverConfig[weakestLever];
   const currentValue = levers[config.field];
   const [sliderValue, setSliderValue] = useState(currentValue);
+
+  // Sync slider when lever data changes (e.g. after new entry)
+  useEffect(() => {
+    setSliderValue(currentValue);
+    onOverride(null);
+  }, [currentValue, weakestLever]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const currentRevenue = levers.npPerWeek * (levers.conversionRate / 100) * levers.pva * levers.cva * 4.33;
 

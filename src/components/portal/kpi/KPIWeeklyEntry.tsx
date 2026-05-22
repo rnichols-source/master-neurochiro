@@ -62,10 +62,9 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
   };
 
   // Calculated values
-  const monthlyPace = form.collections * 4.33;
+  const monthlyRevenue = form.collections * 4.33;
   const carePlans = Math.min(form.care_plans_accepted, form.new_patients); // cap at NP count
   const conversionRate = form.new_patients > 0 ? Math.round((carePlans / form.new_patients) * 100) : 0;
-  const monthlyRevenue = form.collections * 4.33;
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
@@ -93,7 +92,7 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
       type: "dollar",
       feedback: form.collections > 0 ? (
         <p className="text-green-400 text-sm font-bold mt-3">
-          That&apos;s a <span className="text-green-300">${Math.round(monthlyPace).toLocaleString()}/mo</span> pace.
+          That&apos;s a <span className="text-green-300">${Math.round(monthlyRevenue).toLocaleString()}/mo</span> pace.
         </p>
       ) : null,
     },
@@ -115,8 +114,13 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
       helper: "This is your conversion — the most powerful lever in your practice.",
       field: "care_plans_accepted",
       type: "number",
-      feedback: form.new_patients > 0 && carePlans >= 0 ? (
+      feedback: form.new_patients > 0 ? (
         <div className="mt-3">
+          {form.care_plans_accepted > form.new_patients && (
+            <p className="text-amber-400 text-xs font-bold mb-2">
+              Care plans can&apos;t exceed Day 1s. Using {form.new_patients}.
+            </p>
+          )}
           <p className={`text-sm font-bold ${conversionRate >= 65 ? "text-green-400" : conversionRate >= 50 ? "text-amber-400" : "text-red-400"}`}>
             That&apos;s a {conversionRate}% conversion rate.
           </p>
