@@ -10,6 +10,7 @@ import { KPILeverCard } from "@/components/portal/kpi/KPILeverCard";
 import { KPIWhatIfSlider } from "@/components/portal/kpi/KPIWhatIfSlider";
 import { KPIWeeklyTimeline } from "@/components/portal/kpi/KPIWeeklyTimeline";
 import { KPIInsight } from "@/components/portal/kpi/KPIInsight";
+import { KPIBulkImport } from "@/components/portal/kpi/KPIBulkImport";
 import { Plus, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -49,6 +50,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
   );
   const [showEntry, setShowEntry] = useState(false);
   const [showEmptyEntry, setShowEmptyEntry] = useState(false);
+  const [showBulkImport, setShowBulkImport] = useState(false);
   const [whatIfOverrides, setWhatIfOverrides] = useState<Partial<LeverValues> | null>(null);
 
   const loadData = async () => {
@@ -221,8 +223,21 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
   // ══════════════════════════════════════
   // EMPTY STATE
   // ══════════════════════════════════════
-  if (kpiData.length === 0 && !showEmptyEntry) {
-    return <KPIEmptyState onStart={() => setShowEmptyEntry(true)} />;
+  if (kpiData.length === 0 && !showEmptyEntry && !showBulkImport) {
+    return (
+      <KPIEmptyState
+        onStart={() => setShowEmptyEntry(true)}
+        onBulkImport={() => setShowBulkImport(true)}
+      />
+    );
+  }
+
+  if (kpiData.length === 0 && showBulkImport) {
+    return (
+      <div className="max-w-3xl mx-auto py-8">
+        <KPIBulkImport onSuccess={handleEntrySuccess} onCancel={() => setShowBulkImport(false)} />
+      </div>
+    );
   }
 
   if (kpiData.length === 0 && showEmptyEntry) {

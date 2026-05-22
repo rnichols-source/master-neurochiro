@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrandButton } from "@/components/ui/elite-ui";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Upload } from "lucide-react";
 
 interface KPIEmptyStateProps {
   onStart: () => void;
+  onBulkImport: () => void;
 }
 
-export function KPIEmptyState({ onStart }: KPIEmptyStateProps) {
+export function KPIEmptyState({ onStart, onBulkImport }: KPIEmptyStateProps) {
   const [revealed, setRevealed] = useState(false);
 
   return (
@@ -133,22 +134,41 @@ export function KPIEmptyState({ onStart }: KPIEmptyStateProps) {
                 ))}
               </motion.div>
 
-              {/* CTA */}
+              {/* Two Paths */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2.2 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               >
-                <BrandButton
-                  variant="accent"
-                  size="lg"
-                  className="px-10 py-5 text-sm group"
-                  onClick={onStart}
-                >
-                  Baseline Your Numbers
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </BrandButton>
-                <p className="text-xs text-brand-navy/30 mt-3">5 questions. Takes about 60 seconds.</p>
+                <div className="text-center">
+                  <BrandButton
+                    variant="accent"
+                    size="lg"
+                    className="px-8 py-5 text-sm group"
+                    onClick={onBulkImport}
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    I Have Past Data
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </BrandButton>
+                  <p className="text-xs text-brand-navy/30 mt-2">Import 6-12 months of monthly numbers</p>
+                </div>
+
+                <span className="text-sm text-brand-navy/20 font-bold">or</span>
+
+                <div className="text-center">
+                  <BrandButton
+                    variant="outline"
+                    size="lg"
+                    className="px-8 py-5 text-sm group"
+                    onClick={onStart}
+                  >
+                    Start Fresh
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </BrandButton>
+                  <p className="text-xs text-brand-navy/30 mt-2">Enter this week&apos;s numbers only</p>
+                </div>
               </motion.div>
             </motion.div>
           )}
