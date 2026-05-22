@@ -11,6 +11,11 @@ export interface KPIEntry {
   patient_visits: number;
   care_plans_accepted?: number;
   marketing_spend?: number;
+  overhead?: number;
+  active_patients?: number;
+  corrective_visits?: number;
+  wellness_visits?: number;
+  reconversions?: number;
   wins?: string;
   bottlenecks?: string;
 }
@@ -42,7 +47,8 @@ export async function submitKPIEntry(entry: KPIEntry) {
   await awardMasteryPoints('kpi_entry');
 
   revalidatePath("/kpi");
-  revalidatePath("/portal");
+  revalidatePath("/portal/kpi");
+  revalidatePath("/dashboard");
   revalidatePath("/portal/engine");
   return { success: true, data };
 }
