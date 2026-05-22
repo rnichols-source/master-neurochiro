@@ -14,7 +14,6 @@ import {
   Users,
   Target,
   Activity,
-  Heart,
 } from "lucide-react";
 
 interface KPIWeeklyEntryProps {
@@ -132,33 +131,10 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
       helper: "Count every adjustment, every encounter — corrective and wellness.",
       field: "patient_visits",
       type: "number",
-      feedback: null,
-    },
-    // Step 4: Active Patients
-    {
-      icon: Heart,
-      question: "How many unique patients did you see?",
-      helper: "Count each person once, even if they came multiple times.",
-      field: "active_patients",
-      type: "number",
-      feedback: form.active_patients > 0 && form.patient_visits > 0 ? (
-        <div className="mt-3 space-y-2">
-          <div className="flex gap-6">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">PVA</p>
-              <p className="text-lg font-black text-white">{pva}</p>
-            </div>
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">CVA</p>
-              <p className="text-lg font-black text-white">${cva}</p>
-            </div>
-          </div>
-          <p className="text-white/40 text-xs">
-            Each patient visited <span className="text-white/70 font-bold">{pva} times</span> and
-            you collected <span className="text-white/70 font-bold">${cva} per visit</span>.
-            That&apos;s your engine.
-          </p>
-        </div>
+      feedback: form.patient_visits > 0 && form.collections > 0 ? (
+        <p className="text-green-400 text-sm font-bold mt-3">
+          That&apos;s <span className="text-green-300">${(form.collections / form.patient_visits).toFixed(0)} per visit</span> this week.
+        </p>
       ) : null,
     },
   ];
@@ -279,20 +255,17 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
                 Here&apos;s your revenue formula.
               </h2>
 
-              {/* Formula Display */}
-              <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-6">
-                <FormulaChip label="NP" value={`${form.new_patients}`} />
-                <span className="text-lg font-black text-white/20">×</span>
-                <FormulaChip label="Conv" value={`${conversionRate}%`} health={conversionRate >= 65 ? "good" : conversionRate >= 50 ? "mid" : "low"} />
-                <span className="text-lg font-black text-white/20">×</span>
-                <FormulaChip label="PVA" value={pva} health={Number(pva) >= 1.4 ? "good" : Number(pva) >= 1 ? "mid" : "low"} />
-                <span className="text-lg font-black text-white/20">×</span>
-                <FormulaChip label="CVA" value={`$${cva}`} health={Number(cva) >= 90 ? "good" : Number(cva) >= 70 ? "mid" : "low"} />
-                <span className="text-lg font-black text-white/20">=</span>
-                <div className="px-4 py-2 bg-green-500/20 rounded-xl text-center">
-                  <p className="text-[9px] font-bold uppercase tracking-widest text-green-400/60">Revenue</p>
-                  <p className="text-xl font-black text-green-400">${Math.round(monthlyRevenue).toLocaleString()}/mo</p>
-                </div>
+              {/* Weekly Summary */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                <SummaryChip label="Collections" value={`$${form.collections.toLocaleString()}`} sub={`$${Math.round(monthlyRevenue).toLocaleString()}/mo pace`} />
+                <SummaryChip label="New Patients" value={`${form.new_patients}`} sub="Day 1s this week" />
+                <SummaryChip
+                  label="Conversion"
+                  value={`${conversionRate}%`}
+                  sub={`${form.care_plans_accepted} of ${form.new_patients} started care`}
+                  health={conversionRate >= 65 ? "good" : conversionRate >= 50 ? "mid" : "low"}
+                />
+                <SummaryChip label="Total Visits" value={`${form.patient_visits}`} sub={form.patient_visits > 0 ? `$${(form.collections / form.patient_visits).toFixed(0)} per visit` : ""} />
               </div>
 
               {/* Optional Extras */}
@@ -313,10 +286,10 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
                     className="overflow-hidden"
                   >
                     <div className="grid grid-cols-2 gap-3 mb-4">
+                      <ExtraField label="Active Patients" value={form.active_patients} onChange={(v) => update("active_patients", v)} hint="Total unique patients in your practice" />
+                      <ExtraField label="Monthly Overhead ($)" value={form.overhead} onChange={(v) => update("overhead", v)} hint="Update when it changes" />
                       <ExtraField label="Corrective Visits" value={form.corrective_visits} onChange={(v) => update("corrective_visits", v)} />
                       <ExtraField label="Wellness Visits" value={form.wellness_visits} onChange={(v) => update("wellness_visits", v)} />
-                      <ExtraField label="Reconversions" value={form.reconversions} onChange={(v) => update("reconversions", v)} />
-                      <ExtraField label="Monthly Overhead ($)" value={form.overhead} onChange={(v) => update("overhead", v)} />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                       <div>
@@ -376,17 +349,18 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
   );
 }
 
-function FormulaChip({ label, value, health }: { label: string; value: string; health?: "good" | "mid" | "low" }) {
-  const ringColor = health === "good" ? "ring-green-500/40" : health === "mid" ? "ring-amber-500/40" : health === "low" ? "ring-red-500/40" : "ring-white/10";
+function SummaryChip({ label, value, sub, health }: { label: string; value: string; sub?: string; health?: "good" | "mid" | "low" }) {
+  const borderColor = health === "good" ? "border-green-500/30" : health === "mid" ? "border-amber-500/30" : health === "low" ? "border-red-500/30" : "border-white/10";
   return (
-    <div className={`px-3 py-2 bg-white/5 rounded-xl text-center ring-2 ${ringColor}`}>
-      <p className="text-[8px] font-bold uppercase tracking-widest text-white/30">{label}</p>
+    <div className={`bg-white/5 rounded-xl p-3 text-center border ${borderColor}`}>
+      <p className="text-[8px] font-bold uppercase tracking-widest text-white/30 mb-1">{label}</p>
       <p className="text-lg font-black text-white">{value}</p>
+      {sub && <p className="text-[10px] text-white/30 mt-0.5">{sub}</p>}
     </div>
   );
 }
 
-function ExtraField({ label, value, onChange }: { label: string; value: number; onChange: (v: number) => void }) {
+function ExtraField({ label, value, onChange, hint }: { label: string; value: number; onChange: (v: number) => void; hint?: string }) {
   return (
     <div>
       <label className="text-[9px] font-bold uppercase tracking-widest text-white/30 mb-1 block">{label}</label>
@@ -397,6 +371,7 @@ function ExtraField({ label, value, onChange }: { label: string; value: number; 
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full bg-white/5 border border-white/10 rounded-lg py-2 px-3 text-sm font-bold text-white focus:bg-white/10 focus:border-brand-orange/30 transition-all outline-none"
       />
+      {hint && <p className="text-[9px] text-white/15 mt-1">{hint}</p>}
     </div>
   );
 }

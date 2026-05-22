@@ -332,26 +332,26 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         />
         <KPILeverCard
           title="PVA"
-          value={latestPVA.toFixed(1)}
+          value={levers.pva > 0 ? levers.pva.toFixed(1) : "—"}
           oneLiner={
-            latestPVA > 0
-              ? `Each patient visited ${latestPVA.toFixed(1)} times this week`
-              : "Add active patient count to calculate"
+            levers.pva > 0
+              ? `Each patient visits ${levers.pva.toFixed(1)} times per week on average`
+              : "Set your active patient count to calculate"
           }
-          health={leverHealth("pva", latestPVA)}
+          health={leverHealth("pva", levers.pva)}
           benchmark="1.5"
           elite="2.5+"
           delay={0.1}
         />
         <KPILeverCard
           title="CVA"
-          value={`$${latestCVA.toFixed(0)}`}
+          value={levers.cva > 0 ? `$${levers.cva.toFixed(0)}` : "—"}
           oneLiner={
-            latestCVA > 0
-              ? `You collected $${latestCVA.toFixed(0)} per visit`
+            levers.cva > 0
+              ? `You collect $${levers.cva.toFixed(0)} per visit across all weeks`
               : "Collections ÷ visits"
           }
-          health={leverHealth("cva", latestCVA)}
+          health={leverHealth("cva", levers.cva)}
           benchmark="$90"
           elite="$120+"
           delay={0.15}
