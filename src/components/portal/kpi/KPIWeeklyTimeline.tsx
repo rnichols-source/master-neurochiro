@@ -127,9 +127,9 @@ export function KPIWeeklyTimeline({ weeks }: KPIWeeklyTimelineProps) {
               {/* Mini lever grid */}
               <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                 <MiniLever label="NP" value={`${week.new_patients}`} health={healthDot("np", week.new_patients)} />
-                <MiniLever label="Conv" value={`${conv}%`} health={healthDot("conv", conv)} />
-                <MiniLever label="PVA" value={pva.toFixed(1)} health={healthDot("pva", pva)} />
-                <MiniLever label="CVA" value={`$${cva.toFixed(0)}`} health={healthDot("cva", cva)} />
+                <MiniLever label="Conv" value={week.new_patients > 0 ? `${conv}%` : "—"} health={healthDot("conv", conv)} />
+                <MiniLever label="PVA" value={pva > 0 ? pva.toFixed(1) : "—"} health={healthDot("pva", pva)} />
+                <MiniLever label="CVA" value={cva > 0 ? `$${cva.toFixed(0)}` : "—"} health={healthDot("cva", cva)} />
               </div>
             </div>
           );

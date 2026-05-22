@@ -63,19 +63,23 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
 
   // Calculated values
   const monthlyPace = form.collections * 4.33;
-  const conversionRate = form.new_patients > 0 ? Math.round((form.care_plans_accepted / form.new_patients) * 100) : 0;
-  const pva = form.active_patients > 0 ? (form.patient_visits / form.active_patients).toFixed(1) : "0";
-  const cva = form.patient_visits > 0 ? (form.collections / form.patient_visits).toFixed(0) : "0";
+  const carePlans = Math.min(form.care_plans_accepted, form.new_patients); // cap at NP count
+  const conversionRate = form.new_patients > 0 ? Math.round((carePlans / form.new_patients) * 100) : 0;
   const monthlyRevenue = form.collections * 4.33;
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    const result = await submitKPIEntry(form);
+    setSubmitError(null);
+    const result = await submitKPIEntry({
+      ...form,
+      care_plans_accepted: carePlans, // ensure capped value is saved
+    });
     setIsSubmitting(false);
     if (result.success) {
       onSuccess();
     } else {
-      alert("Error saving: " + result.error);
+      setSubmitError(result.error || "Something went wrong. Try again.");
     }
   };
 
@@ -111,15 +115,17 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
       helper: "This is your conversion — the most powerful lever in your practice.",
       field: "care_plans_accepted",
       type: "number",
-      feedback: form.new_patients > 0 && form.care_plans_accepted >= 0 ? (
+      feedback: form.new_patients > 0 && carePlans >= 0 ? (
         <div className="mt-3">
           <p className={`text-sm font-bold ${conversionRate >= 65 ? "text-green-400" : conversionRate >= 50 ? "text-amber-400" : "text-red-400"}`}>
             That&apos;s a {conversionRate}% conversion rate.
           </p>
           <p className="text-white/40 text-xs mt-1">
-            {conversionRate >= 65
-              ? "Strong. Most of your Day 1s are saying yes."
-              : `For every 10 people who walk in, ${10 - Math.round(conversionRate / 10)} walk out without care.`}
+            {conversionRate === 0
+              ? "No conversions this week. Every Day 1 walked out without starting care."
+              : conversionRate >= 65
+                ? "Strong. Most of your Day 1s are saying yes."
+                : `For every 10 people who walk in, ${10 - Math.round(conversionRate / 10)} walk out without care.`}
           </p>
         </div>
       ) : null,
@@ -262,7 +268,7 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
                 <SummaryChip
                   label="Conversion"
                   value={`${conversionRate}%`}
-                  sub={`${form.care_plans_accepted} of ${form.new_patients} started care`}
+                  sub={`${carePlans} of ${form.new_patients} started care`}
                   health={conversionRate >= 65 ? "good" : conversionRate >= 50 ? "mid" : "low"}
                 />
                 <SummaryChip label="Total Visits" value={`${form.patient_visits}`} sub={form.patient_visits > 0 ? `$${(form.collections / form.patient_visits).toFixed(0)} per visit` : ""} />
@@ -317,10 +323,17 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
                 )}
               </AnimatePresence>
 
+              {/* Error Message */}
+              {submitError && (
+                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 mb-2">
+                  <p className="text-sm text-red-300 font-medium">{submitError}</p>
+                </div>
+              )}
+
               {/* Actions */}
               <div className="flex items-center justify-between mt-auto pt-4">
                 <button
-                  onClick={() => setStep(steps.length - 1)}
+                  onClick={() => { setSubmitError(null); setStep(steps.length - 1); }}
                   className="text-sm text-white/30 hover:text-white/60 transition-colors font-medium flex items-center gap-1"
                 >
                   <ArrowLeft size={14} /> Back
@@ -336,7 +349,7 @@ export function KPIWeeklyEntry({ onSuccess, onCancel, existingEntry }: KPIWeekly
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
                     <span className="flex items-center gap-2">
-                      Save This Week <Check size={16} />
+                      {submitError ? "Try Again" : "Save This Week"} <Check size={16} />
                     </span>
                   )}
                 </BrandButton>

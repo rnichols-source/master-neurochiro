@@ -115,7 +115,7 @@ export function KPIBulkImport({ onSuccess, onCancel }: KPIBulkImportProps) {
   const totalNP = filledRows.reduce((s, r) => s + r.new_patients, 0);
   const totalCarePlans = filledRows.reduce((s, r) => s + r.care_plans, 0);
   const avgMonthlyCollections = filledRows.length > 0 ? totalCollections / filledRows.length : 0;
-  const conversionRate = totalNP > 0 ? Math.round((totalCarePlans / totalNP) * 100) : 0;
+  const conversionRate = totalNP > 0 ? Math.min(Math.round((totalCarePlans / totalNP) * 100), 100) : 0;
   const cva = totalVisits > 0 ? totalCollections / totalVisits : 0;
 
   const handleImport = async () => {
@@ -148,7 +148,7 @@ export function KPIBulkImport({ onSuccess, onCancel }: KPIBulkImportProps) {
       }
 
       completed++;
-      setImportProgress(Math.round((completed / filledRows.length) * 100));
+      setImportProgress(Math.round((completed / Math.max(filledRows.length, 1)) * 100));
     }
 
     // Small delay so they see 100%

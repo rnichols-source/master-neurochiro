@@ -89,7 +89,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
     const overhead = latest.overhead || 0;
 
     const npPerWeek = totalNewPatients / Math.max(kpiData.length, 1);
-    const conversionRate = totalNewPatients > 0 ? (totalCarePlans / totalNewPatients) * 100 : 0;
+    const conversionRate = totalNewPatients > 0 ? Math.min((totalCarePlans / totalNewPatients) * 100, 100) : 0;
     const pva = activePatients > 0 ? (latest.patient_visits / activePatients) : 0;
     const cva = totalVisits > 0 ? totalCollections / totalVisits : 0;
 
@@ -101,7 +101,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
   const prev = kpiData.length > 1 ? kpiData[kpiData.length - 2] : null;
 
   const latestConv = latest && latest.new_patients > 0
-    ? Math.round((latest.care_plans_accepted / latest.new_patients) * 100) : 0;
+    ? Math.min(Math.round((latest.care_plans_accepted / latest.new_patients) * 100), 100) : 0;
   const latestPVA = latest && latest.active_patients > 0
     ? latest.patient_visits / latest.active_patients : 0;
   const latestCVA = latest && latest.patient_visits > 0
@@ -189,11 +189,16 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
 
     if (g.lever === "Conversion") {
       const extraPatients = Math.round(((65 - conv) / 100) * levers.npPerWeek * 4.33);
+      const extraRevenue = levers.cva > 0 && levers.pva > 0
+        ? Math.round(extraPatients * levers.cva * levers.pva)
+        : 0;
       return {
         lever: "Conversion",
-        message: extraPatients > 0
-          ? `If you converted just ${extraPatients > 2 ? `${extraPatients} more` : "1 more"} patient${extraPatients !== 1 ? "s" : ""} per month, that could be $${Math.round(extraPatients * levers.cva * levers.pva).toLocaleString()} more per month.`
-          : g.message,
+        message: extraPatients > 0 && extraRevenue > 0
+          ? `If you converted just ${extraPatients > 2 ? `${extraPatients} more` : "1 more"} patient${extraPatients !== 1 ? "s" : ""} per month, that could be $${extraRevenue.toLocaleString()} more per month.`
+          : extraPatients > 0
+            ? `If you converted just ${extraPatients > 2 ? `${extraPatients} more` : "1 more"} patient${extraPatients !== 1 ? "s" : ""} per month, your revenue grows.`
+            : g.message,
       };
     }
     return { lever: g.lever, message: g.message };
