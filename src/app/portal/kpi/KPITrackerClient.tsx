@@ -166,7 +166,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         message: `$${levers.cva.toFixed(0)} per visit. Discounts may be dragging this down.`,
         severity: "critical",
         action: "Review Pricing",
-        link: "/portal/engine",
+        link: "/portal/economics-engine",
       });
     } else if (levers.cva > 0 && levers.cva < 90) {
       g.push({
@@ -174,7 +174,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
         message: `$${levers.cva.toFixed(0)} per visit. A small price bump moves this fast.`,
         severity: "warning",
         action: "Review Pricing",
-        link: "/portal/engine",
+        link: "/portal/economics-engine",
       });
     }
 
