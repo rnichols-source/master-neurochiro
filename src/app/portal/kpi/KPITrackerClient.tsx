@@ -120,7 +120,7 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
 
   // ── Gap detection ──
   const gaps = useMemo(() => {
-    if (kpiData.length === 0) return [];
+    if (kpiData.length === 0) return { displayed: [] as { lever: string; message: string; severity: "critical" | "warning"; action: string; link: string }[], total: 0 };
     const g: { lever: string; message: string; severity: "critical" | "warning"; action: string; link: string }[] = [];
 
     if (levers.conversionRate < 50) {
