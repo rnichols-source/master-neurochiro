@@ -11,7 +11,7 @@ import { KPIWhatIfSlider } from "@/components/portal/kpi/KPIWhatIfSlider";
 import { KPIWeeklyTimeline } from "@/components/portal/kpi/KPIWeeklyTimeline";
 import { KPIInsight } from "@/components/portal/kpi/KPIInsight";
 import { KPIBulkImport } from "@/components/portal/kpi/KPIBulkImport";
-import { Plus, ChevronUp } from "lucide-react";
+import { Plus, ChevronUp, Upload } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface KPIData {
@@ -272,17 +272,30 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
             {kpiData.length} week{kpiData.length !== 1 ? "s" : ""} tracked
           </p>
         </div>
-        <BrandButton
-          variant="accent"
-          className="gap-2 py-3 text-xs"
-          onClick={() => setShowEntry(!showEntry)}
-        >
-          {showEntry ? (
-            <><ChevronUp className="w-4 h-4" /> Close</>
-          ) : (
-            <><Plus className="w-4 h-4" /> Log This Week</>
-          )}
-        </BrandButton>
+        <div className="flex gap-2">
+          <BrandButton
+            variant="outline"
+            className="gap-2 py-3 text-xs"
+            onClick={() => { setShowBulkImport(!showBulkImport); setShowEntry(false); }}
+          >
+            {showBulkImport ? (
+              <><ChevronUp className="w-4 h-4" /> Close</>
+            ) : (
+              <><Upload className="w-4 h-4" /> Import Past Data</>
+            )}
+          </BrandButton>
+          <BrandButton
+            variant="accent"
+            className="gap-2 py-3 text-xs"
+            onClick={() => { setShowEntry(!showEntry); setShowBulkImport(false); }}
+          >
+            {showEntry ? (
+              <><ChevronUp className="w-4 h-4" /> Close</>
+            ) : (
+              <><Plus className="w-4 h-4" /> Log This Week</>
+            )}
+          </BrandButton>
+        </div>
       </div>
 
       {/* Entry Strip */}
@@ -295,6 +308,20 @@ export function KPITrackerClient({ initialData, userName = "Doctor" }: { initial
             className="overflow-hidden"
           >
             <KPIWeeklyEntry onSuccess={handleEntrySuccess} onCancel={() => setShowEntry(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Bulk Import Strip */}
+      <AnimatePresence>
+        {showBulkImport && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden"
+          >
+            <KPIBulkImport onSuccess={handleEntrySuccess} onCancel={() => setShowBulkImport(false)} />
           </motion.div>
         )}
       </AnimatePresence>
