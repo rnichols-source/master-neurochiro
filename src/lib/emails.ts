@@ -147,6 +147,26 @@ export const EmailService = {
     return this.send(email, 'Welcome to the Mastermind', html, 'welcome_onboarding');
   },
 
+  async sendInnerCircleWelcome(email: string, name: string) {
+    const portalLink = `${process.env.NEXT_PUBLIC_SITE_URL}/portal/council`;
+    const action = `<a href="${portalLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Open Your Inner Circle Portal</a>`;
+    const html = getEmailTemplate(
+      'Welcome to the Inner Circle',
+      'Your Coaching Continues',
+      `<p>Dr. ${name}, welcome to the NeuroChiro Inner Circle.</p>
+       <p>Here is what to expect:</p>
+       <ul style="margin: 16px 0; padding-left: 20px; color: #475569;">
+         <li style="margin-bottom: 8px;"><strong>Bi-weekly coaching calls</strong> (every other week, 90 minutes). Bring your cases, your numbers, your questions.</li>
+         <li style="margin-bottom: 8px;"><strong>Pre-call KPI check-in</strong> before each call so we can coach on real data.</li>
+         <li style="margin-bottom: 8px;"><strong>AI coaching recaps</strong> after every call, personalized to your practice.</li>
+         <li style="margin-bottom: 8px;"><strong>All your Mastermind tools</strong> stay active and keep getting smarter.</li>
+       </ul>
+       <p>Your portal is ready. Log in to see your next call, submit your KPIs, and stay connected.</p>`,
+      action
+    );
+    return this.send(email, 'Welcome to the NeuroChiro Inner Circle', html, 'inner_circle_welcome');
+  },
+
   async sendProWelcome(email: string, name: string) {
     const bookingLink = "https://calendly.com/drray-neurochirodirectory/15min";
     const action = `<a href="${bookingLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Book Private 1:1 Call</a>`;

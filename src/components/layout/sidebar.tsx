@@ -18,6 +18,9 @@ import {
   Bot,
   Crosshair,
   Megaphone,
+  CircleDot,
+  ClipboardList,
+  ScrollText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -103,6 +106,41 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
               { name: "Messages", href: "/portal/pro/messages", icon: MessageSquare },
               { name: "Script Review", href: "/portal/pro/script-review", icon: FileText },
               { name: "Vault", href: "/portal/pro/vault", icon: FolderOpen },
+            ].map((item) => {
+              const active = pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={cn(
+                    linkClass,
+                    active
+                      ? "bg-white/10 text-brand-orange"
+                      : "text-white/70 hover:bg-white/5 hover:text-white"
+                  )}
+                >
+                  <item.icon
+                    className={cn(
+                      "w-4 h-4",
+                      active
+                        ? "text-brand-orange"
+                        : "text-white/50 group-hover:text-white"
+                    )}
+                  />
+                  {item.name}
+                </Link>
+              );
+            })}
+          </div>
+        )}
+
+        {(userTier === "inner-circle" || userTier === "admin") && (
+          <div className="pt-4 mt-4 border-t border-white/5 space-y-1">
+            <p className="px-2 pb-2 text-xs font-bold text-brand-orange uppercase tracking-wider">Inner Circle</p>
+            {[
+              { name: "Dashboard", href: "/portal/council", icon: CircleDot },
+              { name: "Pre-Call KPIs", href: "/portal/council/pre-call", icon: ClipboardList },
+              { name: "Recaps", href: "/portal/council/recaps", icon: ScrollText },
             ].map((item) => {
               const active = pathname.startsWith(item.href);
               return (

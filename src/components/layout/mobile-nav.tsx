@@ -9,6 +9,7 @@ import {
   Users,
   ShieldCheck,
   Star,
+  CircleDot,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -23,14 +24,15 @@ export function MobileNav({ userTier = "standard" }: { userTier?: string }) {
   const pathname = usePathname();
 
   const isPro = userTier === "pro" || userTier === "admin";
+  const isIC = userTier === "inner-circle" || userTier === "admin";
   const proItem = { name: "Pro", href: "/portal/pro", icon: Star };
+  const icItem = { name: "Circle", href: "/portal/council", icon: CircleDot };
   const adminItem = { name: "Admin", href: "/admin", icon: ShieldCheck };
 
-  const items = isPro
-    ? userTier === "admin"
-      ? [...mobileItems, proItem, adminItem]
-      : [...mobileItems, proItem]
-    : mobileItems;
+  let items = [...mobileItems];
+  if (isIC) items.push(icItem);
+  if (isPro) items.push(proItem);
+  if (userTier === "admin") items.push(adminItem);
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-brand-navy/95 backdrop-blur-lg border-t border-white/10 z-50 safe-bottom">

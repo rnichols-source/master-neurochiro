@@ -37,6 +37,24 @@ export const StripeProcessor = {
       }
     }
     
+    // --- INNER CIRCLE DETECTION: Check subscription metadata for price_key ---
+    let priceKey: string | undefined;
+    if (session.subscription) {
+      try {
+        const sub = await stripe.subscriptions.retrieve(session.subscription as string);
+        priceKey = (sub.metadata as any)?.price_key;
+        if (priceKey === 'inner-circle' || priceKey === 'founding-member') {
+          tier = 'inner-circle';
+          console.log(`[STRIPE] Inner Circle detected via price_key: ${priceKey}`);
+        } else if (priceKey === 'student-inner-circle') {
+          tier = 'inner-circle';
+          console.log(`[STRIPE] Student Inner Circle detected via price_key: ${priceKey}`);
+        }
+      } catch (subErr: any) {
+        console.error(`[STRIPE] Failed to retrieve subscription metadata:`, subErr.message);
+      }
+    }
+
     // Default fallback
     tier = tier || 'standard';
 
@@ -206,9 +224,37 @@ export const StripeProcessor = {
         });
     }
 
-    // 4. Welcome Email (Tier Based)
+    // 4. Inner Circle Membership Row (if applicable)
+    if (tier === 'inner-circle' && priceKey) {
+      const membershipType = priceKey === 'founding-member' ? 'founding' : 'standard';
+      const userId = inviteData?.user?.id || (await supabaseAdmin
+        .from("profiles")
+        .select("id")
+        .eq("email", customerEmail)
+        .single()
+      ).data?.id;
+
+      if (userId) {
+        const { error: icError } = await supabaseAdmin
+          .from("inner_circle_members")
+          .upsert({
+            user_id: userId,
+            membership_type: membershipType,
+            stripe_subscription_id: session.subscription || null,
+            stripe_customer_id: session.customer || null,
+            status: 'active',
+          }, { onConflict: 'user_id' });
+
+        if (icError) console.error("[STRIPE] Error creating IC membership:", icError);
+        else console.log(`[STRIPE] Inner Circle membership created for ${customerEmail} (${membershipType})`);
+      }
+    }
+
+    // 5. Welcome Email (Tier Based)
     try {
-      if (tier === 'pro') {
+      if (tier === 'inner-circle') {
+        await EmailService.sendInnerCircleWelcome(customerEmail, customerName);
+      } else if (tier === 'pro') {
         await EmailService.sendProWelcome(customerEmail, customerName);
       } else {
         await EmailService.sendWelcome(customerEmail, customerName);
