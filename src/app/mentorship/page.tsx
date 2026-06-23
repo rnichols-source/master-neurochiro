@@ -387,9 +387,9 @@ export default function MentorshipLandingPage() {
       <section className="py-16 px-5 md:px-8 bg-brand-cream">
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <p className="text-sm font-bold text-brand-gray">Already a Mastermind graduate?</p>
-          <Link href="/council">
+          <Link href="/inner-circle">
             <BrandButton variant="outline" className="py-4 px-8">
-              Explore The Council <ArrowRight className="ml-2 w-4 h-4" />
+              Explore The Inner Circle <ArrowRight className="ml-2 w-4 h-4" />
             </BrandButton>
           </Link>
         </div>

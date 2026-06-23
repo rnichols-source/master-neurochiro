@@ -201,21 +201,21 @@ export default async function PortalDashboard() {
         {/* Community Wins */}
         <WinsFeed />
 
-        {/* Post-completion Council prompt */}
+        {/* Post-completion Inner Circle prompt */}
         {completedWeeks >= 8 && (
           <div className="bg-white rounded-2xl border border-brand-navy/5 p-5 md:p-6 shadow-sm text-center space-y-3">
             <h3 className="text-lg font-black text-brand-navy">
-              Congratulations — you&apos;ve completed the 8-week program!
+              Congratulations, you&apos;ve completed the program!
             </h3>
             <p className="text-sm text-brand-gray font-medium">
-              Ready for the next level? The Council is ongoing coaching for
+              Ready for the next level? The Inner Circle is ongoing coaching for
               graduates who want to keep growing.
             </p>
             <Link
-              href="/council"
+              href="/inner-circle"
               className="inline-flex items-center justify-center gap-2 bg-brand-orange text-white rounded-xl py-3 px-6 text-sm font-bold hover:bg-[#B35520] transition-colors active:scale-[0.98]"
             >
-              Learn About The Council
+              Learn About The Inner Circle
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

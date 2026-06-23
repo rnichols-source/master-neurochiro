@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/council",
+      "destination": "/inner-circle",
+      "permanent": true
+    },
+    {
+      "source": "/council/application",
+      "destination": "/inner-circle",
+      "permanent": true
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/automations",

@@ -157,8 +157,8 @@ export default async function WeekDetailPage(props: { params: Promise<{ slug: st
           <div className="bg-green-50 border border-green-200 rounded-2xl p-5 text-center space-y-2">
             <p className="text-lg font-black text-green-700">You&apos;ve completed the program!</p>
             <p className="text-sm text-green-600">Ready for the next level?</p>
-            <Link href="/council" className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors">
-              Learn about The Council →
+            <Link href="/inner-circle" className="text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors">
+              Learn about The Inner Circle →
             </Link>
           </div>
         )}

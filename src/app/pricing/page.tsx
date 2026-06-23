@@ -43,9 +43,9 @@ const doctorInnerCircle = {
   priceSuffix: "/month",
   altPrice: "Month-to-month · Cancel anytime",
   features: [
-    "Monthly 90-min group coaching call",
+    "Bi-weekly 90-min group coaching call (2x/month)",
     "Ongoing community access",
-    "Monthly content drops & new trainings",
+    "Bi-weekly content drops & new trainings",
     "Full script vault & resource library",
     "KPI tracking continues",
     "Quarterly live event invitations",
@@ -95,7 +95,7 @@ const studentInnerCircle = {
   priceSuffix: "/month",
   altPrice: "Month-to-month · Cancel anytime",
   features: [
-    "Monthly student group call",
+    "Bi-weekly student group call (2x/month)",
     "Job board access & placement support",
     "Community with working new grads",
     "Script library & career resources",
@@ -347,7 +347,7 @@ export default function PricingPage() {
                 <span className="text-lg font-black text-brand-orange">3</span>
               </div>
               <h4 className="text-sm font-black text-brand-navy">Graduate to the Inner Circle</h4>
-              <p className="text-sm text-brand-gray font-medium">After 90 days, your results speak for themselves. Stay connected with monthly coaching at $397/month — completely optional, cancel anytime.</p>
+              <p className="text-sm text-brand-gray font-medium">After 90 days, your results speak for themselves. Stay connected with bi-weekly coaching at $397/month, completely optional, cancel anytime.</p>
             </div>
           </div>
         </div>

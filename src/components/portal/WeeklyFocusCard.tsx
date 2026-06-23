@@ -29,16 +29,16 @@ export function WeeklyFocusCard({
               Program Complete
             </p>
             <p className="text-sm text-brand-navy font-medium">
-              You&apos;ve completed the program! Explore the Council for ongoing
+              You&apos;ve completed the program! Explore the Inner Circle for ongoing
               coaching.
             </p>
           </div>
         </div>
         <Link
-          href="/council"
+          href="/inner-circle"
           className="inline-flex items-center gap-2 bg-brand-navy text-white rounded-xl py-3 px-5 text-sm font-bold hover:bg-brand-black transition-colors active:scale-[0.98] shrink-0"
         >
-          The Council <ArrowRight className="w-4 h-4" />
+          The Inner Circle <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
     );

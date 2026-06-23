@@ -25,7 +25,7 @@ export function CouncilClient() {
           <ShieldCheck size={14} />
           <span className="text-xs font-bold uppercase tracking-wider">Your Community</span>
         </div>
-        <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">The Council</h1>
+        <h1 className="text-3xl md:text-4xl font-black text-brand-navy tracking-tight">The Inner Circle</h1>
         <p className="text-brand-gray text-base font-medium mt-2 max-w-xl">
           Ongoing implementation support for chiropractors who want consistent growth.
         </p>
@@ -53,7 +53,7 @@ export function CouncilClient() {
 
         <EliteCard className="p-6 md:p-8">
           <p className="text-xs font-bold uppercase tracking-wider text-brand-navy/40 mb-6">
-            Council Benchmarks
+            Inner Circle Benchmarks
           </p>
           <div className="space-y-6">
             {[

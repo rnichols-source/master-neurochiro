@@ -49,7 +49,7 @@ export function TwoPathsTransition() {
           </div>
         </EliteCard>
 
-        {/* Option 2: The Council */}
+        {/* Option 2: The Inner Circle */}
         <EliteCard className="p-8 border-brand-navy/10 bg-brand-cream/50 flex flex-col justify-between relative overflow-hidden">
           <div className="space-y-6 relative z-10">
             <div className="w-12 h-12 rounded-2xl bg-brand-navy flex items-center justify-center">
@@ -57,18 +57,18 @@ export function TwoPathsTransition() {
             </div>
             <div>
               <div className="inline-flex items-center gap-2 px-2 py-0.5 bg-brand-navy/10 rounded-full text-brand-navy border border-brand-navy/10 mb-2">
-                <p className="text-xs font-black uppercase tracking-widest">Community Implementation</p>
+                <p className="text-xs font-black uppercase tracking-widest">Ongoing Coaching</p>
               </div>
-              <h3 className="text-2xl font-black text-brand-navy tracking-tight uppercase leading-none">The <br />Council</h3>
+              <h3 className="text-2xl font-black text-brand-navy tracking-tight uppercase leading-none">The Inner<br />Circle</h3>
               <p className="text-brand-gray text-xs mt-2 leading-relaxed font-medium">
-                Step into the inner circle. Join weekly implementation calls, bring your cases to the lab, and protect your clinic from drift.
+                Stay in the room. Bi-weekly coaching calls, AI-powered recaps, and the tools that keep your practice growing.
               </p>
             </div>
             <ul className="space-y-3">
               {[
-                "Weekly Coaching Calls",
-                "Live Case Lab Review",
-                "Monthly Diagnostics"
+                "Bi-Weekly Coaching Calls",
+                "AI Personal Coaching Recaps",
+                "KPI Tracking + Benchmarking"
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-xs font-bold text-brand-navy uppercase tracking-widest">
                   <CheckCircle2 size={14} className="text-brand-orange" />
@@ -78,13 +78,13 @@ export function TwoPathsTransition() {
             </ul>
           </div>
           <div className="pt-10 relative z-10">
-            <Link href="/council/application">
+            <Link href="/inner-circle">
               <BrandButton variant="primary" className="w-full text-xs group">
-                Apply for The Council <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                Learn About The Inner Circle <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </BrandButton>
             </Link>
             <p className="text-center text-xs font-black uppercase tracking-wider text-brand-navy/30 mt-4">
-              Ongoing Monthly OS &bull; $297/mo
+              Bi-Weekly Coaching &bull; $297/mo founding rate
             </p>
           </div>
         </EliteCard>

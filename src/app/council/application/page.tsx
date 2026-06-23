@@ -3,8 +3,8 @@ import { SEOFooter } from "@/components/layout/seo-footer";
 import CouncilApplyClient from "./CouncilApplyClient";
 
 export const metadata = {
-  title: "Council Application | The NeuroChiro Council",
-  description: "Apply for the NeuroChiro Council. The elite implementation and coaching environment for chiropractors.",
+  title: "Inner Circle Application | The NeuroChiro Inner Circle",
+  description: "Apply for the NeuroChiro Inner Circle. Ongoing bi-weekly coaching for Mastermind graduates.",
 };
 
 export default function CouncilApplyPage() {
@@ -16,7 +16,7 @@ export default function CouncilApplyPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center mb-12 space-y-4">
           <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Membership Intake</p>
           <h1 className="text-4xl md:text-6xl font-black text-brand-navy tracking-tighter leading-none">
-            The Council <br /><span className="text-brand-orange">Application.</span>
+            The Inner Circle <br /><span className="text-brand-orange">Application.</span>
           </h1>
           <p className="text-brand-gray font-medium max-w-xl mx-auto">
             This is where execution happens. Please complete your clinical position audit below.

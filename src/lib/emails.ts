@@ -191,9 +191,9 @@ export const EmailService = {
   },
 
   async sendCouncilTransition(email: string, name: string, applyLink: string) {
-    const action = `<a href="${applyLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Apply for Council</a>`;
+    const action = `<a href="${applyLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Learn About The Inner Circle</a>`;
     const html = getEmailTemplate('The Next Evolution', 'Mastermind Completion', `<p>Dr. ${name}, congratulations on completing the 90-Day Intensive.</p>`, action);
-    return this.send(email, 'Next Steps: NeuroChiro Council', html, 'council_transition');
+    return this.send(email, 'Next Steps: NeuroChiro Inner Circle', html, 'council_transition');
   },
 
   async sendAdminPreview(adminEmail: string, previewName: string, previewLink: string) {

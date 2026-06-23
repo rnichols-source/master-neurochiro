@@ -277,7 +277,7 @@ export async function GET(request: Request) {
             await EmailService.sendCouncilTransition(
               member.email,
               member.full_name || "Doctor",
-              `${SITE}/council/application`
+              `${SITE}/inner-circle`
             );
             results.push({ type: "council_transition", email: member.email });
           }

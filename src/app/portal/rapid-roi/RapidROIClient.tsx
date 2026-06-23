@@ -31,7 +31,7 @@ export function RapidROIClient({ userId }: { userId: string }) {
     "Watch the 5-minute briefing",
     "Print the Rescue Script",
     "Use the 'conversation redirect' on 1 patient today",
-    "Report your win in The Council"
+    "Report your win in The Inner Circle"
   ];
 
   return (
