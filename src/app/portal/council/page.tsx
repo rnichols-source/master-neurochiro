@@ -63,6 +63,8 @@ export default async function CouncilPage() {
           callTime: nextCall.call_time,
           zoomUrl: nextCall.zoom_url,
           id: nextCall.id,
+          topic: nextCall.topic || null,
+          prepPrompt: nextCall.prep_prompt || null,
         } : null}
         myKPIs={myKPI ? {
           acceptance: myAcceptance,

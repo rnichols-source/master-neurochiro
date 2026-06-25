@@ -19,6 +19,8 @@ interface NextCall {
   callTime: string;
   zoomUrl: string;
   id: string;
+  topic: string | null;
+  prepPrompt: string | null;
 }
 
 interface MyKPIs {
@@ -98,6 +100,17 @@ export function CouncilClient({ nextCall, myKPIs, benchmarks, hasSubmittedPreCal
                 <p className="text-white/50 text-sm font-medium">
                   {formatCallDate(nextCall.callTime)} at {formatCallTime(nextCall.callTime)}
                 </p>
+                {nextCall.topic && (
+                  <div className="mt-4 bg-white/5 border border-white/10 rounded-xl p-4">
+                    <p className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-1">Topic</p>
+                    <p className="text-white text-sm font-bold">{nextCall.topic}</p>
+                    {nextCall.prepPrompt && (
+                      <p className="text-white/40 text-xs font-medium mt-2">
+                        <span className="text-white/60 font-bold">Prep:</span> {nextCall.prepPrompt}
+                      </p>
+                    )}
+                  </div>
+                )}
                 <a href={nextCall.zoomUrl} target="_blank" rel="noopener noreferrer">
                   <BrandButton variant="accent" className="mt-4">
                     Enter Call Room
