@@ -29,18 +29,37 @@ export async function updateApplicationStatus(id: string, status: string, notes:
       || application.responses?.application_type
       || '';
     const notesLower = (notes || '').toLowerCase();
+    const isCoaching = application.responses?.application_type === 'Private Coaching';
+    const coachingTier = application.responses?.tier_applying || '';
     const isPro = tierRaw.toLowerCase().includes('pro') || notesLower.includes('pro');
     const isStudent = (application.responses?.current_role || '').toLowerCase().includes('student');
 
-    console.log(`[ADMIN] Detected Tier: ${isPro ? 'PRO' : 'STANDARD'}, Student: ${isStudent}`);
+    console.log(`[ADMIN] Detected — Coaching: ${isCoaching}, Tier: ${coachingTier || (isPro ? 'PRO' : 'STANDARD')}, Student: ${isStudent}`);
 
     const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://neurochiromastermind.com";
-    const prefix = isStudent ? "student-" : "";
-    const pifKey = `${prefix}${isPro ? "pro" : "standard"}-pif`;
-    const planKey = `${prefix}${isPro ? "pro" : "standard"}-plan`;
+
+    // Determine price keys based on application type
+    let pifKey: string;
+    let planKey: string;
+
+    if (isCoaching && (coachingTier === 'private-coaching' || coachingTier === 'intensive' || coachingTier === 'on-site')) {
+      const coachingMap: Record<string, string> = {
+        'private-coaching': 'coaching-private',
+        'intensive': 'coaching-intensive',
+        'on-site': 'coaching-onsite',
+      };
+      const base = coachingMap[coachingTier];
+      pifKey = `${base}-pif`;
+      planKey = `${base}-plan`;
+    } else {
+      const prefix = isStudent ? "student-" : "";
+      pifKey = `${prefix}${isPro ? "pro" : "standard"}-pif`;
+      planKey = `${prefix}${isPro ? "pro" : "standard"}-plan`;
+    }
 
     // Create Stripe Checkout Sessions server-side
     const PRICE_MAP: Record<string, string> = {
+      // Mastermind tiers
       "standard-pif": "price_1TMIbJQ4WJOENoxrEKMvkpSn",
       "standard-plan": "price_1TMIcMQ4WJOENoxrsnTbl5pE",
       "pro-pif": "price_1TMIcxQ4WJOENoxrOIzjxwFe",
@@ -49,6 +68,13 @@ export async function updateApplicationStatus(id: string, status: string, notes:
       "student-standard-plan": "price_1TMIe6Q4WJOENoxrpe96iLSQ",
       "student-pro-pif": "price_1TMIenQ4WJOENoxrXqQnI23v",
       "student-pro-plan": "price_1TMIfOQ4WJOENoxrQNflH2pq",
+      // Private Coaching tiers (create these in Stripe dashboard)
+      "coaching-private-pif": process.env.STRIPE_PRICE_COACHING_PRIVATE_PIF || "",
+      "coaching-private-plan": process.env.STRIPE_PRICE_COACHING_PRIVATE_PLAN || "",
+      "coaching-intensive-pif": process.env.STRIPE_PRICE_COACHING_INTENSIVE_PIF || "",
+      "coaching-intensive-plan": process.env.STRIPE_PRICE_COACHING_INTENSIVE_PLAN || "",
+      "coaching-onsite-pif": process.env.STRIPE_PRICE_COACHING_ONSITE_PIF || "",
+      "coaching-onsite-plan": process.env.STRIPE_PRICE_COACHING_ONSITE_PLAN || "",
     };
 
     try {

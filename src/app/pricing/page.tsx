@@ -1,7 +1,7 @@
 "use client";
 import { MastermindHeader } from "@/components/layout/mastermind-header";
 import { BrandButton, EliteCard } from "@/components/ui/elite-ui";
-import { Check, ArrowRight, ShieldCheck, Zap, Star, Shield, Users, Target, BarChart3, BookOpen, MessageSquare, Calendar, Trophy } from "lucide-react";
+import { Check, ArrowRight, ShieldCheck, Zap, Star, Shield, Users, Target, BarChart3, BookOpen, MessageSquare, Calendar, Trophy, Crown, Plane } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -521,38 +521,163 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Looking for More? */}
-      <section className="pt-16 md:pt-20 px-5 md:px-6">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-xl font-black text-brand-navy text-center mb-6">
-            Looking for More?
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link
-              href="/apply/mentorship"
-              className="flex items-center justify-between p-5 bg-white rounded-2xl border border-brand-navy/5 shadow-sm hover:border-brand-orange/30 transition-all group"
-            >
-              <div>
-                <p className="text-base font-black text-brand-navy">
-                  Private Coaching
-                </p>
-                <p className="text-sm text-brand-gray font-medium">
-                  1-on-1 with Dr. Nichols
-                </p>
+      {/* Private Coaching Section */}
+      <section className="pt-20 md:pt-28 px-5 md:px-6" id="coaching">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center space-y-4 mb-12">
+            <p className="text-sm font-bold text-brand-orange uppercase tracking-widest">1-on-1 with Dr. Nichols</p>
+            <h2 className="text-3xl md:text-5xl font-black text-brand-navy tracking-tight max-w-3xl mx-auto">
+              Private Coaching
+            </h2>
+            <p className="text-base md:text-lg text-brand-gray font-medium max-w-2xl mx-auto">
+              Not a course. Not a group. Your practice, your numbers, your systems. Dr. Ray builds the plan and coaches you through it directly.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {/* Tier 1: Private Coaching */}
+            <EliteCard className="relative p-6 md:p-10 flex flex-col h-full border-brand-navy/5 bg-white/50">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold uppercase tracking-wider px-5 py-1.5 rounded-full shadow-lg z-10 bg-brand-navy/10 text-brand-navy shadow-brand-navy/5">
+                Foundation
               </div>
-              <ArrowRight className="w-5 h-5 text-brand-navy/20 group-hover:text-brand-orange transition-colors" />
-            </Link>
-            <div className="flex items-center justify-between p-5 bg-white rounded-2xl border border-brand-navy/5 shadow-sm">
-              <div>
-                <p className="text-base font-black text-brand-navy">
-                  The Inner Circle
-                </p>
-                <p className="text-sm text-brand-gray font-medium">
-                  Ongoing coaching for Intensive graduates
-                </p>
+              <div className="mb-6 md:mb-8 pt-4">
+                <h3 className="text-xl md:text-2xl font-black text-brand-navy mb-1">Private Coaching</h3>
+                <p className="text-sm font-medium text-brand-gray mb-5">For the doc who needs a guide, not a course.</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-black text-brand-navy/40">$</span>
+                  <span className="text-4xl md:text-5xl font-black text-brand-navy tracking-tight">1,500</span>
+                </div>
+                <p className="mt-1 text-sm font-medium text-brand-navy/60">/month</p>
+                <p className="mt-1 text-sm font-bold text-brand-orange">3-month minimum · $3,997 pay-in-full</p>
               </div>
-              <Trophy className="w-5 h-5 text-brand-navy/20" />
-            </div>
+              <div className="space-y-3.5 flex-1 mb-8">
+                {[
+                  "2x monthly 1-on-1 video calls (45 min)",
+                  "Direct message access inside the platform",
+                  "Initial Practice Diagnostic",
+                  "Custom 90-day roadmap for YOUR practice",
+                  "Full Pro platform access",
+                  "Monthly KPI scorecard review",
+                  "Care Plan Generator access",
+                ].map((feat) => (
+                  <div key={feat} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-brand-navy/5 flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-brand-navy" />
+                    </div>
+                    <span className="text-sm font-medium text-brand-navy/80">{feat}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="space-y-3">
+                <Link href="/apply/mentorship?tier=private-coaching" className="block w-full">
+                  <BrandButton variant="primary" className="w-full py-4 group text-sm">
+                    Apply Now <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </BrandButton>
+                </Link>
+                <p className="text-xs text-center text-brand-navy/40 font-medium mt-3">Max 5 active clients</p>
+              </div>
+            </EliteCard>
+
+            {/* Tier 2: Private Coaching Intensive */}
+            <EliteCard className="relative p-6 md:p-10 flex flex-col h-full border-brand-orange/40 bg-white mt-4 md:mt-0">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold uppercase tracking-wider px-5 py-1.5 rounded-full shadow-lg z-10 bg-brand-orange text-white shadow-brand-orange/20">
+                Most Popular
+              </div>
+              <div className="mb-6 md:mb-8 pt-4">
+                <h3 className="text-xl md:text-2xl font-black text-brand-navy mb-1">Intensive</h3>
+                <p className="text-sm font-medium text-brand-gray mb-5">Weekly contact. For the doc who&apos;s done waiting.</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-black text-brand-navy/40">$</span>
+                  <span className="text-4xl md:text-5xl font-black text-brand-navy tracking-tight">3,000</span>
+                </div>
+                <p className="mt-1 text-sm font-medium text-brand-navy/60">/month</p>
+                <p className="mt-1 text-sm font-bold text-brand-orange">3-month minimum · $7,997 pay-in-full</p>
+              </div>
+              <div className="space-y-3.5 flex-1 mb-8">
+                <p className="text-xs font-black text-brand-orange uppercase tracking-widest mb-2">Everything in Private Coaching, plus:</p>
+                {[
+                  "Weekly 1-on-1 calls (4x/month instead of 2x)",
+                  "Unlimited DMs with priority same-day response",
+                  "Dr. Ray writes your Day 1, Day 2, ROF scripts",
+                  "Monthly team call — Dr. Ray coaches your CA directly",
+                  "Weekly KPI review (not monthly)",
+                  "Priority script review with video feedback",
+                ].map((feat) => (
+                  <div key={feat} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-brand-orange" />
+                    </div>
+                    <span className="text-sm font-medium text-brand-navy/80">{feat}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="space-y-3">
+                <Link href="/apply/mentorship?tier=intensive" className="block w-full">
+                  <BrandButton variant="accent" className="w-full py-4 group text-sm">
+                    Apply Now <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </BrandButton>
+                </Link>
+                <p className="text-xs text-center text-brand-navy/40 font-medium mt-3">Max 3 active clients</p>
+              </div>
+            </EliteCard>
+
+            {/* Tier 3: On-Site */}
+            <EliteCard className="relative p-6 md:p-10 flex flex-col h-full border-brand-navy/20 bg-gradient-to-b from-brand-navy to-[#162848] text-white mt-4 md:mt-0">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold uppercase tracking-wider px-5 py-1.5 rounded-full shadow-lg z-10 bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-amber-500/30">
+                <span className="flex items-center gap-1.5"><Crown className="w-3 h-3" /> Premium</span>
+              </div>
+              <div className="mb-6 md:mb-8 pt-4">
+                <h3 className="text-xl md:text-2xl font-black text-white mb-1">On-Site</h3>
+                <p className="text-sm font-medium text-white/60 mb-5">Dr. Ray flies to your office. The ultimate diagnostic.</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-black text-white/40">$</span>
+                  <span className="text-4xl md:text-5xl font-black text-white tracking-tight">15,000</span>
+                </div>
+                <p className="mt-1 text-sm font-medium text-white/60">one-time · travel included</p>
+                <p className="mt-1 text-sm font-bold text-amber-400">or $5,000/mo x 3 months</p>
+              </div>
+              <div className="space-y-3.5 flex-1 mb-8">
+                <p className="text-xs font-black text-amber-400 uppercase tracking-widest mb-2">Everything in Intensive for 3 months, plus:</p>
+                {[
+                  "2-day on-site practice visit (anywhere in the US)",
+                  "Day 1: Shadow your clinic, live coaching between patients",
+                  "Day 2: Team workshop, SOP buildout, flow redesign",
+                  "Pre-visit full practice audit",
+                  "Custom SOP manual delivered within 2 weeks",
+                  "90-day implementation coaching (weekly calls)",
+                  "6 months DM access (not 3)",
+                ].map((feat) => (
+                  <div key={feat} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-amber-400" />
+                    </div>
+                    <span className="text-sm font-medium text-white/80">{feat}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Value Stack */}
+              <div className="mb-6 p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
+                <p className="text-xs font-black text-amber-400 uppercase tracking-widest">Total Value: $35,591</p>
+                <div className="grid grid-cols-2 gap-1 text-xs text-white/50 font-medium">
+                  <span>On-site visit: $10,000</span>
+                  <span>Travel covered: $2,500</span>
+                  <span>12 weekly calls: $6,000</span>
+                  <span>6mo DM access: $4,500</span>
+                  <span>Custom SOPs: $5,000</span>
+                  <span>Team workshop: $3,000</span>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <Link href="/apply/mentorship?tier=on-site" className="block w-full">
+                  <BrandButton variant="accent" className="w-full py-4 group text-sm bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 border-none">
+                    <Plane className="mr-2 w-4 h-4" /> Apply Now <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </BrandButton>
+                </Link>
+                <p className="text-xs text-center text-white/40 font-medium mt-3">Max 2 per quarter · 8 per year</p>
+              </div>
+            </EliteCard>
           </div>
         </div>
       </section>

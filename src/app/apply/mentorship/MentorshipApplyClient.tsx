@@ -24,16 +24,27 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { submitApplication } from "@/app/actions/submit-application";
+import { useSearchParams } from "next/navigation";
 
 type Step = 1 | 2 | 3 | 4 | 5 | 6;
 
+const COACHING_TIERS = [
+  { id: "private-coaching", label: "Private Coaching", price: "$1,500/mo", desc: "2x monthly calls + DM access" },
+  { id: "intensive", label: "Intensive", price: "$3,000/mo", desc: "Weekly calls + custom scripting + team coaching" },
+  { id: "on-site", label: "On-Site", price: "$15,000", desc: "Dr. Ray flies to your office + full practice rebuild" },
+] as const;
+
 export default function MentorshipApplyClient() {
+  const searchParams = useSearchParams();
+  const preselectedTier = searchParams.get("tier") || "";
   const [step, setStep] = useState<Step>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
+    // Tier Selection
+    tier_applying: preselectedTier,
     // Section 1: Identity
     full_name: "",
     email: "",
@@ -218,9 +229,32 @@ export default function MentorshipApplyClient() {
                   <div className="space-y-2">
                     <p className="text-brand-orange font-black uppercase tracking-widest text-xs">Section 01</p>
                     <h2 className="text-4xl font-black text-brand-navy tracking-tight uppercase leading-none">Identity & Baseline</h2>
-                    <p className="text-brand-gray text-sm font-medium">Let's establish the clinical foundation.</p>
+                    <p className="text-brand-gray text-sm font-medium">Let&apos;s establish the clinical foundation.</p>
                   </div>
-                  
+
+                  {/* Tier Selection */}
+                  <div className="space-y-4">
+                    <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Which coaching level are you interested in?</label>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      {COACHING_TIERS.map((tier) => (
+                        <button
+                          key={tier.id}
+                          type="button"
+                          onClick={() => setFormData({...formData, tier_applying: tier.id})}
+                          className={`p-4 rounded-xl border-2 text-left transition-all ${
+                            formData.tier_applying === tier.id
+                              ? "bg-brand-navy border-brand-navy text-white"
+                              : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-orange/40"
+                          }`}
+                        >
+                          <p className="text-xs font-black uppercase tracking-widest">{tier.label}</p>
+                          <p className={`text-sm font-bold mt-1 ${formData.tier_applying === tier.id ? "text-brand-orange" : "text-brand-orange/70"}`}>{tier.price}</p>
+                          <p className={`text-xs mt-1 ${formData.tier_applying === tier.id ? "text-white/60" : "text-brand-navy/40"}`}>{tier.desc}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="space-y-2">
                       <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40">Full Name</label>
@@ -608,7 +642,7 @@ export default function MentorshipApplyClient() {
                     </div>
 
                     <div className="space-y-4">
-                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60">Private coaching ranges from $7,500 – $25,000+. Are you prepared to invest in solving these problems?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/60">Private coaching ranges from $4,500 – $15,000. Are you prepared to invest in solving these problems?</label>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         {[
                           { id: "Yes", label: "Yes" },
