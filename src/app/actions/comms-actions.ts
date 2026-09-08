@@ -74,7 +74,7 @@ export async function sendCallReminder(callDate: string, callTime: string, zoomL
           <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 30px;">Your Coaching Call Is Coming Up</h1>
           <div style="font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 30px;">
             <p>Hey Dr. ${firstName},</p>
-            <p>Your Mastermind coaching call is <strong>${callDate} at ${callTime} ET</strong>.</p>
+            <p>Your Above Atlas coaching call is <strong>${callDate} at ${callTime} ET</strong>.</p>
           </div>
           <div style="background: rgba(230,126,34,0.1); border-radius: 8px; padding: 20px; margin-bottom: 30px;">
             <p style="font-size: 14px; font-weight: 800; color: #E67E22; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">This Week's Topic</p>
@@ -89,7 +89,7 @@ export async function sendCallReminder(callDate: string, callTime: string, zoomL
             <p>Can't make it? Every call is recorded and uploaded to your <a href="${SITE}/portal" style="color: #E67E22;">portal</a> within 24 hours.</p>
           </div>
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
-          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">Above Atlas</p>
         </div>
       `
       await EmailService.send(member.email, `${weekTopic} — ${callDate} at ${callTime} ET`, html, 'call_reminder_manual')
@@ -135,7 +135,7 @@ export async function sendKPIReminder() {
             <a href="${SITE}/portal/kpi" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Submit KPIs Now</a>
           </div>
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
-          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">Above Atlas</p>
         </div>
       `
       await EmailService.send(member.email, 'Submit Your Weekly KPIs', html, 'kpi_reminder_manual')
@@ -189,7 +189,7 @@ export async function sendWeeklyRecap(weekNumber: number, topicsCovered: string,
             <a href="${SITE}/portal/curriculum" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Go to Your Portal</a>
           </div>
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
-          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">Above Atlas</p>
         </div>
       `
       await EmailService.send(member.email, `Week ${weekNumber} Recap — Here's What We Covered`, html, `weekly_recap_w${weekNumber}`)
@@ -235,7 +235,7 @@ export async function postCommunityPrompt(content: string) {
 export async function getScheduledPrompt() {
   const day = new Date().getDay() // 0=Sun, 1=Mon, etc.
 
-  // Prompts are deeply tied to the NeuroChiro Mastermind curriculum:
+  // Prompts are deeply tied to the Above Atlas curriculum:
   // - Identity as a nervous system chiropractor
   // - Day 1 consultation & Day 2 ROF system
   // - Care plan presentation & acceptance
@@ -248,7 +248,7 @@ export async function getScheduledPrompt() {
   const prompts: Record<number, string[]> = {
     1: [ // Monday — Identity & Intention
       "🧠 Monday Identity Check.\n\nIf a patient walked in RIGHT NOW and asked 'What kind of chiropractor are you?' — what would you say?\n\nWrite your 30-second identity statement below. Not what you think it should be — what you'd ACTUALLY say today.\n\nThis is where everything starts. Identity first. Certainty follows.",
-      "New week. One intention.\n\nWhat's the ONE thing from the Mastermind that you're going to implement this week? Not three things. ONE.\n\nA Day 1 script change? A new way you present findings? Actually tracking your PVA?\n\nDrop it below. We'll check back Friday.",
+      "New week. One intention.\n\nWhat's the ONE thing from Above Atlas that you're going to implement this week? Not three things. ONE.\n\nA Day 1 script change? A new way you present findings? Actually tracking your PVA?\n\nDrop it below. We'll check back Friday.",
       "Question: When you walk into your office Monday morning — do you feel certain about who you are as a doctor? Or are you still figuring it out?\n\nNo judgment. But the patients feel it either way.\n\nWhat would need to change for you to walk in with complete certainty? Let's talk about it.",
     ],
     2: [ // Tuesday — Clinical Communication & Day 1/Day 2
@@ -257,9 +257,9 @@ export async function getScheduledPrompt() {
       "How do you explain what a nervous system chiropractor does — to someone who's never been to a chiropractor?\n\nNo jargon. No 'subluxation.' No 'interference.' Plain language that makes them lean in.\n\nDrop your explanation below. Keep it under 3 sentences.\n\nThis is the skill that separates a busy practice from a struggling one.",
     ],
     3: [ // Wednesday — Wins & Implementation
-      "🏆 WIN WEDNESDAY\n\nShare ONE moment from your practice this week where you felt CERTAIN.\n\nMaybe a patient said yes without hesitation. Maybe you nailed your ROF. Maybe you tracked your KPIs for the first time and saw a number go up.\n\nBig or small — if it felt different than before the Mastermind, it counts.\n\nLet's celebrate the identity shifts happening in this group.",
-      "Implementation check ✅\n\nLast call, we worked on [insert topic]. Did you implement it this week?\n\n- If YES: What happened? How did patients respond?\n- If NO: What got in the way? Let's troubleshoot.\n\nThe Mastermind only works if you do the work. Learn. Build. Prove.\n\nWe're in the BUILD phase. Show us what you're building.",
-      "Honest question: Has your CONFIDENCE presenting care plans changed since you joined the Mastermind?\n\nI'm not asking about your numbers yet. I'm asking — do you FEEL different when you walk into a ROF?\n\nThat feeling is the identity shift. The numbers follow.\n\nShare where you are right now.",
+      "🏆 WIN WEDNESDAY\n\nShare ONE moment from your practice this week where you felt CERTAIN.\n\nMaybe a patient said yes without hesitation. Maybe you nailed your ROF. Maybe you tracked your KPIs for the first time and saw a number go up.\n\nBig or small — if it felt different than before Above Atlas, it counts.\n\nLet's celebrate the identity shifts happening in this group.",
+      "Implementation check ✅\n\nLast call, we worked on [insert topic]. Did you implement it this week?\n\n- If YES: What happened? How did patients respond?\n- If NO: What got in the way? Let's troubleshoot.\n\nAbove Atlas only works if you do the work. Learn. Build. Prove.\n\nWe're in the BUILD phase. Show us what you're building.",
+      "Honest question: Has your CONFIDENCE presenting care plans changed since you joined Above Atlas?\n\nI'm not asking about your numbers yet. I'm asking — do you FEEL different when you walk into a ROF?\n\nThat feeling is the identity shift. The numbers follow.\n\nShare where you are right now.",
     ],
     4: [ // Thursday — Business, KPIs & Numbers
       "Let's talk real numbers.\n\nWhat's your care plan acceptance rate THIS week? Not your best week ever — THIS week.\n\n- How many new patients did you see?\n- How many started a full care plan?\n- What percentage is that?\n\nNo judgment. The whole point of tracking is to know where you stand so you can improve.\n\nIf you don't know your number — that IS the problem. Go calculate it right now.",

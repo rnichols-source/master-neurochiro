@@ -7,7 +7,7 @@ category: "Patient Communication"
 
 # How to Structure Chiropractic Care Plans for Maximum Retention
 
-One of the biggest mistakes chiropractors make is offering "pay as you go" care. This creates a transactional relationship with your patients. In the **NeuroChiro Mastermind**, we teach a **care plan architecture** that prioritizes clinical results and patient retention.
+One of the biggest mistakes chiropractors make is offering "pay as you go" care. This creates a transactional relationship with your patients. In the **Above Atlas**, we teach a **care plan architecture** that prioritizes clinical results and patient retention.
 
 If your patients drop out after their initial symptoms are gone, you have a care plan structure problem.
 
@@ -31,6 +31,6 @@ You must explain the *why* behind your care plan on Day 2 (ROF). If the patient 
 The most successful NeuroChiro practices transition their patients into 12-month wellness memberships after their initial corrective phase. This creates predictable recurring revenue for the clinic and long-term health for the patient.
 
 ## Structure for Results
-The design of your care plans is the design of your practice. In the [NeuroChiro Mastermind](/chiropractic-care-plan-training), we provide the exact templates and financial structures for 3, 6, and 12-month care plans.
+The design of your care plans is the design of your practice. In the [Above Atlas](/chiropractic-care-plan-training), we provide the exact templates and financial structures for 3, 6, and 12-month care plans.
 
 [Apply for Admission](/apply) to build a practice based on results, not transactions.

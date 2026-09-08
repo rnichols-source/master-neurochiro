@@ -67,7 +67,7 @@ export default function BlogListingPage() {
             </div>
           ) : (
             <div className="text-center py-20 bg-white rounded-2xl border border-brand-navy/5 space-y-3">
-              <p className="text-lg font-black text-brand-navy">Resources are shared inside the Mastermind portal.</p>
+              <p className="text-lg font-black text-brand-navy">Resources are shared inside the Above Atlas portal.</p>
               <p className="text-sm text-brand-gray font-medium">Members get access to scripts, playbooks, and training materials after enrollment.</p>
             </div>
           )}

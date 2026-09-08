@@ -154,7 +154,7 @@ export function TriageClient({ userTier }: { userTier: 'standard' | 'pro' | 'adm
                     </div>
 
                     <div className="mt-20 pt-8 border-t border-brand-navy/5 flex justify-between items-center">
-                      <p className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest">© 2026 NeuroChiro Mastermind</p>
+                      <p className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest">© 2026 Above Atlas</p>
                       <p className="text-xs font-bold text-brand-navy/40 uppercase tracking-widest italic">Confidential Internal Resource</p>
                     </div>
                   </EliteCard>

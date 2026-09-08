@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Login",
-  description: "Sign in to your NeuroChiro Mastermind portal.",
+  description: "Sign in to your Above Atlas portal.",
 };
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {

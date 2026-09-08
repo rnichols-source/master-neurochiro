@@ -4,14 +4,14 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Links | Dr. Raymond Nichols — NeuroChiro Mastermind",
+  title: "Links | Dr. Raymond Nichols — Above Atlas",
   description:
-    "Nervous System Chiropractor • NeuroChiro Mastermind — links, resources, and free training.",
+    "Nervous System Chiropractor • Above Atlas — links, resources, and free training.",
 };
 
 const links = [
   {
-    label: "Watch a Real Mastermind Session — Free",
+    label: "Watch a Real Above Atlas Session — Free",
     href: "/free-training",
     accent: false,
     external: false,
@@ -23,7 +23,7 @@ const links = [
     external: false,
   },
   {
-    label: "Apply for the Mastermind",
+    label: "Apply for Above Atlas",
     href: "/apply",
     accent: false,
     external: false,
@@ -59,7 +59,7 @@ export default function LinksPage() {
             NeuroChiro
           </span>
           <span className="block text-[#D66829] text-[9px] font-bold uppercase tracking-wider">
-            Mastermind
+            Above Atlas
           </span>
         </div>
       </div>
@@ -199,7 +199,7 @@ export default function LinksPage() {
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-[#1E2D3B]/20 text-[10px] font-medium uppercase tracking-widest">
-            NeuroChiro Global Mastermind
+            Above Atlas
           </p>
         </div>
       </div>

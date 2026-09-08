@@ -76,7 +76,7 @@ export async function createLeadFromCapture(data: {
             <a href="${CALENDLY_LINK}" style="color: #E67E22; text-decoration: underline;">Book a free 15-min call with Dr. Ray →</a>
           </div>
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
-          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">Above Atlas</p>
         </div>
       `
       await EmailService.send(data.email, 'Your Free Training Is Ready', html, 'lead_free_training')
@@ -95,7 +95,7 @@ export async function createLeadFromCapture(data: {
             <a href="${CALENDLY_LINK}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Get Your Full Results — Book a Call</a>
           </div>
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
-          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">Above Atlas</p>
         </div>
       `
       await EmailService.send(data.email, `Your Practice Score: ${data.fit_score || 50}/100`, html, 'lead_quiz_results')
@@ -143,7 +143,7 @@ export async function resendLeadEmail(prospectId: string) {
             <a href="${CALENDLY_LINK}" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Get Your Full Results — Book a Call</a>
           </div>
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
-          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">Above Atlas</p>
         </div>
       `
       await EmailService.send(prospect.email, `Your Practice Score: ${score}/100`, html, 'lead_quiz_resend')
@@ -160,7 +160,7 @@ export async function resendLeadEmail(prospectId: string) {
             <a href="${SITE_URL}/free-training/confirmation" style="background-color: #E67E22; color: #ffffff; padding: 16px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Watch the Session</a>
           </div>
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
-          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">NeuroChiro Global Mastermind</p>
+          <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">Above Atlas</p>
         </div>
       `
       await EmailService.send(prospect.email, 'Your Free Session Is Ready', html, 'lead_session_resend')
@@ -360,18 +360,18 @@ export async function generateOutreach(prospectId: string) {
 
 I came across your profile${clinicRef}${locationRef} and wanted to reach out personally.
 
-I run a program called the NeuroChiro Mastermind — it's a 90-day coaching intensive for nervous system chiropractors. We focus on three things: how you communicate with patients, how you structure care plans, and how you build a practice that actually pays you what you're worth.
+I run a program called Above Atlas — it's a 90-day coaching intensive for nervous system chiropractors. We focus on three things: how you communicate with patients, how you structure care plans, and how you build a practice that actually pays you what you're worth.
 
 Our last cohort had doctors adding $3-5K/month in collections within the first 4 weeks just by fixing their Day 1 and Day 2 flow.
 
-I'm not sure if this is a fit for you, but if you're open to a quick 15-minute call, I'd love to learn more about where your practice is right now and see if the Mastermind could help.
+I'm not sure if this is a fit for you, but if you're open to a quick 15-minute call, I'd love to learn more about where your practice is right now and see if Above Atlas could help.
 
 Here's my calendar if you want to grab a time: ${CALENDLY_LINK}
 
 Either way, keep doing great work.
 
 — Dr. Ray Nichols
-NeuroChiro Mastermind`
+Above Atlas`
 
     // Save the draft to the prospect
     await adminClient
@@ -415,7 +415,7 @@ export async function sendOutreach(prospectId: string, subject: string, body: st
         </div>
         <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
         <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">
-          NeuroChiro Global Mastermind
+          Above Atlas
         </p>
       </div>
     `
@@ -470,7 +470,7 @@ export async function sendFollowUp(prospectId: string) {
 
 Just bumping this to the top of your inbox. I know things get busy.
 
-If you're curious about what we do inside the Mastermind, here's the short version: we help nervous system chiropractors fix their communication, care plans, and business in 8 weeks.
+If you're curious about what we do inside Above Atlas, here's the short version: we help nervous system chiropractors fix their communication, care plans, and business in 8 weeks.
 
 No pressure at all — but if you want to hop on a quick call and see if it's a fit, here's my calendar: ${CALENDLY_LINK}
 
@@ -501,7 +501,7 @@ Either way, I respect your time. Keep crushing it.
         </div>
         <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
         <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">
-          NeuroChiro Global Mastermind
+          Above Atlas
         </p>
       </div>
     `

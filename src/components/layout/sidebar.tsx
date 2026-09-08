@@ -64,7 +64,7 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
               NeuroChiro
             </h2>
             <p className="text-xs text-brand-orange font-bold tracking-wider uppercase">
-              Mastermind
+              Above Atlas
             </p>
           </div>
         </Link>

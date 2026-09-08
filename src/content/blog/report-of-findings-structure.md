@@ -9,7 +9,7 @@ category: "Patient Communication"
 
 Most chiropractors struggle with the Report of Findings because they treat it like a sales pitch. They try to convince the patient that they need care, which creates immediate resistance.
 
-In the NeuroChiro Mastermind, we teach a different approach: **Clinical Authority.**
+In Above Atlas, we teach a different approach: **Clinical Authority.**
 
 ## 1. The Mindset Shift
 The goal of the ROF is not to sell. The goal is to provide the patient with so much clinical certainty that choosing anything other than care seems illogical. You are the expert. You are presenting the data of their nervous system.
@@ -31,4 +31,4 @@ Your recommendation should be based on clinical necessity, not their insurance c
 ## Conclusion
 The ROF is the most important 15 minutes in your clinic. Master the architecture, and you will see your case acceptance skyrocket.
 
-[Apply for the Mastermind](/apply) to get the full ROF script and implementation guide.
+[Apply for Above Atlas](/apply) to get the full ROF script and implementation guide.

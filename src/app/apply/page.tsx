@@ -80,7 +80,7 @@ export default function ApplicationPage() {
             </div>
 
             <h1 className="text-2xl md:text-4xl font-black text-brand-navy tracking-tight">
-              Apply to the Mastermind
+              Apply to Above Atlas
             </h1>
             <p className="text-base text-brand-gray font-medium">
               Tell us a little about yourself. Takes less than 2 minutes.

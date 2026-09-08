@@ -59,7 +59,7 @@ export function StartHere({ userName }: { userName: string }) {
         </div>
         <div>
           <h2 className="text-lg font-black text-white tracking-tight">
-            Welcome to the Mastermind, {userName}!
+            Welcome to Above Atlas, {userName}!
           </h2>
           <p className="text-sm text-white/50 font-medium">
             Here&apos;s how to get started.

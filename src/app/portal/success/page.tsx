@@ -21,7 +21,7 @@ export default function SuccessPage() {
           You&apos;re In!
         </h1>
         <p className="text-base text-brand-gray font-medium leading-relaxed">
-          Welcome to the Mastermind. Your payment was successful and your
+          Welcome to Above Atlas. Your payment was successful and your
           account is being set up.
         </p>
 

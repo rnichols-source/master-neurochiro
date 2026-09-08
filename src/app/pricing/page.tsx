@@ -10,7 +10,7 @@ import { FAQSection } from "@/components/ui/faq-section";
 const doctorIntensive = {
   badge: "Start Here",
   badgeColor: "orange" as const,
-  title: "90-Day Intensive",
+  title: "Above Atlas",
   subtitle: "Learn. Build. Prove.",
   price: "697",
   priceSuffix: "/month x 3 months",
@@ -54,7 +54,7 @@ const doctorInnerCircle = {
   cta: "Graduates Only",
   ctaLink: "#",
   ctaVariant: "primary" as const,
-  belowCta: "Complete the 90-Day Intensive first \u2192 then join the Inner Circle",
+  belowCta: "Complete Above Atlas first \u2192 then join the Inner Circle",
   highlight: false,
   disabled: true,
 };
@@ -62,7 +62,7 @@ const doctorInnerCircle = {
 const studentIntensive = {
   badge: "Start Here",
   badgeColor: "orange" as const,
-  title: "Foundations Intensive",
+  title: "Above Atlas for Students",
   subtitle: "Learn. Build. Prove.",
   price: "197",
   priceSuffix: "/month x 3 months",
@@ -105,7 +105,7 @@ const studentInnerCircle = {
   cta: "Graduates Only",
   ctaLink: "#",
   ctaVariant: "primary" as const,
-  belowCta: "Complete the Foundations Intensive first \u2192 then join",
+  belowCta: "Complete Above Atlas for Students first \u2192 then join",
   highlight: false,
   disabled: true,
 };
@@ -339,7 +339,7 @@ export default function PricingPage() {
               <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center">
                 <span className="text-lg font-black text-brand-orange">2</span>
               </div>
-              <h4 className="text-sm font-black text-brand-navy">Complete the 90-Day Intensive</h4>
+              <h4 className="text-sm font-black text-brand-navy">Complete Above Atlas</h4>
               <p className="text-sm text-brand-gray font-medium">13 weekly calls. Learn the system (Weeks 1-8), implement it on real patients (Weeks 9-10), prove it with your KPIs (Weeks 11-13).</p>
             </div>
             <div className="space-y-2">
@@ -400,7 +400,7 @@ export default function PricingPage() {
                   <span className="text-xs font-bold text-brand-navy/60 bg-brand-navy/5 px-3 py-1.5 rounded-full">2 Cohorts Coached</span>
                 </div>
                 <p className="text-sm text-brand-gray font-medium leading-relaxed pt-2">
-                  Built the care plan generator, KPI system, scripts, and clinical tools used inside the Mastermind — the same tools he uses in his own practice. Cohort 1 &amp; 2 members averaged a 30+ percentage point increase in care plan acceptance.
+                  Built the care plan generator, KPI system, scripts, and clinical tools used inside Above Atlas — the same tools he uses in his own practice. Cohort 1 &amp; 2 members averaged a 30+ percentage point increase in care plan acceptance.
                 </p>
               </div>
             </div>

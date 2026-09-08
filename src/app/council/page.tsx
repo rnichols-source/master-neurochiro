@@ -180,7 +180,7 @@ const CouncilPage = () => {
                 <span className="text-xs font-black uppercase tracking-wider text-white/60">The Implementation Environment</span>
               </div>
               <div className="inline-flex items-center px-4 py-2 bg-brand-orange/20 border border-brand-orange/30 rounded-full">
-                <span className="text-xs font-bold text-brand-orange">For Mastermind graduates &amp; practicing chiropractors</span>
+                <span className="text-xs font-bold text-brand-orange">For Above Atlas graduates &amp; practicing chiropractors</span>
               </div>
             </div>
             <h1 className="text-6xl md:text-8xl font-heading font-black leading-[0.95] mb-8 tracking-tighter">
@@ -188,7 +188,7 @@ const CouncilPage = () => {
               <span className="text-brand-orange">And Start Executing.</span>
             </h1>
             <p className="text-xl md:text-2xl text-white/60 font-medium mb-12 leading-relaxed max-w-2xl">
-              The Mastermind gave you the knowledge. The Council gives you the <span className="text-white font-bold italic underline decoration-brand-orange">results</span>. This is the elite ongoing coaching environment for high-performance chiropractors.
+              Above Atlas gave you the knowledge. The Council gives you the <span className="text-white font-bold italic underline decoration-brand-orange">results</span>. This is the elite ongoing coaching environment for high-performance chiropractors.
             </p>
             <div className="flex flex-wrap gap-6">
               <Link href="/council/application">
@@ -212,7 +212,7 @@ const CouncilPage = () => {
             <div className="space-y-8">
               <div className="inline-block px-4 py-1 bg-red-50 text-red-600 rounded-lg text-xs font-black uppercase tracking-widest">The Drift Problem</div>
               <h2 className="text-4xl md:text-6xl font-heading font-black leading-tight tracking-tighter text-brand-navy">
-                The "Post-Mastermind" <br />
+                The "Post-Program" <br />
                 <span className="text-brand-orange">Slump is Real.</span>
               </h2>
               <div className="space-y-6">
@@ -424,7 +424,7 @@ const CouncilPage = () => {
               </h3>
               <ul className="space-y-8">
                 {[
-                  "You've attended the Mastermind and want to ensure the systems actually stick.",
+                  "You've completed Above Atlas and want to ensure the systems actually stick.",
                   "You're tired of 'seminar highs' that fade after three days.",
                   "You value precision clinical work but struggle with the business systems to support it.",
                   "You want an elite circle of peers who won't let you play small."

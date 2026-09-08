@@ -49,7 +49,7 @@ export async function updateNextCall(date: string, zoomUrl: string, title?: stri
       .update({
         call_time: date,
         zoom_url: zoomUrl,
-        title: title || 'Weekly Mastermind Call',
+        title: title || 'Weekly Above Atlas Call',
         description: description || 'Live coaching and Q&A session.'
       })
       .eq('id', existingCall.id);
@@ -59,7 +59,7 @@ export async function updateNextCall(date: string, zoomUrl: string, title?: stri
     const { error: insertError } = await supabase
       .from('live_calls')
       .insert({
-        title: title || 'Weekly Mastermind Call',
+        title: title || 'Weekly Above Atlas Call',
         description: description || 'Live coaching and Q&A session.',
         call_time: date,
         zoom_url: zoomUrl,

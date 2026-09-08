@@ -4,7 +4,7 @@ import CouncilApplyClient from "./CouncilApplyClient";
 
 export const metadata = {
   title: "Inner Circle Application | The NeuroChiro Inner Circle",
-  description: "Apply for the NeuroChiro Inner Circle. Ongoing bi-weekly coaching for Mastermind graduates.",
+  description: "Apply for the NeuroChiro Inner Circle. Ongoing bi-weekly coaching for Above Atlas graduates.",
 };
 
 export default function CouncilApplyPage() {

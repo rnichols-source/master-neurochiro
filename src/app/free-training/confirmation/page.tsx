@@ -17,10 +17,10 @@ export default function FreeTrainingConfirmation() {
               You&apos;re In — Watch Now
             </p>
             <h1 className="text-2xl md:text-4xl font-black text-[#1E2D3B] tracking-tight leading-tight mb-3">
-              A Real Mastermind Session — Uncut
+              A Real Above Atlas Session — Uncut
             </h1>
             <p className="text-[#1E2D3B]/50 text-sm md:text-base max-w-xl mx-auto">
-              This is an actual Week 1 coaching call from Cohort 2. Not a highlight reel — the full session. See exactly how Dr. Ray coaches and what happens inside the Mastermind.
+              This is an actual Week 1 coaching call from Cohort 2. Not a highlight reel — the full session. See exactly how Dr. Ray coaches and what happens inside Above Atlas.
             </p>
           </div>
 
@@ -33,7 +33,7 @@ export default function FreeTrainingConfirmation() {
                 frameBorder="0"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
-                title="NeuroChiro Mastermind — Week 1 Coaching Session"
+                title="Above Atlas — Week 1 Coaching Session"
               />
             </div>
           </div>
@@ -45,7 +45,7 @@ export default function FreeTrainingConfirmation() {
               {[
                 "How Dr. Ray opens a coaching call and sets the tone",
                 "The identity framework — who you are as a nervous system chiropractor",
-                "Live Q&A with real Mastermind members",
+                "Live Q&A with real Above Atlas members",
                 "The homework assignment that changes everything in Week 1",
               ].map((item) => (
                 <div key={item} className="flex items-start gap-2">
@@ -106,7 +106,7 @@ export default function FreeTrainingConfirmation() {
       {/* Footer */}
       <footer className="px-5 md:px-6 py-10 border-t border-[#1E2D3B]/5">
         <p className="text-center text-sm text-[#1E2D3B]/20 font-medium">
-          NeuroChiro Global Mastermind
+          Above Atlas
         </p>
       </footer>
     </div>

@@ -47,11 +47,11 @@ export default function WaitlistConfirmationPage() {
             className="bg-white border border-brand-navy/10 rounded-2xl p-6 md:p-8 mb-8"
           >
             <h2 className="text-lg font-bold text-brand-navy mb-5">
-              What you&apos;re getting with the Mastermind
+              What you&apos;re getting with Above Atlas
             </h2>
             <div className="space-y-3">
               {[
-                "13 weeks of live coaching (90-Day Intensive, max 30 per cohort)",
+                "13 weeks of live coaching (Above Atlas, max 30 per cohort)",
                 "Word-for-word patient communication scripts",
                 "Weekly KPI tracking with personalized benchmarks",
                 "Day 1 consultation and Day 2 report of findings mastery",
@@ -84,7 +84,7 @@ export default function WaitlistConfirmationPage() {
             </h2>
             <p className="text-sm text-white/70 font-medium leading-relaxed max-w-md mx-auto">
               Book a free call with Dr. Nichols to learn more about the program,
-              ask questions, and see if the Mastermind is the right fit for you.
+              ask questions, and see if Above Atlas is the right fit for you.
             </p>
             <a
               href={CALENDLY_URL}

@@ -197,7 +197,7 @@ export default function RescueScriptPage() {
 
             <div className="mt-20 pt-10 border-t-4 border-brand-navy flex justify-between items-end">
               <div className="space-y-2">
-                <p className="text-xs font-black text-brand-navy uppercase tracking-widest">Dr. Raymond Nichols | NeuroChiro Mastermind</p>
+                <p className="text-xs font-black text-brand-navy uppercase tracking-widest">Dr. Raymond Nichols | Above Atlas</p>
                 <p className="text-xs font-bold text-brand-gray uppercase tracking-widest">© 2026 Internal Use Only. One saved case pays for your month.</p>
               </div>
               <div className="flex items-center gap-4 opacity-40">

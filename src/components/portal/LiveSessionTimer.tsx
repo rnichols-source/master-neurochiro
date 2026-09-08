@@ -85,7 +85,7 @@ export function LiveSessionTimer({ nextSessionTime, zoomUrl }: LiveSessionTimerP
             "text-xs font-black uppercase tracking-wider",
             isLive ? "text-white/60" : "text-brand-navy/40"
           )}>
-            {isLive ? "Happening Now" : "Next Live Mastermind"}
+            {isLive ? "Happening Now" : "Next Live Session"}
           </p>
           <h4 className={cn(
             "text-xl font-black tracking-tight",

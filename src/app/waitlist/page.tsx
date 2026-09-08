@@ -76,13 +76,13 @@ const pricing = [
 
 const faqs = [
   { q: "When does Cohort 3 start?", a: "July 21, 2026. Waitlist members get 48-hour early access before anyone else." },
-  { q: "What if I'm a student with no practice yet?", a: "Perfect. Our Foundations Intensive is built specifically for students. You'll graduate with scripts, systems, and clinical confidence that most doctors take years to develop. Student pricing is $197/month." },
+  { q: "What if I'm a student with no practice yet?", a: "Perfect. Our Above Atlas for Students program is built specifically for students. You'll graduate with scripts, systems, and clinical confidence that most doctors take years to develop. Student pricing is $197/month." },
   { q: "How long is the program?", a: "The Intensive is 90 days (13 weeks). Weeks 1-8 are curriculum, Weeks 9-10 are implementation, Weeks 11-13 are results review. After that, you can join the Inner Circle for ongoing coaching at a lower monthly rate." },
   { q: "How much time does this take per week?", a: "1 live call per week (60-90 min) plus 15-30 min for the worksheet. About 2 hours/week total." },
-  { q: "What's the Inner Circle?", a: "After you complete the 90-Day Intensive, you can stay on as an Inner Circle member. Monthly group call, community, content drops, and accountability — $397/month for doctors, $97/month for students. Month-to-month, cancel anytime." },
+  { q: "What's the Inner Circle?", a: "After you complete Above Atlas, you can stay on as an Inner Circle member. Monthly group call, community, content drops, and accountability — $397/month for doctors, $97/month for students. Month-to-month, cancel anytime." },
   { q: "What if I can't make a live call?", a: "Every call is recorded and available in your portal within 24 hours. Watch on your own time, forever." },
   { q: "Is there a guarantee?", a: "Yes. For doctors: hit 70% care plan acceptance or stay in the program free until you do. For students: feel confident presenting a care plan by Day 90 or stay free. Both guarantees are conditional — you have to do the work (attend calls, submit KPIs, implement)." },
-  { q: "I have more questions.", a: "Book a free 15-minute call with Dr. Nichols to discuss your practice and see if the Mastermind is right for you." },
+  { q: "I have more questions.", a: "Book a free 15-minute call with Dr. Nichols to discuss your practice and see if Above Atlas is right for you." },
 ];
 
 /* ─── Component ─── */
@@ -155,7 +155,7 @@ export default function WaitlistPage() {
           </h1>
 
           <p className="text-lg md:text-xl text-brand-gray font-medium leading-relaxed max-w-3xl mx-auto mb-8">
-            The NeuroChiro Mastermind is a 90-day coaching intensive that gives you the
+            Above Atlas is a 90-day coaching intensive that gives you the
             scripts, systems, and confidence to communicate like a pro, present care plans
             patients actually accept, and build the practice you were trained for.
           </p>
@@ -220,7 +220,7 @@ export default function WaitlistPage() {
 
           <div className="text-center mt-12">
             <p className="text-xl md:text-2xl font-black text-brand-orange">
-              The Mastermind fixes all of it.
+              Above Atlas fixes all of it.
             </p>
           </div>
         </div>
@@ -596,7 +596,7 @@ export default function WaitlistPage() {
       <section className="bg-brand-cream py-16 md:py-24 px-5 md:px-6 pb-32 md:pb-24">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-brand-navy font-black text-lg md:text-xl mb-2">
-            NeuroChiro Mastermind
+            Above Atlas
           </p>
           <p className="text-brand-gray text-sm mb-6">
             Built by Dr. Raymond Nichols for chiropractors who want to lead, not just adjust.

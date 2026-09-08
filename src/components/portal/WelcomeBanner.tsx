@@ -37,7 +37,7 @@ export function WelcomeBanner() {
       </button>
 
       <h3 className="text-lg font-black text-brand-navy mb-3">
-        Welcome to the Mastermind!
+        Welcome to Above Atlas!
       </h3>
       <p className="text-sm text-brand-gray font-medium mb-4">
         Here&apos;s your game plan to get started:

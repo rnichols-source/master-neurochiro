@@ -7,7 +7,7 @@ category: "Career"
 
 # Associate vs. Owner: What's the Best Path After Chiropractic School?
 
-The transition from chiropractic student to practicing doctor is one of the most critical phases of your career. In the **NeuroChiro Mastermind**, we work with hundreds of students to help them make this choice with clarity and certainty.
+The transition from chiropractic student to practicing doctor is one of the most critical phases of your career. In the **Above Atlas**, we work with hundreds of students to help them make this choice with clarity and certainty.
 
 There is no "right" answer, but there is a right answer for **you.**
 
@@ -51,6 +51,6 @@ Ask yourself these three questions:
 If the answer to any of those is "no," an associateship with a **NeuroChiro-approved mentor** is likely your best move.
 
 ## Start Early
-Don't wait until graduation to decide. In the [NeuroChiro Mastermind](/chiropractic-coaching), we have a dedicated path for students to build their clinical and business certainty *before* they even cross the stage.
+Don't wait until graduation to decide. In the [Above Atlas](/chiropractic-coaching), we have a dedicated path for students to build their clinical and business certainty *before* they even cross the stage.
 
 [Apply for Admission](/apply) to join our next student-focused cohort.

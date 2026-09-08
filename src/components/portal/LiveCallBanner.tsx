@@ -80,7 +80,7 @@ export default function LiveCallBanner({ call }: { call: LiveCall | null }) {
                 "px-4 py-1 rounded-full text-xs font-black uppercase tracking-wider",
                 isLive ? "bg-white text-brand-orange animate-pulse" : "bg-brand-orange text-white"
               )}>
-                {isLive ? 'Live Now' : 'Upcoming Mastermind'}
+                {isLive ? 'Live Now' : 'Upcoming Session'}
               </div>
               <div className="flex items-center gap-2 text-xs font-bold text-white/60 uppercase tracking-widest">
                 <Video size={14} />

@@ -9,7 +9,7 @@ category: "Business Structure"
 
 Most chiropractors "make it up as they go." They have no standardized way to handle new patients, no predictable way to track clinical results, and no automated way to manage their business metrics. 
 
-In the **NeuroChiro Mastermind**, we call this **Managing by Chaos.** To scale your practice without burnout, you need a **Clinical Operating System (OS).**
+In the **Above Atlas**, we call this **Managing by Chaos.** To scale your practice without burnout, you need a **Clinical Operating System (OS).**
 
 ## What is a Clinical OS?
 A Clinical OS is the "software" that runs your practice. It is the standardized set of procedures, communication scripts, and clinical protocols that ensure every patient gets a consistent, high-authority experience.
@@ -34,6 +34,6 @@ Most doctors try to scale by working harder or seeing more patients. But if your
 The clinic of the future is not run by a "superstar doctor" who does everything. It is run by an engineered system that allows the doctor to focus on what they do best: **Leading the clinic and adjusting patients.**
 
 ## Install Your OS
-Don't build your practice on a foundation of sand. In the [NeuroChiro Mastermind](/chiropractic-mastermind), we spend 8 weeks installing the **Clinical OS** directly into your practice.
+Don't build your practice on a foundation of sand. In the [Above Atlas](/chiropractic-mastermind), we spend 8 weeks installing the **Clinical OS** directly into your practice.
 
 [Apply for Admission](/apply) to stop guessing and start leading.

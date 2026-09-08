@@ -35,7 +35,7 @@ function getEmailTemplate(title: string, preheader: string, contentHtml: string,
           ${actionHtml ? `<div style="margin-bottom: 40px;">${actionHtml}</div>` : ''}
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
           <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">
-            NeuroChiro Global Mastermind &bull; Precision Clinical Intelligence
+            Above Atlas &bull; Precision Clinical Intelligence
           </p>
         </div>
       </body>
@@ -84,12 +84,12 @@ export const EmailService = {
     const html = getEmailTemplate(
       'Application Received',
       'Admissions Update',
-      `<p>Dr. ${name}, we&rsquo;ve received your application for the NeuroChiro Mastermind. Dr. Nichols will personally review it and you&rsquo;ll hear back within 48 hours.</p>
+      `<p>Dr. ${name}, we&rsquo;ve received your application for Above Atlas. Dr. Nichols will personally review it and you&rsquo;ll hear back within 48 hours.</p>
       <p><strong>Cohort 3 starts July 21, 2026</strong> &mdash; 30 seats for doctors, applications closing soon.</p>
       <p>Have questions about the program or want to discuss your practice before your review? Book a free 15-minute call:</p>`,
       action
     );
-    return this.send(email, 'Application Received: NeuroChiro Mastermind', html, 'app_received');
+    return this.send(email, 'Application Received: Above Atlas', html, 'app_received');
   },
 
   async sendAppApproved(email: string, name: string, checkoutUrl: string, planUrl?: string) {
@@ -99,7 +99,7 @@ export const EmailService = {
     const html = getEmailTemplate(
       `Congratulations, Dr. ${name}.`,
       'Admission Decision: Approved',
-      `<p>You have been selected for the NeuroChiro Mastermind. After reviewing your practice data, we believe you are a strong fit for this reconstruction.</p><p>Please select your preferred enrollment option below to secure your seat:</p>`,
+      `<p>You have been selected for Above Atlas. After reviewing your practice data, we believe you are a strong fit for this reconstruction.</p><p>Please select your preferred enrollment option below to secure your seat:</p>`,
       `<div style="display: flex; flex-wrap: wrap; gap: 12px;">${pifAction}${planAction}</div>`
     );
     return this.send(email, 'Admission Decision: Approved', html, 'app_approved');
@@ -109,9 +109,9 @@ export const EmailService = {
     const html = getEmailTemplate(
       'Application Update',
       'Admissions Decision',
-      `<p>Dr. ${name}, thank you for your interest in the NeuroChiro Mastermind.</p><p>After reviewing your application, we've decided this isn't the right fit at this time. This isn't a reflection of your potential — the timing or circumstances may not be ideal right now.</p><p>You're welcome to reapply in the future. If you have questions, reply to this email and we'll be happy to help.</p>`
+      `<p>Dr. ${name}, thank you for your interest in Above Atlas.</p><p>After reviewing your application, we've decided this isn't the right fit at this time. This isn't a reflection of your potential — the timing or circumstances may not be ideal right now.</p><p>You're welcome to reapply in the future. If you have questions, reply to this email and we'll be happy to help.</p>`
     );
-    return this.send(email, 'Application Update: NeuroChiro Mastermind', html, 'app_rejected');
+    return this.send(email, 'Application Update: Above Atlas', html, 'app_rejected');
   },
 
   async sendWaitlistConfirmation(email: string, name: string) {
@@ -120,7 +120,7 @@ export const EmailService = {
     const html = getEmailTemplate(
       "You're on the Cohort 3 Waitlist",
       'Waitlist Confirmed',
-      `<p>Dr. ${name}, you're officially on the waitlist for Cohort 3 of the NeuroChiro Mastermind.</p>
+      `<p>Dr. ${name}, you're officially on the waitlist for Cohort 3 of Above Atlas.</p>
       <p><strong>What this means for you:</strong></p>
       <ul style="margin: 10px 0; padding-left: 20px;">
         <li>You'll get <strong>48-hour early access</strong> when enrollment opens</li>
@@ -130,21 +130,21 @@ export const EmailService = {
       <p>We'll email you the moment doors open. In the meantime, have questions?</p>`,
       action
     );
-    return this.send(email, "You're on the Cohort 3 Waitlist — NeuroChiro Mastermind", html, 'waitlist_confirmation');
+    return this.send(email, "You're on the Cohort 3 Waitlist — Above Atlas", html, 'waitlist_confirmation');
   },
 
   async sendAppWaitlisted(email: string, name: string) {
     const html = getEmailTemplate(
       'You\'re On the Waitlist',
       'Admissions Update',
-      `<p>Dr. ${name}, thank you for applying to the NeuroChiro Mastermind.</p><p>We've reviewed your application and would like to offer you a spot on our waitlist for the next available cohort. We'll reach out as soon as a seat opens up.</p><p>In the meantime, feel free to reply to this email with any questions.</p>`
+      `<p>Dr. ${name}, thank you for applying to Above Atlas.</p><p>We've reviewed your application and would like to offer you a spot on our waitlist for the next available cohort. We'll reach out as soon as a seat opens up.</p><p>In the meantime, feel free to reply to this email with any questions.</p>`
     );
-    return this.send(email, 'Waitlist Confirmation: NeuroChiro Mastermind', html, 'app_waitlisted');
+    return this.send(email, 'Waitlist Confirmation: Above Atlas', html, 'app_waitlisted');
   },
 
   async sendWelcome(email: string, name: string) {
-    const html = getEmailTemplate('Welcome to the Mastermind', 'Your Portal Is Ready', `<p>Dr. ${name}, your portal access is now active. Log in to start your 90-day Intensive.</p>`);
-    return this.send(email, 'Welcome to the Mastermind', html, 'welcome_onboarding');
+    const html = getEmailTemplate('Welcome to Above Atlas', 'Your Portal Is Ready', `<p>Dr. ${name}, your portal access is now active. Log in to start your 90-day Intensive.</p>`);
+    return this.send(email, 'Welcome to Above Atlas', html, 'welcome_onboarding');
   },
 
   async sendInnerCircleWelcome(email: string, name: string) {
@@ -159,7 +159,7 @@ export const EmailService = {
          <li style="margin-bottom: 8px;"><strong>Bi-weekly coaching calls</strong> (every other week, 90 minutes). Bring your cases, your numbers, your questions.</li>
          <li style="margin-bottom: 8px;"><strong>Pre-call KPI check-in</strong> before each call so we can coach on real data.</li>
          <li style="margin-bottom: 8px;"><strong>AI coaching recaps</strong> after every call, personalized to your practice.</li>
-         <li style="margin-bottom: 8px;"><strong>All your Mastermind tools</strong> stay active and keep getting smarter.</li>
+         <li style="margin-bottom: 8px;"><strong>All your Above Atlas tools</strong> stay active and keep getting smarter.</li>
        </ul>
        <p>Your portal is ready. Log in to see your next call, submit your KPIs, and stay connected.</p>`,
       action
@@ -171,25 +171,25 @@ export const EmailService = {
     const bookingLink = "https://calendly.com/drray-neurochirodirectory/15min";
     const action = `<a href="${bookingLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Book Private 1:1 Call</a>`;
     const html = getEmailTemplate(
-      'Welcome to Mastermind Pro', 
+      'Welcome to Above Atlas Pro',
       'Elite Tier Activated', 
       `<p>Dr. ${name}, congratulations on joining the Pro tier. This level of access includes direct practice audits, private roadmap sessions, and hot-seat priority.</p><p><strong>Step 1:</strong> Use the button below to schedule your first 1:1 session with Dr. Nichols.</p>`, 
       action
     );
-    return this.send(email, 'Welcome to Mastermind Pro: Execution Phase', html, 'pro_welcome');
+    return this.send(email, 'Welcome to Above Atlas Pro: Execution Phase', html, 'pro_welcome');
   },
 
   async sendPaymentFailed(email: string, name: string, updateUrl: string) {
     const action = `<a href="${updateUrl}" style="background-color: #E67E22; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px;">Update Billing</a>`;
-    const html = getEmailTemplate('Action Required: Payment Failed', 'Billing Alert', `<p>Dr. ${name}, we were unable to process your most recent mastermind payment.</p>`, action);
-    return this.send(email, 'Action Required: Update Mastermind Billing', html, 'payment_failed');
+    const html = getEmailTemplate('Action Required: Payment Failed', 'Billing Alert', `<p>Dr. ${name}, we were unable to process your most recent Above Atlas payment.</p>`, action);
+    return this.send(email, 'Action Required: Update Above Atlas Billing', html, 'payment_failed');
   },
 
   async sendOnboardingReady(email: string, name: string, activationLink?: string) {
     const link = activationLink || `${process.env.NEXT_PUBLIC_SITE_URL}/portal`;
     const action = `<a href="${link}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Activate Portal</a>`;
-    const html = getEmailTemplate('Your Mastermind Portal Is Ready', 'Platform Transition', `<p>Dr. ${name}, your Command Center is fully configured.</p>`, action);
-    return this.send(email, 'Your NeuroChiro Mastermind Portal Is Ready', html, 'onboarding_ready');
+    const html = getEmailTemplate('Your Above Atlas Portal Is Ready', 'Platform Transition', `<p>Dr. ${name}, your Command Center is fully configured.</p>`, action);
+    return this.send(email, 'Your Above Atlas Portal Is Ready', html, 'onboarding_ready');
   },
 
   async sendPasswordReset(email: string, resetLink: string) {
@@ -200,19 +200,19 @@ export const EmailService = {
 
   async sendCallReminder(email: string, timeText: string, zoomLink: string) {
     const action = `<a href="${zoomLink}" style="background-color: #E67E22; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px;">Join Zoom Call</a>`;
-    const html = getEmailTemplate('Live Mastermind Call', timeText, `<p>Our next clinical call is starting soon.</p>`, action);
-    return this.send(email, `Mastermind Call ${timeText}`, html, 'call_reminder');
+    const html = getEmailTemplate('Live Above Atlas Call', timeText, `<p>Our next clinical call is starting soon.</p>`, action);
+    return this.send(email, `Above Atlas Call ${timeText}`, html, 'call_reminder');
   },
 
   async sendReengagement(email: string, name: string, portalLink: string) {
     const action = `<a href="${portalLink}" style="background-color: #E67E22; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px;">Resume Implementation</a>`;
     const html = getEmailTemplate('Momentum Check', 'Action Required', `<p>Dr. ${name}, we noticed you haven't logged into the OS recently.</p>`, action);
-    return this.send(email, 'Mastermind Momentum Check', html, 'reengagement');
+    return this.send(email, 'Above Atlas Momentum Check', html, 'reengagement');
   },
 
   async sendCouncilTransition(email: string, name: string, applyLink: string) {
     const action = `<a href="${applyLink}" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">Learn About The Inner Circle</a>`;
-    const html = getEmailTemplate('The Next Evolution', 'Mastermind Completion', `<p>Dr. ${name}, congratulations on completing the 90-Day Intensive.</p>`, action);
+    const html = getEmailTemplate('The Next Evolution', 'Above Atlas Completion', `<p>Dr. ${name}, congratulations on completing the 90-Day Intensive.</p>`, action);
     return this.send(email, 'Next Steps: NeuroChiro Inner Circle', html, 'council_transition');
   },
 
@@ -230,7 +230,7 @@ export const EmailService = {
   async sendAnnouncement(email: string, name: string, title: string, content: string) {
     const action = `<a href="${process.env.NEXT_PUBLIC_SITE_URL}/portal" style="background-color: #E67E22; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px;">View in Portal</a>`;
     const html = getEmailTemplate(title, 'Announcement', `<p>Dr. ${name},</p><p>${content.replace(/\n/g, '</p><p>')}</p>`, action);
-    return this.send(email, `${title} — NeuroChiro Mastermind`, html, 'announcement');
+    return this.send(email, `${title} — Above Atlas`, html, 'announcement');
   },
 
   async sendEventConfirmation(email: string, name: string, eventTitle: string) {
@@ -248,10 +248,10 @@ export const EmailService = {
     const html = getEmailTemplate(
       `Your Seat Is Waiting, Dr. ${name}`,
       'Enrollment Reminder',
-      `<p>You were approved for the NeuroChiro Mastermind, but we haven't received your enrollment yet.</p>${urgency}`,
+      `<p>You were approved for Above Atlas, but we haven't received your enrollment yet.</p>${urgency}`,
       action
     );
-    return this.send(email, `Reminder: Complete Your Mastermind Enrollment`, html, 'approved_reminder');
+    return this.send(email, `Reminder: Complete Your Above Atlas Enrollment`, html, 'approved_reminder');
   },
 
   async sendPendingAppFollowUp(email: string, name: string, hoursWaiting: number) {

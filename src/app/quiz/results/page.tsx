@@ -100,8 +100,8 @@ function ResultsContent() {
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#D66829] flex-shrink-0" />
               {isStudent
-                ? "Whether the Foundations Intensive is the right next step for you"
-                : "Whether the Mastermind Intensive is the right fit for you (honest answer)"}
+                ? "Whether Above Atlas for Students is the right next step for you"
+                : "Whether Above Atlas is the right fit for you (honest answer)"}
             </li>
           </ul>
         </div>
@@ -129,7 +129,7 @@ function ResultsContent() {
           href="/pricing"
           className="inline-flex items-center gap-1 text-sm text-[#1E2D3B]/40 hover:text-[#D66829] transition-colors"
         >
-          {isStudent ? "Learn more about the Foundations Intensive" : "Learn more about the Mastermind Intensive"}
+          {isStudent ? "Learn more about Above Atlas for Students" : "Learn more about Above Atlas"}
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>

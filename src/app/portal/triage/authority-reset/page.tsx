@@ -133,7 +133,7 @@ export default function AuthorityResetPage() {
             <div className="mt-20 pt-10 border-t-4 border-brand-navy flex justify-between items-end">
               <div className="space-y-2">
                 <p className="text-xs font-black text-brand-navy uppercase tracking-widest">Property of Dr. Raymond Nichols</p>
-                <p className="text-xs font-bold text-brand-gray uppercase tracking-widest">© 2026 Internal Mastermind Use Only.</p>
+                <p className="text-xs font-bold text-brand-gray uppercase tracking-widest">© 2026 Internal Above Atlas Use Only.</p>
               </div>
               <ShieldCheck size={40} className="text-brand-navy opacity-20" />
             </div>

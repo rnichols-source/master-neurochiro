@@ -138,7 +138,7 @@ export default function NeuroChiroLivePage() {
               className="text-xl md:text-2xl text-white/50 font-medium max-w-3xl mx-auto mb-12 leading-relaxed"
             >
               A 2-Day Immersion into Nervous System Chiropractic. <br />
-              Experience the Mastermind framework live and in-person.
+              Experience the Above Atlas framework live and in-person.
             </motion.p>
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-16">

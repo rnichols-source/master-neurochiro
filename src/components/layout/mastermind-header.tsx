@@ -63,7 +63,7 @@ export function MastermindHeader() {
               NeuroChiro
             </span>
             <span className="block text-xs font-bold uppercase tracking-wider text-brand-orange mt-0.5">
-              Mastermind
+              Above Atlas
             </span>
           </div>
         </Link>

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const faqs = [
   {
     q: "Who is the Inner Circle for?",
-    a: "Nervous system chiropractors who have completed the NeuroChiro Mastermind and want to keep their momentum going. If you've done the work and want ongoing coaching, accountability, and community, this is for you.",
+    a: "Nervous system chiropractors who have completed Above Atlas and want to keep their momentum going. If you've done the work and want ongoing coaching, accountability, and community, this is for you.",
   },
   {
     q: "What happens on the bi-weekly calls?",
@@ -18,12 +18,12 @@ const faqs = [
     a: "After every call, our system generates a personalized coaching document just for you. It includes your specific action items, script adjustments based on your numbers, and a roadmap for the next two weeks. It's like having a private coach working for you between calls.",
   },
   {
-    q: "Can I join without doing the Mastermind first?",
-    a: "Not right now. Inner Circle is exclusively for Mastermind graduates. This keeps the room sharp — everyone has the same foundation and speaks the same language. If you're interested in the next Mastermind cohort, book a call and we'll talk about it.",
+    q: "Can I join without doing Above Atlas first?",
+    a: "Not right now. Inner Circle is exclusively for Above Atlas graduates. This keeps the room sharp — everyone has the same foundation and speaks the same language. If you're interested in the next Above Atlas cohort, book a call and we'll talk about it.",
   },
   {
-    q: "What's the difference between this and the Mastermind?",
-    a: "The Mastermind is a 13-week intensive: structured curriculum, weekly calls, a guarantee, and a clear finish line. The Inner Circle is what comes after. Less structured, more adaptive. You bring the problems, we solve them together. Think of it as your board of advisors.",
+    q: "What's the difference between this and Above Atlas?",
+    a: "Above Atlas is a 13-week intensive: structured curriculum, weekly calls, a guarantee, and a clear finish line. The Inner Circle is what comes after. Less structured, more adaptive. You bring the problems, we solve them together. Think of it as your board of advisors.",
   },
   {
     q: "What if I want to cancel?",

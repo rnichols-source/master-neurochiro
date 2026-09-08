@@ -167,7 +167,7 @@ export async function runKPIReminders() {
           </div>
           <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;" />
           <p style="font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;">
-            NeuroChiro Global Mastermind
+            Above Atlas
           </p>
         </div>
       `;

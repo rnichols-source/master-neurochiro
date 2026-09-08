@@ -7,7 +7,7 @@ category: "Patient Communication"
 
 # 5 Chiropractic Communication Mistakes Killing Your Case Acceptance
 
-In the **NeuroChiro Mastermind**, we analyze hundreds of patient interactions. Most "sales problems" in a chiropractic office are actually **leadership and communication problems.**
+In the **Above Atlas**, we analyze hundreds of patient interactions. Most "sales problems" in a chiropractic office are actually **leadership and communication problems.**
 
 If you find yourself constantly hearing "I need to think about it" or "I'll call you back," you are likely making one of these five critical errors.
 
@@ -37,6 +37,6 @@ If your energy is high on Day 1 (the exam) but you seem nervous on Day 2 (the mo
 **The Fix:** Standardize your **Clinical OS.** Your Day 2 should be a natural, high-certainty extension of your Day 1 findings.
 
 ## Master the Architecture
-Communication is a skill, not a personality trait. In the [NeuroChiro Mastermind](/chiropractic-mastermind), we provide the exact scripts and communication architecture to ensure your case acceptance reflects your clinical skill.
+Communication is a skill, not a personality trait. In the [Above Atlas](/chiropractic-mastermind), we provide the exact scripts and communication architecture to ensure your case acceptance reflects your clinical skill.
 
 [Apply for Admission](/apply) to join our next 8-week cohort.

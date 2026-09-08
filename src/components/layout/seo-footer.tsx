@@ -46,7 +46,7 @@ export function SEOFooter() {
 
         <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-white/5 text-center">
           <p className="text-xs text-white/20 font-medium">
-            &copy; 2026 NeuroChiro Mastermind. All rights reserved.
+            &copy; 2026 Above Atlas. All rights reserved.
           </p>
         </div>
       </div>

@@ -19,7 +19,7 @@ export default function HomePage() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "NeuroChiro Mastermind",
+    name: "Above Atlas",
     url: "https://neurochiromastermind.com",
     logo: "https://neurochiromastermind.com/logo-dark.png",
     description:
@@ -37,10 +37,10 @@ export default function HomePage() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "What is the NeuroChiro Mastermind?",
+        name: "What is Above Atlas?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The NeuroChiro Mastermind is a 90-day coaching intensive for chiropractors and students to master patient communication, clinical certainty, and practice growth.",
+          text: "Above Atlas is a 90-day coaching intensive for chiropractors and students to master patient communication, clinical certainty, and practice growth.",
         },
       },
       {

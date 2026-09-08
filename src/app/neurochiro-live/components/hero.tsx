@@ -44,7 +44,7 @@ export function LiveHero() {
           className="text-xl md:text-2xl text-white/50 font-medium max-w-3xl mx-auto mb-12 leading-relaxed"
         >
           A 2-Day Immersion into Nervous System Chiropractic. <br />
-          Experience the Mastermind framework live and in-person.
+          Experience the Above Atlas framework live and in-person.
         </motion.p>
 
         <motion.div

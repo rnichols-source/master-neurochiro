@@ -204,7 +204,7 @@ export default function CouncilApplyClient() {
                       </select>
                     </div>
                     <div className="col-span-full space-y-4">
-                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 block">Are you currently in the NeuroChiro Mastermind?</label>
+                      <label className="text-xs font-black uppercase tracking-widest text-brand-navy/40 block">Are you currently in Above Atlas?</label>
                       <div className="flex gap-4">
                         {["Yes", "No"].map((choice) => (
                           <button key={choice} type="button" onClick={() => setFormData({...formData, in_mastermind: choice})} className={`flex-1 p-5 rounded-2xl border-2 text-xs font-black uppercase tracking-widest transition-all ${formData.in_mastermind === choice ? "bg-brand-navy border-brand-navy text-white" : "bg-brand-cream border-transparent text-brand-navy/60 hover:border-brand-navy/40"}`}>{choice}</button>

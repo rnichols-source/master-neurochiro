@@ -82,7 +82,7 @@ export default function FreeTrainingPage() {
           </div>
 
           <h1 className="text-3xl md:text-5xl lg:text-[3.5rem] font-black text-[#1E2D3B] tracking-tight leading-[1.1] mb-6">
-            Watch a Real Mastermind Coaching Session — Uncut
+            Watch a Real Above Atlas Coaching Session — Uncut
           </h1>
 
           <p className="text-lg md:text-xl text-[#1E2D3B]/50 font-medium leading-relaxed max-w-2xl mx-auto mb-10">
@@ -162,7 +162,7 @@ export default function FreeTrainingPage() {
               {
                 icon: Calculator,
                 title: "Live Coaching & Q&A",
-                desc: "Watch Dr. Ray coach real Mastermind members through their biggest challenges. This is what every weekly call looks like.",
+                desc: "Watch Dr. Ray coach real Above Atlas members through their biggest challenges. This is what every weekly call looks like.",
               },
               {
                 icon: TrendingUp,
@@ -207,7 +207,7 @@ export default function FreeTrainingPage() {
       {/* Footer */}
       <footer className="px-5 md:px-6 py-10 border-t border-[#1E2D3B]/5">
         <p className="text-center text-sm text-[#1E2D3B]/20 font-medium">
-          NeuroChiro Global Mastermind
+          Above Atlas
         </p>
       </footer>
     </div>

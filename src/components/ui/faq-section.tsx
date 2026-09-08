@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "What if I'm a student?",
-    a: "We have a dedicated Foundations Intensive for students at $197/month (90-day commitment). You'll learn clinical communication, Day 1/Day 2 scripts, interview prep, and career planning. After graduating, join the Student Inner Circle at $97/month for ongoing support.",
+    a: "We have a dedicated Above Atlas for Students program at $197/month (90-day commitment). You'll learn clinical communication, Day 1/Day 2 scripts, interview prep, and career planning. After graduating, join the Student Inner Circle at $97/month for ongoing support.",
   },
   {
     q: "What exactly will I learn?",

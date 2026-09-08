@@ -26,8 +26,8 @@ export const viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://neurochiromastermind.com"),
   title: {
-    default: "NeuroChiro Mastermind | The Elite Chiropractic Coaching Program",
-    template: "%s | NeuroChiro Mastermind",
+    default: "Above Atlas | The Elite Chiropractic Coaching Program",
+    template: "%s | Above Atlas",
   },
   description: "The 90-day chiropractic coaching intensive. Master patient communication, clinical certainty, care plan acceptance, and practice growth.",
   keywords: ["chiropractic coaching", "chiropractic mastermind", "chiropractic mentorship", "chiropractic business coaching", "chiropractic practice management", "report of findings training", "chiropractic patient communication"],
@@ -37,16 +37,16 @@ export const metadata: Metadata = {
     apple: "/logo-dark.png",
   },
   openGraph: {
-    title: "NeuroChiro Mastermind | Elite Chiropractic Coaching",
+    title: "Above Atlas | Elite Chiropractic Coaching",
     description: "Join the 90-day chiropractic coaching intensive. Go from second-guessing to certainty. Master patient communication, care plans, and practice growth.",
     url: "https://neurochiromastermind.com",
-    siteName: "NeuroChiro Mastermind",
+    siteName: "Above Atlas",
     images: [
       {
         url: "/logo-dark.png",
         width: 1200,
         height: 630,
-        alt: "NeuroChiro Mastermind Logo",
+        alt: "Above Atlas Logo",
       },
     ],
     locale: "en_US",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NeuroChiro Mastermind | Elite Chiropractic Coaching",
+    title: "Above Atlas | Elite Chiropractic Coaching",
     description: "The 90-day chiropractic coaching intensive for nervous system chiropractors.",
     images: ["/logo-dark.png"],
   },

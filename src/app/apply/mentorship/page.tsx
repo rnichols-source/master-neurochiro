@@ -4,7 +4,7 @@ import { SEOFooter } from "@/components/layout/seo-footer";
 import MentorshipApplyClient from "./MentorshipApplyClient";
 
 export const metadata = {
-  title: "Apply for Private Coaching | NeuroChiro Mastermind",
+  title: "Apply for Private Coaching | Above Atlas",
   description: "Apply for 1-on-1 private coaching with Dr. Raymond Nichols. Three tiers available.",
 };
 

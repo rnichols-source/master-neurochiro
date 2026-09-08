@@ -137,14 +137,14 @@ export async function generateOutreachDraft(applicationId: string) {
     let body = ''
 
     if (app.status === 'pending') {
-      subject = `Your NeuroChiro Mastermind Application`
-      body = `Hi ${firstName}, thanks for applying to the NeuroChiro Mastermind. I read through your application and your note about "${painPoints.substring(0, 120).trim()}" really stood out to me. That's exactly what we work on inside the program.\n\nThe doctors who get the biggest breakthroughs are the ones who are honest about where they're stuck — and you clearly are. I'd love to chat more about your goals around "${goals.substring(0, 100).trim()}" and see if the Mastermind is the right fit.\n\nWould you be open to a quick call this week?\n\n— Dr. Ray`
+      subject = `Your Above Atlas Application`
+      body = `Hi ${firstName}, thanks for applying to Above Atlas. I read through your application and your note about "${painPoints.substring(0, 120).trim()}" really stood out to me. That's exactly what we work on inside the program.\n\nThe doctors who get the biggest breakthroughs are the ones who are honest about where they're stuck — and you clearly are. I'd love to chat more about your goals around "${goals.substring(0, 100).trim()}" and see if Above Atlas is the right fit.\n\nWould you be open to a quick call this week?\n\n— Dr. Ray`
     } else if (app.status === 'approved') {
-      subject = `You're Approved — Welcome to the NeuroChiro Mastermind`
-      body = `Hi ${firstName}, great news — you're approved for the NeuroChiro Mastermind! Based on what you shared about "${goals.substring(0, 120).trim()}", I think you're going to get a lot out of this.\n\nHere's what happens next:\n1. Complete your enrollment (link below)\n2. Get access to the member portal\n3. Join our next live session\n\nThe fact that you're taking action on this tells me a lot about where you're headed. Let's build something great.\n\n— Dr. Ray`
+      subject = `You're Approved — Welcome to Above Atlas`
+      body = `Hi ${firstName}, great news — you're approved for Above Atlas! Based on what you shared about "${goals.substring(0, 120).trim()}", I think you're going to get a lot out of this.\n\nHere's what happens next:\n1. Complete your enrollment (link below)\n2. Get access to the member portal\n3. Join our next live session\n\nThe fact that you're taking action on this tells me a lot about where you're headed. Let's build something great.\n\n— Dr. Ray`
     } else {
       subject = `Following Up — NeuroChiro`
-      body = `Hi ${firstName}, I wanted to follow up on your application to the NeuroChiro Mastermind. I noticed your interest in "${goals.substring(0, 100).trim()}" and wanted to see if there's another way we can support you right now.\n\nWould a quick call be helpful?\n\n— Dr. Ray`
+      body = `Hi ${firstName}, I wanted to follow up on your application to Above Atlas. I noticed your interest in "${goals.substring(0, 100).trim()}" and wanted to see if there's another way we can support you right now.\n\nWould a quick call be helpful?\n\n— Dr. Ray`
     }
 
     return { success: true, data: { subject, body } }

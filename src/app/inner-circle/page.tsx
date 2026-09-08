@@ -19,9 +19,9 @@ import type { Metadata } from "next";
 import { InnerCircleFAQ } from "./InnerCircleFAQ";
 
 export const metadata: Metadata = {
-  title: "Inner Circle — Ongoing Coaching for Mastermind Graduates",
+  title: "Inner Circle — Ongoing Coaching for Above Atlas Graduates",
   description:
-    "The only chiropractic coaching program powered by AI, real data, and a curated room of Mastermind graduates. Bi-weekly calls, personalized coaching, and tools that work between sessions.",
+    "The only chiropractic coaching program powered by AI, real data, and a curated room of Above Atlas graduates. Bi-weekly calls, personalized coaching, and tools that work between sessions.",
 };
 
 const CALENDLY_URL =
@@ -60,7 +60,7 @@ const benefits = [
     icon: Users,
     title: "A Curated Room",
     description:
-      "You can't buy your way in. Every member completed the 13-week Mastermind, hit the benchmarks, and speaks the same language. Conversations start at a higher level.",
+      "You can't buy your way in. Every member completed the 13-week Above Atlas program, hit the benchmarks, and speaks the same language. Conversations start at a higher level.",
     color: "bg-indigo-50 text-indigo-600",
   },
   {
@@ -95,7 +95,7 @@ const comparisonRows = [
 const foundingFeatures = [
   "Bi-weekly group coaching calls",
   "AI-powered personal coaching recaps",
-  "Full access to all Mastermind tools",
+  "Full access to all Above Atlas tools",
   "KPI tracking + peer benchmarking",
   "Direct access to Dr. Ray",
   "NeuroChiro directory boost + ChiroMatch priority",
@@ -119,7 +119,7 @@ export default function InnerCirclePage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-orange/15 rounded-full mb-6">
             <Lock className="w-3.5 h-3.5 text-brand-orange" />
             <span className="text-sm font-bold text-brand-orange">
-              For Mastermind Graduates Only
+              For Above Atlas Graduates Only
             </span>
           </div>
 
@@ -177,7 +177,7 @@ export default function InnerCirclePage() {
             The Reality
           </p>
           <h2 className="text-2xl md:text-4xl font-black text-brand-navy tracking-tight mb-4">
-            The Mastermind gave you the skills.{" "}
+            Above Atlas gave you the skills.{" "}
             <span className="text-brand-orange">Now what?</span>
           </h2>
           <p className="text-base text-brand-gray font-medium leading-relaxed max-w-xl mx-auto">
@@ -433,7 +433,7 @@ export default function InnerCirclePage() {
             Don&apos;t lose what you built.
           </h2>
           <p className="text-base text-white/50 font-medium leading-relaxed max-w-md mx-auto mb-8">
-            The Mastermind ends. The Inner Circle doesn&apos;t. Book your call and
+            Above Atlas ends. The Inner Circle doesn&apos;t. Book your call and
             let&apos;s talk about what&apos;s next for your practice.
           </p>
           <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">

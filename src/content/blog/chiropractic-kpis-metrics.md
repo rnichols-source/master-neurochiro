@@ -7,7 +7,7 @@ category: "Business Structure"
 
 # The 5 Chiropractic KPIs You Need to Track Every Week
 
-Most chiropractors "manage by chaos." They look at their bank account at the end of the month and wonder why they aren't growing. In the **NeuroChiro Mastermind**, we teach that **what you measure, you can manage.**
+Most chiropractors "manage by chaos." They look at their bank account at the end of the month and wonder why they aren't growing. In the **Above Atlas**, we teach that **what you measure, you can manage.**
 
 If you want a stable, predictable, and profitable clinic, you must track these five Key Performance Indicators (KPIs) every week.
 
@@ -37,6 +37,6 @@ A high-volume clinic can still go broke if the overhead is out of control. Your 
 **The Goal:** Aim for an overhead of 40-50% for a lean, high-authority practice.
 
 ## Track to Grow
-Management is the bridge between clinical skill and business success. In the [NeuroChiro Mastermind](/chiropractic-business-training), we provide the **Clinic OS Dashboard** that tracks these KPIs for you automatically.
+Management is the bridge between clinical skill and business success. In the [Above Atlas](/chiropractic-business-training), we provide the **Clinic OS Dashboard** that tracks these KPIs for you automatically.
 
 [Apply for Admission](/apply) to install the Clinical OS into your practice.

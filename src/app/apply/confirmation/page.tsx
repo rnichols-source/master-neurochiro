@@ -116,7 +116,7 @@ function ConfirmationContent() {
                   While you wait — explore the program
                 </h2>
                 <p className="text-sm text-white/70 font-medium leading-relaxed max-w-md mx-auto">
-                  See exactly what&apos;s included in the 90-day Foundations Intensive,
+                  See exactly what&apos;s included in Above Atlas for Students,
                   including clinical curriculum, interview prep, and
                   student pricing at $197/month.
                 </p>
@@ -156,7 +156,7 @@ function ConfirmationContent() {
                 <p className="text-sm text-white/70 font-medium leading-relaxed max-w-md mx-auto">
                   Book a free 15-minute call with Dr. Nichols to discuss your
                   practice, ask questions about the program, and see if the
-                  Mastermind is the right fit for your goals.
+                  Above Atlas is the right fit for your goals.
                 </p>
 
                 {/* Inline Calendly Embed */}
