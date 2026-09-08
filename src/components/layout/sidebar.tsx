@@ -21,6 +21,7 @@ import {
   CircleDot,
   ClipboardList,
   ScrollText,
+  Target,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/app/actions/auth-actions";
@@ -193,6 +194,7 @@ export function Sidebar({ userTier = "standard" }: { userTier?: string }) {
               { name: "Comms", href: "/admin/comms", icon: Megaphone },
               { name: "Applications", href: "/admin/applications", icon: Users },
               { name: "Cohorts", href: "/admin/cohorts", icon: Activity },
+              { name: "Reps", href: "/admin/reps", icon: Target },
             ].map((item) => {
               const active =
                 item.href === "/admin"
