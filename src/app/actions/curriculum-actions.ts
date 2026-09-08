@@ -13,11 +13,50 @@ export async function fetchCurriculumWithProgress() {
       return { success: false, error: 'Not authenticated' }
     }
 
-    // Fetch all weeks
-    const { data: weeks, error: weeksError } = await supabase
+    // Fetch user profile for tier + track + cohort
+    let isAdmin = false
+    let userTrack = 'doctor'
+    let cohortStartDate: string | null = null
+    try {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('tier, track, cohort_id')
+        .eq('id', user.id)
+        .single()
+      isAdmin = profile?.tier === 'admin'
+      userTrack = profile?.track || 'doctor'
+
+      // Get cohort start date if assigned
+      if (profile?.cohort_id) {
+        const { data: cohort } = await supabase
+          .from('cohorts')
+          .select('start_date, name')
+          .eq('id', profile.cohort_id)
+          .single()
+        cohortStartDate = cohort?.start_date || null
+      }
+    } catch (e) {}
+
+    // Determine which program to show based on cohort
+    // Legacy Cohort 2 members see the old 8-week structure
+    // New members see Above Atlas 12-week
+    const program = isAdmin ? 'above-atlas' : 'above-atlas'
+    // TODO: When Cohort 2 members need legacy view, filter by program = 'legacy'
+
+    // Fetch weeks for user's track and program
+    let weeksQuery = supabase
       .from('weeks')
       .select('*')
       .order('week_number', { ascending: true })
+
+    // Admins see all Above Atlas weeks; members see their track
+    if (!isAdmin) {
+      weeksQuery = weeksQuery.eq('track', userTrack).eq('program', program)
+    } else {
+      weeksQuery = weeksQuery.eq('program', program)
+    }
+
+    const { data: weeks, error: weeksError } = await weeksQuery
 
     if (weeksError) {
       console.error('[CURRICULUM] Weeks fetch error:', weeksError.message)
@@ -39,54 +78,66 @@ export async function fetchCurriculumWithProgress() {
       console.warn('[CURRICULUM] Progress fetch failed, continuing...')
     }
 
-    // Fetch all modules
+    // Fetch rep submissions for this user
+    let repSubmissions = new Map<number, string>()
+    try {
+      const weekIds = (weeks || []).map(w => w.id)
+      if (weekIds.length > 0) {
+        const { data: reps } = await supabase
+          .from('rep_submissions')
+          .select('week_id, status')
+          .eq('user_id', user.id)
+          .in('week_id', weekIds)
+        if (reps) {
+          reps.forEach(r => repSubmissions.set(r.week_id, r.status))
+        }
+      }
+    } catch (err) {}
+
+    // Fetch all modules for these weeks
+    const weekIds = (weeks || []).map(w => w.id)
     const { data: modules, error: modulesError } = await supabase
       .from('modules')
       .select('id, week_id')
+      .in('week_id', weekIds.length > 0 ? weekIds : [0])
 
     if (modulesError) {
       console.error('[CURRICULUM] Modules fetch error:', modulesError.message)
       return { success: false, error: modulesError.message }
     }
 
-    // Fetch user profile for tier check
-    let isAdmin = false
-    try {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('tier')
-        .eq('id', user.id)
-        .single()
-      isAdmin = profile?.tier === 'admin'
-    } catch (e) {}
-    
-    // Determine which week is unlocked based on cohort start date
-    const COHORT_START = new Date('2026-04-21T00:00:00-04:00') // April 21, 2026 ET
+    // Determine unlock based on cohort start date
+    const startDate = cohortStartDate
+      ? new Date(cohortStartDate)
+      : new Date('2026-04-21T00:00:00-04:00')
     const now = new Date()
     const msPerWeek = 7 * 24 * 60 * 60 * 1000
-    const weeksSinceStart = Math.floor((now.getTime() - COHORT_START.getTime()) / msPerWeek)
-    // Week 1 unlocks on start date (weeksSinceStart >= 0), Week 2 one week later, etc.
-    const maxUnlockedWeek = Math.max(0, weeksSinceStart + 1) // 1-based
+    const weeksSinceStart = Math.floor((now.getTime() - startDate.getTime()) / msPerWeek)
+    const maxUnlockedWeek = Math.max(0, weeksSinceStart + 1)
 
     // Determine status for each week
-    const formattedWeeks = (weeks || []).map((week, index) => {
-      const weekModules = (modules || []).filter(m => m.week_id === week.id)
-      const isCompleted = weekModules.length > 0 && weekModules.every(m => completedModuleIds.has(m.id))
+    // A week is "completed" when the rep is submitted, NOT when modules are watched
+    const formattedWeeks = (weeks || []).map((week: any) => {
+      const repStatus = repSubmissions.get(week.id)
+      const hasRepSubmission = !!repStatus
 
       let status: 'locked' | 'active' | 'completed' = 'locked'
 
-      if (isCompleted) {
+      if (hasRepSubmission) {
         status = 'completed'
       } else if (week.week_number <= maxUnlockedWeek) {
         status = 'active'
       }
 
-      // Admins can access all weeks
       if (isAdmin && status === 'locked') {
         status = 'active'
       }
 
-      return { ...week, status }
+      return {
+        ...week,
+        status,
+        rep_status: repStatus || null,
+      }
     })
 
     return { success: true, data: formattedWeeks }
@@ -255,6 +306,118 @@ export async function verifyPhase(weekId: number) {
     console.error('[CURRICULUM] Verify phase failed:', err.message)
     return { success: false, error: err.message }
   }
+}
+
+// =============================================================================
+// REP SUBMISSIONS — Core mechanic of Above Atlas
+// A week completes on rep-submitted, NOT on video-watched.
+// =============================================================================
+
+export async function submitRep(weekId: number, content: string, attachmentUrl?: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Not authenticated' }
+
+  if (!content || content.trim().length < 10) {
+    return { success: false, error: 'Rep submission must be at least 10 characters.' }
+  }
+
+  const { data, error } = await supabase
+    .from('rep_submissions')
+    .upsert({
+      user_id: user.id,
+      week_id: weekId,
+      content: content.trim(),
+      attachment_url: attachmentUrl || null,
+      status: 'submitted',
+      submitted_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'user_id,week_id' })
+    .select()
+    .single()
+
+  if (error) return { success: false, error: error.message }
+
+  await awardMasteryPoints('status_claim')
+  revalidatePath('/portal/curriculum')
+  return { success: true, data }
+}
+
+export async function fetchRepForWeek(weekId: number) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Not authenticated' }
+
+  const { data, error } = await supabase
+    .from('rep_submissions')
+    .select('*')
+    .eq('user_id', user.id)
+    .eq('week_id', weekId)
+    .maybeSingle()
+
+  if (error) return { success: false, error: error.message }
+  return { success: true, data }
+}
+
+// Admin: Fetch all rep submissions for a week (or all weeks)
+export async function fetchAllReps(weekId?: number) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Not authenticated' }
+
+  // Verify admin
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('tier')
+    .eq('id', user.id)
+    .single()
+  if (profile?.tier !== 'admin') return { success: false, error: 'Unauthorized' }
+
+  let query = supabase
+    .from('rep_submissions')
+    .select(`
+      *,
+      profiles:user_id (full_name, email, track),
+      weeks:week_id (title, week_number, track)
+    `)
+    .order('submitted_at', { ascending: false })
+
+  if (weekId) {
+    query = query.eq('week_id', weekId)
+  }
+
+  const { data, error } = await query
+  if (error) return { success: false, error: error.message }
+  return { success: true, data }
+}
+
+// Admin: Review a rep submission
+export async function reviewRep(repId: string, status: 'reviewed' | 'needs_revision', feedback: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Not authenticated' }
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('tier')
+    .eq('id', user.id)
+    .single()
+  if (profile?.tier !== 'admin') return { success: false, error: 'Unauthorized' }
+
+  const { error } = await supabase
+    .from('rep_submissions')
+    .update({
+      status,
+      admin_feedback: feedback,
+      reviewed_at: new Date().toISOString(),
+      reviewed_by: user.id,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', repId)
+
+  if (error) return { success: false, error: error.message }
+  revalidatePath('/admin/reps')
+  return { success: true }
 }
 
 export async function fetchResources() {
